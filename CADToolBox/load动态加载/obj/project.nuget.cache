@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "CaiSIbVxq3iJio59f37FhjWRq1rsVBa9QcAISB6s4s7gDll3lvLFzKIs5XH6oiZxko8dOsIfhpx89s5qnTW48g==",
+  "success": true,
+  "projectFilePath": "E:\\00-Code\\PVSolution\\CADToolBox\\load动态加载\\load.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\JinNan\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\JinNan\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net47\\1.0.3\\microsoft.netframework.referenceassemblies.net47.1.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

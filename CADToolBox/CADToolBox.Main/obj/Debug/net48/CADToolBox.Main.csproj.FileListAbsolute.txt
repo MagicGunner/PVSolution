@@ -1,0 +1,11 @@
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Main.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Main.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.csproj.AssemblyReference.cache
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.GeneratedMSBuildEditorConfig.editorconfig
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.AssemblyInfoInputs.cache
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.AssemblyInfo.cs
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.csproj.CoreCompileInputs.cache
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.sourcelink.json
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.csproj.Fody.CopyLocal.cache

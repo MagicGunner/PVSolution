@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Nullable>enable</Nullable>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<LangVersion>preview</LangVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="HandyControl" Version="3.5.0" />
+	  <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ResourceDictionarys\" />
+	</ItemGroup>
+
+</Project>
