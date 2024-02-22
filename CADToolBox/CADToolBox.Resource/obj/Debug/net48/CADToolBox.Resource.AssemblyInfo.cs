@@ -14,10 +14,10 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CADToolBox.Resource")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1afc0078fb7ce9a9ec2054c4a2d93fe1d157513")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77b49b1ed3b120a14b12d11fa676d01d90ff120f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CADToolBox.Resource")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CADToolBox.Resource")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

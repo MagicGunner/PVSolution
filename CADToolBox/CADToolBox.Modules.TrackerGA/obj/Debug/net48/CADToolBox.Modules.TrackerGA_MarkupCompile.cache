@@ -1,5 +1,5 @@
 ﻿CADToolBox.Modules.TrackerGA
-
+1.0.0.*
 
 library
 C#
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETFRAMEWORK;NET48;
 
-2598230331
+5-1276257265
 
-7-1574144318
+13-1771831372
 39-125629596
-Views\SubViews\HomeView.xaml;Views\TrackerMainView.xaml;
+Views\SubViews\DesignInfoView.xaml;Views\SubViews\HomeView.xaml;Views\SubViews\SpanInfoView.xaml;Views\SubViews\SummaryView.xaml;Views\TrackerMainView.xaml;
 
-False
+True
 

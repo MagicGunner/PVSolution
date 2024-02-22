@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
@@ -8,6 +8,12 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<LangVersion>preview</LangVersion>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyVersion>1.0.0.*</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+		<Deterministic>False</Deterministic>
 	</PropertyGroup>
 
 	<ItemGroup>

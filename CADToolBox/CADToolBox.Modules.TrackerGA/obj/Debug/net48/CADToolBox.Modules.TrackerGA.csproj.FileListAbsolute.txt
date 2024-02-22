@@ -35,3 +35,9 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\Mi
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\HomeView.g.cs
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\GeneratedInternalTypeHelper.g.cs
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\HomeView.baml
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\DesignInfoView.g.cs
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SpanInfoView.g.cs
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SummaryView.g.cs
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\DesignInfoView.baml
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SpanInfoView.baml
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SummaryView.baml

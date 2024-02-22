@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CADToolBox.Modules.TrackerGA.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -16,6 +17,7 @@
     MinHeight="700"
     d:DataContext="{d:DesignInstance vm:TrackerMainViewModel,
                                      IsDesignTimeCreatable=True}"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/CADToolBox.Resource;component/WPFResource.xaml" />
@@ -54,10 +56,15 @@
                                 Margin="0,10"
                                 HorizontalAlignment="Center"
                                 Text="{Binding UserName}" />
-                            <ListBox
+                            <!--<ListBox
                                 x:Name="MenuBar"
                                 ItemContainerStyle="{StaticResource VMenuBarsListBoxItem}"
                                 ItemsSource="{Binding MenuBars}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedIndexChangedCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Background="Transparent" Orientation="Horizontal">
@@ -69,7 +76,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
-                            </ListBox>
+                            </ListBox>-->
                         </StackPanel>
                     </DockPanel>
                 </md:DrawerHost.LeftDrawerContent>
@@ -156,15 +163,56 @@
                             </DockPanel>
                         </Grid>
                     </md:ColorZone>
-                    <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
-                        <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type svm:HomeViewModel}">
-                                <sv:HomeView />
-                            </DataTemplate>
-                        </ContentControl.Resources>
-                    </ContentControl>
+
+                    <DockPanel Grid.Row="1">
+                        <DockPanel DockPanel.Dock="Left">
+                            <ContentControl DockPanel.Dock="Top" Style="{StaticResource Effect2Control}">
+                                <DockPanel>
+                                    <ListBox
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        ItemContainerStyle="{StaticResource VMenuBarsListBoxItem}"
+                                        ItemsSource="{Binding MenuBars}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedIndexChangedCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Background="Transparent" Orientation="Horizontal">
+                                                    <md:PackIcon Margin="5,0" Kind="{Binding Icon}" />
+                                                    <TextBlock
+                                                        Margin="0,0,15,0"
+                                                        VerticalAlignment="Center"
+                                                        Text="{Binding Title}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </DockPanel>
+                            </ContentControl>
+                        </DockPanel>
+                        <ContentControl Content="{Binding CurrentViewModel}">
+                            <ContentControl.Resources>
+                                <DataTemplate DataType="{x:Type svm:HomeViewModel}">
+                                    <sv:HomeView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type svm:DesignInfoViewModel}">
+                                    <sv:DesignInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type svm:SpanInfoViewModel}">
+                                    <sv:SpanInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type svm:SummaryViewModel}">
+                                    <sv:SummaryView />
+                                </DataTemplate>
+                            </ContentControl.Resources>
+                        </ContentControl>
+                    </DockPanel>
                 </Grid>
             </md:DrawerHost>
+
         </md:DialogHost>
     </Grid>
 </Window>

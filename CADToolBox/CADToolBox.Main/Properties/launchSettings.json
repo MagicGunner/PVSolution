@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CADToolBox.Main": {
+      "commandName": "Project"
+    },
+    "配置文件 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2018\\acad.exe",
+      "commandLineArgs": "/nologo"
+    }
+  }
+}
