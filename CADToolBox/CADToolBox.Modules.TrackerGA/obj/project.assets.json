@@ -261,6 +261,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
+          "CADToolBox.Shared": "1.0.0",
           "HandyControl": "3.5.0",
           "MaterialDesignThemes": "4.9.0"
         },

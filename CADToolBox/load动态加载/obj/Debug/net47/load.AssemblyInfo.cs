@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("loada")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77b49b1ed3b120a14b12d11fa676d01d90ff120f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e51e8372c7a9e7ba72ea99c958c58f5d6d201b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("loada")]
 [assembly: System.Reflection.AssemblyTitleAttribute("loada")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]

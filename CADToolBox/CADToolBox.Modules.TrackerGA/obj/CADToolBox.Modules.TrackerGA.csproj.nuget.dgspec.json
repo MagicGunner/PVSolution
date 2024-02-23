@@ -99,7 +99,11 @@
         "frameworks": {
           "net48": {
             "targetAlias": "net48",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj": {
+                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

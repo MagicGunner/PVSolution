@@ -41,14 +41,14 @@ public class TrackerApp {
 
         container.AddSingleton<NavigationService>();
 
-        container.AddSingleton<HomeView>();
-        container.AddSingleton<HomeViewModel>();
-        container.AddSingleton<DesignInfoView>();
-        container.AddSingleton<DesignInfoViewModel>();
-        container.AddSingleton<SpanInfoView>();
-        container.AddSingleton<SpanInfoViewModel>();
-        container.AddSingleton<SummaryView>();
-        container.AddSingleton<SummaryViewModel>();
+        container.AddTransient<HomeView>();
+        container.AddTransient<HomeViewModel>();
+        container.AddTransient<DesignInfoView>();
+        container.AddTransient<DesignInfoViewModel>();
+        container.AddTransient<SpanInfoView>();
+        container.AddTransient<SpanInfoViewModel>();
+        container.AddTransient<SummaryView>();
+        container.AddTransient<SummaryViewModel>();
 
 
         container.AddTransient<TrackerMainViewModel>();

@@ -40,10 +40,22 @@ public partial class TrackerMainViewModel : ViewModelBase {
 #region 普通方法
 
     private void CreateMenuBars() {
-        MenuBars?.Add(new MenuBar { Icon = "Number1", Title = "首页" });
-        MenuBars?.Add(new MenuBar { Icon = "Number2", Title = "设计信息" });
-        MenuBars?.Add(new MenuBar { Icon = "Number3", Title = "跨距信息" });
-        MenuBars?.Add(new MenuBar { Icon = "Number4", Title = "信息汇总" });
+        MenuBars?.Add(new MenuBar {
+                                      Icon  = "Number1",
+                                      Title = "首页"
+                                  });
+        MenuBars?.Add(new MenuBar {
+                                      Icon  = "Number2",
+                                      Title = "设计信息"
+                                  });
+        MenuBars?.Add(new MenuBar {
+                                      Icon  = "Number3",
+                                      Title = "跨距信息"
+                                  });
+        MenuBars?.Add(new MenuBar {
+                                      Icon  = "Number4",
+                                      Title = "信息汇总"
+                                  });
     }
 
 #endregion

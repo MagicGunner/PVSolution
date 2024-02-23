@@ -33,7 +33,7 @@
             </Style>
         </Grid.Resources>
         <!--  设计输入  -->
-        <TextBlock
+        <!--<TextBlock
             Grid.Row="0"
             Grid.Column="0"
             Margin="0,5"
@@ -41,7 +41,14 @@
             VerticalAlignment="Center"
             FontSize="14"
             Style="{StaticResource TextBlockBoldBaseStyle}"
-            Text="信息输入" />
+            Text="信息输入" />-->
+        <hc:TextBox
+            Grid.Row="0"
+            Grid.Column="0"
+            hc:TitleElement.Title="项目名称"
+            hc:TitleElement.TitlePlacement="Left"
+            FontSize="20"
+            Text="{Binding TrackerModel.ProjectName}" />
         <ScrollViewer Grid.Row="1" Grid.Column="0">
             <DockPanel>
                 <StackPanel Margin="5,5" Orientation="Vertical">
@@ -96,11 +103,47 @@
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.ModuleGapAxis}" />
                     </StackPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="组件排数" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.ModuleRowCounter}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="组件列数" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.ModuleColCounter}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="主梁高度(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.BeamHeight}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="主梁宽度(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.BeamWidth}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="檩条高度(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PurlinHeight}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="檩条长度(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PurlinLength}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="驱动间隙(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.DriveGap}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="主梁间隙(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.BeamGap}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource PropName}" Text="立柱截面宽度(mm)" />
+                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PostWidth}" />
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock Style="{StaticResource PropName}" Text="基础露头(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PileUpGround}" />
                     </StackPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropName}" Text="基础宽度(mm)" />
+                        <TextBlock Style="{StaticResource PropName}" Text="基础截面宽度(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PileWidth}" />
                     </StackPanel>
                 </StackPanel>
@@ -159,5 +202,43 @@
             </DockPanel>
         </ScrollViewer>
 
+        <Canvas
+            Name="DrawingCanvas"
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="{Binding CanvasWidth}"
+            Height="{Binding CanvasHeight}"
+            Background="Transparent">
+            <!--  基础  -->
+            <Polygon
+                Fill="Black"
+                Points="{Binding PilePoints}"
+                Stroke="Black"
+                StrokeThickness="2" />
+            <!--  立柱  -->
+            <Polygon
+                Fill="Red"
+                Points="{Binding PostPoints}"
+                Stroke="Black"
+                StrokeThickness="2" />
+            <!--  主梁  -->
+            <Polygon
+                Fill="Green"
+                Points="{Binding BeamPoints}"
+                Stroke="Black"
+                StrokeThickness="2" />
+            <!--  檩条  -->
+            <Polygon
+                Fill="Blue"
+                Points="{Binding PurlinPoints}"
+                Stroke="Black"
+                StrokeThickness="2" />
+            <!--  组件  -->
+            <Polygon
+                Fill="Pink"
+                Points="{Binding ModulePoints}"
+                Stroke="Black"
+                StrokeThickness="2" />
+        </Canvas>
     </Grid>
 </UserControl>

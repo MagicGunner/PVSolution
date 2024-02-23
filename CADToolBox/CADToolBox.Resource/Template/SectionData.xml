@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SectionData>
+  <PostSection>
+    <SectionType Name="W型钢">
+      <Section Name="W6x7" H="147" B="100" tw="3.3" tf="4.2" />
+      <Section Name="W6x8.5" H="148" B="100" tw="4.3" tf="4.9" />
+      <Section Name="W6x9" H="150" B="100" tw="4.3" tf="5.5" />
+      <Section Name="W6x12" H="153" B="102" tw="5.8" tf="7.1" />
+      <Section Name="W6x15" H="152" B="152" tw="5.8" tf="6.6" />
+      <Section Name="W6x20" H="157" B="153" tw="6.6" tf="9.3" />
+      <Section Name="W6x25" H="162" B="154" tw="8.1" tf="11.6" />
+      <Section Name="W8x8" H="198" B="99" tw="3.3" tf="4.2" />
+      <Section Name="W8x9" H="199" B="100" tw="3.8" tf="4.7" />
+      <Section Name="W8x10" H="200" B="100" tw="4.3" tf="5.2" />
+      <Section Name="W8x13" H="203" B="102" tw="5.8" tf="6.5" />
+      <Section Name="W8x15" H="206" B="102" tw="6.2" tf="8" />
+      <Section Name="W8x18" H="207" B="133" tw="5.8" tf="8.4" />
+      <Section Name="W8x21" H="210" B="134" tw="6.4" tf="10.2" />
+    </SectionType>
+    <SectionType Name="热轧H型钢">
+      <Section Name="HW100x100x6x8" H="100" B="100" tw="6" tf="8" />
+      <Section Name="HW125x125x6.5x9" H="125" B="125" tw="6.5" tf="9" />
+      <Section Name="HW150x150x7x10" H="150" B="150" tw="7" tf="10" />
+      <Section Name="HW175x175x7.5x11" H="175" B="175" tw="7.5" tf="11" />
+      <Section Name="HW200x200x8x12#" H="200" B="200" tw="8" tf="12" />
+      <Section Name="HW200x204x12x12" H="200" B="204" tw="12" tf="12" />
+      <Section Name="HW250x250x9x14#" H="250" B="250" tw="9" tf="14" />
+      <Section Name="HW250x255x14x14#" H="250" B="255" tw="14" tf="14" />
+      <Section Name="HW294x302x12x12" H="294" B="302" tw="12" tf="12" />
+      <Section Name="HW300x300x10x15" H="300" B="300" tw="10" tf="15" />
+      <Section Name="HW300x305x15x15#" H="300" B="305" tw="15" tf="15" />
+      <Section Name="HW344x348x10x16" H="344" B="348" tw="10" tf="16" />
+      <Section Name="HW350x350x12x19#" H="350" B="350" tw="12" tf="19" />
+      <Section Name="HW388x402x15x15#" H="388" B="402" tw="15" tf="15" />
+      <Section Name="HW394x398x11x18" H="394" B="398" tw="11" tf="18" />
+      <Section Name="HW400x400x13x21#" H="400" B="400" tw="13" tf="21" />
+      <Section Name="HW400x408x21x21#" H="400" B="408" tw="21" tf="21" />
+      <Section Name="HW414x405x18x28#" H="414" B="405" tw="18" tf="28" />
+      <Section Name="HW428x407x20x35*" H="428" B="407" tw="20" tf="35" />
+      <Section Name="HW458x417x30x50*" H="458" B="417" tw="30" tf="50" />
+      <Section Name="HW498x432x45x70" H="498" B="432" tw="45" tf="70" />
+      <Section Name="HM148x100x6x9" H="148" B="100" tw="6" tf="9" />
+      <Section Name="HM194x150x6x9" H="194" B="150" tw="6" tf="9" />
+      <Section Name="HM244x175x7x11" H="244" B="175" tw="7" tf="11" />
+      <Section Name="HM294x200x8x12" H="294" B="200" tw="8" tf="12" />
+      <Section Name="HM340x250x9x14" H="340" B="250" tw="9" tf="14" />
+      <Section Name="HM390x300x10x16" H="390" B="300" tw="10" tf="16" />
+      <Section Name="HM440x300x11x18" H="440" B="300" tw="11" tf="18" />
+      <Section Name="HM482x300x11x15" H="482" B="300" tw="11" tf="15" />
+      <Section Name="HM488x300x11x18" H="488" B="300" tw="11" tf="18" />
+      <Section Name="HM582x300x12x17" H="582" B="300" tw="12" tf="17" />
+      <Section Name="HM588x300x12x20#" H="588" B="300" tw="12" tf="20" />
+      <Section Name="HM594x302x14x23" H="594" B="302" tw="14" tf="23" />
+      <Section Name="HN100x50x5x7" H="100" B="50" tw="5" tf="7" />
+      <Section Name="HN125x60x6x8" H="125" B="60" tw="6" tf="8" />
+      <Section Name="HN150x75x5x7" H="150" B="75" tw="5" tf="7" />
+      <Section Name="HN175x90x5x8" H="175" B="90" tw="5" tf="8" />
+      <Section Name="HN198x99x4.5x7" H="198" B="99" tw="4.5" tf="7" />
+      <Section Name="HN200x100x5.5x8" H="200" B="100" tw="5.5" tf="8" />
+      <Section Name="HN248x124x5x8" H="248" B="124" tw="5" tf="8" />
+      <Section Name="HN250x125x6x9" H="250" B="125" tw="6" tf="9" />
+      <Section Name="HN298x149x5.5x8" H="298" B="149" tw="5.5" tf="8" />
+      <Section Name="HN300x150x6.5x9" H="300" B="150" tw="6.5" tf="9" />
+      <Section Name="HN346x174x6x9" H="346" B="174" tw="6" tf="9" />
+      <Section Name="HN300x175x7x11#" H="300" B="175" tw="7" tf="11" />
+      <Section Name="HN400x150x8x13" H="400" B="150" tw="8" tf="13" />
+      <Section Name="HN396x199x7x11" H="396" B="199" tw="7" tf="11" />
+      <Section Name="HN400x200x8x13#" H="400" B="200" tw="8" tf="13" />
+      <Section Name="HN450x150x9x14" H="450" B="150" tw="9" tf="14" />
+      <Section Name="HN446x199x8x12" H="446" B="199" tw="8" tf="12" />
+      <Section Name="HN450x200x9x14#" H="450" B="200" tw="9" tf="14" />
+      <Section Name="HN500x150x10x16" H="500" B="150" tw="10" tf="16" />
+      <Section Name="HN496x199x9x14" H="496" B="199" tw="9" tf="14" />
+      <Section Name="HN500x200x10x16#" H="500" B="200" tw="10" tf="16" />
+      <Section Name="HN506x201x11x19" H="506" B="201" tw="11" tf="19" />
+      <Section Name="HN596x199x10x15" H="596" B="199" tw="10" tf="15" />
+      <Section Name="HN600x200x11x17#" H="600" B="200" tw="11" tf="17" />
+      <Section Name="HN606x201x12x20#" H="606" B="201" tw="12" tf="20" />
+      <Section Name="HN692x300x13x20" H="692" B="300" tw="13" tf="20" />
+      <Section Name="HN700x300x13x24*" H="700" B="300" tw="13" tf="24" />
+      <Section Name="HN792x300x14x22*" H="792" B="300" tw="14" tf="22" />
+      <Section Name="HN800x300x14x26*" H="800" B="300" tw="14" tf="26" />
+      <Section Name="HN890x299x15x23*" H="890" B="299" tw="15" tf="23" />
+      <Section Name="HN900x300x16x28*" H="900" B="300" tw="16" tf="28" />
+      <Section Name="HN912x302x18x34" H="912" B="302" tw="18" tf="34" />
+      <Section Name="HP200x204x12x12" H="200" B="204" tw="12" tf="12" />
+      <Section Name="HP244x252x11x11" H="244" B="252" tw="11" tf="11" />
+      <Section Name="HP250x255x14x14" H="250" B="255" tw="14" tf="14" />
+      <Section Name="HP294x302x12x12" H="294" B="302" tw="12" tf="12" />
+      <Section Name="HP300x300x10x15" H="300" B="300" tw="10" tf="15" />
+      <Section Name="HP300x305x15x15" H="300" B="305" tw="15" tf="15" />
+      <Section Name="HP338x351x13x13" H="338" B="351" tw="13" tf="13" />
+      <Section Name="HP344x354x16x16" H="344" B="354" tw="16" tf="16" />
+      <Section Name="HP350x350x12x19" H="350" B="350" tw="12" tf="19" />
+      <Section Name="HP350x357x19x19" H="350" B="357" tw="19" tf="19" />
+      <Section Name="HP388x402x15x15" H="388" B="402" tw="15" tf="15" />
+      <Section Name="HP394x405x18x18" H="394" B="405" tw="18" tf="18" />
+      <Section Name="HP400x400x13x21" H="400" B="400" tw="13" tf="21" />
+      <Section Name="HP400x408x21x21" H="400" B="408" tw="21" tf="21" />
+      <Section Name="HP414x405x18x28" H="414" B="405" tw="18" tf="28" />
+      <Section Name="HP428x407x20x35*" H="428" B="407" tw="20" tf="35" />
+      <Section Name="HP492x465x15x20*" H="492" B="465" tw="15" tf="20" />
+      <Section Name="HP502x465x15x25*" H="502" B="465" tw="15" tf="25" />
+      <Section Name="HP502x470x20x25" H="502" B="470" tw="20" tf="25" />
+    </SectionType>
+    <SectionType Name="高频焊H型钢">
+      <Section Name="H100x50x2.3x3.2" H="100" B="50" tw="2.3" tf="" />
+      <Section Name="H100x50x3.2x4.5" H="100" B="50" tw="3.2" tf="4.5" />
+      <Section Name="H100x100x4.5x6" H="100" B="100" tw="4.5" tf="6" />
+      <Section Name="H100x100x6x8" H="100" B="100" tw="6" tf="8" />
+      <Section Name="H120x120x3.2x4.5" H="120" B="120" tw="3.2" tf="4.5" />
+      <Section Name="H120x120x4.5x6" H="120" B="120" tw="4.5" tf="6" />
+      <Section Name="H150x75x3.2x4.5" H="150" B="75" tw="3.2" tf="4.5" />
+      <Section Name="H150x75x4.5x6" H="150" B="75" tw="4.5" tf="6" />
+      <Section Name="H150x100x3.2x4.5" H="150" B="100" tw="3.2" tf="4.5" />
+      <Section Name="H150x100x4.5x6" H="150" B="100" tw="4.5" tf="6" />
+      <Section Name="H150x150x4.5x6" H="150" B="150" tw="4.5" tf="6" />
+      <Section Name="H150x150x6x8" H="150" B="150" tw="6" tf="8" />
+      <Section Name="H200x100x3x3" H="200" B="100" tw="3" tf="3" />
+      <Section Name="H200x100x3.2x4.5" H="200" B="100" tw="3.2" tf="4.5" />
+      <Section Name="H200x100x4.5x6" H="200" B="100" tw="4.5" tf="6" />
+      <Section Name="H200x100x6x8" H="200" B="100" tw="6" tf="8" />
+      <Section Name="H200x150x3.2x4.5" H="200" B="150" tw="3.2" tf="4.5" />
+      <Section Name="H200x150x4.5x6" H="200" B="150" tw="4.5" tf="6" />
+      <Section Name="H200x150x6x8" H="200" B="150" tw="6" tf="8" />
+      <Section Name="H200x200x6x8" H="200" B="200" tw="6" tf="8" />
+      <Section Name="H200x125x3x3" H="200" B="125" tw="3" tf="3" />
+      <Section Name="H200x125x3.2x4.5" H="200" B="125" tw="3.2" tf="4.5" />
+    </SectionType>
+    <SectionType Name="无缝钢管">
+      <Section Name="φ38x2.5" D="38" t="2.5" />
+      <Section Name="φ38x3.0" D="38" t="3" />
+      <Section Name="φ38x3.5" D="38" t="3.5" />
+      <Section Name="φ42x2.5" D="42" t="2.5" />
+      <Section Name="φ42x3.0" D="42" t="3" />
+      <Section Name="φ42x3.5" D="42" t="3.5" />
+      <Section Name="φ42x4.0" D="42" t="4" />
+      <Section Name="φ45x2.5" D="45" t="2.5" />
+      <Section Name="φ45x3.0" D="45" t="3" />
+      <Section Name="φ45x3.5" D="45" t="3.5" />
+      <Section Name="φ45x4.0" D="45" t="4" />
+      <Section Name="φ50x2.5" D="50" t="2.5" />
+      <Section Name="φ50x3.0" D="50" t="3" />
+      <Section Name="φ50x3.5" D="50" t="3.5" />
+      <Section Name="φ50x4.0" D="50" t="4" />
+      <Section Name="φ50x4.5" D="50" t="4.5" />
+      <Section Name="φ50x5.0" D="50" t="5" />
+      <Section Name="φ54x3.0" D="54" t="3" />
+      <Section Name="φ54x3.5" D="54" t="3.5" />
+      <Section Name="φ54x4.0" D="54" t="4" />
+      <Section Name="φ54x4.5" D="54" t="4.5" />
+      <Section Name="φ54x5.0" D="54" t="5" />
+      <Section Name="φ57x3.0" D="57" t="3" />
+      <Section Name="φ57x3.5" D="57" t="3.5" />
+      <Section Name="φ57x4.0" D="57" t="4" />
+      <Section Name="φ57x4.5" D="57" t="4.5" />
+      <Section Name="φ57x5.0" D="57" t="5" />
+      <Section Name="φ57x5.5" D="57" t="5.5" />
+      <Section Name="φ60x3.0" D="60" t="3" />
+      <Section Name="φ60x3.5" D="60" t="3.5" />
+      <Section Name="φ60x4.0" D="60" t="4" />
+      <Section Name="φ60x4.5" D="60" t="4.5" />
+      <Section Name="φ60x5.0" D="60" t="5" />
+      <Section Name="φ60x5.5" D="60" t="5.5" />
+      <Section Name="φ60x6.0" D="60" t="6" />
+      <Section Name="φ63.5x3.0" D="63.5" t="3" />
+      <Section Name="φ63.5x3.5" D="63.5" t="3.5" />
+      <Section Name="φ63.5x4.0" D="63.5" t="4" />
+      <Section Name="φ63.5x4.5" D="63.5" t="4.5" />
+      <Section Name="φ63.5x5.0" D="63.5" t="5" />
+      <Section Name="φ63.5x5.5" D="63.5" t="5.5" />
+      <Section Name="φ63.5x6.0" D="63.5" t="6" />
+      <Section Name="φ68x3.0" D="68" t="3" />
+      <Section Name="φ68x3.5" D="68" t="3.5" />
+      <Section Name="φ68x4.0" D="68" t="4" />
+      <Section Name="φ68x4.5" D="68" t="4.5" />
+      <Section Name="φ68x5.0" D="68" t="5" />
+      <Section Name="φ68x5.5" D="68" t="5.5" />
+      <Section Name="φ68x6.0" D="68" t="6" />
+      <Section Name="φ70x3.0" D="70" t="3" />
+      <Section Name="φ70x3.5" D="70" t="3.5" />
+      <Section Name="φ70x4.0" D="70" t="4" />
+      <Section Name="φ70x4.5" D="70" t="4.5" />
+      <Section Name="φ70x5.0" D="70" t="5" />
+      <Section Name="φ70x5.5" D="70" t="5.5" />
+      <Section Name="φ70x6.0" D="70" t="6" />
+      <Section Name="φ70x6.5" D="70" t="6.5" />
+      <Section Name="φ70x7.0" D="70" t="7" />
+      <Section Name="φ73x3.0" D="73" t="3" />
+      <Section Name="φ73x3.5" D="73" t="3.5" />
+      <Section Name="φ73x4.0" D="73" t="4" />
+      <Section Name="φ73x4.5" D="73" t="4.5" />
+      <Section Name="φ73x5.0" D="73" t="5" />
+      <Section Name="φ73x5.5" D="73" t="5.5" />
+      <Section Name="φ73x6.0" D="73" t="6" />
+      <Section Name="φ73x7.0" D="73" t="7" />
+      <Section Name="φ76x3.0" D="76" t="3" />
+      <Section Name="φ76x3.5" D="76" t="3.5" />
+      <Section Name="φ76x4.0" D="76" t="4" />
+      <Section Name="φ76x4.5" D="76" t="4.5" />
+      <Section Name="φ76x5.0" D="76" t="5" />
+      <Section Name="φ76x5.5" D="76" t="5.5" />
+      <Section Name="φ76x6.0" D="76" t="6" />
+      <Section Name="φ76x7.0" D="76" t="7" />
+      <Section Name="φ83x3.5" D="83" t="3.5" />
+      <Section Name="φ83x4.0" D="83" t="4" />
+      <Section Name="φ83x4.5" D="83" t="4.5" />
+      <Section Name="φ83x5.0" D="83" t="5" />
+      <Section Name="φ83x5.5" D="83" t="5.5" />
+      <Section Name="φ83x6.0" D="83" t="6" />
+      <Section Name="φ83x7.0" D="83" t="7" />
+      <Section Name="φ83x8.0" D="83" t="8" />
+      <Section Name="φ89x3.5" D="89" t="3.5" />
+      <Section Name="φ89x4.0" D="89" t="4" />
+      <Section Name="φ89x4.5" D="89" t="4.5" />
+      <Section Name="φ89x5.0" D="89" t="5" />
+      <Section Name="φ89x5.5" D="89" t="5.5" />
+      <Section Name="φ89x6.0" D="89" t="6" />
+      <Section Name="φ89x7.0" D="89" t="7" />
+      <Section Name="φ89x8.0" D="89" t="8" />
+      <Section Name="φ95x3.5" D="95" t="3.5" />
+      <Section Name="φ95x4.0" D="95" t="4" />
+      <Section Name="φ95x4.5" D="95" t="4.5" />
+      <Section Name="φ95x5.0" D="95" t="5" />
+      <Section Name="φ95x5.5" D="95" t="5.5" />
+      <Section Name="φ95x6.0" D="95" t="6" />
+      <Section Name="φ95x7.0" D="95" t="7" />
+      <Section Name="φ95x8.0" D="95" t="8" />
+      <Section Name="φ102x3.5" D="102" t="3.5" />
+      <Section Name="φ102x4.0" D="102" t="4" />
+      <Section Name="φ102x4.5" D="102" t="4.5" />
+      <Section Name="φ102x5.0" D="102" t="5" />
+      <Section Name="φ102x5.5" D="102" t="5.5" />
+      <Section Name="φ102x6.0" D="102" t="6" />
+      <Section Name="φ102x7.0" D="102" t="7" />
+      <Section Name="φ102x8.0" D="102" t="8" />
+      <Section Name="φ102x10.0" D="102" t="10" />
+      <Section Name="φ108x4.0" D="108" t="4" />
+      <Section Name="φ108x4.5" D="108" t="4.5" />
+      <Section Name="φ108x5.0" D="108" t="5" />
+      <Section Name="φ108x5.5" D="108" t="5.5" />
+      <Section Name="φ108x6.0" D="108" t="6" />
+      <Section Name="φ108x7.0" D="108" t="7" />
+      <Section Name="φ108x8.0" D="108" t="8" />
+      <Section Name="φ108x10.0" D="108" t="10" />
+      <Section Name="φ114x4.0" D="114" t="4" />
+      <Section Name="φ114x4.5" D="114" t="4.5" />
+      <Section Name="φ114x5.0" D="114" t="5" />
+      <Section Name="φ114x5.5" D="114" t="5.5" />
+      <Section Name="φ114x6.0" D="114" t="6" />
+      <Section Name="φ114x7.0" D="114" t="7" />
+      <Section Name="φ114x8.0" D="114" t="8" />
+      <Section Name="φ114x10.0" D="114" t="10" />
+      <Section Name="φ121x4.0" D="121" t="4" />
+      <Section Name="φ121x4.5" D="121" t="4.5" />
+      <Section Name="φ121x5.0" D="121" t="5" />
+      <Section Name="φ121x5.5" D="121" t="5.5" />
+      <Section Name="φ121x6.0" D="121" t="6" />
+      <Section Name="φ121x7.0" D="121" t="7" />
+      <Section Name="φ121x8.0" D="121" t="8" />
+      <Section Name="φ121x10.0" D="121" t="10" />
+      <Section Name="φ127x4.0" D="127" t="4" />
+      <Section Name="φ127x4.5" D="127" t="4.5" />
+      <Section Name="φ127x5.0" D="127" t="5" />
+      <Section Name="φ127x5.5" D="127" t="5.5" />
+      <Section Name="φ127x6.0" D="127" t="6" />
+      <Section Name="φ127x7.0" D="127" t="7" />
+      <Section Name="φ127x8.0" D="127" t="8" />
+      <Section Name="φ127x10.0" D="127" t="10" />
+      <Section Name="φ127x12.0" D="127" t="12" />
+      <Section Name="φ133x4.0" D="133" t="4" />
+      <Section Name="φ133x4.5" D="133" t="4.5" />
+      <Section Name="φ133x5.0" D="133" t="5" />
+      <Section Name="φ133x5.5" D="133" t="5.5" />
+      <Section Name="φ133x6.0" D="133" t="6" />
+      <Section Name="φ133x7.0" D="133" t="7" />
+      <Section Name="φ133x8.0" D="133" t="8" />
+      <Section Name="φ133x10.0" D="133" t="10" />
+      <Section Name="φ133x12.0" D="133" t="12" />
+      <Section Name="φ140x4.5" D="140" t="4.5" />
+      <Section Name="φ140x5.0" D="140" t="5" />
+      <Section Name="φ140x5.5" D="140" t="5.5" />
+      <Section Name="φ140x6.0" D="140" t="6" />
+      <Section Name="φ140x7.0" D="140" t="7" />
+      <Section Name="φ140x8.0" D="140" t="8" />
+      <Section Name="φ140x10.0" D="140" t="10" />
+      <Section Name="φ140x12.0" D="140" t="12" />
+      <Section Name="φ140x14.0" D="140" t="14" />
+      <Section Name="φ146x5.0" D="146" t="5" />
+      <Section Name="φ146x5.5" D="146" t="5.5" />
+      <Section Name="φ146x6.0" D="146" t="6" />
+      <Section Name="φ146x7.0" D="146" t="7" />
+      <Section Name="φ146x8.0" D="146" t="8" />
+      <Section Name="φ146x10.0" D="146" t="10" />
+      <Section Name="φ146x12.0" D="146" t="12" />
+      <Section Name="φ146x14.0" D="146" t="14" />
+      <Section Name="φ152x5.0" D="152" t="5" />
+      <Section Name="φ152x5.5" D="152" t="5.5" />
+      <Section Name="φ152x6.0" D="152" t="6" />
+      <Section Name="φ152x7.0" D="152" t="7" />
+      <Section Name="φ152x8.0" D="152" t="8" />
+      <Section Name="φ152x10.0" D="152" t="10" />
+      <Section Name="φ152x12.0" D="152" t="12" />
+      <Section Name="φ152x14.0" D="152" t="14" />
+      <Section Name="φ159x5.0" D="159" t="5" />
+      <Section Name="φ159x6.0" D="159" t="6" />
+      <Section Name="φ159x7.0" D="159" t="7" />
+      <Section Name="φ159x8.0" D="159" t="8" />
+      <Section Name="φ159x10.0" D="159" t="10" />
+      <Section Name="φ159x12.0" D="159" t="12" />
+      <Section Name="φ159x14.0" D="159" t="14" />
+      <Section Name="φ168x5.0" D="168" t="5" />
+      <Section Name="φ168x6.0" D="168" t="6" />
+      <Section Name="φ168x7.0" D="168" t="7" />
+      <Section Name="φ168x8.0" D="168" t="8" />
+      <Section Name="φ168x10.0" D="168" t="10" />
+      <Section Name="φ168x12.0" D="168" t="12" />
+      <Section Name="φ168x14.0" D="168" t="14" />
+      <Section Name="φ168x16.0" D="168" t="16" />
+      <Section Name="φ180x5.0" D="180" t="5" />
+      <Section Name="φ180x6.0" D="180" t="6" />
+      <Section Name="φ180x7.0" D="180" t="7" />
+      <Section Name="φ180x8.0" D="180" t="8" />
+      <Section Name="φ180x10.0" D="180" t="10" />
+      <Section Name="φ180x12.0" D="180" t="12" />
+      <Section Name="φ180x14.0" D="180" t="14" />
+      <Section Name="φ180x16.0" D="180" t="16" />
+      <Section Name="φ194x5.0" D="194" t="5" />
+      <Section Name="φ194x6.0" D="194" t="6" />
+      <Section Name="φ194x7.0" D="194" t="7" />
+      <Section Name="φ194x8.0" D="194" t="8" />
+      <Section Name="φ194x10.0" D="194" t="10" />
+      <Section Name="φ194x12.0" D="194" t="12" />
+      <Section Name="φ194x14.0" D="194" t="14" />
+      <Section Name="φ194x16.0" D="194" t="16" />
+      <Section Name="φ194x18.0" D="194" t="18" />
+      <Section Name="φ203x6.0" D="203" t="6" />
+      <Section Name="φ203x8.0" D="203" t="8" />
+      <Section Name="φ203x10.0" D="203" t="10" />
+      <Section Name="φ203x12.0" D="203" t="12" />
+      <Section Name="φ203x14.0" D="203" t="14" />
+      <Section Name="φ203x16.0" D="203" t="16" />
+      <Section Name="φ203x18.0" D="203" t="18" />
+      <Section Name="φ219x6.0" D="219" t="6" />
+      <Section Name="φ219x8.0" D="219" t="8" />
+      <Section Name="φ219x10.0" D="219" t="10" />
+      <Section Name="φ219x12.0" D="219" t="12" />
+      <Section Name="φ219x14.0" D="219" t="14" />
+      <Section Name="φ219x16.0" D="219" t="16" />
+      <Section Name="φ219x18.0" D="219" t="18" />
+      <Section Name="φ219x20.0" D="219" t="20" />
+      <Section Name="φ245x7.0" D="245" t="7" />
+      <Section Name="φ245x8.0" D="245" t="8" />
+      <Section Name="φ245x10.0" D="245" t="10" />
+      <Section Name="φ245x12.0" D="245" t="12" />
+      <Section Name="φ245x14.0" D="245" t="14" />
+      <Section Name="φ245x16.0" D="245" t="16" />
+      <Section Name="φ245x18.0" D="245" t="18" />
+      <Section Name="φ245x20.0" D="245" t="20" />
+      <Section Name="φ273x8.0" D="273" t="8" />
+      <Section Name="φ273x10.0" D="273" t="10" />
+      <Section Name="φ273x12.0" D="273" t="12" />
+      <Section Name="φ273x14.0" D="273" t="14" />
+      <Section Name="φ273x16.0" D="273" t="16" />
+      <Section Name="φ273x18.0" D="273" t="18" />
+      <Section Name="φ273x20.0" D="273" t="20" />
+      <Section Name="φ299x8.0" D="299" t="8" />
+      <Section Name="φ299x10.0" D="299" t="10" />
+      <Section Name="φ299x12.0" D="299" t="12" />
+      <Section Name="φ299x14.0" D="299" t="14" />
+      <Section Name="φ299x16.0" D="299" t="16" />
+      <Section Name="φ299x18.0" D="299" t="18" />
+      <Section Name="φ299x20.0" D="299" t="20" />
+    </SectionType>
+    <SectionType Name="焊接钢管">
+      <Section Name="φ30x2.0" D="30" t="2" />
+      <Section Name="φ30x2.5" D="30" t="2.5" />
+      <Section Name="φ34x2.0" D="34" t="2" />
+      <Section Name="φ34x2.5" D="34" t="2.5" />
+      <Section Name="φ38x2.0" D="38" t="2" />
+      <Section Name="φ38x2.5" D="38" t="2.5" />
+      <Section Name="φ40x2.0" D="40" t="2" />
+      <Section Name="φ40x2.5" D="40" t="2.5" />
+      <Section Name="φ42x2.0" D="42" t="2" />
+      <Section Name="φ42x2.5" D="42" t="2.5" />
+      <Section Name="φ45x2.0" D="45" t="2" />
+      <Section Name="φ45x2.5" D="45" t="2.5" />
+      <Section Name="φ45x3.0" D="45" t="3" />
+      <Section Name="φ51x2.0" D="51" t="2" />
+      <Section Name="φ51x2.5" D="51" t="2.5" />
+      <Section Name="φ51x3.0" D="51" t="3" />
+      <Section Name="φ51x3.5" D="51" t="3.5" />
+      <Section Name="φ54x2.0" D="54" t="2" />
+      <Section Name="φ54x2.5" D="54" t="2.5" />
+      <Section Name="φ54x3.0" D="54" t="3" />
+      <Section Name="φ54x3.5" D="54" t="3.5" />
+      <Section Name="φ57x2.0" D="57" t="2" />
+      <Section Name="φ57x2.5" D="57" t="2.5" />
+      <Section Name="φ57x3.0" D="57" t="3" />
+      <Section Name="φ57x3.5" D="57" t="3.5" />
+      <Section Name="φ60x2.0" D="60" t="2" />
+      <Section Name="φ60x2.5" D="60" t="2.5" />
+      <Section Name="φ60x3.0" D="60" t="3" />
+      <Section Name="φ60x3.5" D="60" t="3.5" />
+      <Section Name="φ63.5x2.0" D="63.5" t="2" />
+      <Section Name="φ63.5x2.5" D="63.5" t="2.5" />
+      <Section Name="φ63.5x3.0" D="63.5" t="3" />
+      <Section Name="φ63.5x3.5" D="63.5" t="3.5" />
+      <Section Name="φ70x2.0" D="70" t="2" />
+      <Section Name="φ70x2.5" D="70" t="2.5" />
+      <Section Name="φ70x3.0" D="70" t="3" />
+      <Section Name="φ70x3.5" D="70" t="3.5" />
+      <Section Name="φ70x4.5" D="70" t="4.5" />
+      <Section Name="φ76x2.0" D="76" t="2" />
+      <Section Name="φ76x2.5" D="76" t="2.5" />
+      <Section Name="φ76x3.0" D="76" t="3" />
+      <Section Name="φ76x3.5" D="76" t="3.5" />
+      <Section Name="φ76x4.0" D="76" t="4" />
+      <Section Name="φ76x4.5" D="76" t="4.5" />
+      <Section Name="φ83x2.0" D="83" t="2" />
+      <Section Name="φ83x2.5" D="83" t="2.5" />
+      <Section Name="φ83x3.0" D="83" t="3" />
+      <Section Name="φ83x3.5" D="83" t="3.5" />
+      <Section Name="φ83x4.0" D="83" t="4" />
+      <Section Name="φ83x4.5" D="83" t="4.5" />
+      <Section Name="φ89x2.0" D="89" t="2" />
+      <Section Name="φ89x2.5" D="89" t="2.5" />
+      <Section Name="φ89x3.0" D="89" t="3" />
+      <Section Name="φ89x3.5" D="89" t="3.5" />
+      <Section Name="φ89x4.0" D="89" t="4" />
+      <Section Name="φ89x4.5" D="89" t="4.5" />
+      <Section Name="φ95x2.0" D="95" t="2" />
+      <Section Name="φ95x2.5" D="95" t="2.5" />
+      <Section Name="φ95x3.0" D="95" t="3" />
+      <Section Name="φ95x3.5" D="95" t="3.5" />
+      <Section Name="φ102x2.0" D="102" t="2" />
+      <Section Name="φ102x2.5" D="102" t="2.5" />
+      <Section Name="φ102x3.0" D="102" t="3" />
+      <Section Name="φ102x3.5" D="102" t="3.5" />
+      <Section Name="φ102x4.0" D="102" t="4" />
+      <Section Name="φ102x4.5" D="102" t="4.5" />
+      <Section Name="φ102x5.0" D="102" t="5" />
+      <Section Name="φ108x3.0" D="108" t="3" />
+      <Section Name="φ108x3.5" D="108" t="3.5" />
+      <Section Name="φ108x4.0" D="108" t="4" />
+      <Section Name="φ114x3.0" D="114" t="3" />
+      <Section Name="φ114x3.5" D="114" t="3.5" />
+      <Section Name="φ114x4.0" D="114" t="4" />
+      <Section Name="φ114x4.5" D="114" t="4.5" />
+      <Section Name="φ114x5.0" D="114" t="5" />
+      <Section Name="φ121x3.0" D="121" t="3" />
+      <Section Name="φ121x3.5" D="121" t="3.5" />
+      <Section Name="φ121x4.0" D="121" t="4" />
+      <Section Name="φ127x3.0" D="127" t="3" />
+      <Section Name="φ127x3.5" D="127" t="3.5" />
+      <Section Name="φ127x4.0" D="127" t="4" />
+      <Section Name="φ127x4.5" D="127" t="4.5" />
+      <Section Name="φ127x5.0" D="127" t="5" />
+      <Section Name="φ133x4.0" D="133" t="4" />
+      <Section Name="φ133x4.5" D="133" t="4.5" />
+      <Section Name="φ133x5.0" D="133" t="5" />
+      <Section Name="φ140x4.0" D="140" t="4" />
+      <Section Name="φ140x4.5" D="140" t="4.5" />
+      <Section Name="φ140x5.0" D="140" t="5" />
+      <Section Name="φ140x5.5" D="140" t="5.5" />
+      <Section Name="φ152x5.0" D="152" t="5" />
+      <Section Name="φ152x5.5" D="152" t="5.5" />
+    </SectionType>
+  </PostSection>
+  <BeamSection>
+    <SectionType Name="方管">
+      <Section Name="ST120x2.5" D="120" t="2.5" />
+      <Section Name="ST120x2.6" D="120" t="2.6" />
+      <Section Name="ST120x2.7" D="120" t="2.7" />
+      <Section Name="ST120x2.8" D="120" t="2.8" />
+      <Section Name="ST120x2.9" D="120" t="2.9" />
+      <Section Name="ST120x3.0" D="120" t="3" />
+      <Section Name="ST120x3.1" D="120" t="3.1" />
+      <Section Name="ST120x3.2" D="120" t="3.2" />
+      <Section Name="ST120x3.3" D="120" t="3.3" />
+      <Section Name="ST120x3.4" D="120" t="3.4" />
+      <Section Name="ST120x3.5" D="120" t="3.5" />
+      <Section Name="ST120x3.6" D="120" t="3.6" />
+      <Section Name="ST120x3.7" D="120" t="3.7" />
+      <Section Name="ST120x3.8" D="120" t="3.8" />
+      <Section Name="ST120x3.9" D="120" t="3.9" />
+      <Section Name="ST120x4.0" D="120" t="4" />
+      <Section Name="ST120x4.1" D="120" t="4.1" />
+      <Section Name="ST120x4.2" D="120" t="4.2" />
+      <Section Name="ST120x4.3" D="120" t="4.3" />
+      <Section Name="ST120x4.4" D="120" t="4.4" />
+      <Section Name="ST120x4.5" D="120" t="4.5" />
+      <Section Name="ST120x4.6" D="120" t="4.6" />
+      <Section Name="ST120x4.7" D="120" t="4.7" />
+      <Section Name="ST120x4.8" D="120" t="4.8" />
+      <Section Name="ST120x4.9" D="120" t="4.9" />
+      <Section Name="ST120x5.0" D="120" t="5" />
+      <Section Name="ST140x2.5" D="140" t="2.5" />
+      <Section Name="ST140x2.6" D="140" t="2.6" />
+      <Section Name="ST140x2.7" D="140" t="2.7" />
+      <Section Name="ST140x2.8" D="140" t="2.8" />
+      <Section Name="ST140x2.9" D="140" t="2.9" />
+      <Section Name="ST140x3.0" D="140" t="3" />
+      <Section Name="ST140x3.1" D="140" t="3.1" />
+      <Section Name="ST140x3.2" D="140" t="3.2" />
+      <Section Name="ST140x3.3" D="140" t="3.3" />
+      <Section Name="ST140x3.4" D="140" t="3.4" />
+      <Section Name="ST140x3.5" D="140" t="3.5" />
+      <Section Name="ST140x3.6" D="140" t="3.6" />
+      <Section Name="ST140x3.7" D="140" t="3.7" />
+      <Section Name="ST140x3.8" D="140" t="3.8" />
+      <Section Name="ST140x3.9" D="140" t="3.9" />
+      <Section Name="ST140x4.0" D="140" t="4" />
+      <Section Name="ST140x4.1" D="140" t="4.1" />
+      <Section Name="ST140x4.2" D="140" t="4.2" />
+      <Section Name="ST140x4.3" D="140" t="4.3" />
+      <Section Name="ST140x4.4" D="140" t="4.4" />
+      <Section Name="ST140x4.5" D="140" t="4.5" />
+      <Section Name="ST140x4.6" D="140" t="4.6" />
+      <Section Name="ST140x4.7" D="140" t="4.7" />
+      <Section Name="ST140x4.8" D="140" t="4.8" />
+      <Section Name="ST140x4.9" D="140" t="4.9" />
+      <Section Name="ST140x5.0" D="140" t="5" />
+    </SectionType>
+  </BeamSection>
+</SectionData>

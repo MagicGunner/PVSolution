@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R22.0\ACAD-1001:804\Applications\GreenexSolarTrackerGA]
+"LOADER"="C:\\GreenexSolarAddin\\GA_Tracker.dll"
+"DESCRIPTION"="GreenexSolarTrackerGA_Ver1.0"
+"LOADCTRLS"=dword:00000002
+"MANAGED"=dword:00000001
+

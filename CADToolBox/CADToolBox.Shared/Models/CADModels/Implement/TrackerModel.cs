@@ -1,45 +1,101 @@
-﻿using CADToolBox.Shared.Models.CADModels.Interface;
+﻿using System;
+using CADToolBox.Shared.Models.CADModels.Interface;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
-public class TrackerModel : ObservableObject, IPvSupport {
+public partial class TrackerModel : ObservableObject, IPvSupport {
 #region 通用属性
 
-    public string? ProjectName { get; set; }
+    [ObservableProperty]
+    private string? _projectName;
 
-    public double ModuleLength   { get; set; }
-    public double ModuleWidth    { get; set; }
-    public double ModuleHeight   { get; set; }
-    public double ModuleGapChord { get; set; }
-    public double ModuleGapAxis  { get; set; }
-    public double MinGroundDist  { get; set; }
-    public double PileUpGround   { get; set; }
-    public double PileWidth      { get; set; }
+    [ObservableProperty]
+    private double _moduleLength;
+
+    [ObservableProperty]
+    private double _moduleHeight;
+
+    [ObservableProperty]
+    private double _moduleWidth;
+
+    [ObservableProperty]
+    private double _moduleGapChord;
+
+    [ObservableProperty]
+    private double _moduleGapAxis;
+
+    [ObservableProperty]
+    private double _minGroundDist;
+
+    [ObservableProperty]
+    private double _pileUpGround;
+
+    [ObservableProperty]
+    private double _pileWidth;
 
 #endregion
 
 #region 跟踪支架属性
 
-    public double PurlinHeight     { get; set; } // 檩条高度
-    public double PurlinLengh      { get; set; } // 檩条长度
-    public double BeamHeight       { get; set; } // 主梁高度
-    public double BeamWidth        { get; set; } // 主梁宽度
-    public double ModuleRowCounter { get; set; } // 组件排数
-    public double StowAngle        { get; set; } // 保护角度
-    public double MaxAngle         { get; set; } // 最大角度
-    public double BeamCenterToDp   { get; set; } // 旋转中心到驱动立柱顶部距离
-    public double BeamCenterToGp   { get; set; } // 旋转中性到普通立柱顶部距离
-    public double BeamRadio        { get; set; } // 主梁上下部分比值
-    public double PostWidth        { get; set; } // 立柱宽度
+    [ObservableProperty]
+    private double _purlinHeight; // 檩条高度
+
+    [ObservableProperty]
+    private double _purlinWidth; // 檩条宽度
+
+    [ObservableProperty]
+    private double _purlinLength; // 檩条长度
+
+    [ObservableProperty]
+    private double _beamHeight; // 主梁高度
+
+    [ObservableProperty]
+    private double _beamWidth; // 主梁宽度
+
+    [ObservableProperty]
+    private int _moduleRowCounter; // 组件排数
+
+    [ObservableProperty]
+    private int _moduleColCounter; // 组件列数
+
+    [ObservableProperty]
+    private double _stowAngle; // 保护角度
+
+    [ObservableProperty]
+    private double _maxAngle; // 最大角度
+
+    [ObservableProperty]
+    private double _beamCenterToDrivePost; // 旋转中心到驱动立柱顶部距离
+
+    [ObservableProperty]
+    private double _beamCenterToGeneralPost; // 旋转中性到普通立柱顶部距离
+
+    [ObservableProperty]
+    private double _beamRadio; // 主梁上下部分比值
+
+    [ObservableProperty]
+    private double _postWidth; // 立柱宽度
+
+    [ObservableProperty]
+    private double _driveGap; // 驱动间隙
+
+    [ObservableProperty]
+    private double _beamGap; // 主梁间隙
+
+    [ObservableProperty]
+    private double _leftRemind; // 左侧末端余量
+
+    [ObservableProperty]
+    private double _rightRemind; // 右侧末端余量
 
 #endregion
 
 #region 构造函数
 
-    public TrackerModel(double moduleLength) {
-        ModuleLength = moduleLength;
-    }
+    //public TrackerModel(double moduleLength) {
+    //    ModuleLength = moduleLength;
+    //}
 
 #endregion
 }
