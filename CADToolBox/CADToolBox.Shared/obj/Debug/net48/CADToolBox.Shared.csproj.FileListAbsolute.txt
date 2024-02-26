@@ -17,3 +17,9 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\obj\Debug\net48\CADToolBox.Sh
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\obj\Debug\net48\CADToolBox.Shared.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\obj\Debug\net48\CADToolBox.Shared.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\obj\Debug\net48\CADToolBox.Shared.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\HandyControl.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\MaterialDesignColors.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\MaterialDesignThemes.Wpf.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\Microsoft.Xaml.Behaviors.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\CADToolBox.Resource.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\CADToolBox.Resource.pdb

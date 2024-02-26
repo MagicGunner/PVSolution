@@ -249,7 +249,6 @@
         x:Key="NumDataGrid"
         BasedOn="{StaticResource DataGridBaseStyle}"
         TargetType="DataGrid">
-        <Setter Property="RowHeaderWidth" Value="60" />
         <Setter Property="hc:DataGridAttach.ShowRowNumber" Value="True" />
     </Style>
 

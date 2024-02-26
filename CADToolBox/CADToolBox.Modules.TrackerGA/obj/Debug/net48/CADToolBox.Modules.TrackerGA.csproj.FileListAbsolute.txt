@@ -41,3 +41,4 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Vi
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\DesignInfoView.baml
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SpanInfoView.baml
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\Views\SubViews\SummaryView.baml
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\AutoMapper.dll

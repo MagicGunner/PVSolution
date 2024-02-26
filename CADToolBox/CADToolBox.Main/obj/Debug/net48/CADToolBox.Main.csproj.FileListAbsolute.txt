@@ -29,3 +29,4 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Modu
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Resource.pdb
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Shared.pdb
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.csproj.CopyComplete
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\AutoMapper.dll

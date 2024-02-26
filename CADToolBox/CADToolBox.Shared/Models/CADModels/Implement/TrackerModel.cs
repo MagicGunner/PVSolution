@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 using CADToolBox.Shared.Models.CADModels.Interface;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -88,6 +90,12 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 
     [ObservableProperty]
     private double _rightRemind; // 右侧末端余量
+
+#endregion
+
+#region 对象属性
+
+    public List<PostModel>? PostList { get; set; }
 
 #endregion
 

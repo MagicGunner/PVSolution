@@ -117,6 +117,10 @@
         "net48": {
           "targetAlias": "net48",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.2.2, )"
@@ -165,11 +169,7 @@
         "frameworks": {
           "net48": {
             "targetAlias": "net48",
-            "projectReferences": {
-              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj": {
-                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -222,7 +222,11 @@
         "frameworks": {
           "net48": {
             "targetAlias": "net48",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj": {
+                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

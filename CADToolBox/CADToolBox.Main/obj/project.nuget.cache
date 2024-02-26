@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "LJUqPRBGbthzclrB9EBNtnO8LiBZ+S/WSbcVYFsrizq+tV3BRA+W8ZBEUftYfPSP3jgcg7m4Q6RcGVZJDJuo8Q==",
+  "dgSpecHash": "sofIDd7N+/SxfRaE5CK4hw6GT+DR+N8uRhV0nq9BxKJDUucpil+PqwPZCM7XphS83MFTZxkFqJRmbo2btTXkYg==",
   "success": true,
   "projectFilePath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Main\\CADToolBox.Main.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JinNan\\.nuget\\packages\\autocad.net\\23.0.0\\autocad.net.23.0.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\autocad.net.core\\23.0.0\\autocad.net.core.23.0.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\autocad.net.model\\23.0.0\\autocad.net.model.23.0.0.nupkg.sha512",
+    "C:\\Users\\JinNan\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\handycontrol\\3.5.0\\handycontrol.3.5.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\ifox.basal.source\\0.7.1\\ifox.basal.source.0.7.1.nupkg.sha512",

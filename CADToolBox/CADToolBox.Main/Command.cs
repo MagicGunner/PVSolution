@@ -61,6 +61,12 @@ public class Command {
             }
         }
 
+        var initPostList = new List<PostModel> {
+                                                   new() { Num = 1 },
+                                                   new() { Num = 2 }
+                                               };
+        trackerModel.PostList = initPostList;
+
         TrackerApp.Current.TrackerModel = trackerModel;
         TrackerApp.Current.Run();
     }

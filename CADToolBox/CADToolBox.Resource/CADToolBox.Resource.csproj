@@ -25,8 +25,4 @@
 	  <Folder Include="ResourceDictionarys\" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\CADToolBox.Shared\CADToolBox.Shared.csproj" />
-	</ItemGroup>
-
 </Project>
