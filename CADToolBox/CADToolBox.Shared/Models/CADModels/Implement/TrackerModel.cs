@@ -96,6 +96,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 #region 对象属性
 
     public List<PostModel>? PostList { get; set; }
+    public List<BeamModel>? BeamList { get; set; }
 
 #endregion
 

@@ -20,14 +20,16 @@ using CADToolBox.Shared.Models.CADModels.Implement;
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 
 public partial class SpanInfoViewModel : ViewModelBase {
+#region 字段与属性
+
     [ObservableProperty]
     private TrackerModel? _trackerModel;
 
     [ObservableProperty]
     private ObservableCollection<PostInfo>? _postInfos;
-    //public ObservableCollection<>
 
-    //public int CurrentPostNum => PostInfos?.Count;
+    [ObservableProperty]
+    private ObservableCollection<BeamInfo>? _beamInfos;
 
     [ObservableProperty]
     private PostModel _defaultPostModel = new() {
@@ -48,30 +50,25 @@ public partial class SpanInfoViewModel : ViewModelBase {
     [ObservableProperty]
     private int _filterTextIndex;
 
-    //partial void OnFilterTextIndexChanged(int value) {
-    //    if (value == 0) // 全不选
-    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = false);
-    //    else if (value == 1) // 全选
-    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = true);
-    //    else if (value == 2) { // 选中驱动立柱
-    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = postInfo.IsDrive);
-    //    } else // 选中普通立柱
-    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = !postInfo.IsDrive);
-    //}
-
-
     private readonly MapperConfiguration _postModelConfig = new(cfg => cfg.CreateMap<PostModel, PostModel>());
-    private          IMapper             PostInfoMapper => _postModelConfig.CreateMapper();
+
+    private IMapper PostInfoMapper => _postModelConfig.CreateMapper();
 
     // 点击时是选取一行函数单个单元格
     [ObservableProperty]
     private DataGridSelectionUnit _currentSelectionUnit = DataGridSelectionUnit.CellOrRowHeader;
 
+#endregion
+
+#region 构造方法
+
     public SpanInfoViewModel() {
         PostInfos    = [];
+        BeamInfos    = [];
         TrackerModel = TrackerApp.Current.TrackerModel;
         // 初始化立柱信息
-        if (TrackerModel?.PostList == null) return;
+        if (TrackerModel?.PostList == null)
+            return;
         foreach (var postModel in TrackerModel.PostList) {
             PostInfos.Add(new PostInfo(postModel));
             PostInfos.Last().SpanChanged += OnPostSpanChanged;
@@ -80,6 +77,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
         PostInfos.CollectionChanged += (_, e) => { OnPostInfosListChanged(e); };
     }
 
+#endregion
+
+
+#region RelayCommand
 
     [RelayCommand]
     private void AddPostAtLast() {
@@ -104,6 +105,21 @@ public partial class SpanInfoViewModel : ViewModelBase {
         currentPostInfo.IsDetailsVisible = !currentPostInfo.IsDetailsVisible;
     }
 
+#endregion
+
+#region 普通方法区
+
+    //partial void OnFilterTextIndexChanged(int value) {
+    //    if (value == 0) // 全不选
+    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = false);
+    //    else if (value == 1) // 全选
+    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = true);
+    //    else if (value == 2) { // 选中驱动立柱
+    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = postInfo.IsDrive);
+    //    } else // 选中普通立柱
+    //        PostInfos.ForEach(postInfo => postInfo.IsSelected = !postInfo.IsDrive);
+    //}
+
     private void InsertPostInfo(int index, PostModel postModel) {
         TrackerModel!.PostList!.Insert(index, postModel);
         var postInfo = new PostInfo(postModel);
@@ -112,17 +128,17 @@ public partial class SpanInfoViewModel : ViewModelBase {
     }
 
     private void SortPostNum() {
-        if (PostInfos!.Count <= 0) return;
+        if (PostInfos!.Count <= 0)
+            return;
         for (var i = 0; i < PostInfos!.Count; i++) {
             PostInfos[i].Num = i + 1;
         }
-
-        MessageBox.Show("立柱数量发生变化");
     }
 
     private void OnPostSpanChanged(object sender, EventArgs e) {
         MessageBox.Show("立柱跨距发生变化");
-        if (PostInfos!.Count <= 1) return; // 只有一个立柱时无需更新跨距
+        if (PostInfos!.Count <= 1)
+            return; // 只有一个立柱时无需更新跨距
         var currentPostInfo   = (PostInfo)sender;
         var modifiedPostIndex = currentPostInfo.Num - 1;
         // 更新前一个立柱的右跨距
@@ -133,7 +149,8 @@ public partial class SpanInfoViewModel : ViewModelBase {
         }
 
         // 更新后一个立柱的左跨距
-        if (modifiedPostIndex == PostInfos.Count - 1) return; // 当改变的立柱为最后一根立柱时当前操作无需进行
+        if (modifiedPostIndex == PostInfos.Count - 1)
+            return; // 当改变的立柱为最后一根立柱时当前操作无需进行
         PostInfos[modifiedPostIndex + 1].SpanChanged -= OnPostSpanChanged;
         PostInfos[modifiedPostIndex + 1].LeftSpan    =  currentPostInfo.RightSpan;
         PostInfos[modifiedPostIndex + 1].SpanChanged += OnPostSpanChanged;
@@ -142,50 +159,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
     //处理立柱发生变化
     private void OnPostInfosListChanged(NotifyCollectionChangedEventArgs e) {
         SortPostNum();
-        //switch (e.ListChangedType) {
-        //    case ListChangedType.ItemAdded:
-        //    case ListChangedType.ItemDeleted:
-        //        //CurrentPostNum = PostInfos!.Count;
-        //        SortPostNum();
-        //        break;
-        //    case ListChangedType.ItemChanged: {
-        //        var changedIndex       = e.NewIndex;
-        //        var changedItem        = PostInfos?[changedIndex];
-        //        var propertyDescriptor = e.PropertyDescriptor;
-
-        //        if (propertyDescriptor != null) {
-        //            var propertyName = propertyDescriptor.Name;
-        //            switch (propertyName) {
-        //                case nameof(changedItem.LeftSpan):
-        //                    if (changedIndex > 0)
-        //                        if (PostInfos != null)
-        //                            if (changedItem != null)
-        //                                PostInfos[changedIndex - 1].RightSpan = changedItem.LeftSpan;
-        //                    break;
-        //                case nameof(changedItem.RightSpan):
-        //                    if (PostInfos != null && changedIndex < PostInfos.Count - 1)
-        //                        if (changedItem != null)
-        //                            PostInfos[changedIndex + 1].LeftSpan = changedItem.RightSpan;
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-        //        }
-
-        //        break;
-        //    }
-        //    case ListChangedType.Reset:
-        //        break;
-        //    case ListChangedType.ItemMoved:
-        //        break;
-        //    case ListChangedType.PropertyDescriptorAdded:
-        //        break;
-        //    case ListChangedType.PropertyDescriptorDeleted:
-        //        break;
-        //    case ListChangedType.PropertyDescriptorChanged:
-        //        break;
-        //    default:
-        //        throw new ArgumentOutOfRangeException();
-        //}
     }
+
+#endregion
 }

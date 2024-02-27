@@ -122,7 +122,6 @@
                         </DataGridTemplateColumn>
                         <!--  第六列：立柱材质  -->
                         <DataGridComboBoxColumn Header="截面材质" SelectedItemBinding="{Binding Material, UpdateSourceTrigger=PropertyChanged}">
-
                             <DataGridComboBoxColumn.ElementStyle>
                                 <Style TargetType="ComboBox">
                                     <Setter Property="ItemsSource" Value="{Binding DataContext.SectionMaterial, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
@@ -135,7 +134,6 @@
                                     <Setter Property="IsReadOnly" Value="False" />
                                 </Style>
                             </DataGridComboBoxColumn.EditingElementStyle>
-
                         </DataGridComboBoxColumn>
                         <!--  第七列左侧跨距  -->
                         <DataGridTextColumn Binding="{Binding LeftSpan}" Header="左侧跨距" />
@@ -170,7 +168,7 @@
                     <!--  首选项展示  -->
                     <DataGrid.RowDetailsTemplate>
                         <DataTemplate>
-                            <Grid Visibility="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid Visibility="{Binding IsDetailsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
                                     <ColumnDefinition />
@@ -180,8 +178,28 @@
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal" />
-
+                                <StackPanel Orientation="Horizontal">
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="立柱左侧开断"
+                                        Text="{Binding LeftToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="立柱右侧开断"
+                                        Text="{Binding RightToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础宽度"
+                                        Text="{Binding PileWidth, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础露头"
+                                        Text="{Binding PileUpGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础埋深"
+                                        Text="{Binding PileDownGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                </StackPanel>
                             </Grid>
                         </DataTemplate>
                     </DataGrid.RowDetailsTemplate>
@@ -189,11 +207,16 @@
             </TabItem>
             <TabItem Header="主梁分段">
                 <DataGrid
-                    hc:DataGridAttach.ShowRowNumber="True"
+                    MinWidth="100"
+                    hc:DataGridAttach.CanUnselectAllWithBlankArea="False"
                     AutoGenerateColumns="False"
-                    HeadersVisibility="All"
-                    ItemsSource="{Binding DataList}"
-                    RowHeaderWidth="60" />
+                    Background="Transparent"
+                    BorderThickness="0"
+                    CanUserSortColumns="False"
+                    EnableRowVirtualization="True"
+                    HeadersVisibility="Column"
+                    ItemsSource="{Binding PostInfos}"
+                    Style="{StaticResource NumDataGrid}" />
             </TabItem>
         </TabControl>
     </Grid>

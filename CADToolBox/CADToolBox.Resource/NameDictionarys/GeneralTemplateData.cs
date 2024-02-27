@@ -2,6 +2,8 @@
 using System.Xml.Linq;
 using System;
 using System.Linq;
+using System.IO;
+using System.Reflection;
 
 namespace CADToolBox.Resource.NameDictionarys;
 
@@ -16,19 +18,17 @@ public static class GeneralTemplateData {
 
     public static Dictionary<string, IEnumerable<SectionInfo>> BeamSectionMap { get; } = new();
 
+    private static readonly XDocument SectionXDocument
+        = LoadEmbeddedXml("CADToolBox.Resource.Template.SectionData.xml");
+
 
     static GeneralTemplateData() {
         InitPostSectionMap();
         InitBeamSectionMap();
     }
 
-    static void InitPostSectionMap() {
-        // Load XML data
-        var xmlDoc = XDocument.Load(@"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\SectionData.xml");
-
-
-        var root             = xmlDoc.Root;
-        var templatePostList = xmlDoc.Descendants("PostSection").Elements("SectionType").Select(item => item);
+    private static void InitPostSectionMap() {
+        var templatePostList = SectionXDocument.Descendants("PostSection").Elements("SectionType").Select(item => item);
 
         foreach (var element in templatePostList) {
             var sectionList = element.Elements("Section").Select(item => new SectionInfo {
@@ -43,13 +43,8 @@ public static class GeneralTemplateData {
         }
     }
 
-    static void InitBeamSectionMap() {
-        // Load XML data
-        var xmlDoc = XDocument.Load(@"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\SectionData.xml");
-
-
-        var root             = xmlDoc.Root;
-        var templateBeamList = xmlDoc.Descendants("BeamSection").Elements("SectionType").Select(item => item);
+    private static void InitBeamSectionMap() {
+        var templateBeamList = SectionXDocument.Descendants("BeamSection").Elements("SectionType").Select(item => item);
 
         foreach (var element in templateBeamList) {
             var sectionList = element.Elements("Section").Select(item => new SectionInfo {
@@ -62,5 +57,12 @@ public static class GeneralTemplateData {
                                                                          });
             BeamSectionMap.Add(element.Attribute("Name")!.Value, sectionList);
         }
+    }
+
+    private static XDocument LoadEmbeddedXml(string resourceName) {
+        var       assembly = Assembly.GetExecutingAssembly();
+        using var stream   = assembly.GetManifestResourceStream(resourceName);
+        using var reader   = new StreamReader(stream!);
+        return XDocument.Load(reader);
     }
 }

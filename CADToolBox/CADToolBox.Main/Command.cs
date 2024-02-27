@@ -1,23 +1,27 @@
-﻿using Autodesk.AutoCAD.Customization;
+﻿using System.Runtime.InteropServices.ComTypes;
+using Autodesk.AutoCAD.Customization;
 using CADToolBox.Modules.TrackerGA;
 using CADToolBox.Modules.TrackerGA.Views;
 using CADToolBox.Resource.NameDictionarys;
 using CADToolBox.Shared.Models.CADModels.Implement;
 using Microsoft.Extensions.DependencyInjection;
+using Version = Autodesk.AutoCAD.Customization.Version;
 
 namespace CADToolBox.Main;
 
 public class Command {
     [CommandMethod(nameof(HelloWorld))]
     public void HelloWorld() {
-        using var tr = new DBTrans();
-        Env.Editor.WriteMessage("Hello 333!");
+        var res = Assembly.Load("CADToolBox.Resource");
+        foreach (var manifestResourceName in res.GetManifestResourceNames()) {
+            using var tr = new DBTrans();
+            Env.Editor.WriteMessage(manifestResourceName);
+        }
     }
 
     [CommandMethod(nameof(TestWpf))]
     public void TestWpf() {
         var trackerModel = new TrackerModel();
-
 
         var currentDoc = Acaop.DocumentManager.MdiActiveDocument;
         var currentDB  = currentDoc.Database;
@@ -56,7 +60,7 @@ public class Command {
             foreach (var property in properties) {
                 if (!CadNameDictionarys.AttrNameDic.TryGetValue(property.Name, out var value)) continue;
                 if (!projectInput.ContainsKey(value)) continue;
-                var propertyValue     = projectInput[value];
+                var propertyValue = projectInput[value];
                 property.SetValue(trackerModel, Convert.ChangeType(propertyValue, property.PropertyType));
             }
         }
@@ -70,4 +74,93 @@ public class Command {
         TrackerApp.Current.TrackerModel = trackerModel;
         TrackerApp.Current.Run();
     }
+
+#region 截面绘制小工具
+
+    [CommandMethod(nameof(SD))]
+    public void SD() {
+        using var trans = new DBTrans();
+
+        var sectionKeywordDic = new Dictionary<string, string> {
+                                                                   { "W", "美标H型钢(W)" },
+                                                                   { "RH", "国标热轧H型钢(RH)" },
+                                                                   { "WH", "国标焊接H型钢(WH)" },
+                                                                   { "CFC", "折弯C型钢(CFC)" },
+                                                                   { "RC", "热轧槽钢(RC)" },
+                                                                   { "CFL", "折弯角钢(CFL)" },
+                                                                   { "RL", "热轧角钢(RL)" },
+                                                                   { "CFU", "U型钢(CFU)" }
+                                                               };
+        var currentDoc = Acaop.DocumentManager.MdiActiveDocument;
+        var ed         = currentDoc.Editor;
+
+        var pKeyOpts = new PromptKeywordOptions("\n请选择截面类型") { AllowNone = true };
+        foreach (var item in sectionKeywordDic) {
+            pKeyOpts.Keywords.Add(item.Value, item.Key, item.Value);
+        }
+
+        var pKeyRes = ed.GetKeywords(pKeyOpts);
+        var pPtOpts = new PromptPointOptions("") { Message = "\n请选择插入点" };
+        switch (pKeyRes.StringResult) {
+            case "美标H型钢(W)":
+                pKeyOpts = new PromptKeywordOptions("\n请选择美标H型钢截面");
+                var sectionPropDic = GeneralTemplateData.PostSectionMap["W型钢"].Select(item => item).ToList()
+                                                        .ToDictionary(item => item.Name, item => item.Props);
+
+                foreach (var item in sectionPropDic) {
+                    pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                }
+
+                pKeyRes = ed.GetKeywords(pKeyOpts);
+                var sectionProp = sectionPropDic[pKeyRes.StringResult];
+                var h           = Convert.ToDouble(sectionProp["H"]);
+                var b           = Convert.ToDouble(sectionProp["B"]);
+                var tw          = Convert.ToDouble(sectionProp["tw"]);
+                var tf          = Convert.ToDouble(sectionProp["tf"]);
+                var pPointRes   = ed.GetPoint(pPtOpts);
+                var insertPoint = pPointRes.Value;
+                var x0          = insertPoint.X;
+                var y0          = insertPoint.Y;
+                // 逆时针画
+                var startPoint = new Point3d(x0, y0, 0);
+                var endPoint   = new Point3d(x0 + b, y0, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X, startPoint.Y + tf, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X - (b - tw) / 2, startPoint.Y, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X, startPoint.Y + h - 2 * tf, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X + (b - tw) / 2, startPoint.Y, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X, startPoint.Y + tf, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X - b, startPoint.Y, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X, startPoint.Y - tf, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X + (b - tw) / 2, startPoint.Y, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X, startPoint.Y - (h - 2 * tf), 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(startPoint.X - (b - tw) / 2, startPoint.Y, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                startPoint = endPoint;
+                endPoint   = new Point3d(x0, y0, 0);
+                trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+                break;
+        }
+    }
+
+#endregion
 }

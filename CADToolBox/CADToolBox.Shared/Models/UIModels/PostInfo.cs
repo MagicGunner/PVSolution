@@ -8,6 +8,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace CADToolBox.Shared.Models.UIModels;
 
 public partial class PostInfo(PostModel postModel) : ObservableObject {
+#region 自身属性
+
     public PostModel PostModel => postModel;
 
     [ObservableProperty]
@@ -27,6 +29,9 @@ public partial class PostInfo(PostModel postModel) : ObservableObject {
                        : GeneralTemplateData.PostSectionMap[SectionType].Select(item => item.Name).ToList();
         }
     }
+
+#endregion
+
 
 #region 立柱模型数据
 
@@ -105,9 +110,13 @@ public partial class PostInfo(PostModel postModel) : ObservableObject {
 
 #endregion
 
+#region 事件
+
     public event EventHandler? SpanChanged;
 
     protected virtual void OnSpanChanged() {
         SpanChanged?.Invoke(this, EventArgs.Empty);
     }
+
+#endregion
 }
