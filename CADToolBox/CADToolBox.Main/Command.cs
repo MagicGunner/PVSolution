@@ -39,7 +39,9 @@ public class Command {
                     TrackerApp.Current.Run();
                     break;
                 }
-            } else if (promptEntityResult.Status != PromptStatus.OK) { return; }
+            } else if (promptEntityResult.Status != PromptStatus.OK) {
+                return;
+            }
 
             break;
         }
@@ -65,7 +67,10 @@ public class Command {
             }
         }
 
-        var initPostList = new List<PostModel> { new() { Num = 1 }, new() { Num = 2 } };
+        var initPostList = new List<PostModel> {
+                                                   new() { Num = 1 },
+                                                   new() { Num = 2 }
+                                               };
         trackerModel.PostList = initPostList;
 
         TrackerApp.Current.TrackerModel = trackerModel;
@@ -92,10 +97,12 @@ public class Command {
         var ed         = currentDoc.Editor;
 
         var pKeyOpts = new PromptKeywordOptions("\n请选择截面类型") { AllowNone = true };
-        foreach (var item in sectionKeywordDic) { pKeyOpts.Keywords.Add(item.Value, item.Key, item.Value); }
+        foreach (var item in sectionKeywordDic) {
+            pKeyOpts.Keywords.Add(item.Value, item.Key, item.Value);
+        }
 
-        var                                            pKeyRes = ed.GetKeywords(pKeyOpts);
-        var                                            pPtOpts = new PromptPointOptions("") { Message = "\n请选择插入点" };
+        var pKeyRes = ed.GetKeywords(pKeyOpts);
+        var pPtOpts = new PromptPointOptions("") { Message = "\n请选择插入点" };
 
         Dictionary<string, Dictionary<string, string>> sectionPropDic; // 截面属性字典
         Dictionary<string, string>?                    sectionProp;    // 选中的截面属性
@@ -105,42 +112,91 @@ public class Command {
 
         switch (pKeyRes.StringResult) {
             case "美标H型钢(W)":
-                pKeyOpts = new PromptKeywordOptions("\n请选择美标H型钢截面");
-                sectionPropDic = GeneralTemplateData.PostSectionMap["W型钢"]
-                                                    .Select(item => item)
-                                                    .ToList()
-                                                    .ToDictionary(item => item.Name, item => item.Props);
+                pKeyOpts       = new PromptKeywordOptions("\n请选择美标H型钢截面");
+                sectionPropDic = GeneralTemplateData.WSectionPropDic;
 
-                foreach (var item in sectionPropDic) { pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key); }
+                foreach (var item in sectionPropDic) {
+                    pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                }
 
                 pKeyRes     = ed.GetKeywords(pKeyOpts);
                 sectionProp = sectionPropDic[pKeyRes.StringResult];
                 pPointRes   = ed.GetPoint(pPtOpts);
-                CadFunctions.DrawHSteel(trans,
-                                        pPointRes.Value,
-                                        Convert.ToDouble(sectionProp["H"]),
-                                        Convert.ToDouble(sectionProp["B"]),
-                                        Convert.ToDouble(sectionProp["tw"]),
-                                        Convert.ToDouble(sectionProp["tf"]));
+                CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
+                                        Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
+                                        Convert.ToDouble(sectionProp["tf"]), 0);
                 break;
             case "国标热轧H型钢(RH)":
-                pKeyOpts = new PromptKeywordOptions("\n请选择国标热轧H型钢");
-                sectionPropDic = GeneralTemplateData.PostSectionMap["热轧H型钢"]
-                                                    .Select(item => item)
-                                                    .ToList()
-                                                    .ToDictionary(item => item.Name, item => item.Props);
+                pKeyOpts       = new PromptKeywordOptions("\n请选择国标热轧H型钢");
+                sectionPropDic = GeneralTemplateData.RollHSectionPropDic;
 
-                foreach (var item in sectionPropDic) { pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key); }
+                foreach (var item in sectionPropDic) {
+                    pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                }
 
                 pKeyRes     = ed.GetKeywords(pKeyOpts);
                 sectionProp = sectionPropDic[pKeyRes.StringResult];
                 pPointRes   = ed.GetPoint(pPtOpts);
-                CadFunctions.DrawHSteel(trans,
-                                        pPointRes.Value,
-                                        Convert.ToDouble(sectionProp["H"]),
-                                        Convert.ToDouble(sectionProp["B"]),
-                                        Convert.ToDouble(sectionProp["tw"]),
-                                        Convert.ToDouble(sectionProp["tf"]));
+                CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
+                                        Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
+                                        Convert.ToDouble(sectionProp["tf"]), Convert.ToDouble(sectionProp["r"]));
+                break;
+            case "热轧槽钢(RC)":
+                pKeyOpts       = new PromptKeywordOptions("\n请选择国标热轧槽钢");
+                sectionPropDic = GeneralTemplateData.RollCSectionPropDic;
+
+                foreach (var item in sectionPropDic) {
+                    pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                }
+
+                pKeyRes     = ed.GetKeywords(pKeyOpts);
+                sectionProp = sectionPropDic[pKeyRes.StringResult];
+                pPointRes   = ed.GetPoint(pPtOpts);
+                CadFunctions.DrawRollCSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
+                                            Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["d"]),
+                                            Convert.ToDouble(sectionProp["t"]), Convert.ToDouble(sectionProp["r"]),
+                                            Convert.ToDouble(sectionProp["r1"]));
+                break;
+            case "热轧角钢(RL)":
+                pKeyOpts = new PromptKeywordOptions("\n是否等边");
+                pKeyOpts.Keywords.Add("Y", "Y", "是(Y)");
+                pKeyOpts.Keywords.Add("N", "N", "否(Y)");
+                pKeyRes = ed.GetKeywords(pKeyOpts);
+                switch (pKeyRes.StringResult) {
+                    case "Y":
+                        pKeyOpts       = new PromptKeywordOptions("\n请选择等边热轧角钢");
+                        sectionPropDic = GeneralTemplateData.RollEqualLSectionPropDic;
+
+                        foreach (var item in sectionPropDic) {
+                            pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                        }
+
+                        pKeyRes     = ed.GetKeywords(pKeyOpts);
+                        sectionProp = sectionPropDic[pKeyRes.StringResult];
+                        pPointRes   = ed.GetPoint(pPtOpts);
+                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["b"]),
+                                                    Convert.ToDouble(sectionProp["b"]),
+                                                    Convert.ToDouble(sectionProp["d"]),
+                                                    Convert.ToDouble(sectionProp["r"]));
+                        break;
+                    case "N":
+                        pKeyOpts       = new PromptKeywordOptions("\n请选择不等边热轧角钢");
+                        sectionPropDic = GeneralTemplateData.RollUnEqualLSectionPropDic;
+
+                        foreach (var item in sectionPropDic) {
+                            pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
+                        }
+
+                        pKeyRes     = ed.GetKeywords(pKeyOpts);
+                        sectionProp = sectionPropDic[pKeyRes.StringResult];
+                        pPointRes   = ed.GetPoint(pPtOpts);
+                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["B"]),
+                                                    Convert.ToDouble(sectionProp["b"]),
+                                                    Convert.ToDouble(sectionProp["d"]),
+                                                    Convert.ToDouble(sectionProp["r"]));
+                        break;
+                }
+
                 break;
             case "高频焊H型钢(WH)":
                 var whSectionData = new List<double>();
@@ -152,12 +208,8 @@ public class Command {
                 whSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
                 pStringOpt = new PromptStringOptions("\n请输入翼板厚度");
                 whSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
-                CadFunctions.DrawHSteel(trans,
-                                        ed.GetPoint(pPtOpts).Value,
-                                        whSectionData[0],
-                                        whSectionData[1],
-                                        whSectionData[2],
-                                        whSectionData[3]);
+                CadFunctions.DrawHSteel(trans, ed.GetPoint(pPtOpts).Value, whSectionData[0], whSectionData[1],
+                                        whSectionData[2], whSectionData[3], 0);
                 break;
             case "折弯C型钢(CFC)":
                 var cfcSectionData = new List<double>();
@@ -171,15 +223,22 @@ public class Command {
                 cfcSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
                 pStringOpt = new PromptStringOptions("\n请输入内R角");
                 cfcSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
-                CadFunctions.DrawCSteel(trans,
-                                        ed.GetPoint(pPtOpts).Value,
-                                        cfcSectionData[0],
-                                        cfcSectionData[1],
-                                        cfcSectionData[2],
-                                        cfcSectionData[3],
-                                        cfcSectionData[4]);
+                CadFunctions.DrawCSteel(trans, ed.GetPoint(pPtOpts).Value, cfcSectionData[0], cfcSectionData[1],
+                                        cfcSectionData[2], cfcSectionData[3], cfcSectionData[4]);
                 break;
-            case "折弯角钢(CFL)": break;
+            case "折弯角钢(CFL)":
+                var cflSectionData = new List<double>();
+                pStringOpt = new PromptStringOptions("\n请输入单肢高度(竖直)");
+                cflSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
+                pStringOpt = new PromptStringOptions("\n请输入单肢高度(水平)");
+                cflSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
+                pStringOpt = new PromptStringOptions("\n请输入厚度");
+                cflSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
+                pStringOpt = new PromptStringOptions("\n请输入内R角");
+                cflSectionData.Add(Convert.ToDouble(ed.GetString(pStringOpt).StringResult));
+                CadFunctions.DrawLSteel(trans, ed.GetPoint(pPtOpts).Value, cflSectionData[0], cflSectionData[1],
+                                        cflSectionData[2], cflSectionData[3]);
+                break;
         }
     }
 

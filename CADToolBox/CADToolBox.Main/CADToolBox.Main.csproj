@@ -52,5 +52,9 @@
 		<Reference Include="System.Web.Extensions" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Functions\MathModels\" />
+	</ItemGroup>
+
 </Project>
 

@@ -18,6 +18,12 @@ public static class GeneralTemplateData {
 
     public static Dictionary<string, IEnumerable<SectionInfo>> BeamSectionMap { get; } = new();
 
+    public static Dictionary<string, Dictionary<string, string>> WSectionPropDic            { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollHSectionPropDic        { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollCSectionPropDic        { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollEqualLSectionPropDic   { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollUnEqualLSectionPropDic { get; }
+
     private static readonly XDocument SectionXDocument
         = LoadEmbeddedXml("CADToolBox.Resource.Template.SectionData.xml");
 
@@ -25,6 +31,17 @@ public static class GeneralTemplateData {
     static GeneralTemplateData() {
         InitPostSectionMap();
         InitBeamSectionMap();
+
+        WSectionPropDic = PostSectionMap["W型钢"].Select(item => item).ToList()
+                                               .ToDictionary(item => item.Name, item => item.Props);
+        RollHSectionPropDic = PostSectionMap["热轧H型钢"].Select(item => item).ToList()
+                                                     .ToDictionary(item => item.Name, item => item.Props);
+        RollCSectionPropDic = PostSectionMap["热轧槽钢"].Select(item => item).ToList()
+                                                    .ToDictionary(item => item.Name, item => item.Props);
+        RollEqualLSectionPropDic = PostSectionMap["热轧等边角钢"].Select(item => item).ToList()
+                                                           .ToDictionary(item => item.Name, item => item.Props);
+        RollEqualLSectionPropDic = PostSectionMap["热轧不等边角钢"].Select(item => item).ToList()
+                                                            .ToDictionary(item => item.Name, item => item.Props);
     }
 
     private static void InitPostSectionMap() {
