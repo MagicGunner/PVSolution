@@ -19,7 +19,10 @@ public static class GeneralTemplateData {
     public static Dictionary<string, IEnumerable<SectionInfo>> BeamSectionMap { get; } = new();
 
     public static Dictionary<string, Dictionary<string, string>> WSectionPropDic            { get; }
-    public static Dictionary<string, Dictionary<string, string>> RollHSectionPropDic        { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollHWSectionPropDic       { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollHMSectionPropDic       { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollHNSectionPropDic       { get; }
+    public static Dictionary<string, Dictionary<string, string>> RollHTSectionPropDic       { get; }
     public static Dictionary<string, Dictionary<string, string>> RollCSectionPropDic        { get; }
     public static Dictionary<string, Dictionary<string, string>> RollEqualLSectionPropDic   { get; }
     public static Dictionary<string, Dictionary<string, string>> RollUnEqualLSectionPropDic { get; }
@@ -32,30 +35,52 @@ public static class GeneralTemplateData {
         InitPostSectionMap();
         InitBeamSectionMap();
 
-        WSectionPropDic = PostSectionMap["W型钢"].Select(item => item).ToList()
-                                               .ToDictionary(item => item.Name, item => item.Props);
-        RollHSectionPropDic = PostSectionMap["热轧H型钢"].Select(item => item).ToList()
-                                                     .ToDictionary(item => item.Name, item => item.Props);
-        RollCSectionPropDic = PostSectionMap["热轧槽钢"].Select(item => item).ToList()
-                                                    .ToDictionary(item => item.Name, item => item.Props);
-        RollEqualLSectionPropDic = PostSectionMap["热轧等边角钢"].Select(item => item).ToList()
-                                                           .ToDictionary(item => item.Name, item => item.Props);
-        RollEqualLSectionPropDic = PostSectionMap["热轧不等边角钢"].Select(item => item).ToList()
-                                                            .ToDictionary(item => item.Name, item => item.Props);
+        WSectionPropDic = PostSectionMap["W型钢"]
+                         .Select(item => item)
+                         .ToList()
+                         .ToDictionary(item => item.Name, item => item.Props);
+        RollHWSectionPropDic = PostSectionMap["宽翼缘H型钢(HW)"]
+                              .Select(item => item)
+                              .ToList()
+                              .ToDictionary(item => item.Name, item => item.Props);
+        RollHMSectionPropDic = PostSectionMap["中翼缘H型钢(HM)"]
+                              .Select(item => item)
+                              .ToList()
+                              .ToDictionary(item => item.Name, item => item.Props);
+        RollHNSectionPropDic = PostSectionMap["窄翼缘H型钢(HN)"]
+                              .Select(item => item)
+                              .ToList()
+                              .ToDictionary(item => item.Name, item => item.Props);
+        RollHTSectionPropDic = PostSectionMap["薄壁H型钢(HT)"]
+                              .Select(item => item)
+                              .ToList()
+                              .ToDictionary(item => item.Name, item => item.Props);
+        RollCSectionPropDic = PostSectionMap["热轧槽钢"]
+                             .Select(item => item)
+                             .ToList()
+                             .ToDictionary(item => item.Name, item => item.Props);
+        RollEqualLSectionPropDic = PostSectionMap["热轧等边角钢"]
+                                  .Select(item => item)
+                                  .ToList()
+                                  .ToDictionary(item => item.Name, item => item.Props);
+        RollUnEqualLSectionPropDic = PostSectionMap["热轧不等边角钢"]
+                                    .Select(item => item)
+                                    .ToList()
+                                    .ToDictionary(item => item.Name, item => item.Props);
     }
 
     private static void InitPostSectionMap() {
         var templatePostList = SectionXDocument.Descendants("PostSection").Elements("SectionType").Select(item => item);
 
         foreach (var element in templatePostList) {
-            var sectionList = element.Elements("Section").Select(item => new SectionInfo {
-                                                                             Name = item.Attribute("Name")!.Value,
-                                                                             Props = item.Attributes()
-                                                                                .Where(i => i.Name.LocalName !=
-                                                                                     "Name")
-                                                                                .ToDictionary(i => i.Name.LocalName,
-                                                                                     i => i.Value)
-                                                                         });
+            var sectionList = element.Elements("Section")
+                                     .Select(item => new SectionInfo {
+                                                                         Name = item.Attribute("Name")!.Value,
+                                                                         Props = item.Attributes()
+                                                                            .Where(i => i.Name.LocalName != "Name")
+                                                                            .ToDictionary(i => i.Name.LocalName,
+                                                                                 i => i.Value)
+                                                                     });
             PostSectionMap.Add(element.Attribute("Name")!.Value, sectionList);
         }
     }
@@ -64,14 +89,14 @@ public static class GeneralTemplateData {
         var templateBeamList = SectionXDocument.Descendants("BeamSection").Elements("SectionType").Select(item => item);
 
         foreach (var element in templateBeamList) {
-            var sectionList = element.Elements("Section").Select(item => new SectionInfo {
-                                                                             Name = item.Attribute("Name")!.Value,
-                                                                             Props = item.Attributes()
-                                                                                .Where(i => i.Name.LocalName !=
-                                                                                     "Name")
-                                                                                .ToDictionary(i => i.Name.LocalName,
-                                                                                     i => i.Value)
-                                                                         });
+            var sectionList = element.Elements("Section")
+                                     .Select(item => new SectionInfo {
+                                                                         Name = item.Attribute("Name")!.Value,
+                                                                         Props = item.Attributes()
+                                                                            .Where(i => i.Name.LocalName != "Name")
+                                                                            .ToDictionary(i => i.Name.LocalName,
+                                                                                 i => i.Value)
+                                                                     });
             BeamSectionMap.Add(element.Attribute("Name")!.Value, sectionList);
         }
     }

@@ -17,7 +17,7 @@
       <Section Name="W8x18" H="207" B="133" tw="5.8" tf="8.4" />
       <Section Name="W8x21" H="210" B="134" tw="6.4" tf="10.2" />
     </SectionType>
-    <SectionType Name="热轧H型钢">
+    <SectionType Name="宽翼缘H型钢(HW)">
       <Section Name="HW100x100x6x8" H="100" B="100" tw="6" tf="8" r="8" />
       <Section Name="HW125x125x6.5x9" H="125" B="125" tw="6.5" tf="9" r="8" />
       <Section Name="HW150x150x7x10" H="150" B="150" tw="7" tf="10" r="8" />
@@ -47,6 +47,8 @@
       <Section Name="HW492x465x15x20" H="492" B="465" tw="15" tf="20" r="22" />
       <Section Name="HW502x465x15x25" H="502" B="465" tw="15" tf="25" r="22" />
       <Section Name="HW502x470x20x25" H="502" B="470" tw="20" tf="25" r="22" />
+    </SectionType>
+    <SectionType Name="中翼缘H型钢(HM)">
       <Section Name="HM148x100x6x9" H="148" B="100" tw="6" tf="9" r="8" />
       <Section Name="HM194x150x6x9" H="194" B="150" tw="6" tf="9" r="8" />
       <Section Name="HM244x175x7x11" H="244" B="175" tw="7" tf="11" r="13" />
@@ -62,6 +64,8 @@
       <Section Name="HM582x300x12x17" H="582" B="300" tw="12" tf="17" r="13" />
       <Section Name="HM588x300x12x20" H="588" B="300" tw="12" tf="20" r="13" />
       <Section Name="HM594x302x14x23" H="594" B="302" tw="14" tf="23" r="13" />
+    </SectionType>
+    <SectionType Name="窄翼缘H型钢(HN)">
       <Section Name="HN100x50x5x7" H="100" B="50" tw="5" tf="7" r="8" />
       <Section Name="HN125x60x6x8" H="125" B="60" tw="6" tf="8" r="8" />
       <Section Name="HN150x75x5x7" H="150" B="75" tw="5" tf="7" r="8" />
@@ -121,6 +125,8 @@
       <Section Name="HN990x298x17x31" H="990" B="298" tw="17" tf="31" r="18" />
       <Section Name="HN1000x300x19x36" H="1000" B="300" tw="19" tf="36" r="18" />
       <Section Name="HN1008x302x21x40" H="1008" B="302" tw="21" tf="40" r="18" />
+    </SectionType>
+    <SectionType Name="薄壁H型钢(HT)">
       <Section Name="HT95x48x3.2x4.5" H="95" B="48" tw="3.2" tf="4.5" r="8" />
       <Section Name="HT97x49x4x5.5" H="97" B="49" tw="4" tf="5.5" r="8" />
       <Section Name="HT96x99x4.5x6" H="96" B="99" tw="4.5" tf="6" r="8" />
