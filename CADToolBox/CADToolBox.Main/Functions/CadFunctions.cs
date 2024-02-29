@@ -4,6 +4,8 @@ using System.Windows.Documents;
 namespace CADToolBox.Main.Functions;
 
 public static class CadFunctions {
+#region 截面绘制函数
+
     public static void DrawHSteel(DBTrans trans,
                                   Point3d insertPoint,
                                   double  h,
@@ -14,58 +16,57 @@ public static class CadFunctions {
         var x0 = insertPoint.X;
         var y0 = insertPoint.Y;
         // 直线部分
-        var startPoint = new Point3d(x0,     y0, 0);
+        var startPoint = new Point3d(x0, y0, 0);
         var endPoint   = new Point3d(x0 + b, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = endPoint;
         endPoint   = new Point3d(startPoint.X, startPoint.Y + tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0,      0);
+        startPoint = new Point3d(x0 + b, y0, 0);
         endPoint   = new Point3d(x0 + b, y0 + tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0        + tf, 0);
-        endPoint   = new Point3d(x0 + (b + tw) / 2 + r,  y0 + tf, 0);
+        endPoint   = new Point3d(x0 + (b + tw) / 2 + r, y0 + tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b + tw) / 2, y0     + tf + r, 0);
         endPoint   = new Point3d(x0 + (b + tw) / 2, y0 + h - tf - r, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b + tw) / 2 + r, y0 + h - tf, 0);
-        endPoint   = new Point3d(x0 + b,                y0 + h - tf, 0);
+        endPoint   = new Point3d(x0 + b, y0                + h - tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0 + h - tf, 0);
-        endPoint   = new Point3d(x0 + b, y0     + h,  0);
+        endPoint   = new Point3d(x0 + b, y0     + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0 + h, 0);
-        endPoint   = new Point3d(x0,     y0 + h, 0);
+        startPoint = new Point3d(x0     + b, y0 + h, 0);
+        endPoint   = new Point3d(x0, y0 + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0, y0     + h,  0);
+        startPoint = new Point3d(x0, y0     + h, 0);
         endPoint   = new Point3d(x0, y0 + h - tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0, y0 + h            - tf, 0);
-        endPoint   = new Point3d(x0     + (b - tw) / 2 - r,  y0 + h - tf, 0);
+        endPoint   = new Point3d(x0     + (b - tw) / 2 - r, y0 + h - tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b - tw) / 2, y0 + h - tf - r, 0);
         endPoint   = new Point3d(x0 + (b - tw) / 2, y0     + tf + r, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b - tw) / 2 - r, y0 + tf, 0);
-        endPoint   = new Point3d(x0,                    y0 + tf, 0);
+        endPoint   = new Point3d(x0, y0            + tf, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0, y0 + tf, 0);
-        endPoint   = new Point3d(x0, y0,      0);
+        endPoint   = new Point3d(x0, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
 
-        if (r == 0) return;
+        if (r == 0)
+            return;
         // 倒角
         // 左下
-        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + (b - tw) / 2 - r, y0 + tf,     0),
-                                                     new Point3d(x0 + (b - tw) / 2 - r, y0 + tf + r, 0),
-                                                     Math.PI / 2));
+        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + (b - tw) / 2 - r, y0 + tf, 0),
+                                                     new Point3d(x0 + (b - tw) / 2 - r, y0 + tf + r, 0), Math.PI / 2));
         // 右下
         trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + (b + tw) / 2, y0 + tf + r, 0),
-                                                     new Point3d(x0 + (b + tw) / 2     + r,      y0 + tf + r, 0),
-                                                     Math.PI / 2));
+                                                     new Point3d(x0 + (b + tw) / 2 + r, y0 + tf + r, 0), Math.PI / 2));
         // 右上
-        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + (b + tw) / 2 + r, y0 + h - tf,     0),
+        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + (b + tw) / 2 + r, y0 + h - tf, 0),
                                                      new Point3d(x0 + (b + tw) / 2 + r, y0 + h - tf - r, 0),
                                                      Math.PI / 2));
         // 左上
@@ -95,12 +96,12 @@ public static class CadFunctions {
         var endPoint   = new Point3d(x0 + b - rout, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0 + rout, 0);
-        endPoint   = new Point3d(x0 + b, y0 + l,    0);
+        endPoint   = new Point3d(x0 + b, y0 + l, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0     + b, y0 + l, 0);
         endPoint   = new Point3d(x0 + b - t, y0 + l, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b - t, y0 + l,       0);
+        startPoint = new Point3d(x0 + b - t, y0 + l, 0);
         endPoint   = new Point3d(x0 + b - t, y0 + t + rin, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b - t - rin, y0 + t, 0);
@@ -109,16 +110,16 @@ public static class CadFunctions {
         startPoint = new Point3d(x0 + t, y0     + t + rin, 0);
         endPoint   = new Point3d(x0 + t, y0 + h - t - rin, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + t + rin, y0 + h - t,       0);
+        startPoint = new Point3d(x0 + t + rin, y0 + h - t, 0);
         endPoint   = new Point3d(x0               + b - t - rin, y0 + h - t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b - t, y0 + h - t - rin, 0);
-        endPoint   = new Point3d(x0 + b - t, y0 + h - l,       0);
+        endPoint   = new Point3d(x0 + b - t, y0 + h - l, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b - t, y0 + h - l, 0);
         endPoint   = new Point3d(x0     + b, y0 + h - l, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0 + h - l,    0);
+        startPoint = new Point3d(x0 + b, y0 + h - l, 0);
         endPoint   = new Point3d(x0 + b, y0 + h - rout, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b - rout, y0 + h, 0);
@@ -128,38 +129,27 @@ public static class CadFunctions {
         endPoint   = new Point3d(x0, y0     + rout, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         // 画R角
-        if (rin == 0) return;
+        if (rin == 0)
+            return;
         // 左下圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0),
-                                        new Point3d(x0     + rout, y0 + rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + t,    y0 + rout, 0),
-                                        new Point3d(x0 + rout, y0 + rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + t, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0),
                                         Math.PI / 2));
         // 右下圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b - rout, y0,        0),
-                                        new Point3d(x0 + b - rout, y0 + rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + b - rout, y0 + t,    0),
-                                        new Point3d(x0 + b - rout, y0 + rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b - rout, y0, 0), new Point3d(x0 + b - rout, y0 + rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + b - rout, y0 + t, 0), new Point3d(x0 + b - rout, y0 + rout, 0),
                                         Math.PI / 2));
         // 右上圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b, y0 + h - rout, 0),
-                                        new Point3d(x0         + b - rout, y0 + h - rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + b - t,    y0 + h - rout, 0),
-                                        new Point3d(x0 + b - rout, y0 + h - rout, 0),
-                                        Math.PI / 2));
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b, y0 + h - rout, 0), new Point3d(x0 + b - rout, y0 + h - rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + b - t, y0    + h - rout, 0),
+                                        new Point3d(x0 + b - rout, y0 + h - rout, 0), Math.PI / 2));
         // 左上圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + rout, y0     + h,    0),
-                                        new Point3d(x0 + rout, y0 + h - rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h - t,    0),
-                                        new Point3d(x0 + rout, y0 + h - rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h, 0), new Point3d(x0 + rout, y0 + h - rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h - t, 0), new Point3d(x0 + rout, y0 + h - rout, 0),
                                         Math.PI / 2));
     }
 
@@ -175,47 +165,42 @@ public static class CadFunctions {
         // 先画平直部分
         var rout       = rin == 0 ? 0 : rin + t;
         var startPoint = new Point3d(x0 + rout, y0, 0);
-        var endPoint   = new Point3d(x0 + b,    y0, 0);
+        var endPoint   = new Point3d(x0 + b, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0,     0);
+        startPoint = new Point3d(x0 + b, y0, 0);
         endPoint   = new Point3d(x0 + b, y0 + t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0 + t,   0);
+        startPoint = new Point3d(x0 + b, y0 + t, 0);
         endPoint   = new Point3d(x0 + t     + rin, y0 + t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + t, y0     + t + rin, 0);
         endPoint   = new Point3d(x0 + t, y0 + h - t - rin, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + t + rin, y0 + h - t, 0);
-        endPoint   = new Point3d(x0 + b,       y0 + h - t, 0);
+        endPoint   = new Point3d(x0 + b, y0       + h - t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0 + h - t, 0);
         endPoint   = new Point3d(x0 + b, y0     + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b,    y0 + h, 0);
+        startPoint = new Point3d(x0 + b, y0    + h, 0);
         endPoint   = new Point3d(x0 + rout, y0 + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0, y0 + h - rout, 0);
         endPoint   = new Point3d(x0, y0     + rout, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         // 画R角
-        if (rin == 0) return;
+        if (rin == 0)
+            return;
         // 左下圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0),
-                                        new Point3d(x0     + rout, y0 + rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + t,    y0 + rout, 0),
-                                        new Point3d(x0 + rout, y0 + rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + t, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0),
                                         Math.PI / 2));
 
         // 左上圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + rout, y0     + h,    0),
-                                        new Point3d(x0 + rout, y0 + h - rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h - t,    0),
-                                        new Point3d(x0 + rout, y0 + h - rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h, 0), new Point3d(x0 + rout, y0 + h - rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + rout, y0 + h - t, 0), new Point3d(x0 + rout, y0 + h - rout, 0),
                                         Math.PI / 2));
     }
 
@@ -245,53 +230,46 @@ public static class CadFunctions {
 
         // 先画直线段部分，逆时针
         var startPoint = new Point3d(x0, y0, 0);
-        var endPoint = new Point3d(x0 + b, y0, 0);
+        var endPoint   = new Point3d(x0 + b, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0 + t1, 0);
-        endPoint = new Point3d(x0 + b, y0, 0);
+        endPoint   = new Point3d(x0 + b, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b + d) / 2 + lSlopeX * ratio2, y0 + t - lSlopeY * ratio2, 0);
-        endPoint = new Point3d(x0 + (b + d) / 2 - lSlopeX * ratio1, y0 + t + lSlopeY * ratio1, 0);
+        endPoint   = new Point3d(x0 + (b + d) / 2 - lSlopeX * ratio1, y0 + t + lSlopeY * ratio1, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + d, y0 + (h - h1) / 2, 0);
-        endPoint = new Point3d(x0 + d, y0 + (h + h1) / 2, 0);
+        endPoint   = new Point3d(x0 + d, y0 + (h + h1) / 2, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + (b + d) / 2 - lSlopeX * ratio1, y0 + h - t - lSlopeY * ratio1, 0);
         endPoint   = new Point3d(x0               + (b + d) / 2 + lSlopeX * ratio2, y0 + h - t + lSlopeY * ratio2, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b, y0 + h - t1, 0);
-        endPoint   = new Point3d(x0 + b, y0     + h,  0);
+        endPoint   = new Point3d(x0 + b, y0     + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0 + h, 0);
-        endPoint   = new Point3d(x0,     y0 + h, 0);
+        startPoint = new Point3d(x0     + b, y0 + h, 0);
+        endPoint   = new Point3d(x0, y0 + h, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0, y0 + h, 0);
-        endPoint   = new Point3d(x0, y0,     0);
+        endPoint   = new Point3d(x0, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
 
         // 画倒角
         // 左下
-        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + d, y0 + (h - h1) / 2, 0),
-                                                     new Point3d(x0 + d     + r,            y0 + (h - h1) / 2, 0),
+        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + d, y0 + (h         - h1) / 2, 0),
+                                                     new Point3d(x0 + d     + r, y0 + (h - h1) / 2, 0),
                                                      Math.PI / 2 - slopeDeg));
         // 右下
-        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0     + b,  y0 + t1, 0),
-                                                     new Point3d(x0 + b - r1, y0 + t1, 0),
-                                                     Math.PI / 2 - slopeDeg));
+        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0     + b, y0  + t1, 0),
+                                                     new Point3d(x0 + b - r1, y0 + t1, 0), Math.PI / 2 - slopeDeg));
         // 右上 
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b - (r1 - r1 * Math.Sin(slopeDeg)),
-                                                    y0           + h - t + lSlopeY * ratio2,
-                                                    0),
-                                        new Point3d(x0 + b - r1, y0 + h - t1, 0),
-                                        Math.PI / 2 - slopeDeg));
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + b - (r1 - r1 * Math.Sin(slopeDeg)), y0 + h - t + lSlopeY * ratio2, 0),
+                                        new Point3d(x0 + b - r1, y0 + h - t1, 0), Math.PI / 2 - slopeDeg));
         // 左上
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + d + r - r           * Math.Sin(slopeDeg),
-                                                    y0 + h     - t - lSlopeY * ratio1,
-                                                    0),
-                                        new Point3d(x0 + d + r, y0 + (h + h1) / 2, 0),
-                                        Math.PI / 2 - slopeDeg));
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0 + d + r - r * Math.Sin(slopeDeg), y0 + h - t - lSlopeY * ratio1, 0),
+                                        new Point3d(x0 + d + r, y0 + (h + h1) / 2, 0), Math.PI / 2 - slopeDeg));
     }
 
     public static void DrawLSteel(DBTrans trans,
@@ -306,33 +284,31 @@ public static class CadFunctions {
         // 先画平直部分
         var rout       = rin == 0 ? 0 : rin + t;
         var startPoint = new Point3d(x0 + rout, y0, 0);
-        var endPoint   = new Point3d(x0 + l2,   y0, 0);
+        var endPoint   = new Point3d(x0 + l2, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + l2, y0,     0);
+        startPoint = new Point3d(x0 + l2, y0, 0);
         endPoint   = new Point3d(x0 + l2, y0 + t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + l2, y0 + t,   0);
+        startPoint = new Point3d(x0 + l2, y0 + t, 0);
         endPoint   = new Point3d(x0 + t      + rin, y0 + t, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + t, y0 + t + rin, 0);
-        endPoint   = new Point3d(x0 + t, y0 + l1,      0);
+        endPoint   = new Point3d(x0 + t, y0 + l1, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + t, y0 + l1, 0);
-        endPoint   = new Point3d(x0,     y0 + l1, 0);
+        startPoint = new Point3d(x0     + t, y0 + l1, 0);
+        endPoint   = new Point3d(x0, y0 + l1, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0, y0 + l1,   0);
+        startPoint = new Point3d(x0, y0 + l1, 0);
         endPoint   = new Point3d(x0, y0 + rout, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
 
         // 画R角
-        if (rin == 0) return;
+        if (rin == 0)
+            return;
         // 左下圆弧
         trans.CurrentSpace
-             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0),
-                                        new Point3d(x0     + rout, y0 + rout, 0),
-                                        Math.PI / 2),
-                        ArcEx.CreateArc(new Point3d(x0 + t,    y0 + rout, 0),
-                                        new Point3d(x0 + rout, y0 + rout, 0),
+             .AddEntity(ArcEx.CreateArc(new Point3d(x0, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0), Math.PI / 2),
+                        ArcEx.CreateArc(new Point3d(x0 + t, y0 + rout, 0), new Point3d(x0 + rout, y0 + rout, 0),
                                         Math.PI / 2));
     }
 
@@ -347,10 +323,10 @@ public static class CadFunctions {
         var y0 = insertPoint.Y;
 
         // 先画直线部分
-        var startPoint = new Point3d(x0,     y0, 0);
+        var startPoint = new Point3d(x0, y0, 0);
         var endPoint   = new Point3d(x0 + b, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
-        startPoint = new Point3d(x0 + b, y0,          0);
+        startPoint = new Point3d(x0 + b, y0, 0);
         endPoint   = new Point3d(x0 + b, y0 + d - r1, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + b - r1, y0 + d, 0);
@@ -360,28 +336,108 @@ public static class CadFunctions {
         endPoint   = new Point3d(x0     + d      + r, y0 + d, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + d, y0     + d + r, 0);
-        endPoint   = new Point3d(x0 + d, y0 + B - r1,    0);
+        endPoint   = new Point3d(x0 + d, y0 + B - r1, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0 + d - r1, y0 + B, 0);
-        endPoint   = new Point3d(x0,          y0 + B, 0);
+        endPoint   = new Point3d(x0, y0 + B, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
         startPoint = new Point3d(x0, y0 + B, 0);
-        endPoint   = new Point3d(x0, y0,     0);
+        endPoint   = new Point3d(x0, y0, 0);
         trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
 
         // 圆弧
         // 右下
         trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + b, y0 + d - r1, 0),
-                                                     new Point3d(x0         + b - r1, y0 + d - r1, 0),
-                                                     Math.PI / 2));
+                                                     new Point3d(x0         + b - r1, y0 + d - r1, 0), Math.PI / 2));
         // 左上
         trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + d, y0 + B - r1, 0),
-                                                     new Point3d(x0         + d - r1, y0 + B - r1, 0),
-                                                     Math.PI / 2));
+                                                     new Point3d(x0         + d - r1, y0 + B - r1, 0), Math.PI / 2));
 
         // 左下
-        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + d, y0 + d + r, 0),
-                                                     new Point3d(x0 + d     + r,     y0 + d + r, 0),
-                                                     Math.PI / 2));
+        trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + d, y0 + d     + r, 0),
+                                                     new Point3d(x0 + d     + r, y0 + d + r, 0), Math.PI / 2));
     }
+
+    public static void DrawPile(DBTrans trans,
+                                Point3d insertPoint,
+                                double  D,
+                                double  t) {
+        // 两点画圆
+        // 外圈
+        trans.CurrentSpace.AddEntity(CircleEx.CreateCircle(new Point3d(insertPoint.X - D / 2, insertPoint.Y, 0),
+                                                           new Point3d(insertPoint.X + D / 2, insertPoint.Y, 0)));
+        // 内圈
+        trans.CurrentSpace.AddEntity(CircleEx.CreateCircle(new Point3d(insertPoint.X - D / 2 + t, insertPoint.Y, 0),
+                                                           new Point3d(insertPoint.X + D / 2 - t, insertPoint.Y, 0)));
+    }
+
+    public static void DrawSquareTube(DBTrans trans,
+                                      Point3d insertPoint,
+                                      double  w,
+                                      double  h,
+                                      double  t,
+                                      double  r) {
+        var x0 = insertPoint.X;
+        var y0 = insertPoint.Y;
+        w -= t * 2;
+        h -= t * 2;
+        // 画内圈
+        var startPoint = new Point3d(x0 - w / 2 + r, y0 - h / 2, 0);
+        var endPoint   = new Point3d(x0 + w / 2 - r, y0 - h / 2, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 + w / 2, y0 + h / 2 - r, 0);
+        endPoint   = new Point3d(x0 + w / 2, y0 - h / 2 + r, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 + w / 2 - r, y0 + h / 2, 0);
+        endPoint   = new Point3d(x0 - w / 2 + r, y0 + h / 2, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 - w / 2, y0 + h / 2 - r, 0);
+        endPoint   = new Point3d(x0 - w / 2, y0 - h / 2 + r, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        if (r != 0) {
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 - w / 2, y0 - h / 2 + r, 0),
+                                                         new Point3d(x0 - w / 2 + r, y0 - h / 2 + r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + w / 2 - r, y0 - h / 2, 0),
+                                                         new Point3d(x0 + w / 2 - r, y0 - h / 2 + r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + w / 2, y0 + h / 2 - r, 0),
+                                                         new Point3d(x0 + w / 2 - r, y0 + h / 2 - r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 - w / 2 + r, y0         + h / 2, 0),
+                                                         new Point3d(x0 - w / 2 + r, y0 + h / 2 - r, 0), Math.PI / 2));
+        }
+
+        w          += t * 2;
+        h          += t * 2;
+        r          =  r == 0 ? 0 : r + t;
+        startPoint =  new Point3d(x0 - w / 2 + r, y0 - h / 2, 0);
+        endPoint   =  new Point3d(x0 + w / 2 - r, y0 - h / 2, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 + w / 2, y0 + h / 2 - r, 0);
+        endPoint   = new Point3d(x0 + w / 2, y0 - h / 2 + r, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 + w / 2 - r, y0 + h / 2, 0);
+        endPoint   = new Point3d(x0 - w / 2 + r, y0 + h / 2, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        startPoint = new Point3d(x0 - w / 2, y0 + h / 2 - r, 0);
+        endPoint   = new Point3d(x0 - w / 2, y0 - h / 2 + r, 0);
+        trans.CurrentSpace.AddEntity(new Line(startPoint, endPoint));
+        if (r != 0) {
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 - w / 2, y0 - h / 2 + r, 0),
+                                                         new Point3d(x0 - w / 2 + r, y0 - h / 2 + r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + w / 2 - r, y0 - h / 2, 0),
+                                                         new Point3d(x0 + w / 2 - r, y0 - h / 2 + r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 + w / 2, y0 + h / 2 - r, 0),
+                                                         new Point3d(x0 + w / 2 - r, y0 + h / 2 - r, 0), Math.PI / 2));
+            trans.CurrentSpace.AddEntity(ArcEx.CreateArc(new Point3d(x0 - w / 2 + r, y0         + h / 2, 0),
+                                                         new Point3d(x0 - w / 2 + r, y0 + h / 2 - r, 0), Math.PI / 2));
+        }
+    }
+
+#endregion
+
+#region 跟踪支架GA辅助
+
+    public static void WriteToInput() {
+    }
+
+#endregion
 }

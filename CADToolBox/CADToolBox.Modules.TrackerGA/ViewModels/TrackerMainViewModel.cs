@@ -3,6 +3,7 @@ using System.Windows;
 using CADToolBox.Modules.TrackerGA.Services.Implement;
 using CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 using CADToolBox.Shared.Models.UIModels;
+using CADToolBox.Shared.Models.UIModels.Implement;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 

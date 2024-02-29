@@ -174,7 +174,8 @@ public partial class DesignInfoViewModel : ViewModelBase {
 
 #endregion
 
-    private void OnTrackerModelChanged(object sender, EventArgs e) {
+    private void OnTrackerModelChanged(object    sender,
+                                       EventArgs e) {
         Draw();
         //MessageBox.Show("模型发生改变");
     }

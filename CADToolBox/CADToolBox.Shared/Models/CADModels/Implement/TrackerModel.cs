@@ -7,6 +7,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
 public partial class TrackerModel : ObservableObject, IPvSupport {
+    public int Status { get; set; } // 当前绘图状态，0代表仅保存，1代表保存并绘图
+
 #region 通用属性
 
     [ObservableProperty]

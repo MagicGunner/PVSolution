@@ -61,7 +61,7 @@ public class TrackerApp {
     }
 
     public void Run() {
-        Services.GetRequiredService<TrackerMainView>().Show();
+        Services.GetRequiredService<TrackerMainView>().ShowDialog();
     }
 
     private void Init(TrackerModel trackerModel) {

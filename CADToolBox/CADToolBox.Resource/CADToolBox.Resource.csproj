@@ -17,10 +17,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Images\En.png" />
 	  <None Remove="Template\SectionData.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Include="Images\En.png" />
 	  <EmbeddedResource Include="Template\SectionData.xml" />
 	</ItemGroup>
 

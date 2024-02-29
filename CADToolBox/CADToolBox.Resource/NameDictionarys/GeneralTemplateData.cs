@@ -26,6 +26,8 @@ public static class GeneralTemplateData {
     public static Dictionary<string, Dictionary<string, string>> RollCSectionPropDic        { get; }
     public static Dictionary<string, Dictionary<string, string>> RollEqualLSectionPropDic   { get; }
     public static Dictionary<string, Dictionary<string, string>> RollUnEqualLSectionPropDic { get; }
+    public static Dictionary<string, Dictionary<string, string>> RPileSectionPropDic        { get; }
+    public static Dictionary<string, Dictionary<string, string>> WPileSectionPropDic        { get; }
 
     private static readonly XDocument SectionXDocument
         = LoadEmbeddedXml("CADToolBox.Resource.Template.SectionData.xml");
@@ -35,38 +37,26 @@ public static class GeneralTemplateData {
         InitPostSectionMap();
         InitBeamSectionMap();
 
-        WSectionPropDic = PostSectionMap["W型钢"]
-                         .Select(item => item)
-                         .ToList()
-                         .ToDictionary(item => item.Name, item => item.Props);
-        RollHWSectionPropDic = PostSectionMap["宽翼缘H型钢(HW)"]
-                              .Select(item => item)
-                              .ToList()
-                              .ToDictionary(item => item.Name, item => item.Props);
-        RollHMSectionPropDic = PostSectionMap["中翼缘H型钢(HM)"]
-                              .Select(item => item)
-                              .ToList()
-                              .ToDictionary(item => item.Name, item => item.Props);
-        RollHNSectionPropDic = PostSectionMap["窄翼缘H型钢(HN)"]
-                              .Select(item => item)
-                              .ToList()
-                              .ToDictionary(item => item.Name, item => item.Props);
-        RollHTSectionPropDic = PostSectionMap["薄壁H型钢(HT)"]
-                              .Select(item => item)
-                              .ToList()
-                              .ToDictionary(item => item.Name, item => item.Props);
-        RollCSectionPropDic = PostSectionMap["热轧槽钢"]
-                             .Select(item => item)
-                             .ToList()
-                             .ToDictionary(item => item.Name, item => item.Props);
-        RollEqualLSectionPropDic = PostSectionMap["热轧等边角钢"]
-                                  .Select(item => item)
-                                  .ToList()
-                                  .ToDictionary(item => item.Name, item => item.Props);
-        RollUnEqualLSectionPropDic = PostSectionMap["热轧不等边角钢"]
-                                    .Select(item => item)
-                                    .ToList()
-                                    .ToDictionary(item => item.Name, item => item.Props);
+        WSectionPropDic = PostSectionMap["W型钢"].Select(item => item).ToList()
+                                               .ToDictionary(item => item.Name, item => item.Props);
+        RollHWSectionPropDic = PostSectionMap["宽翼缘H型钢(HW)"].Select(item => item).ToList()
+                                                           .ToDictionary(item => item.Name, item => item.Props);
+        RollHMSectionPropDic = PostSectionMap["中翼缘H型钢(HM)"].Select(item => item).ToList()
+                                                           .ToDictionary(item => item.Name, item => item.Props);
+        RollHNSectionPropDic = PostSectionMap["窄翼缘H型钢(HN)"].Select(item => item).ToList()
+                                                           .ToDictionary(item => item.Name, item => item.Props);
+        RollHTSectionPropDic = PostSectionMap["薄壁H型钢(HT)"].Select(item => item).ToList()
+                                                          .ToDictionary(item => item.Name, item => item.Props);
+        RollCSectionPropDic = PostSectionMap["热轧槽钢"].Select(item => item).ToList()
+                                                    .ToDictionary(item => item.Name, item => item.Props);
+        RollEqualLSectionPropDic = PostSectionMap["热轧等边角钢"].Select(item => item).ToList()
+                                                           .ToDictionary(item => item.Name, item => item.Props);
+        RollUnEqualLSectionPropDic = PostSectionMap["热轧不等边角钢"].Select(item => item).ToList()
+                                                              .ToDictionary(item => item.Name, item => item.Props);
+        RPileSectionPropDic = PostSectionMap["无缝钢管"].Select(item => item).ToList()
+                                                    .ToDictionary(item => item.Name, item => item.Props);
+        WPileSectionPropDic = PostSectionMap["焊接钢管"].Select(item => item).ToList()
+                                                    .ToDictionary(item => item.Name, item => item.Props);
     }
 
     private static void InitPostSectionMap() {

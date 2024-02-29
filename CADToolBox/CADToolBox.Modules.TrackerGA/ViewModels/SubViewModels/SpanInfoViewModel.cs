@@ -16,6 +16,8 @@ using System.Windows.Data;
 using AutoMapper;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.UIModels.Implement;
+using CADToolBox.Shared.Models.UIModels.Interface;
 
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 
@@ -40,6 +42,13 @@ public partial class SpanInfoViewModel : ViewModelBase {
                                                 };
 
     [ObservableProperty]
+    private BeamModel _defaultBeamModel = new() {
+                                                    Num         = 1,
+                                                    SectionType = "方管",
+                                                    Material    = "Q355"
+                                                };
+
+    [ObservableProperty]
     private List<string> _sectionMaterial = [
                                                 "Q235",
                                                 "Q355",
@@ -51,8 +60,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private int _filterTextIndex;
 
     private readonly MapperConfiguration _postModelConfig = new(cfg => cfg.CreateMap<PostModel, PostModel>());
+    private readonly MapperConfiguration _beamModelConfig = new(cfg => cfg.CreateMap<BeamModel, BeamModel>());
 
     private IMapper PostInfoMapper => _postModelConfig.CreateMapper();
+    private IMapper BeamInfoMapper => _beamModelConfig.CreateMapper();
 
     // 点击时是选取一行函数单个单元格
     [ObservableProperty]
@@ -66,21 +77,38 @@ public partial class SpanInfoViewModel : ViewModelBase {
         PostInfos    = [];
         BeamInfos    = [];
         TrackerModel = TrackerApp.Current.TrackerModel;
-        // 初始化立柱信息
         if (TrackerModel?.PostList == null)
             return;
+        // 初始化立柱信息
         foreach (var postModel in TrackerModel.PostList) {
             PostInfos.Add(new PostInfo(postModel));
             PostInfos.Last().SpanChanged += OnPostSpanChanged;
         }
 
-        PostInfos.CollectionChanged += (_, e) => { OnPostInfosListChanged(e); };
+        PostInfos.CollectionChanged += OnPostInfosListChanged;
+        // 初始化主梁信息
+        if (TrackerModel?.BeamList == null)
+            return;
+        foreach (var beamModel in TrackerModel.BeamList) {
+            BeamInfos.Add(new BeamInfo(beamModel));
+        }
+
+        BeamInfos.CollectionChanged += OnBeamInfosListChanged;
+    }
+
+#endregion
+
+#region 通用Relaycommand
+
+    [RelayCommand]
+    private void SwitchDetailVisible(ITrackerItemInfo currentInfo) {
+        currentInfo.IsDetailsVisible = !currentInfo.IsDetailsVisible;
     }
 
 #endregion
 
 
-#region RelayCommand
+#region 操作立柱表格的Relaycommand
 
     [RelayCommand]
     private void AddPostAtLast() {
@@ -100,9 +128,26 @@ public partial class SpanInfoViewModel : ViewModelBase {
         TrackerModel!.PostList!.RemoveAt(currentPostInfo.Num - 1);
     }
 
+#endregion
+
+#region 操作主梁表格的Relaycommand
+
     [RelayCommand]
-    private void SwitchDetailVisible(PostInfo currentPostInfo) {
-        currentPostInfo.IsDetailsVisible = !currentPostInfo.IsDetailsVisible;
+    private void AddBeamAtLast() {
+        var insertBeamModel = BeamInfoMapper.Map<BeamModel, BeamModel>(DefaultBeamModel);
+        InsertBeamInfo(BeamInfos!.Count, insertBeamModel);
+    }
+
+    [RelayCommand]
+    private void AddBeam(BeamInfo currentBeamInfo) {
+        var insertBeam = BeamInfoMapper.Map<BeamModel, BeamModel>(currentBeamInfo.BeamModel);
+        InsertBeamInfo(currentBeamInfo.Num, insertBeam);
+    }
+
+    [RelayCommand]
+    private void DeleteBeam(BeamInfo currentBeamInfo) {
+        BeamInfos?.Remove(currentBeamInfo);
+        TrackerModel!.BeamList!.RemoveAt(currentBeamInfo.Num - 1);
     }
 
 #endregion
@@ -120,11 +165,19 @@ public partial class SpanInfoViewModel : ViewModelBase {
     //        PostInfos.ForEach(postInfo => postInfo.IsSelected = !postInfo.IsDrive);
     //}
 
-    private void InsertPostInfo(int index, PostModel postModel) {
+    private void InsertPostInfo(int       index,
+                                PostModel postModel) {
         TrackerModel!.PostList!.Insert(index, postModel);
         var postInfo = new PostInfo(postModel);
         postInfo.SpanChanged += OnPostSpanChanged;
         PostInfos?.Insert(index, postInfo);
+    }
+
+    private void InsertBeamInfo(int       index,
+                                BeamModel beamModel) {
+        TrackerModel!.BeamList!.Insert(index, beamModel);
+        var beamInfo = new BeamInfo(beamModel);
+        BeamInfos?.Insert(index, beamInfo);
     }
 
     private void SortPostNum() {
@@ -135,7 +188,17 @@ public partial class SpanInfoViewModel : ViewModelBase {
         }
     }
 
-    private void OnPostSpanChanged(object sender, EventArgs e) {
+    private void SortBeamNum() {
+        if (BeamInfos!.Count <= 0)
+            return;
+        for (var i = 0; i < BeamInfos!.Count; i++) {
+            BeamInfos[i].Num = i + 1;
+        }
+    }
+
+
+    private void OnPostSpanChanged(object    sender,
+                                   EventArgs e) {
         MessageBox.Show("立柱跨距发生变化");
         if (PostInfos!.Count <= 1)
             return; // 只有一个立柱时无需更新跨距
@@ -157,8 +220,15 @@ public partial class SpanInfoViewModel : ViewModelBase {
     }
 
     //处理立柱发生变化
-    private void OnPostInfosListChanged(NotifyCollectionChangedEventArgs e) {
+    private void OnPostInfosListChanged(object                           sender,
+                                        NotifyCollectionChangedEventArgs e) {
         SortPostNum();
+    }
+
+    // 处理主梁发生变化
+    private void OnBeamInfosListChanged(object                           sender,
+                                        NotifyCollectionChangedEventArgs e) {
+        SortBeamNum();
     }
 
 #endregion

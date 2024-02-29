@@ -31,6 +31,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Services\Implement\" />
+	  <Folder Include="Messages\" />
 	</ItemGroup>
 
 </Project>

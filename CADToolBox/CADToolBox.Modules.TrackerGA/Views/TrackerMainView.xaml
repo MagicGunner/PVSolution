@@ -44,7 +44,7 @@
                                 Width="50"
                                 Height="50"
                                 Margin="0,20,0,5"
-                                Source="../Images/Wu.png">
+                                Source="pack://application:,,,/CADToolBox.Resource;component/Images/En.png">
                                 <Image.Clip>
                                     <EllipseGeometry
                                         Center="25,25"
