@@ -17,4 +17,6 @@ public class PostModel {
     public double  PileWidth      { get; set; } // 基础宽度
     public double  LeftSpan       { get; set; } // 左侧跨距
     public double  RightSpan      { get; set; } // 右侧跨距
+
+    public double X { get; set; } // 立柱相对于组件最左侧坐标
 }

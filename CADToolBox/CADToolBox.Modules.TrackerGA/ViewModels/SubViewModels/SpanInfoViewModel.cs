@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using AutoMapper;
+using CADToolBox.Modules.TrackerGA.Messages;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using CADToolBox.Shared.Models.CADModels.Implement;
 using CADToolBox.Shared.Models.UIModels.Implement;
@@ -74,6 +75,15 @@ public partial class SpanInfoViewModel : ViewModelBase {
 #region 构造方法
 
     public SpanInfoViewModel() {
+        WeakReferenceMessenger.Default.Register<WindowSizeChangedMessage>(this, (obj,
+                                                                              message) => {
+                                                                              CanvasHeight = message.CanvasHeight;
+                                                                              CanvasWidth  = message.CanvasWidth;
+                                                                          });
+        PostLines = [
+                        new CanvasLine(100, 0, 100, 100),
+                        new CanvasLine(500, 0, 500, 100)
+                    ];
         PostInfos    = [];
         BeamInfos    = [];
         TrackerModel = TrackerApp.Current.TrackerModel;
@@ -229,6 +239,20 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private void OnBeamInfosListChanged(object                           sender,
                                         NotifyCollectionChangedEventArgs e) {
         SortBeamNum();
+    }
+
+#endregion
+
+#region 画图用
+
+    public double CanvasHeight { get; private set; }
+
+    public double CanvasWidth { get; private set; }
+
+    [ObservableProperty]
+    private ObservableCollection<CanvasLine> _postLines;
+
+    private void Draw() {
     }
 
 #endregion

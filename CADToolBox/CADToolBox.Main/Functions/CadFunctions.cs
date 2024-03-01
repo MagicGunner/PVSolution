@@ -1,4 +1,7 @@
-﻿using System.Net;
+﻿using System.Globalization;
+using CADToolBox.Resource.NameDictionarys;
+using CADToolBox.Shared.Models.CADModels.Implement;
+using System.Net;
 using System.Windows.Documents;
 
 namespace CADToolBox.Main.Functions;
@@ -436,7 +439,104 @@ public static class CadFunctions {
 
 #region 跟踪支架GA辅助
 
-    public static void WriteToInput() {
+    private static Dictionary<string, string> GetAttrDic(TrackerModel trackerModel) {
+        var properties = typeof(TrackerModel).GetProperties();
+        var attrDic = properties.Where(propertyInfo => CadNameDictionarys.AttrNameDic.ContainsKey(propertyInfo.Name))
+                                .ToDictionary(propertyInfo => CadNameDictionarys.AttrNameDic[propertyInfo.Name],
+                                              propertyInfo => propertyInfo.GetValue(trackerModel).ToString());
+        // 将立柱信息填入动态块
+        attrDic.Add("立柱序号", "");
+        attrDic.Add("立柱类型", "");
+        attrDic.Add("立柱截面类型", "");
+        attrDic.Add("立柱截面规格", "");
+        attrDic.Add("立柱截面材质", "");
+        attrDic.Add("左侧跨距", "");
+        attrDic.Add("右侧跨距", "");
+        attrDic.Add("左侧开断", "");
+        attrDic.Add("右侧开断", "");
+        attrDic.Add("基础露头", "");
+        attrDic.Add("基础埋深", "");
+        var postList = trackerModel.PostList;
+        // 立柱序号
+        if (postList != null) {
+            for (var i = 0; i < postList.Count; i++) {
+                attrDic["立柱序号"]   += postList[i].Num;
+                attrDic["立柱类型"]   += postList[i].IsDrive ? "驱动立柱" : "普通立柱";
+                attrDic["立柱截面类型"] += postList[i].SectionType;
+                attrDic["立柱截面规格"] += postList[i].Section;
+                attrDic["立柱截面材质"] += postList[i].Material;
+                attrDic["左侧跨距"]   += postList[i].LeftSpan;
+                attrDic["右侧跨距"]   += postList[i].RightSpan;
+                attrDic["左侧开断"]   += postList[i].LeftToBeam;
+                attrDic["右侧开断"]   += postList[i].RightToBeam;
+                attrDic["基础露头"]   += postList[i].PileUpGround;
+                attrDic["基础埋深"]   += postList[i].PileDownGround;
+                if (i == postList.Count - 1)
+                    continue;
+                attrDic["立柱序号"]   += "\\P";
+                attrDic["立柱类型"]   += "\\P";
+                attrDic["立柱截面类型"] += "\\P";
+                attrDic["立柱截面规格"] += "\\P";
+                attrDic["立柱截面材质"] += "\\P";
+                attrDic["左侧跨距"]   += "\\P";
+                attrDic["右侧跨距"]   += "\\P";
+                attrDic["左侧开断"]   += "\\P";
+                attrDic["右侧开断"]   += "\\P";
+                attrDic["基础露头"]   += "\\P";
+                attrDic["基础埋深"]   += "\\P";
+            }
+        }
+
+        var beamList = trackerModel.BeamList;
+        attrDic.Add("主梁序号", "");
+        attrDic.Add("主梁截面类型", "");
+        attrDic.Add("主梁截面规格", "");
+        attrDic.Add("主梁截面材质", "");
+        attrDic.Add("分段长度", "");
+        if (beamList != null) {
+            for (var i = 0; i < beamList.Count; i++) {
+                attrDic["主梁序号"]   += beamList[i].Num;
+                attrDic["主梁截面类型"] += beamList[i].SectionType;
+                attrDic["主梁截面规格"] += beamList[i].Section;
+                attrDic["主梁截面材质"] += beamList[i].Material;
+                attrDic["分段长度"]   += beamList[i].Length;
+                if (i == beamList.Count - 1)
+                    continue;
+                attrDic["主梁序号"]   += "\\P";
+                attrDic["主梁截面类型"] += "\\P";
+                attrDic["主梁截面规格"] += "\\P";
+                attrDic["主梁截面材质"] += "\\P";
+                attrDic["分段长度"]   += "\\P";
+            }
+        }
+
+
+        return attrDic;
+    }
+
+    public static void WriteToInput(DBTrans      trans,
+                                    Point3d      insertPoint,
+                                    TrackerModel trackerModel,
+                                    Scale3d      scale,
+                                    double       rotation,
+                                    string       blockName) {
+        if (!trans.BlockTable.Has(blockName)) return;
+        trans.CurrentSpace.InsertBlock(insertPoint, blockName, scale, rotation, GetAttrDic(trackerModel));
+    }
+
+    public static void SaveToInput(DBTrans        trans,
+                                   BlockReference blockReference,
+                                   TrackerModel   trackerModel) {
+        var insertPoint = blockReference.Position;
+        var scale       = blockReference.ScaleFactors;
+        var rotation    = blockReference.Rotation;
+        var blockName   = blockReference.BlockTableRecord;
+        blockReference.ObjectId.Erase();
+        WriteToInput(trans, insertPoint, trackerModel, scale, rotation, blockReference.Name);
+    }
+
+    public static void GetTrackerGA(DBTrans      trans,
+                                    TrackerModel trackerModel) {
     }
 
 #endregion

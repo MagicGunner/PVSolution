@@ -51,6 +51,12 @@
             Text="{Binding TrackerModel.ProjectName}" />
         <ScrollViewer Grid.Row="1" Grid.Column="0">
             <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource InputPropName}" Text="系统总长:" />
+                        <TextBox Style="{StaticResource InputPropValue}" Text="{Binding TrackerModel.SystemLength, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
                 <StackPanel Margin="5,5" Orientation="Vertical">
                     <StackPanel.Resources>
                         <Style

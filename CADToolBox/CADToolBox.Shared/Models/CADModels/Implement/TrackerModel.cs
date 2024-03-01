@@ -21,12 +21,14 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     private double _moduleHeight;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _moduleWidth;
 
     [ObservableProperty]
     private double _moduleGapChord;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _moduleGapAxis;
 
     [ObservableProperty]
@@ -61,6 +63,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     private int _moduleRowCounter; // 组件排数
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private int _moduleColCounter; // 组件列数
 
     [ObservableProperty]
@@ -82,16 +85,23 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     private double _postWidth; // 立柱宽度
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _driveGap; // 驱动间隙
 
     [ObservableProperty]
     private double _beamGap; // 主梁间隙
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _leftRemind; // 左侧末端余量
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _rightRemind; // 右侧末端余量
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(SystemLength))]
+    private double _driveNum; // 驱动立柱的数量
 
 #endregion
 
@@ -100,13 +110,54 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     public List<PostModel>? PostList { get; set; }
     public List<BeamModel>? BeamList { get; set; }
 
+
+    public double SystemLength =>
+        ModuleColCounter * ModuleWidth                              + (ModuleColCounter - 1) * ModuleGapAxis +
+        (DriveGap == 0 ? 0 : DriveNum * (DriveGap - ModuleGapAxis)) + LeftRemind + RightRemind;
+
+#endregion
+
+#region 计算干涉需要用到的方法，当立柱或主梁数量长度发生改变时需要通知
+
+    // 当立柱数组发生改变时
+    private void OnPostListChanged() {
+        OnPropertyChanged(nameof(DriveNum));
+        OnPropertyChanged(nameof(DriveGap));
+    }
+
+    // 当主梁数组发生改变时
+    private void OnBeamListChanged() {
+    }
+
 #endregion
 
 #region 构造函数
 
-    //public TrackerModel(double moduleLength) {
-    //    ModuleLength = moduleLength;
-    //}
+    public TrackerModel() {
+        ProjectName = "跟踪支架GA图";
+    }
+
+#endregion
+
+#region 绘图辅助
+
+    public void SortPostX() {
+        if (PostList == null) return;
+        PostList[0].X = PostList[0].LeftSpan;
+        for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].X = PostList[i - 1].X;
+        }
+    }
+
+    public void SortBeamX() {
+        if (BeamList == null) return;
+        BeamList[0].StartX = -LeftRemind;
+        BeamList[0].EndX   = -RightRemind + BeamList[0].Length;
+        for (var i = 0; i < BeamList.Count; i++) {
+            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
+            BeamList[i].EndX   = BeamList[i].StartX   + BeamList[i].Length;
+        }
+    }
 
 #endregion
 }

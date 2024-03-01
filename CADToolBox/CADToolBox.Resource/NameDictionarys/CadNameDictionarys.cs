@@ -28,7 +28,7 @@ public static class CadNameDictionarys {
                                                          { "BeamGap", "主梁间隙" },
                                                          { "BeamRadio", "主梁上下比值" },
                                                          { "BeamCenterToDrivePost", "旋转中心至驱动立柱顶面距离" },
-                                                         { "BeamCenterToGeneralPost", "旋转中心至驱动立柱顶面距离" },
+                                                         { "BeamCenterToGeneralPost", "旋转中心至普通立柱顶面距离" },
                                                          { "LeftRemind", "左侧末端余量" },
                                                          { "RightRemind", "右侧末端余量" },
                                                          { "PostWidth", "立柱截面高度" },

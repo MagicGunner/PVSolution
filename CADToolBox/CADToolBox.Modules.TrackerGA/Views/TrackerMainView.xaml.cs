@@ -15,11 +15,12 @@ namespace CADToolBox.Modules.TrackerGA.Views {
                                                                               });
 
 
-            BtnMin.Click += (s, e) => WindowState = WindowState.Minimized;
-            BtnMax.Click
-                += (s, e) => WindowState = WindowState == WindowState.Maximized
-                                               ? WindowState.Normal
-                                               : WindowState.Maximized;
+            BtnMin.Click += (s,
+                             e) => WindowState = WindowState.Minimized;
+            BtnMax.Click += (s,
+                             e) => WindowState = WindowState == WindowState.Maximized
+                                                     ? WindowState.Normal
+                                                     : WindowState.Maximized;
 
             BtnClose.Click += (s,
                                e) => {

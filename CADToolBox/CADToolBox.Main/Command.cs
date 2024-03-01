@@ -24,11 +24,8 @@ public class Command {
         var pPointOpts  = new PromptPointOptions("\n请选择插入点");
         var insertPoint = ed.GetPoint(pPointOpts).Value;
         var trans       = new DBTrans();
-        if (trans.BlockTable.Has("00-linsum-国标输入")) {
-            var btr  = trans.GetObject(trans.BlockTable["00-linsum-国标输入"]);
-            var btrr = new BlockReference(insertPoint, btr.ObjectId);
-            trans.CurrentSpace.AddEntity(btrr);
-        }
+        var pEntityOpts = new PromptEntityOptions("\n请选择信息块");
+        var pEntityRes  = ed.GetEntity(pEntityOpts);
     }
 
 #endregion
@@ -36,19 +33,19 @@ public class Command {
 
 #region 跟踪支架GA图辅助截面
 
-    [CommandMethod(nameof(TestWpf))]
-    public void TestWpf() {
+    [CommandMethod(nameof(TrackerGA))]
+    public void TrackerGA() {
         var       trackerModel = new TrackerModel();
         var       currentDoc   = Acaop.DocumentManager.MdiActiveDocument;
         var       ed           = currentDoc.Editor;
         using var trans        = new DBTrans();
 
-        var promptEntityOptions = new PromptEntityOptions("\n请选择设计输入增强属性块") { AllowNone = true };
-        promptEntityOptions.Keywords.Add("新建(N)", "N", "新建(N)");
-        var promptEntityResult = ed.GetEntity(promptEntityOptions);
-        switch (promptEntityResult.Status) {
+        var pEntityOpts = new PromptEntityOptions("\n请选择设计输入增强属性块") { AllowNone = true };
+        pEntityOpts.Keywords.Add("新建(N)", "N", "新建(N)");
+        var pEntityRes = ed.GetEntity(pEntityOpts);
+        switch (pEntityRes.Status) {
             case PromptStatus.Keyword: {
-                if (promptEntityResult.StringResult == "新建(N)") { // 新建项目的情况
+                if (pEntityRes.StringResult == "新建(N)") { // 新建项目的情况
                     trackerModel = new TrackerModel();
                     var initPostList = new List<PostModel> {
                                                                new() { Num = 1 },
@@ -65,8 +62,8 @@ public class Command {
                 break;
             }
             case PromptStatus.OK: {
-                if (promptEntityResult.ObjectId == ObjectId.Null) return;
-                var projectData = trans.GetObject(promptEntityResult.ObjectId) as BlockReference;
+                if (pEntityRes.ObjectId == ObjectId.Null) return;
+                var projectData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
                 if (projectData == null || projectData.Name != "00-linsum-国标输入")
                     return;
 
@@ -175,18 +172,25 @@ public class Command {
                     return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        if (trans.BlockTable.Has("00-linsum-国标输入")) {
-                            var insertPoint = ed.GetPoint(pPointOpts).Value;
-                        }
 
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0,
+                                                  "00-linsum-国标输入");
                         break;
                     case "N":
-                        MessageBox.Show("保存至原来项目");
+                        pEntityOpts = new PromptEntityOptions("\n请选择现有的信息输入块");
+                        pEntityRes  = ed.GetEntity(pEntityOpts);
+                        if (pEntityRes.Status == PromptStatus.OK) {
+                            var inputData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
+                            if (inputData != null) CadFunctions.SaveToInput(trans, inputData, trackerModel);
+                        }
+
                         break;
                 }
 
                 break;
             case 1: // 仅绘图
+                var insertPoint = ed.GetPoint(pPointOpts);
+                // 绘图代码********************************************************************
                 MessageBox.Show("点击了仅绘图");
                 break;
             case 2: // 保存并绘图
@@ -198,10 +202,20 @@ public class Command {
                     return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        MessageBox.Show("新建项目");
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0,
+                                                  "00-linsum-国标输入");
+                        // 绘图代码********************************************************************
                         break;
                     case "N":
-                        MessageBox.Show("保存至原来项目");
+                        pEntityOpts = new PromptEntityOptions("\n请选择现有的信息输入块");
+                        pEntityRes  = ed.GetEntity(pEntityOpts);
+                        if (pEntityRes.Status == PromptStatus.OK) {
+                            var inputData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
+                            if (inputData != null)
+                                CadFunctions.SaveToInput(trans, inputData, trackerModel);
+                        }
+                        // 绘图代码********************************************************************
+
                         break;
                 }
 

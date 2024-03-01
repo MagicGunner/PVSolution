@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CADToolBox.Modules.TrackerGA.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace CADToolBox.Modules.TrackerGA.Views.SubViews {
     /// <summary>
@@ -20,6 +22,12 @@ namespace CADToolBox.Modules.TrackerGA.Views.SubViews {
     public partial class SpanInfoView : UserControl {
         public SpanInfoView() {
             InitializeComponent();
+        }
+
+        private void SpanInfoView_OnSizeChanged(object               sender,
+                                                SizeChangedEventArgs e) {
+            WeakReferenceMessenger.Default.Send(new WindowSizeChangedMessage(DrawingCanvas.ActualWidth,
+                                                                             DrawingCanvas.ActualHeight));
         }
     }
 }

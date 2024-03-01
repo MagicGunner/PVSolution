@@ -8,4 +8,7 @@ public class BeamModel {
     public double  LeftToPre   { get; set; } // 与上一个主梁距离
     public double  RightToNext { get; set; } // 与下一个主梁距离
     public double  Length      { get; set; } // 主梁长度
+
+    public double StartX { get; set; } // 主梁当前段左侧相对于组件最左侧坐标
+    public double EndX   { get; set; } // 主梁当前段右侧相对于组件最左侧坐标
 }
