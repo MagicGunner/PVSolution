@@ -122,7 +122,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     public List<PostModel>? PostList { get; set; }
     public List<BeamModel>? BeamList { get; set; }
 
-    public List<double> PurlinXList { get; set; } = [];
+    public List<PurlinModel>? PurlinList { get; set; }
 
     // 驱动立柱数目
     public int DriveNum => PostList?.Count(post => post.IsDrive) ?? 0;
@@ -153,6 +153,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         OnPropertyChanged(nameof(DriveNum));
         OnPropertyChanged(nameof(SystemLength));
 
+        SortPostX();
         SortBeamX();
     }
 
@@ -169,6 +170,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 #region 绘图辅助
 
     // 更新立柱中心线坐标
+    // !!!!!!!!!!!!有驱动间隙时需要考虑檩条的坐标变化
     public void SortPostX() {
         if (PostList == null) return;
         PostList[0].X = PostList[0].LeftSpan;
@@ -176,6 +178,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     }
 
     // 更新主梁两端点坐标
+    // !!!!!!!!!增加主梁间隙与立柱处的开断
     public void SortBeamX() {
         if (BeamList == null) return;
 
@@ -188,11 +191,30 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
             var endX = Math.Min(startX + BeamList[i].Length, SystemLength);
             BeamList[i].StartX = startX;
             BeamList[i].EndX   = endX;
+            BeamList[i].Length = endX - startX;
         }
     }
 
+    // 更新檩条坐标
+    public void InitPurlin() {
+        PurlinList = new List<PurlinModel> {
+                                               Capacity = 0
+                                           };
+        var x = -ModuleGapAxis / 2;
+        PurlinList.Add(new PurlinModel(x, -1)); // 最左侧檩条
+        for (var i = 0; i < ModuleColCounter - 1; i++) {
+            x += ModuleWidth + ModuleGapAxis;
+            PurlinList.Add(new PurlinModel(x, 0));
+        }
+
+        x += ModuleWidth + ModuleGapAxis;
+        PurlinList.Add(new PurlinModel(x, 1)); // 最右侧檩条
+    }
+
+    // 初始化
     // 出图前的初始化
     public void InitBeforeDraw() {
+        InitPurlin();
         SortPostX();
         SortBeamX();
     }

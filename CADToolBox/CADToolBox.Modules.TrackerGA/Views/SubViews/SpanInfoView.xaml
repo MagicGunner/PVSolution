@@ -96,6 +96,25 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <!--  组件绘图  -->
+            <ItemsControl ItemsSource="{Binding ModuleLines}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line
+                            Stroke="Blue"
+                            StrokeThickness="4"
+                            X1="{Binding X1}"
+                            X2="{Binding X2}"
+                            Y1="{Binding Y1}"
+                            Y2="{Binding Y2}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas>
         <TabControl
             Grid.Row="1"

@@ -103,6 +103,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
             BeamInfos.Last().LengthChanged += OnBeamLengthChanged;
         }
 
+
+        TrackerModel.InitPurlin(); // 后续要考虑换位置**************************************
+
+
         BeamInfos.CollectionChanged += OnBeamInfosListChanged;
     }
 
@@ -239,7 +243,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         PostInfos[modifiedPostIndex + 1].SpanChanged += OnPostSpanChanged;
 
         // 跨距发生改变需要更新坐标与图形
-        TrackerModel!.SortPostX();
+        TrackerModel!.OnPostListChanged();
         Draw();
     }
 
@@ -266,7 +270,6 @@ public partial class SpanInfoViewModel : ViewModelBase {
         // 立柱数量发生改变需要更新图形
         TrackerModel!.OnPostListChanged(); // 更新驱动立柱数量等
 
-        TrackerModel!.SortPostX(); // 更新立柱中心线坐标
         Draw();
     }
 
@@ -292,6 +295,9 @@ public partial class SpanInfoViewModel : ViewModelBase {
     [ObservableProperty]
     private ObservableCollection<CanvasBeamLine> _beamLines = [];
 
+    [ObservableProperty]
+    private ObservableCollection<CanvasModuleLine> _moduleLines = [];
+
     private void Draw() {
         var maxY = TrackerModel!.BeamCenterToGround
                  + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio)
@@ -304,6 +310,8 @@ public partial class SpanInfoViewModel : ViewModelBase {
                          : 0.95
                          * CanvasHeight
                          / maxY;
+
+
         // 画立柱部分
         if (PostInfos != null) {
             PostLines = [];
@@ -327,6 +335,24 @@ public partial class SpanInfoViewModel : ViewModelBase {
                                                  CanvasHeight - TrackerModel.BeamCenterToGround * scaleY,
                                                  (BeamInfos[i].EndX + TrackerModel.LeftRemind) * scaleX,
                                                  CanvasHeight - TrackerModel.BeamCenterToGround * scaleY));
+            }
+        }
+
+        // 画组件部分
+        if (TrackerModel!.PurlinList != null) {
+            ModuleLines = [];
+            var moduleY = TrackerModel.BeamCenterToGround
+                        + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio)
+                        + TrackerModel.PurlinHeight;
+            for (var i = 0; i < TrackerModel.PurlinList.Count - 1; i++) {
+                var leftPurlin  = TrackerModel.PurlinList[i];
+                var rightPurlin = TrackerModel.PurlinList[i + 1];
+                if (rightPurlin.Type == -1) continue; // 右侧檩条为左檩条跳出循环
+
+                ModuleLines.Add(new CanvasModuleLine((leftPurlin.X + TrackerModel.ModuleGapAxis / 2) * scaleX,
+                                                     CanvasHeight - moduleY * scaleY,
+                                                     (rightPurlin.X - TrackerModel.ModuleGapAxis / 2) * scaleX,
+                                                     CanvasHeight - moduleY * scaleY));
             }
         }
     }
