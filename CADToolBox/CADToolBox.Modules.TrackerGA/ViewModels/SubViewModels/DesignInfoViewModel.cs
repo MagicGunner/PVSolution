@@ -74,8 +74,9 @@ public partial class DesignInfoViewModel : ViewModelBase {
         maxAngle  *= Math.PI / 180;
 
         var beamHeightUp = beamHeight * beamRadio / (beamRadio + 1);
-        var beamCenterToGround = minGroundDist + chord / 2 * Math.Sin(maxAngle) -
-                                 (beamHeightUp + purlinHeight) * Math.Cos(maxAngle);
+        var beamCenterToGround = minGroundDist
+                               + chord / 2 * Math.Sin(maxAngle)
+                               - (beamHeightUp + purlinHeight) * Math.Cos(maxAngle);
 
         var maxHeight = minGroundDist + chord * Math.Sin(maxAngle) + moduleHeight * Math.Cos(maxAngle);
 

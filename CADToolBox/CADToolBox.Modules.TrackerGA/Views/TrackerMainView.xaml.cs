@@ -9,10 +9,11 @@ namespace CADToolBox.Modules.TrackerGA.Views {
     public partial class TrackerMainView : Window {
         public TrackerMainView() {
             InitializeComponent();
-            WeakReferenceMessenger.Default.Register<WindowCloseMessage>(this, (s,
-                                                                               e) => {
-                                                                                  Close();
-                                                                              });
+            WeakReferenceMessenger.Default.Register<WindowCloseMessage>(this,
+                                                                        (s,
+                                                                         e) => {
+                                                                            Close();
+                                                                        });
 
 
             BtnMin.Click += (s,

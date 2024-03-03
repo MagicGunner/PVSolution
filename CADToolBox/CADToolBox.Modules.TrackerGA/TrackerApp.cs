@@ -23,12 +23,10 @@ public class TrackerApp {
     public static TrackerApp Current {
         get {
             // 第一次检查，如果实例不存在，则进入锁定区域
-            if (_current != null)
-                return _current;
+            if (_current != null) return _current;
             lock (Lock) {
                 // 第二次检查，确保只有一个线程创建实例
-                if (_current != null)
-                    return _current;
+                if (_current != null) return _current;
                 _current = new TrackerApp();
             }
 

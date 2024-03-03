@@ -24,6 +24,7 @@ namespace CADToolBox.Modules.TrackerGA.Views.SubViews {
             InitializeComponent();
         }
 
+        // 当前窗口大小发生改变时通知5
         private void SpanInfoView_OnSizeChanged(object               sender,
                                                 SizeChangedEventArgs e) {
             WeakReferenceMessenger.Default.Send(new WindowSizeChangedMessage(DrawingCanvas.ActualWidth,

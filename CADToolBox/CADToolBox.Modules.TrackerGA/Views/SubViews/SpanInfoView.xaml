@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:CADToolBox.Modules.TrackerGA.Views.SubViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -26,20 +27,75 @@
         <Canvas
             Name="DrawingCanvas"
             Grid.Row="0"
-            Background="CornflowerBlue">
-            <ListBox Name="DisplayListBox" ItemsSource="{Binding PostLines}">
-                <ListBox.ItemTemplate>
+            Background="Transparent">
+            <!--  立柱绘图  -->
+            <ItemsControl ItemsSource="{Binding PostLines}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Line
-                            Stroke="Black"
-                            StrokeThickness="2"
                             X1="{Binding X1}"
                             X2="{Binding X2}"
                             Y1="{Binding Y1}"
-                            Y2="{Binding Y2}" />
+                            Y2="{Binding Y2}">
+                            <Line.Style>
+                                <Style TargetType="Line">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDrive}" Value="True">
+                                            <Setter Property="Stroke" Value="Red" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsDrive}" Value="False">
+                                            <Setter Property="Stroke" Value="Black" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="Stroke" Value="BlueViolet" />
+                                            <Setter Property="StrokeThickness" Value="10" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="StrokeThickness" Value="5" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Line.Style>
+                        </Line>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!--  主梁绘图  -->
+            <ItemsControl ItemsSource="{Binding BeamLines}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Line
+                            Stroke="{Binding Color}"
+                            X1="{Binding X1}"
+                            X2="{Binding X2}"
+                            Y1="{Binding Y1}"
+                            Y2="{Binding Y2}">
+                            <Line.Style>
+                                <Style TargetType="Line">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="StrokeThickness" Value="10" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property="StrokeThickness" Value="5" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Line.Style>
+                        </Line>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Canvas>
         <TabControl
             Grid.Row="1"
@@ -64,6 +120,11 @@
                         HeadersVisibility="Column"
                         ItemsSource="{Binding PostInfos}"
                         Style="{StaticResource NumDataGrid}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding PostInfoSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItems}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <!--  表格行样式  -->
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
@@ -245,6 +306,11 @@
                     HeadersVisibility="Column"
                     ItemsSource="{Binding BeamInfos}"
                     Style="{StaticResource NumDataGrid}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding BeamInfoSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItems}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                     <!--  表格行样式  -->
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
@@ -277,7 +343,7 @@
                     <!--  每列数据展示  -->
                     <DataGrid.Columns>
                         <!--  第一列，当前主梁是否被选中  -->
-                        <DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--<DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />-->
                         <!--  第三列，当前主梁序号  -->
                         <DataGridTextColumn
                             Binding="{Binding Num}"

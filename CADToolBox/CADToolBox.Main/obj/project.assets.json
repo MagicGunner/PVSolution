@@ -897,6 +897,38 @@
           }
         }
       },
+      "ValueConverters/3.0.26": {
+        "type": "package",
+        "dependencies": {
+          "ValueConverters.Annotations": "3.0.26"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.ComponentModel.DataAnnotations",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "ValueConverters.Annotations/3.0.26": {
+        "type": "package",
+        "compile": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        }
+      },
       "CADToolBox.Modules.TrackerGA/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
@@ -907,7 +939,8 @@
           "CommunityToolkit.Mvvm": "8.2.2",
           "HandyControl": "3.5.0",
           "MaterialDesignThemes": "4.9.0",
-          "Microsoft.Extensions.DependencyInjection": "8.0.0"
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "ValueConverters": "3.0.26"
         },
         "compile": {
           "bin/placeholder/CADToolBox.Modules.TrackerGA.dll": {}
@@ -1679,6 +1712,43 @@
         "version.txt"
       ]
     },
+    "ValueConverters/3.0.26": {
+      "sha512": "h9svVQ90+l31MxQXVv9tFjdG8Rr5bke96C5p3toQY1ZxwVL/tK56rBsxZe3ui2Y3g06Yxk11at6WK0sbIFjL9w==",
+      "type": "package",
+      "path": "valueconverters/3.0.26",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net48/ValueConverters.dll",
+        "lib/net48/ValueConverters.pdb",
+        "lib/net48/ValueConverters.xml",
+        "lib/net5.0-windows7/ValueConverters.dll",
+        "lib/net5.0-windows7/ValueConverters.pdb",
+        "lib/net5.0-windows7/ValueConverters.xml",
+        "lib/uap10.0/ValueConverters.dll",
+        "lib/uap10.0/ValueConverters.pdb",
+        "lib/uap10.0/ValueConverters.xml",
+        "valueconverters.3.0.26.nupkg.sha512",
+        "valueconverters.nuspec"
+      ]
+    },
+    "ValueConverters.Annotations/3.0.26": {
+      "sha512": "1WJVTOI6q66230SNbioRBf15lkVjqZ9v+G1hHLjhefYsgndoy81bkPm9iUBYTY7SRTT66B9sulqxEXWk/EJh/g==",
+      "type": "package",
+      "path": "valueconverters.annotations/3.0.26",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net48/ValueConverters.Annotations.dll",
+        "lib/netstandard1.0/ValueConverters.Annotations.dll",
+        "lib/netstandard1.4/ValueConverters.Annotations.dll",
+        "lib/netstandard1.6/ValueConverters.Annotations.dll",
+        "lib/netstandard2.0/ValueConverters.Annotations.dll",
+        "valueconverters.annotations.3.0.26.nupkg.sha512",
+        "valueconverters.annotations.nuspec"
+      ]
+    },
     "CADToolBox.Modules.TrackerGA/1.0.0": {
       "type": "project",
       "path": "../CADToolBox.Modules.TrackerGA/CADToolBox.Modules.TrackerGA.csproj",
@@ -1704,7 +1774,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JinNan\\.nuget\\packages\\": {},
+    "C:\\Users\\29016\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -1713,14 +1783,14 @@
       "projectUniqueName": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Main\\CADToolBox.Main.csproj",
       "projectName": "CADToolBox.Main",
       "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Main\\CADToolBox.Main.csproj",
-      "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
       "outputPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Main\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1729,6 +1799,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1769,7 +1840,7 @@
             "version": "[0.7.1, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
