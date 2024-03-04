@@ -8,6 +8,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
+/// <summary>
+/// 所有坐标的起点都是以组件的最左端
+/// </summary>
 public partial class TrackerModel : ObservableObject, IPvSupport {
     public int Status { get; set; } // 当前绘图状态，0代表仅保存，1代表保存并绘图
 
@@ -124,25 +127,22 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 
     public List<PurlinModel>? PurlinList { get; set; }
 
+
     // 驱动立柱数目
     public int DriveNum => PostList?.Count(post => post.IsDrive) ?? 0;
 
     // 系统总长
     public double SystemLength =>
-        ModuleColCounter       * ModuleWidth
-      + (ModuleColCounter - 1) * ModuleGapAxis
-      + (DriveGap == 0 ? 0 : DriveNum * (DriveGap - ModuleGapAxis))
-      + LeftRemind
-      + RightRemind;
+        ModuleColCounter * ModuleWidth                              + (ModuleColCounter - 1) * ModuleGapAxis +
+        (DriveGap == 0 ? 0 : DriveNum * (DriveGap - ModuleGapAxis)) + LeftRemind + RightRemind;
 
     // 弦长
     public double Chord => ModuleRowCounter * ModuleLength + (ModuleRowCounter - 1) * ModuleGapChord;
 
     // 旋转中心离地距离
     public double BeamCenterToGround =>
-        MinGroundDist
-      + 0.5 * Chord * Math.Sin(Math.PI * MaxAngle / 180)
-      - (PurlinHeight + BeamHeight * (1 + BeamRadio)) * Math.Cos(Math.PI * MaxAngle / 180);
+        MinGroundDist + 0.5 * Chord * Math.Sin(Math.PI * MaxAngle        / 180) -
+        (PurlinHeight + BeamHeight * (1 + BeamRadio)) * Math.Cos(Math.PI * MaxAngle / 180);
 
 #endregion
 
@@ -153,8 +153,8 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         OnPropertyChanged(nameof(DriveNum));
         OnPropertyChanged(nameof(SystemLength));
 
-        SortPostX();
-        SortBeamX();
+        SortPost();
+        SortBeam();
     }
 
 #endregion
@@ -170,36 +170,51 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 #region 绘图辅助
 
     // 更新立柱中心线坐标
-    // !!!!!!!!!!!!有驱动间隙时需要考虑檩条的坐标变化
-    public void SortPostX() {
+    // !!!!!!!!!!!!有驱动间隙时需要考虑檩条和主梁的坐标变化
+    public void SortPost() {
         if (PostList == null) return;
         PostList[0].X = PostList[0].LeftSpan;
-        for (var i = 1; i < PostList.Count; i++) { PostList[i].X = PostList[i - 1].X + PostList[i].LeftSpan; }
+        for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].X = PostList[i - 1].X + PostList[i].LeftSpan;
+        }
+
+        if (DriveGap <= 0) return;
+        var drivePostList = PostList.Where(post => post.IsDrive);
+        foreach (var drivePost in drivePostList) {
+            for (var i = 0; i < PurlinList?.Count; i++) {
+                if (Math.Abs(PurlinList[i].X - drivePost.X) <= (ModuleWidth + ModuleGapAxis) / 2) {
+                    var adjustDist = PurlinList[i].X + (DriveGap - ModuleGapAxis) / 2 - drivePost.X; // 立柱需要移动的距离,向右为正
+                    drivePost.X         += adjustDist;
+                    drivePost.LeftSpan  += adjustDist;
+                    drivePost.RightSpan -= adjustDist;
+                }
+            }
+        }
     }
 
     // 更新主梁两端点坐标
     // !!!!!!!!!增加主梁间隙与立柱处的开断
-    public void SortBeamX() {
+    public void SortBeam() {
         if (BeamList == null) return;
 
         BeamList[0].StartX = -LeftRemind;
-        BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
+        BeamList[0].EndX   = Math.Min(-LeftRemind + BeamList[0].Length, SystemLength - LeftRemind);
         for (var i = 1; i < BeamList.Count; i++) {
             var startX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
-            if (startX >= SystemLength) { BeamList[i].Length = 0; }
-
-            var endX = Math.Min(startX + BeamList[i].Length, SystemLength);
+            var endX   = Math.Min(startX + BeamList[i].Length, SystemLength - LeftRemind);
             BeamList[i].StartX = startX;
             BeamList[i].EndX   = endX;
             BeamList[i].Length = endX - startX;
+
+            if (startX >= SystemLength) {
+                BeamList[i].Length = 0;
+            }
         }
     }
 
     // 更新檩条坐标
     public void InitPurlin() {
-        PurlinList = new List<PurlinModel> {
-                                               Capacity = 0
-                                           };
+        PurlinList = new List<PurlinModel> { Capacity = 0 };
         var x = -ModuleGapAxis / 2;
         PurlinList.Add(new PurlinModel(x, -1)); // 最左侧檩条
         for (var i = 0; i < ModuleColCounter - 1; i++) {
@@ -208,15 +223,34 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         }
 
         x += ModuleWidth + ModuleGapAxis;
+
         PurlinList.Add(new PurlinModel(x, 1)); // 最右侧檩条
     }
 
-    // 初始化
-    // 出图前的初始化
-    public void InitBeforeDraw() {
-        InitPurlin();
-        SortPostX();
-        SortBeamX();
+    // 当立柱发生改变时需要触发，执行时默认立柱跨距已经填好，执行完成可能更新立柱的位置
+    public void SortPurlin() {
+    }
+
+    // 初始化,更新所有坐标满足实际情况
+    public void Init() {
+        if (ModuleColCounter > 0) {
+            InitPurlin();
+        }
+
+        if (PostList?.Count > 0) {
+            SortPost();
+        }
+
+        if (BeamList?.Count > 0) {
+            foreach (var beamModel in BeamList) {
+                beamModel.LeftToPre   = BeamGap;
+                beamModel.RightToNext = BeamGap;
+            }
+
+            SortBeam();
+        }
+
+        // 此处要将主梁间隙初始化
     }
 
 #endregion

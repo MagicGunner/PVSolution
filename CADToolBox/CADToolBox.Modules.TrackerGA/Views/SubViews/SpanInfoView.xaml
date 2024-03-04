@@ -24,9 +24,14 @@
             <RowDefinition Height="200" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Canvas
             Name="DrawingCanvas"
             Grid.Row="0"
+            Grid.ColumnSpan="2"
             Background="Transparent">
             <!--  立柱绘图  -->
             <ItemsControl ItemsSource="{Binding PostLines}">
@@ -116,201 +121,234 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Canvas>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10,30,10,0"
+            Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style
+                    x:Key="PropName"
+                    BasedOn="{StaticResource TextBlockDefault}"
+                    TargetType="TextBlock">
+                    <Setter Property="MinWidth" Value="140" />
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+                <Style
+                    x:Key="PropValue"
+                    BasedOn="{StaticResource TextBoxBaseStyle}"
+                    TargetType="TextBox">
+                    <Setter Property="MinWidth" Value="50" />
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource PropName}" Text="系统总长(mm)" />
+                <TextBox
+                    IsReadOnly="True"
+                    Style="{StaticResource PropValue}"
+                    Text="{Binding TrackerModel.SystemLength, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource PropName}" Text="左侧末端余量(mm)" />
+                <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.LeftRemind}" />
+            </StackPanel>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource PropName}" Text="右侧末端余量(mm)" />
+                <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.RightRemind}" />
+            </StackPanel>
+        </StackPanel>
         <TabControl
             Grid.Row="1"
+            Grid.Column="1"
             Background="Transparent"
             Style="{StaticResource TabControlInLine}">
             <TabItem Header="跨距输入">
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <hc:TextBox
-                            hc:TitleElement.Title="当前主梁总长"
-                            IsReadOnly="True"
-                            Text="{Binding TrackerModel.SystemLength, Mode=OneWay}" />
-                    </StackPanel>
-                    <DataGrid
-                        MinWidth="100"
-                        hc:DataGridAttach.CanUnselectAllWithBlankArea="False"
-                        AutoGenerateColumns="False"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        CanUserSortColumns="False"
-                        EnableRowVirtualization="True"
-                        HeadersVisibility="Column"
-                        ItemsSource="{Binding PostInfos}"
-                        Style="{StaticResource NumDataGrid}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding PostInfoSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItems}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <!--  表格行样式  -->
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="LightSteelBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
-                        <!--  单元格样式  -->
-                        <DataGrid.CellStyle>
-                            <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="DataGridCell">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocused" Value="True">
-                                        <Setter Property="Background" Value="LightBlue" />
-                                        <Setter Property="Foreground" Value="Black" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.CellStyle>
-                        <DataGrid.RowHeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
-                            </DataTemplate>
-                        </DataGrid.RowHeaderTemplate>
-                        <!--  每列数据展示  -->
-                        <DataGrid.Columns>
-                            <!--  第一列，当前立柱是否被选中  -->
-                            <DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
-                            <!--  第二列切换按钮，立柱是否为驱动  -->
-                            <DataGridTemplateColumn Header="是否驱动">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <ToggleButton IsChecked="{Binding IsDrive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToggleButtonSwitch}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <!--  第三列，当前立柱序号  -->
-                            <DataGridTextColumn
-                                Binding="{Binding Num}"
-                                Header="序号"
-                                IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="HorizontalAlignment" Value="Center" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <!--  第四列：立柱截面类型  -->
-                            <DataGridTemplateColumn Header="截面类型">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding SectionType}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
 
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding SectionTypeList}" SelectedItem="{Binding SectionType, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                            <!--  第五列：立柱截面规格  -->
-                            <DataGridTemplateColumn Header="截面规格">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Section}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <ComboBox ItemsSource="{Binding SectionList}" SelectedItem="{Binding Section, UpdateSourceTrigger=PropertyChanged}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
-                            <!--  第六列：立柱材质  -->
-                            <DataGridComboBoxColumn Header="截面材质" SelectedItemBinding="{Binding Material, UpdateSourceTrigger=PropertyChanged}">
-                                <DataGridComboBoxColumn.ElementStyle>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding DataContext.SectionMaterial, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                        <Setter Property="IsReadOnly" Value="True" />
-                                    </Style>
-                                </DataGridComboBoxColumn.ElementStyle>
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="ComboBox">
-                                        <Setter Property="ItemsSource" Value="{Binding DataContext.SectionMaterial, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                        <Setter Property="IsReadOnly" Value="False" />
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
-                            </DataGridComboBoxColumn>
-                            <!--  第七列左侧跨距  -->
-                            <DataGridTextColumn Binding="{Binding LeftSpan}" Header="左侧跨距" />
-                            <!--  第八列右侧跨距  -->
-                            <DataGridTextColumn Binding="{Binding RightSpan}" Header="右侧跨距" />
-                            <!--  最后一列：操作  -->
-                            <DataGridTemplateColumn Header="操作">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--  增加和删除按钮  -->
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button
-                                                Command="{Binding DataContext.AddPostCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                                CommandParameter="{Binding}"
-                                                Content="新增"
-                                                Style="{StaticResource ButtonSuccess.Small}" />
-                                            <Button
-                                                Command="{Binding DataContext.DeletePostCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                                CommandParameter="{Binding}"
-                                                Content="删除"
-                                                Style="{StaticResource ButtonDanger.Small}" />
-                                            <Button
-                                                Command="{Binding DataContext.SwitchDetailVisibleCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                                CommandParameter="{Binding}"
-                                                Content="展开"
-                                                Style="{StaticResource ButtonPrimary.Small}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                        <!--  首选项展示  -->
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <Grid Visibility="{Binding IsDetailsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <hc:TextBox
-                                            Margin="5"
-                                            hc:TitleElement.Title="立柱左侧开断"
-                                            Text="{Binding LeftToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                        <hc:TextBox
-                                            Margin="5"
-                                            hc:TitleElement.Title="立柱右侧开断"
-                                            Text="{Binding RightToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                        <hc:TextBox
-                                            Margin="5"
-                                            hc:TitleElement.Title="基础宽度"
-                                            Text="{Binding PileWidth, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                        <hc:TextBox
-                                            Margin="5"
-                                            hc:TitleElement.Title="基础露头"
-                                            Text="{Binding PileUpGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                        <hc:TextBox
-                                            Margin="5"
-                                            hc:TitleElement.Title="基础埋深"
-                                            Text="{Binding PileDownGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                <DataGrid
+                    MinWidth="100"
+                    hc:DataGridAttach.CanUnselectAllWithBlankArea="False"
+                    AutoGenerateColumns="False"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    CanUserSortColumns="False"
+                    EnableRowVirtualization="True"
+                    HeadersVisibility="Column"
+                    ItemsSource="{Binding PostInfos}"
+                    Style="{StaticResource NumDataGrid}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding PostInfoSelectionChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=SelectedItems}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <!--  表格行样式  -->
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightSteelBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <!--  单元格样式  -->
+                    <DataGrid.CellStyle>
+                        <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="DataGridCell">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Style.Triggers>
+                                <Trigger Property="IsKeyboardFocused" Value="True">
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+                    <!--  每列数据展示  -->
+                    <DataGrid.Columns>
+                        <!--  第一列，当前立柱是否被选中  -->
+                        <DataGridCheckBoxColumn Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                        <!--  第二列切换按钮，立柱是否为驱动  -->
+                        <DataGridTemplateColumn Header="是否驱动">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <ToggleButton IsChecked="{Binding IsDrive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ToggleButtonSwitch}" />
                                     </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
-                    </DataGrid>
-                </DockPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!--  第三列，当前立柱序号  -->
+                        <DataGridTextColumn
+                            Binding="{Binding Num}"
+                            Header="序号"
+                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <!--  第四列：立柱截面类型  -->
+                        <DataGridTemplateColumn Header="截面类型">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding SectionType}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding SectionTypeList}" SelectedItem="{Binding SectionType, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <!--  第五列：立柱截面规格  -->
+                        <DataGridTemplateColumn Header="截面规格">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Section}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding SectionList}" SelectedItem="{Binding Section, UpdateSourceTrigger=PropertyChanged}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+                        <!--  第六列：立柱材质  -->
+                        <DataGridComboBoxColumn Header="截面材质" SelectedItemBinding="{Binding Material, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding DataContext.SectionMaterial, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    <Setter Property="IsReadOnly" Value="True" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding DataContext.SectionMaterial, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    <Setter Property="IsReadOnly" Value="False" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                        <!--  第七列左侧跨距  -->
+                        <DataGridTextColumn Binding="{Binding LeftSpan}" Header="左侧跨距" />
+                        <!--  第八列右侧跨距  -->
+                        <DataGridTextColumn Binding="{Binding RightSpan}" Header="右侧跨距" />
+                        <!--  最后一列：操作  -->
+                        <DataGridTemplateColumn Header="操作">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--  增加和删除按钮  -->
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                            Command="{Binding DataContext.AddPostCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding}"
+                                            Content="新增"
+                                            Style="{StaticResource ButtonSuccess.Small}" />
+                                        <Button
+                                            Command="{Binding DataContext.DeletePostCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding}"
+                                            Content="删除"
+                                            Style="{StaticResource ButtonDanger.Small}" />
+                                        <Button
+                                            Command="{Binding DataContext.SwitchDetailVisibleCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            CommandParameter="{Binding}"
+                                            Content="展开"
+                                            Style="{StaticResource ButtonPrimary.Small}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <!--  首选项展示  -->
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Grid Visibility="{Binding IsDetailsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="立柱左侧开断"
+                                        Text="{Binding LeftToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="立柱右侧开断"
+                                        Text="{Binding RightToBeam, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础宽度"
+                                        Text="{Binding PileWidth, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础露头"
+                                        Text="{Binding PileUpGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                    <hc:TextBox
+                                        Margin="5"
+                                        hc:TitleElement.Title="基础埋深"
+                                        Text="{Binding PileDownGround, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                </DataGrid>
 
             </TabItem>
             <TabItem Header="主梁分段">

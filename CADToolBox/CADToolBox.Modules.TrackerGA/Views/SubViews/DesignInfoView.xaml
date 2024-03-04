@@ -177,6 +177,7 @@
                         <TextBlock Style="{StaticResource PropName}" Text="基础截面宽度(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PileWidth}" />
                     </StackPanel>
+
                 </StackPanel>
 
                 <!--  默认值修改  -->

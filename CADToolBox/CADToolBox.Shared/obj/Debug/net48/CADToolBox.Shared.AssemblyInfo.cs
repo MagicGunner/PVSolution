@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CADToolBox.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a762bd91e8046454dcc9f69657e1a8a043f3676b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b28e599a4ef381a19533a2f27a9480f230e6f63b")]
 [assembly: System.Reflection.AssemblyProductAttribute("CADToolBox.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CADToolBox.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]
