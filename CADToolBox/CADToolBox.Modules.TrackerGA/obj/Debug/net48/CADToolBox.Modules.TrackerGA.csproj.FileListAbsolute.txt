@@ -15,6 +15,8 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\Sy
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\System.Numerics.Vectors.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\System.Runtime.CompilerServices.Unsafe.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\System.Threading.Tasks.Extensions.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\ValueConverters.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\ValueConverters.Annotations.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\CADToolBox.Resource.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\CADToolBox.Shared.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\CADToolBox.Resource.pdb
@@ -42,5 +44,3 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CA
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.pdb
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\ValueConverters.dll
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\bin\Debug\net48\ValueConverters.Annotations.dll

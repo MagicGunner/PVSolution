@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CADToolBox.Main")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b28e599a4ef381a19533a2f27a9480f230e6f63b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb2fdc926815b45e0305ef2216329692f191bff2")]
 [assembly: System.Reflection.AssemblyProductAttribute("CADToolBox.Main")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CADToolBox.Main")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]

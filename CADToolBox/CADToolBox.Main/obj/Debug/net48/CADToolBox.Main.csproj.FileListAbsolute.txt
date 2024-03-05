@@ -1,3 +1,4 @@
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\ValueConverters.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Main.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Main.pdb
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\AutoMapper.dll
@@ -15,6 +16,7 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\System.Memory.d
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\System.Numerics.Vectors.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\System.Runtime.CompilerServices.Unsafe.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\System.Threading.Tasks.Extensions.dll
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\ValueConverters.Annotations.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Modules.TrackerGA.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Resource.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\CADToolBox.Shared.dll
@@ -30,5 +32,3 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\obj\Debug\net48\CADToolBox.Main.pdb
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\ValueConverters.dll
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Main\bin\Debug\net48\ValueConverters.Annotations.dll
