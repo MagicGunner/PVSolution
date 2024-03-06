@@ -32,7 +32,6 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="10" />
             </Style>
-            <conv:BoolToVisibilityConverter x:Key="HasDriveGapVisibility" />
         </Grid.Resources>
         <!--  设计输入  -->
         <!--<TextBlock
@@ -54,10 +53,6 @@
         <ScrollViewer Grid.Row="1" Grid.Column="0">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource InputPropName}" Text="系统总长:" />
-                        <TextBox Style="{StaticResource InputPropValue}" Text="{Binding TrackerModel.SystemLength, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource InputPropName}" Text="弦长:" />
                         <TextBox Style="{StaticResource InputPropValue}" Text="{Binding TrackerModel.Chord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -86,21 +81,6 @@
                             <Setter Property="VerticalAlignment" Value="Center" />
                         </Style>
                     </StackPanel.Resources>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropName}" Text="是否回转?" />
-                        <CheckBox
-                            Name="HasSlew"
-                            MinWidth="50"
-                            IsChecked="{Binding TrackerModel.HasSlew, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource CheckBoxBaseStyle}" />
-                    </StackPanel>
-                    <StackPanel
-                        Margin="5"
-                        Orientation="Horizontal"
-                        Visibility="{Binding ElementName=HasSlew, Path=IsChecked, Converter={StaticResource HasDriveGapVisibility}}">
-                        <TextBlock Style="{StaticResource PropName}" Text="驱动间隙(mm)" />
-                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.DriveGap}" />
-                    </StackPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock Style="{StaticResource PropName}" Text="组件长度(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.ModuleLength}" />
@@ -161,10 +141,7 @@
                         <TextBlock Style="{StaticResource PropName}" Text="驱动间隙(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.DriveGap}" />
                     </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource PropName}" Text="主梁间隙(mm)" />
-                        <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.BeamGap}" />
-                    </StackPanel>
+
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <TextBlock Style="{StaticResource PropName}" Text="立柱截面宽度(mm)" />
                         <TextBox Style="{StaticResource PropValue}" Text="{Binding TrackerModel.PostWidth}" />

@@ -967,6 +967,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
+          "AutoMapper": "10.1.1",
           "CADToolBox.Resource": "1.0.0",
           "CommunityToolkit.Mvvm": "8.2.2"
         },

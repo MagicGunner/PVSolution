@@ -16,7 +16,7 @@ using Version = Autodesk.AutoCAD.Customization.Version;
 namespace CADToolBox.Main;
 
 public class Command {
-#region 测试用
+    #region 测试用
 
     [CommandMethod(nameof(HelloWorld))]
     public void HelloWorld() {
@@ -28,10 +28,10 @@ public class Command {
         var pEntityRes  = ed.GetEntity(pEntityOpts);
     }
 
-#endregion
+    #endregion
 
 
-#region 跟踪支架GA图辅助截面
+    #region 跟踪支架GA图辅助截面
 
     [CommandMethod(nameof(TrackerGA))]
     public void TrackerGA() {
@@ -213,10 +213,10 @@ public class Command {
         var trackerGAHelper = new TrackerGAHelper(trackerModel);
     }
 
-#endregion
+    #endregion
 
 
-#region 截面绘制小工具
+    #region 截面绘制小工具
 
     [CommandMethod(nameof(SD))]
     public void SD() {
@@ -606,5 +606,5 @@ public class Command {
         }
     }
 
-#endregion
+    #endregion
 }

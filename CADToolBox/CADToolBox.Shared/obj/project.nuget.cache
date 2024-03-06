@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "7Pu/uFfy6GQ4Ea6E3gRuDxlkroOuwMCIut1lOKauB56yzvY40nPYuoBwKPe4w6RN15uWvx6yaJrzfrSh6RujdQ==",
+  "dgSpecHash": "AchCNdAu47FrRyAyicCKCOTy+yv1qCbrCEo1vCwqeLedbuaegpSQkScoPRiZJRbwpJUrqHmk1nqvQFvLvnKgng==",
   "success": true,
   "projectFilePath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\JinNan\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\handycontrol\\3.5.0\\handycontrol.3.5.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",

@@ -1,5 +1,6 @@
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\CADToolBox.Shared.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\CADToolBox.Shared.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\AutoMapper.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\CommunityToolkit.Mvvm.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\HandyControl.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Shared\bin\Debug\net48\MaterialDesignColors.dll
