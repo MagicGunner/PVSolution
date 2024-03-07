@@ -163,7 +163,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     #region 绘图辅助,只更新坐标，属性在前台更新
 
     // 更新立柱中心线坐标,同时更新檩条
-    public void SortPost() {
+    public void InitPost() {
         if (PostList == null) return;
         PostList[0].X = PostList[0].LeftSpan;
         for (var i = 1; i < PostList.Count; i++) {
@@ -211,15 +211,20 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         }
     }
 
-    // 更新主梁两端点坐标
-    public void SortBeam() {
+    // 初始化主梁列表，记录主梁两侧的Model
+    public void InitBeam() {
         if (BeamList == null) return;
 
         BeamList[0].StartX = -LeftRemind;
         BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
         for (var i = 1; i < BeamList.Count; i++) {
-            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
-            BeamList[i].EndX   = BeamList[i].StartX   + BeamList[i].Length;
+            BeamList[i].StartX       = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
+            BeamList[i].EndX         = BeamList[i].StartX   + BeamList[i].Length;
+            BeamList[i].PreItem      = BeamList[i - 1];
+            BeamList[i - 1].NextItem = BeamList[i];
+            if (i != BeamList.Count - 1) {
+                BeamList[i].NextItem = BeamList[i + 1];
+            }
         }
 
         // 调整驱动立柱的位置,同时调整檩条的位置
@@ -233,6 +238,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
                     BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
                     BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
                     BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    BeamList[j].PreItem   = drivePost;
                 } else if (drivePost.X - drivePost.LeftToBeam  > BeamList[j].StartX && // 驱动立柱整体在主梁中间，需要将主梁分成两段
                            drivePost.X + drivePost.RightToBeam <= BeamList[j].EndX) {
                     var newBeam = BeamMapper.Map<BeamModel, BeamModel>(BeamList[j]);
@@ -240,15 +246,18 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
                     BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
                     BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
                     BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    BeamList[j].PreItem   = drivePost;
                     newBeam.EndX          = drivePost.X          - drivePost.LeftToBeam;
                     newBeam.Length        = newBeam.EndX         - newBeam.StartX;
                     newBeam.RightToNext   = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    newBeam.NextItem      = drivePost;
                     BeamList.Insert(j, newBeam);
                 } else if (drivePost.X + drivePost.RightToBeam > BeamList[j].EndX && // 主梁右侧接上
                            drivePost.X - drivePost.LeftToBeam  <= BeamList[j].EndX) {
                     BeamList[j].EndX        = drivePost.X          - drivePost.LeftToBeam;
                     BeamList[j].Length      = BeamList[j].EndX     - BeamList[j].StartX;
                     BeamList[j].RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    BeamList[j].NextItem    = drivePost;
                 }
             }
         }
@@ -257,6 +266,42 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         while (Math.Abs(BeamList.Last().EndX - (SystemLength - LeftRemind)) > 0.0001) {
             BeamList.Last().EndX   = SystemLength         - LeftRemind;
             BeamList.Last().Length = BeamList.Last().EndX - BeamList.Last().StartX;
+        }
+    }
+
+    // 更新主梁列表
+    public void UpdateBeam() {
+        if (BeamList == null) {
+            return;
+        }
+
+        var startX = -LeftRemind;
+        for (var i = 0; i < BeamList.Count; i++) {
+            if (startX >= SystemLength - LeftRemind) {
+                BeamList[i].StartX = SystemLength - LeftRemind;
+                BeamList[i].EndX   = SystemLength - LeftRemind;
+                BeamList[i].Length = 0;
+            } else {
+                BeamList[i].StartX = startX;
+                BeamList[i].EndX   = Math.Min(BeamList[i].StartX + BeamList[i].Length, SystemLength - LeftRemind);
+                BeamList[i].Length = BeamList[i].EndX - BeamList[i].StartX;
+                // 更新到前一个主梁的距离
+                if (i == 0) {
+                    BeamList[i].LeftToPre = 0;
+                } else {
+                    BeamList[i].LeftToPre = BeamList[i - 1].RightToNext;
+                }
+
+                BeamList[i].RightToNext = BeamList[i].NextItem switch {
+                                              // 更新到后一个主梁的距离
+                                              PostModel drivePost => drivePost.LeftToBeam +
+                                                                     drivePost.RightToBeam, // 下一个为驱动立柱代表间隙为立柱处的开断
+                                              BeamModel => BeamGap,                         // 下一个为主梁填入主梁间隙
+                                              _         => 0,                               // 下个为空时代表最后一个主梁 
+                                          };
+
+                startX += BeamList[i].EndX + BeamList[i].RightToNext;
+            }
         }
     }
 
@@ -323,9 +368,6 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     }
 
     public void Init() {
-        // 读取CAD属性块或者新建后进去截面需要初始化所有坐标
-
-
         InitDriveSplit();
         InitBeamGap();
 
@@ -365,9 +407,9 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         }
 
 
-        SortPost(); // 根据立柱与檩条
+        InitPost(); // 根据立柱与檩条
         // 初始化时将主梁的间隙保存到对象
-        SortBeam(); // 初始化主梁
+        InitBeam(); // 初始化主梁
     }
 
     #endregion

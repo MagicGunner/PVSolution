@@ -1,6 +1,11 @@
-﻿namespace CADToolBox.Shared.Models.CADModels.Implement;
+﻿using CADToolBox.Shared.Models.CADModels.Interface;
 
-public class BeamModel {
+namespace CADToolBox.Shared.Models.CADModels.Implement;
+
+public class BeamModel : IItemModel {
+    public IItemModel? NextItem;
+    public IItemModel? PreItem;
+
     public int     Num         { get; set; } // 主梁序号
     public string? SectionType { get; set; } // 主梁截面类型
     public string? Section     { get; set; } // 主梁截面

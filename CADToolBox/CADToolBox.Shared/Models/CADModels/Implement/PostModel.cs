@@ -1,9 +1,10 @@
 ﻿using CADToolBox.Resource.NameDictionarys;
+using CADToolBox.Shared.Models.CADModels.Interface;
 using System.Collections.Generic;
 
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
-public class PostModel {
+public class PostModel : IItemModel {
     public int     Num            { get; set; } // 立柱序号
     public bool    IsDrive        { get; set; } // 是否驱动
     public bool    IsMotor        { get; set; } // 是否回转

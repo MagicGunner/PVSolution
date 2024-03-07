@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CADToolBox.Resource.NameDictionarys;
 using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Interface;
 using CADToolBox.Shared.Models.UIModels.Interface;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -11,7 +12,7 @@ namespace CADToolBox.Shared.Models.UIModels.Implement;
 public partial class BeamInfo(
     BeamModel beamModel
 ) : ObservableObject, ITrackerItemInfo {
-#region 自身属性
+    #region 自身属性
 
     public BeamModel BeamModel => beamModel;
 
@@ -32,9 +33,9 @@ public partial class BeamInfo(
         }
     }
 
-#endregion
+    #endregion
 
-#region 主梁模型属性
+    #region 主梁模型属性
 
     public int Num {
         get => BeamModel.Num;
@@ -99,9 +100,9 @@ public partial class BeamInfo(
                                                              value) => model.Length = value);
     }
 
-#endregion
+    #endregion
 
-#region 事件
+    #region 事件
 
     //public event EventHandler? LengthChanged;
 
@@ -109,5 +110,5 @@ public partial class BeamInfo(
     //    LengthChanged?.Invoke(this, EventArgs.Empty);
     //}
 
-#endregion
+    #endregion
 }
