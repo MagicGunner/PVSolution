@@ -1,8 +1,9 @@
 ﻿using CADToolBox.Shared.Models.CADModels.Interface;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
-public class BeamModel : IItemModel {
+public class BeamModel : ObservableObject, IItemModel {
     public IItemModel? NextItem;
     public IItemModel? PreItem;
 

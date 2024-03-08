@@ -1,20 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 using CADToolBox.Resource.NameDictionarys;
 using CADToolBox.Shared.Models.CADModels.Implement;
 using CADToolBox.Shared.Models.CADModels.Interface;
 using CADToolBox.Shared.Models.UIModels.Interface;
 using CommunityToolkit.Mvvm.ComponentModel;
+using static System.Windows.Forms.AxHost;
 
 namespace CADToolBox.Shared.Models.UIModels.Implement;
 
-public partial class BeamInfo(
-    BeamModel beamModel
-) : ObservableObject, ITrackerItemInfo {
+public partial class BeamInfo : ObservableObject, ITrackerItemInfo {
     #region 自身属性
 
-    public BeamModel BeamModel => beamModel;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Num))]
+    [NotifyPropertyChangedFor(nameof(StartX))]
+    [NotifyPropertyChangedFor(nameof(EndX))]
+    [NotifyPropertyChangedFor(nameof(SectionType))]
+    [NotifyPropertyChangedFor(nameof(Section))]
+    [NotifyPropertyChangedFor(nameof(Material))]
+    [NotifyPropertyChangedFor(nameof(LeftToPre))]
+    [NotifyPropertyChangedFor(nameof(RightToNext))]
+    [NotifyPropertyChangedFor(nameof(Length))]
+    private BeamModel _beamModel = null!;
+
 
     [ObservableProperty]
     private bool _isDetailsVisible; // 细节是否展示
@@ -95,20 +108,45 @@ public partial class BeamInfo(
 
     public double Length {
         get => BeamModel.Length;
-        set =>
-            SetProperty(BeamModel.Length, value, BeamModel, (model,
-                                                             value) => model.Length = value);
+        set {
+            if (SetProperty(BeamModel.Length, value, BeamModel, (model,
+                                                                 value) => model.Length = value)) {
+                OnLengthChanged();
+            }
+        }
+    }
+
+    #endregion
+
+    #region 构造函数
+
+    public BeamInfo(BeamModel beamModel) {
+        BeamModel                 =  beamModel;
+        BeamModel.PropertyChanged += OnBeamModelChanged;
     }
 
     #endregion
 
     #region 事件
 
-    //public event EventHandler? LengthChanged;
+    public event EventHandler? LengthChanged;
 
-    //protected virtual void OnLengthChanged() {
-    //    LengthChanged?.Invoke(this, EventArgs.Empty);
-    //}
+    protected void OnLengthChanged() {
+        LengthChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnBeamModelChanged(object                   sender,
+                                    PropertyChangedEventArgs e) {
+        OnPropertyChanged(nameof(Num));
+        OnPropertyChanged(nameof(StartX));
+        OnPropertyChanged(nameof(EndX));
+        OnPropertyChanged(nameof(SectionType));
+        OnPropertyChanged(nameof(Section));
+        OnPropertyChanged(nameof(Material));
+        OnPropertyChanged(nameof(LeftToPre));
+        OnPropertyChanged(nameof(RightToNext));
+        OnPropertyChanged(nameof(Length));
+    }
 
     #endregion
 }

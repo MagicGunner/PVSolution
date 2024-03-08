@@ -211,13 +211,64 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         }
     }
 
+    // 更新立柱中心线坐标，同时更新檩条与主梁
+    public void UpdatePost() {
+        if (PostList == null) return;
+        var totalSpan = SystemLength - LeftRemind - RightRemind;
+        PostList[0].X   = PostList[0].LeftSpan;
+        PostList[0].Num = 1;
+        for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].Num      = i + 1;
+            PostList[i].LeftSpan = PostList[i - 1].RightSpan;
+            PostList[i].X        = PostList[i - 1].X + PostList[i].LeftSpan;
+        }
+
+        // 调整驱动立柱的位置,同时调整檩条的位置
+        if (DriveGap > 0 && PostList != null) { // 如果驱动间隙大于0需要调整驱动立柱的位置，否则不需要
+            var drivePostList = PostList.Where(post => post.IsDrive).ToList();
+            // 调整立柱
+            for (var i = 0; i < drivePostList.Count; i++) {
+                var drivePost = drivePostList[i];
+                // 计算当前驱动立柱前方可以放多少组件
+                var drivePostToFirstPurlin = drivePost.X + ModuleGapAxis / 2 - (DriveGap - ModuleGapAxis) / 2;
+                drivePostToFirstPurlin -= i * (DriveGap                      - ModuleGapAxis);
+                var purlinNum    = drivePostToFirstPurlin / (ModuleWidth + ModuleGapAxis);
+                var modifyFactor = purlinNum - (int)purlinNum;
+                if (modifyFactor <= 0.5) { // 靠前一个檩条近
+                    drivePost.X         -= modifyFactor * (ModuleWidth + ModuleGapAxis);
+                    drivePost.LeftSpan  -= modifyFactor * (ModuleWidth + ModuleGapAxis);
+                    drivePost.RightSpan += modifyFactor * (ModuleWidth + ModuleGapAxis);
+                } else {
+                    drivePost.X         += (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
+                    drivePost.LeftSpan  += (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
+                    drivePost.RightSpan -= (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
+                }
+
+                if (drivePost.Num > 1) {
+                    PostList[drivePost.Num - 2].RightSpan = drivePost.LeftSpan;
+                }
+
+                if (drivePost.Num < PostList.Count) {
+                    PostList[drivePost.Num].LeftSpan = drivePost.RightSpan;
+                }
+            }
+
+            InitPurlinWithDriveGap();
+            UpdateBeam();
+        } else { // 没有驱动间隙檩条直接平铺
+            InitPurlinWithOutDriveGap();
+        }
+    }
+
     // 初始化主梁列表，记录主梁两侧的Model
     public void InitBeam() {
         if (BeamList == null) return;
 
         BeamList[0].StartX = -LeftRemind;
         BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
+        BeamList[0].Num    = 1;
         for (var i = 1; i < BeamList.Count; i++) {
+            BeamList[i].Num          = i                    + 1;
             BeamList[i].StartX       = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
             BeamList[i].EndX         = BeamList[i].StartX   + BeamList[i].Length;
             BeamList[i].PreItem      = BeamList[i - 1];
@@ -227,80 +278,126 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
             }
         }
 
-        // 调整驱动立柱的位置,同时调整檩条的位置
-        if (!(DriveGap > 0) || PostList == null) return; // 如果驱动间隙大于0需要调整驱动立柱的位置，否则不需要
-        // 更新主梁开断
-        foreach (var drivePost in PostList.Where(post => post.IsDrive)) {
-            if (drivePost.X + drivePost.RightToBeam < BeamList.First().StartX) continue; // 立柱驱动立柱在主梁最左侧的左边不处理
-            for (var j = 0; j < BeamList.Count; j++) {
-                if (drivePost.X + drivePost.RightToBeam > BeamList[j].StartX &&
-                    drivePost.X - drivePost.LeftToBeam  <= BeamList[j].StartX) { // 第一种情况主梁左侧接上，无需增减主梁
-                    BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
-                    BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
-                    BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
-                    BeamList[j].PreItem   = drivePost;
-                } else if (drivePost.X - drivePost.LeftToBeam  > BeamList[j].StartX && // 驱动立柱整体在主梁中间，需要将主梁分成两段
-                           drivePost.X + drivePost.RightToBeam <= BeamList[j].EndX) {
-                    var newBeam = BeamMapper.Map<BeamModel, BeamModel>(BeamList[j]);
-                    // 原来位置的主梁向后移动
-                    BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
-                    BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
-                    BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
-                    BeamList[j].PreItem   = drivePost;
-                    newBeam.EndX          = drivePost.X          - drivePost.LeftToBeam;
-                    newBeam.Length        = newBeam.EndX         - newBeam.StartX;
-                    newBeam.RightToNext   = drivePost.LeftToBeam + drivePost.RightToBeam;
-                    newBeam.NextItem      = drivePost;
-                    BeamList.Insert(j, newBeam);
-                } else if (drivePost.X + drivePost.RightToBeam > BeamList[j].EndX && // 主梁右侧接上
-                           drivePost.X - drivePost.LeftToBeam  <= BeamList[j].EndX) {
-                    BeamList[j].EndX        = drivePost.X          - drivePost.LeftToBeam;
-                    BeamList[j].Length      = BeamList[j].EndX     - BeamList[j].StartX;
-                    BeamList[j].RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
-                    BeamList[j].NextItem    = drivePost;
-                }
-            }
-        }
+        //// 调整驱动立柱的位置,同时调整檩条的位置
+        //if (!(DriveGap > 0) || PostList == null) return; // 如果驱动间隙大于0需要调整驱动立柱的位置，否则不需要
+        //// 更新主梁开断
+        //foreach (var drivePost in PostList.Where(post => post.IsDrive)) {
+        //    if (drivePost.X + drivePost.RightToBeam < BeamList.First().StartX) continue; // 立柱驱动立柱在主梁最左侧的左边不处理
+        //    for (var j = 0; j < BeamList.Count; j++) {
+        //        if (drivePost.X + drivePost.RightToBeam > BeamList[j].StartX &&
+        //            drivePost.X - drivePost.LeftToBeam  <= BeamList[j].StartX) { // 第一种情况主梁左侧接上，无需增减主梁
+        //            BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
+        //            BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
+        //            BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+        //            BeamList[j].PreItem   = drivePost;
+        //        } else if (drivePost.X - drivePost.LeftToBeam  > BeamList[j].StartX && // 驱动立柱整体在主梁中间，需要将主梁分成两段
+        //                   drivePost.X + drivePost.RightToBeam <= BeamList[j].EndX) {
+        //            var newBeam = BeamMapper.Map<BeamModel, BeamModel>(BeamList[j]);
+        //            newBeam.Num++;
+        //            // 原来位置的主梁向后移动
+        //            BeamList[j].StartX    = drivePost.X          + drivePost.RightToBeam;
+        //            BeamList[j].Length    = BeamList[j].EndX     - BeamList[j].StartX;
+        //            BeamList[j].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+        //            BeamList[j].PreItem   = drivePost;
+        //            newBeam.EndX          = drivePost.X          - drivePost.LeftToBeam;
+        //            newBeam.Length        = newBeam.EndX         - newBeam.StartX;
+        //            newBeam.RightToNext   = drivePost.LeftToBeam + drivePost.RightToBeam;
+        //            newBeam.NextItem      = drivePost;
+        //            BeamList.Insert(j, newBeam);
+        //        } else if (drivePost.X + drivePost.RightToBeam > BeamList[j].EndX && // 主梁右侧接上
+        //                   drivePost.X - drivePost.LeftToBeam  <= BeamList[j].EndX) {
+        //            BeamList[j].EndX        = drivePost.X          - drivePost.LeftToBeam;
+        //            BeamList[j].Length      = BeamList[j].EndX     - BeamList[j].StartX;
+        //            BeamList[j].RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
+        //            BeamList[j].NextItem    = drivePost;
+        //        }
+        //    }
+        //}
 
         // 对主梁操作后最后一段主梁长度可能有变化
-        while (Math.Abs(BeamList.Last().EndX - (SystemLength - LeftRemind)) > 0.0001) {
-            BeamList.Last().EndX   = SystemLength         - LeftRemind;
-            BeamList.Last().Length = BeamList.Last().EndX - BeamList.Last().StartX;
-        }
+        //while (Math.Abs(BeamList.Last().EndX - (SystemLength - LeftRemind)) > 0.0001) {
+        //    BeamList.Last().EndX   = SystemLength         - LeftRemind;
+        //    BeamList.Last().Length = BeamList.Last().EndX - BeamList.Last().StartX;
+        //}
     }
 
-    // 更新主梁列表
+    // 更新主梁列表,更新时不做删除，可能增加和修改
     public void UpdateBeam() {
         if (BeamList == null) {
             return;
         }
 
         var startX = -LeftRemind;
-        for (var i = 0; i < BeamList.Count; i++) {
+        var index  = 0;
+        while (index < BeamList.Count) {
+            var currentBeam = BeamList[index];
+            currentBeam.Num = index + 1;
             if (startX >= SystemLength - LeftRemind) {
-                BeamList[i].StartX = SystemLength - LeftRemind;
-                BeamList[i].EndX   = SystemLength - LeftRemind;
-                BeamList[i].Length = 0;
+                currentBeam.StartX = SystemLength - LeftRemind;
+                currentBeam.EndX   = SystemLength - LeftRemind;
+                currentBeam.Length = 0;
+                index++;
             } else {
-                BeamList[i].StartX = startX;
-                BeamList[i].EndX   = Math.Min(BeamList[i].StartX + BeamList[i].Length, SystemLength - LeftRemind);
-                BeamList[i].Length = BeamList[i].EndX - BeamList[i].StartX;
-                // 更新到前一个主梁的距离
-                if (i == 0) {
-                    BeamList[i].LeftToPre = 0;
+                if (index == 0) {
+                    currentBeam.PreItem = null;
+                } else if (index == BeamList.Count - 1) {
+                    currentBeam.NextItem = null;
                 } else {
-                    BeamList[i].LeftToPre = BeamList[i - 1].RightToNext;
+                    currentBeam.PreItem  = BeamList[index - 1];
+                    currentBeam.NextItem = BeamList[index + 1];
                 }
 
-                BeamList[i].RightToNext = BeamList[i].NextItem switch {
-                                              // 更新到后一个主梁的距离
-                                              PostModel drivePost => drivePost.LeftToBeam +
-                                                                     drivePost.RightToBeam, // 下一个为驱动立柱代表间隙为立柱处的开断
-                                              BeamModel => BeamGap,                         // 下一个为主梁填入主梁间隙
-                                              _         => 0,                               // 下个为空时代表最后一个主梁 
-                                          };
+                // 更新到前一个主梁的距离
+                currentBeam.LeftToPre   = currentBeam.PreItem is null ? 0 : BeamGap;
+                currentBeam.RightToNext = currentBeam.NextItem is null ? 0 : BeamGap;
 
-                startX += BeamList[i].EndX + BeamList[i].RightToNext;
+                currentBeam.StartX = startX;
+                currentBeam.EndX   = Math.Min(currentBeam.StartX + currentBeam.Length, SystemLength - LeftRemind);
+                currentBeam.Length = currentBeam.EndX - currentBeam.StartX;
+
+
+                var flag = false; // 是否需要增加主梁
+                if (DriveGap > 0 && PostList != null) {
+                    var drivePostList = PostList.Where(post => post.IsDrive);
+                    foreach (var drivePost in drivePostList) {
+                        if (drivePost.X + drivePost.RightToBeam > currentBeam.StartX &&
+                            drivePost.X - drivePost.LeftToBeam  <= currentBeam.StartX) {
+                            currentBeam.StartX    = drivePost.X + drivePost.RightToBeam;
+                            currentBeam.PreItem   = drivePost;
+                            currentBeam.LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                            currentBeam.Length    = currentBeam.EndX     - currentBeam.StartX;
+                        } else if (drivePost.X + drivePost.RightToBeam <= currentBeam.EndX &&
+                                   drivePost.X - drivePost.LeftToBeam  > currentBeam.StartX) { // 这种情况需要增加主梁数量
+                            // 原来主梁的位置需要向后移动
+                            var newBeam = BeamMapper.Map<BeamModel, BeamModel>(currentBeam);
+                            currentBeam.StartX    = drivePost.X + drivePost.RightToBeam;
+                            currentBeam.PreItem   = drivePost;
+                            currentBeam.LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                            currentBeam.Length    = currentBeam.EndX     - currentBeam.StartX;
+                            currentBeam.Num++;
+                            newBeam.EndX        = drivePost.X - drivePost.LeftToBeam;
+                            newBeam.NextItem    = drivePost;
+                            newBeam.RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
+                            newBeam.Length      = newBeam.EndX         - newBeam.StartX;
+                            BeamList.Insert(index, newBeam);
+                            flag = true;
+                        } else if (drivePost.X - drivePost.LeftToBeam  <= currentBeam.EndX &&
+                                   drivePost.X + drivePost.RightToBeam > currentBeam.EndX) {
+                            currentBeam.EndX        = drivePost.X - drivePost.LeftToBeam;
+                            currentBeam.NextItem    = drivePost;
+                            currentBeam.RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
+                            currentBeam.Length      = currentBeam.EndX     - currentBeam.StartX;
+                        }
+                    }
+                }
+
+                if (flag) {
+                    startX =  BeamList[index + 1].EndX + BeamList[index + 1].RightToNext;
+                    index  += 2;
+                } else {
+                    startX = currentBeam.EndX + currentBeam.RightToNext;
+                    index++;
+                }
             }
         }
     }
