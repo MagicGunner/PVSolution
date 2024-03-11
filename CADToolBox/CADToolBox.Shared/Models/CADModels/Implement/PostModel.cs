@@ -5,6 +5,9 @@ using System.Collections.Generic;
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
 public class PostModel : IItemModel {
+    public BeamModel? PreBeamModel  { get; set; }
+    public BeamModel? NextBeamModel { get; set; }
+
     public int     Num            { get; set; } // 立柱序号
     public bool    IsDrive        { get; set; } // 是否驱动
     public bool    IsMotor        { get; set; } // 是否回转
@@ -19,5 +22,7 @@ public class PostModel : IItemModel {
     public double  LeftSpan       { get; set; } // 左侧跨距
     public double  RightSpan      { get; set; } // 右侧跨距
 
-    public double X { get; set; } // 立柱相对于组件最左侧坐标
+    public double X      { get; set; } // 立柱相对于组件最左侧坐标
+    public double StartX { get; set; }
+    public double EndX   { get; set; }
 }

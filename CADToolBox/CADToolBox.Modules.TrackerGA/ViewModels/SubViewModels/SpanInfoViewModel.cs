@@ -389,49 +389,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
 
     #region 主梁事件，主梁只有长度变化影响绘图，暂不考虑
 
-    // 处理主梁展示数组发生变化
-    //private void OnBeamInfosListChanged(object               sender,
-    //                                    ListChangedEventArgs e) {
-    //    switch (e.ListChangedType) {
-    //        case ListChangedType.ItemAdded:   break;
-    //        case ListChangedType.ItemDeleted: break;
-    //        case ListChangedType.Reset:       break;
-    //        case ListChangedType.ItemMoved:   break;
-    //        case ListChangedType.ItemChanged:
-    //            //var changedIndex   = e.NewIndex;
-    //            //var changedItem    = BeamInfos![changedIndex];
-    //            //var propDescriptor = e.PropertyDescriptor;
-    //            //if (propDescriptor != null) {
-    //            //    switch (propDescriptor.Name) {
-    //            //        case nameof(BeamInfo.Length):
-    //            //            TrackerModel!.UpdateBeam();
-    //            //            UpdateBeamInfos();
-    //            //            break;
-    //            //    }
-    //            //}
-
-    //            break;
-    //        case ListChangedType.PropertyDescriptorAdded:   break;
-    //        case ListChangedType.PropertyDescriptorDeleted: break;
-    //        case ListChangedType.PropertyDescriptorChanged: break;
-    //        default:                                        throw new ArgumentOutOfRangeException();
-    //    }
-    //}
-
-
-    // 主梁数量发生改变
-    //private void OnBeamNumChanged() {
-    //    if (BeamInfos!.Count <= 0) return;
-    //    for (var i = 0; i < BeamInfos!.Count; i++) {
-    //        BeamInfos[i].Num = i + 1;
-    //    }
-
-    //    OnBeamLengthChanged();
-    //}
-
     //当主梁分段长度发生变化时更新主梁分段长度，不对数组进行增减操作
     private void OnBeamLengthChanged(object    sender,
                                      EventArgs e) {
+        MessageBox.Show("主梁长度发生改变");
         if (BeamInfos == null) {
             return;
         }
