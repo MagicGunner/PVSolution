@@ -128,12 +128,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         // 初始化主梁信息
         if (TrackerModel?.BeamList != null) {
             foreach (var newBeamInfo in TrackerModel.BeamList.Select(beamModel => new BeamInfo(beamModel))) {
-                newBeamInfo.LengthChanged += (_,
-                                              _) => {
-                                                 TrackerModel!.UpdateBeam();
-                                                 UpdateBeamInfos();
-                                                 UpdateSystemDraw();
-                                             };
+                newBeamInfo.LengthChanged += OnBeamLengthChanged;
                 BeamInfos.Add(newBeamInfo);
             }
         }
@@ -264,7 +259,9 @@ public partial class SpanInfoViewModel : ViewModelBase {
         // 实际主梁列表与主梁信息列表相同的部分
         var count = Math.Min(TrackerModel!.BeamList.Count, BeamInfos.Count);
         for (var i = 0; i < count; i++) {
-            BeamInfos[i].BeamModel = TrackerModel.BeamList[i];
+            BeamInfos[i].BeamModel     =  TrackerModel.BeamList[i];
+            BeamInfos[i].LengthChanged -= OnBeamLengthChanged;
+            BeamInfos[i].LengthChanged += OnBeamLengthChanged;
         }
 
         if (TrackerModel!.BeamList.Count >= BeamInfos.Count) {
@@ -433,27 +430,16 @@ public partial class SpanInfoViewModel : ViewModelBase {
     //}
 
     //当主梁分段长度发生变化时更新主梁分段长度，不对数组进行增减操作
-    //private void OnBeamLengthChanged() {
-    //    if (BeamInfos == null) {
-    //        return;
-    //    }
+    private void OnBeamLengthChanged(object    sender,
+                                     EventArgs e) {
+        if (BeamInfos == null) {
+            return;
+        }
 
-    //    BeamInfos.DisableEvents();
-    //    var totalLength = TrackerModel!.SystemLength;
-    //    BeamInfos[0].Length =  Math.Min(totalLength, BeamInfos[0].Length);
-    //    totalLength         -= BeamInfos[0].Length;
-    //    for (var i = 1; i < BeamInfos!.Count; i++) {
-    //        if (totalLength <= 0) {
-    //            BeamInfos[i].Length = 0;
-    //        } else {
-    //            BeamInfos[i].Length =  Math.Min(totalLength, BeamInfos[i].Length);
-    //            totalLength         -= BeamInfos[i].Length + BeamInfos[i].LeftToPre;
-    //        }
-    //    }
-
-    //    BeamInfos.EnableEvents();
-    //    UpdateSystemDraw();
-    //}
+        TrackerModel!.UpdateBeam();
+        UpdateBeamInfos();
+        UpdateSystemDraw();
+    }
 
     #endregion
 
