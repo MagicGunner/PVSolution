@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -15,7 +17,10 @@ namespace CADToolBox.Shared.Models.CADModels.Implement;
 public partial class TrackerModel : ObservableObject, IPvSupport {
     public int Status { get; set; } // 当前绘图状态，0代表仅保存，1代表保存并绘图
 
-#region 通用属性
+    [ObservableProperty]
+    private double _minBeamLength = 200;
+
+    #region 通用属性
 
     [ObservableProperty]
     private string? _projectName;
@@ -51,9 +56,9 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     [ObservableProperty]
     private double _pileWidth;
 
-#endregion
+    #endregion
 
-#region 跟踪支架属性
+    #region 跟踪支架属性
 
     [ObservableProperty]
     private bool _hasSlew;
@@ -119,9 +124,9 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     [NotifyPropertyChangedFor(nameof(SystemLength))]
     private double _rightRemind; // 右侧末端余量
 
-#endregion
+    #endregion
 
-#region 对象属性与计算属性
+    #region 对象属性与计算属性
 
     public List<PostModel>? PostList { get; set; }
     public List<BeamModel>? BeamList { get; set; }
@@ -139,84 +144,48 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 
     // 系统总长
     public double SystemLength =>
-        ModuleColCounter       * ModuleWidth
-      + (ModuleColCounter - 1) * ModuleGapAxis
-      + (DriveGap == 0 ? 0 : DriveNum * (DriveGap - ModuleGapAxis))
-      + LeftRemind
-      + RightRemind;
+        ModuleColCounter * ModuleWidth                              + (ModuleColCounter - 1) * ModuleGapAxis +
+        (DriveGap == 0 ? 0 : DriveNum * (DriveGap - ModuleGapAxis)) + LeftRemind + RightRemind;
 
     // 弦长
     public double Chord => ModuleRowCounter * ModuleLength + (ModuleRowCounter - 1) * ModuleGapChord;
 
     // 旋转中心离地距离
     public double BeamCenterToGround =>
-        MinGroundDist
-      + 0.5 * Chord * Math.Sin(Math.PI * MaxAngle / 180)
-      - (PurlinHeight + BeamHeight * (1 + BeamRadio)) * Math.Cos(Math.PI * MaxAngle / 180);
+        MinGroundDist + 0.5 * Chord * Math.Sin(Math.PI * MaxAngle        / 180) -
+        (PurlinHeight + BeamHeight * (1 + BeamRadio)) * Math.Cos(Math.PI * MaxAngle / 180);
 
-#endregion
+    #endregion
 
-#region 构造函数
+    #region 构造函数
 
     public TrackerModel() {
         ProjectName = "跟踪支架GA图";
     }
 
-#endregion
+    #endregion
 
-#region 绘图辅助,只更新坐标，属性在前台更新
-
-    // 更新立柱中心线坐标,同时更新檩条
-    public void InitPost() {
-        if (PostList == null) return;
-        PostList[0].X = PostList[0].LeftSpan;
-        for (var i = 1; i < PostList.Count; i++) {
-            PostList[i].X      = PostList[i - 1].X + PostList[i].LeftSpan;
-            PostList[i].StartX = PostList[i].X;
-            PostList[i].EndX   = PostList[i].X;
-        }
-
-        // 调整驱动立柱的位置,同时调整檩条的位置
-        if (DriveGap > 0 && PostList != null) { // 如果驱动间隙大于0需要调整驱动立柱的位置，否则不需要，且需要将驱动立柱前后的主梁联系上
-            var drivePostList = PostList.Where(post => post.IsDrive).ToList();
-            // 调整立柱
-            for (var i = 0; i < drivePostList.Count; i++) {
-                var drivePost = drivePostList[i];
-                // 计算当前驱动立柱前方可以放多少组件
-                var drivePostToFirstPurlin = drivePost.X + ModuleGapAxis / 2 - (DriveGap - ModuleGapAxis) / 2;
-                drivePostToFirstPurlin -= i * (DriveGap                      - ModuleGapAxis);
-                var purlinNum    = drivePostToFirstPurlin / (ModuleWidth + ModuleGapAxis);
-                var modifyFactor = purlinNum - (int)purlinNum;
-                if (modifyFactor <= 0.5) { // 靠前一个檩条近
-                    drivePost.X         -= modifyFactor * (ModuleWidth + ModuleGapAxis);
-                    drivePost.LeftSpan  -= modifyFactor * (ModuleWidth + ModuleGapAxis);
-                    drivePost.RightSpan += modifyFactor * (ModuleWidth + ModuleGapAxis);
-                } else {
-                    drivePost.X         += (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
-                    drivePost.LeftSpan  += (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
-                    drivePost.RightSpan -= (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
-                }
-
-                drivePost.StartX = drivePost.X - drivePost.LeftToBeam;
-                drivePost.EndX   = drivePost.X + drivePost.RightToBeam;
-                // 调整前后立柱的左右跨距
-                if (drivePost.Num > 1) { PostList[drivePost.Num - 2].RightSpan = drivePost.LeftSpan; }
-
-                if (drivePost.Num < PostList.Count) { PostList[drivePost.Num].LeftSpan = drivePost.RightSpan; }
-            }
-
-            while (Math.Abs(PostList.Last().X + PostList.Last().RightSpan - (SystemLength - LeftRemind - RightRemind))
-                 > 0.0001) { PostList.Last().RightSpan = SystemLength - LeftRemind - RightRemind - PostList.Last().X; }
-
-            InitPurlinWithDriveGap();
-        } else { // 没有驱动间隙檩条直接平铺
-            InitPurlinWithOutDriveGap();
-        }
-    }
+    #region 初始化立柱与主梁檩条坐标
 
     // 更新立柱中心线坐标，同时更新檩条与主梁
-    public void UpdatePost() {
+    public void InitPost() {
         if (PostList == null) return;
+
+        // 整理删除多余的立柱,修改错误的立柱
+        var totalLength = SystemLength - LeftRemind - RightRemind;
+        PostList[0].X = PostList[0].LeftSpan;
+        for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].LeftSpan = PostList[i - 1].RightSpan;
+            PostList[i].X        = PostList[i - 1].X + PostList[i].LeftSpan;
+        }
+
+        while (PostList.Last().X > totalLength) {
+            PostList.RemoveAt(PostList.Count - 1);
+        }
+
+        PostList.Last().RightSpan = totalLength - PostList.Last().X;
+
+
         var totalSpan = SystemLength - LeftRemind - RightRemind;
         PostList[0].X   = PostList[0].LeftSpan;
         PostList[0].Num = 1;
@@ -224,6 +193,8 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
             PostList[i].Num      = i + 1;
             PostList[i].LeftSpan = PostList[i - 1].RightSpan;
             PostList[i].X        = PostList[i - 1].X + PostList[i].LeftSpan;
+            PostList[i].StartX   = PostList[i].X;
+            PostList[i].EndX     = PostList[i].X;
         }
 
         // 调整驱动立柱的位置,同时调整檩条的位置
@@ -247,13 +218,19 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
                     drivePost.RightSpan -= (1 - modifyFactor) * (ModuleWidth + ModuleGapAxis);
                 }
 
-                if (drivePost.Num > 1) { PostList[drivePost.Num - 2].RightSpan = drivePost.LeftSpan; }
+                drivePost.StartX = drivePost.X - drivePost.LeftToBeam;
+                drivePost.EndX   = drivePost.X + drivePost.RightToBeam;
+                if (drivePost.Num > 1) {
+                    PostList[drivePost.Num - 2].RightSpan = drivePost.LeftSpan;
+                }
 
-                if (drivePost.Num < PostList.Count) { PostList[drivePost.Num].LeftSpan = drivePost.RightSpan; }
+                if (drivePost.Num < PostList.Count) {
+                    PostList[drivePost.Num].LeftSpan = drivePost.RightSpan;
+                }
             }
 
             InitPurlinWithDriveGap();
-            UpdateBeam();
+            InitBeam();
         } else { // 没有驱动间隙檩条直接平铺
             InitPurlinWithOutDriveGap();
         }
@@ -264,104 +241,104 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         if (BeamList == null) return;
         if (PostList == null) return;
 
-        //BeamList[0].StartX = -LeftRemind;
-        //BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
-        //BeamList[0].Num    = 1;
-        //for (var i = 1; i < BeamList.Count; i++) {
-        //    BeamList[i].Num          = i                    + 1;
-        //    BeamList[i].StartX       = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
-        //    BeamList[i].EndX         = BeamList[i].StartX   + BeamList[i].Length;
-        //    BeamList[i].PreItem      = BeamList[i - 1];
-        //    BeamList[i - 1].NextItem = BeamList[i];
-        //    if (i != BeamList.Count - 1) { BeamList[i].NextItem = BeamList[i + 1]; }
-        //}
+        BeamList[0].Num    = 1;
+        BeamList[0].Length = Math.Max(Math.Min(SystemLength, BeamList[0].Length), MinBeamLength);
+        BeamList[0].StartX = -LeftRemind;
+        BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
+        for (var i = 1; i < BeamList.Count; i++) {
+            BeamList[i].Num    = i                    + 1;
+            BeamList[i].StartX = BeamList[i - 1].EndX + BeamGap; // 初始化时先将所有的主梁间隙置为初始值
+            BeamList[i].EndX   = BeamList[i].StartX   + Math.Max(BeamList[i].Length, MinBeamLength);
+            if (BeamList[i].EndX > SystemLength - LeftRemind) {
+                BeamList[i].EndX = SystemLength - LeftRemind;
+                if (BeamList[i].StartX >= SystemLength - LeftRemind) {
+                    BeamList[i].StartX = SystemLength - LeftRemind;
+                }
+            }
 
-        var drivePostList = PostList.Where(post => post.IsDrive);
+            BeamList[i].Length = BeamList[i].EndX - BeamList[i].StartX;
+        }
+
+        while (BeamList.Last().Length == 0) BeamList.RemoveAt(BeamList.Count - 1); // 移除多余的主梁
+
+
+        var drivePostList = PostList.Where(post => post.IsDrive).ToList();
         // 使用数据结构队列
-    }
-
-    // 更新主梁列表,更新时不做删除，可能增加和修改
-    public void UpdateBeam() {
-        if (BeamList == null) { return; }
-
-        var startX = -LeftRemind;
-        var index  = 0;
-        while (index < BeamList.Count) {
-            var currentBeam = BeamList[index];
-            currentBeam.Num = index + 1;
-            if (startX >= SystemLength - LeftRemind) {
-                currentBeam.StartX = SystemLength - LeftRemind;
-                currentBeam.EndX   = SystemLength - LeftRemind;
-                currentBeam.Length = 0;
-                index++;
+        var drivePostIndex = 0;
+        var beamIndex      = 0;
+        var itemQueue      = new Queue<IItemModel>();
+        while (drivePostIndex < drivePostList.Count || beamIndex < BeamList.Count) {
+            var drivePost = drivePostIndex < drivePostList.Count ? drivePostList[drivePostIndex] : null;
+            var beam      = beamIndex      < BeamList.Count ? BeamList[beamIndex] : null;
+            if (drivePost == null) {
+                itemQueue.Enqueue(beam!);
+                beamIndex++;
+            } else if (beam == null) {
+                itemQueue.Enqueue(drivePost!);
+                drivePostIndex++;
             } else {
-                if (index == 0) { currentBeam.PreItem = null; } else if (index == BeamList.Count - 1) {
-                    currentBeam.NextItem = null;
-                } else {
-                    currentBeam.PreItem  = BeamList[index - 1];
-                    currentBeam.NextItem = BeamList[index + 1];
-                }
-
-                // 更新到前一个主梁的距离
-                currentBeam.LeftToPre   = currentBeam.PreItem is null ? 0 : BeamGap;
-                currentBeam.RightToNext = currentBeam.NextItem is null ? 0 : BeamGap;
-
-                currentBeam.StartX = startX;
-                currentBeam.EndX   = Math.Min(currentBeam.StartX + currentBeam.Length, SystemLength - LeftRemind);
-                currentBeam.Length = currentBeam.EndX - currentBeam.StartX;
-
-
-                var flag = false; // 是否需要增加主梁
-                if (DriveGap > 0 && PostList != null) {
-                    var drivePostList = PostList.Where(post => post.IsDrive);
-                    foreach (var drivePost in drivePostList) {
-                        if (drivePost.X + drivePost.RightToBeam > currentBeam.StartX
-                         && drivePost.X - drivePost.LeftToBeam  <= currentBeam.StartX) {
-                            currentBeam.StartX    = drivePost.X + drivePost.RightToBeam;
-                            currentBeam.PreItem   = drivePost;
-                            currentBeam.LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
-                            currentBeam.Length    = currentBeam.EndX     - currentBeam.StartX;
-                        } else if (drivePost.X + drivePost.RightToBeam <= currentBeam.EndX
-                                && drivePost.X - drivePost.LeftToBeam  > currentBeam.StartX) { // 这种情况需要增加主梁数量
-                            // 原来主梁的位置需要向后移动
-                            var newBeam = BeamMapper.Map<BeamModel, BeamModel>(currentBeam);
-                            currentBeam.StartX    = drivePost.X + drivePost.RightToBeam;
-                            currentBeam.PreItem   = drivePost;
-                            currentBeam.LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
-                            currentBeam.Length    = currentBeam.EndX     - currentBeam.StartX;
-                            currentBeam.Num++;
-                            newBeam.EndX        = drivePost.X - drivePost.LeftToBeam;
-                            newBeam.NextItem    = drivePost;
-                            newBeam.RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
-                            newBeam.Length      = newBeam.EndX         - newBeam.StartX;
-                            BeamList.Insert(index, newBeam);
-                            flag = true;
-                        } else if (drivePost.X - drivePost.LeftToBeam  <= currentBeam.EndX
-                                && drivePost.X + drivePost.RightToBeam > currentBeam.EndX) {
-                            currentBeam.EndX        = drivePost.X - drivePost.LeftToBeam;
-                            currentBeam.NextItem    = drivePost;
-                            currentBeam.RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
-                            currentBeam.Length      = currentBeam.EndX     - currentBeam.StartX;
-                        }
+                if (drivePost.StartX <= beam.StartX) { // 驱动立柱起点在主梁起点前面先进立柱
+                    itemQueue.Enqueue(drivePost);
+                    drivePostIndex++;
+                } else if (beam.EndX + MinBeamLength < drivePost.StartX) { // 当前主梁在驱动立柱前面很远，直接入队
+                    itemQueue.Enqueue(beam);
+                    beamIndex++;
+                } else if (beam.EndX + MinBeamLength > drivePost.StartX && beam.EndX <= drivePost.EndX) {
+                    // 将当前主梁的尾部接上驱动立柱，并调整后续主梁
+                    beam.EndX   = drivePost.StartX;
+                    beam.Length = beam.EndX - beam.StartX;
+                    while (beamIndex + 1 < BeamList.Count && BeamList[beamIndex + 1].EndX <= drivePost.EndX) {
+                        BeamList.RemoveAt(beamIndex + 1);
                     }
-                }
 
-                if (flag) {
-                    startX =  BeamList[index + 1].EndX + BeamList[index + 1].RightToNext;
-                    index  += 2;
-                } else {
-                    startX = currentBeam.EndX + currentBeam.RightToNext;
-                    index++;
+                    itemQueue.Enqueue(beam);
+                    beamIndex++;
+                } else { // 主梁在驱动立柱上方，需要将主梁分成两部分，特别短的先不管，后面整理队列的时候处理，主梁入队
+                    var newBeam = BeamMapper.Map<BeamModel, BeamModel>(beam); //
+                    newBeam.EndX   = drivePost.StartX;
+                    newBeam.Length = newBeam.EndX - newBeam.StartX;
+                    beam.StartX    = drivePost.EndX;
+                    beam.Length    = beam.EndX - beam.StartX;
+                    BeamList.Insert(beamIndex, newBeam);
+                    itemQueue.Enqueue(newBeam);
                 }
+            }
+        }
+
+        // 将主梁和立柱依次相连
+        while (itemQueue.Count > 0) {
+            var item1 = itemQueue.Dequeue();
+            if (itemQueue.Count <= 0) continue;
+            var item2 = itemQueue.Peek();
+            item1.NextItem = item2;
+            item2.PreItem  = item1;
+        }
+
+        // 遍历主梁修改间隙
+        for (var i = 0; i < BeamList.Count; i++) {
+            BeamList[i].Num = i + 1;
+            switch (BeamList[i].NextItem) {
+                case BeamModel beam:
+                    BeamList[i].RightToNext = BeamGap;
+                    beam.LeftToPre          = BeamGap;
+                    break;
+                case PostModel drivePost:
+                    BeamList[i].RightToNext = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    if (i < BeamList.Count - 1) {
+                        BeamList[i + 1].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    }
+
+                    break;
+                default: // 当前主梁为最后一个的情况
+                    BeamList[i].RightToNext = 0;
+                    break;
             }
         }
     }
 
     // 更新檩条坐标
     public void InitPurlinWithOutDriveGap() {
-        PurlinList = new List<PurlinModel> {
-                                               Capacity = 0
-                                           };
+        PurlinList = new List<PurlinModel> { Capacity = 0 };
         var x = -ModuleGapAxis / 2;
         PurlinList.Add(new PurlinModel(x, -1)); // 最左侧檩条
         for (var i = 0; i < ModuleColCounter - 1; i++) {
@@ -375,15 +352,13 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 
     // 当立柱发生改变时需要触发，执行时默认立柱跨距已经填好，执行完成可能更新立柱的位置
     public void InitPurlinWithDriveGap() {
-        PurlinList = new List<PurlinModel> {
-                                               Capacity = 0
-                                           };
+        PurlinList = new List<PurlinModel> { Capacity = 0 };
         var drivePosts = PostList!.Where(post => post.IsDrive);
         var startX     = -ModuleGapAxis / 2;
         int purlinNum;
         foreach (var drivePost in drivePosts) {
-            purlinNum = Convert.ToInt32((drivePost.X - (DriveGap - ModuleGapAxis) / 2 - startX)
-                                      / (ModuleWidth + ModuleGapAxis));
+            purlinNum = Convert.ToInt32((drivePost.X - (DriveGap - ModuleGapAxis) / 2 - startX) /
+                                        (ModuleWidth + ModuleGapAxis));
             PurlinList.Add(new PurlinModel(startX, -1));
             for (var i = 1; i < purlinNum + 1; i++) {
                 PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
@@ -394,8 +369,8 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         }
 
         PurlinList.Add(new PurlinModel(startX, -1));
-        purlinNum = Convert.ToInt32((SystemLength - LeftRemind - RightRemind + ModuleGapAxis - startX)
-                                  / (ModuleWidth                                             + ModuleGapAxis));
+        purlinNum = Convert.ToInt32((SystemLength - LeftRemind - RightRemind + ModuleGapAxis - startX) /
+                                    (ModuleWidth                                             + ModuleGapAxis));
         PurlinList.Add(new PurlinModel(startX, -1));
         for (var i = 1; i < purlinNum + 1; i++) {
             PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
@@ -404,62 +379,34 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         PurlinList.Last().Type = 1;
     }
 
-    public void InitBeamGap() {
-        if (BeamList == null) return;
-        foreach (var beamModel in BeamList) {
-            beamModel.LeftToPre   = BeamGap;
-            beamModel.RightToNext = BeamGap;
-        }
-    }
-
-    public void InitDriveSplit() {
-        if (PostList == null) { return; }
-
-        var drivePostList = PostList.Where(post => post.IsDrive);
-        foreach (var drivePost in drivePostList) {
-            drivePost.LeftToBeam  = 75;
-            drivePost.RightToBeam = 75;
-        }
-    }
-
     public void Init() {
-        //InitDriveSplit();
-
-        // 删除整理多余的主梁
-        if (BeamList != null) {
-            InitBeamGap();
-            var totalLength = SystemLength;
-            BeamList[0].Length =  Math.Min(totalLength, BeamList[0].Length);
-            totalLength        -= BeamList[0].Length;
-            for (var i = 1; i < BeamList.Count; i++) {
-                if (totalLength <= 0) { BeamList[i].Length = 0; } else {
-                    BeamList[i].Length =  Math.Min(BeamList[i].Length, totalLength);
-                    totalLength        -= BeamList[i].Length + BeamList[i].LeftToPre;
-                }
-            }
-
-            while (BeamList.Last().Length == 0) { BeamList.RemoveAt(BeamList.Count - 1); }
-        }
-
-        // 整理删除多余的立柱
-        if (PostList != null) {
-            var totalLength = SystemLength - LeftRemind - RightRemind;
-            PostList[0].X = PostList[0].LeftSpan;
-            for (var i = 1; i < PostList.Count; i++) {
-                PostList[i].LeftSpan = PostList[i - 1].RightSpan;
-                PostList[i].X        = PostList[i - 1].X + PostList[i].LeftSpan;
-            }
-
-            while (PostList.Last().X > totalLength) { PostList.RemoveAt(PostList.Count - 1); }
-
-            PostList.Last().RightSpan = totalLength - PostList.Last().X;
-        }
-
-
-        InitPost(); // 根据立柱与檩条
+        InitPost();
         // 初始化时将主梁的间隙保存到对象
         InitBeam(); // 初始化主梁
     }
 
-#endregion
+    // 更新主梁坐标,所有前置操作在前台做
+    public void UpdateBeam() {
+        if (BeamList!.Count == 0) return;
+        BeamList[0].Num    = 1;
+        BeamList[0].StartX = -LeftRemind;
+        BeamList[0].EndX   = BeamList[0].Length - LeftRemind;
+        for (var i = 1; i < BeamList.Count; i++) {
+            BeamList[i].Num = i + 1;
+            switch (BeamList[i].PreItem) {
+                case BeamModel beam:
+                    BeamList[i].LeftToPre = BeamGap;
+                    beam.RightToNext      = BeamGap;
+                    break;
+                case PostModel drivePost:
+                    BeamList[i].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    break;
+            }
+
+            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
+            BeamList[i].EndX   = BeamList[i].StartX   + BeamList[i].Length;
+        }
+    }
+
+    #endregion
 }

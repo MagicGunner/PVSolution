@@ -498,39 +498,13 @@
                                         <Button
                                             Command="{Binding DataContext.SwitchDetailVisibleCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                             CommandParameter="{Binding}"
-                                            Content="展开"
+                                            Content="切分"
                                             Style="{StaticResource ButtonPrimary.Small}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                    <!--  首选项展示  -->
-                    <DataGrid.RowDetailsTemplate>
-                        <DataTemplate>
-                            <Grid Visibility="{Binding IsDetailsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal">
-                                    <hc:TextBox
-                                        Margin="5"
-                                        hc:TitleElement.Title="与上一个主梁距离"
-                                        Text="{Binding LeftToPre, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                    <hc:TextBox
-                                        Margin="5"
-                                        hc:TitleElement.Title="与下一个主梁距离"
-                                        Text="{Binding RightToNext, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </DataGrid.RowDetailsTemplate>
                 </DataGrid>
 
             </TabItem>

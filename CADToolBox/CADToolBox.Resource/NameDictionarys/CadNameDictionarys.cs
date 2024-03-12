@@ -5,7 +5,6 @@ namespace CADToolBox.Resource.NameDictionarys;
 public static class CadNameDictionarys {
     public static readonly Dictionary<string, string> AttrNameDic;
 
-
     static CadNameDictionarys() {
         AttrNameDic = new Dictionary<string, string> {
                                                          { "ProjectName", "项目名称" },

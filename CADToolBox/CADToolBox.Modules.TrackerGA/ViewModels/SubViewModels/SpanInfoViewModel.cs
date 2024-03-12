@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,7 @@ using CADToolBox.Shared.Models.UIModels.Implement;
 using CADToolBox.Shared.Models.UIModels.Interface;
 using CADToolBox.Shared.Tools;
 using System.Reflection;
+using CADToolBox.Shared.Models.CADModels.Interface;
 
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 
@@ -103,21 +105,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
                                                     if (modifiedPost.Num == PostInfos.Count) return;
                                                     PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
                                                 };
-                newPostInfo.IsDriveChanged += (obj,
-                                               _) => {
-                                                  var modifiedPost = (PostInfo)obj;
-                                                  if (modifiedPost.IsDrive && TrackerModel!.HasSlew) {
-                                                      MessageBox.Show("当前立柱由普通立柱变为回转驱动立柱，请注意填写电机处的开断，此处将两侧均置为75");
-                                                      modifiedPost.LeftToBeam  = 75;
-                                                      modifiedPost.RightToBeam = 75;
-                                                  } else {
-                                                      modifiedPost.LeftToBeam  = 0;
-                                                      modifiedPost.RightToBeam = 0;
-                                                  }
-                                              };
+                newPostInfo.IsDriveChanged += OnIsDriveChanged;
                 newPostInfo.ModelChanged += (_,
                                              _) => {
-                                                TrackerModel!.UpdatePost();
+                                                TrackerModel!.InitPost();
                                                 UpdateSystemDraw();
                                             };
                 PostInfos.Add(newPostInfo);
@@ -162,7 +153,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
             TrackerModel!.PostList!.Insert(currentPostInfo.Num, insertPost);
         }
 
-        TrackerModel!.UpdatePost();
+        TrackerModel!.InitPost();
         UpdatePostInfos();
     }
 
@@ -173,7 +164,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         }
 
         TrackerModel!.PostList!.RemoveAt(currentPostInfo.Num - 1);
-        TrackerModel!.UpdatePost();
+        TrackerModel!.InitPost();
         UpdatePostInfos();
     }
 
@@ -198,13 +189,24 @@ public partial class SpanInfoViewModel : ViewModelBase {
 
     [RelayCommand]
     private void AddBeam(BeamInfo currentBeamInfo) {
-        var currentBeam = currentBeamInfo.BeamModel!;
+        var currentBeam = currentBeamInfo.BeamModel;
         var insertBeam  = BeamInfoMapper.Map<BeamModel, BeamModel>(currentBeam);
-
-        if (currentBeamInfo.Num == BeamInfos!.Count) {
-            TrackerModel!.BeamList!.Insert(BeamInfos!.Count - 1, insertBeam);
-        } else {
-            TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
+        switch (currentBeam.NextItem) {
+            case BeamModel: // 当前主梁下一个也是主梁
+                currentBeam.NextItem = insertBeam;
+                insertBeam.PreItem   = currentBeam;
+                TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
+                break;
+            case PostModel drivePost:
+                insertBeam.PreItem = drivePost;
+                TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
+                break;
+            default: // 最后一个主梁
+                currentBeam.NextItem = insertBeam;
+                insertBeam.PreItem   = currentBeam;
+                insertBeam.NextItem  = null;
+                TrackerModel!.BeamList!.Insert(BeamInfos!.Count - 1, insertBeam);
+                break;
         }
 
         // 整理主梁坐标再插入到BeamInfos
@@ -220,6 +222,63 @@ public partial class SpanInfoViewModel : ViewModelBase {
             return;
         }
 
+        var flag        = false;
+        var currentBeam = currentBeamInfo.BeamModel;
+        switch (currentBeam.NextItem) {
+            case BeamModel beamModel: // 当前主梁下一个也是主梁
+                if (currentBeam.PreItem != null) {
+                    currentBeam.PreItem.NextItem = beamModel;
+                    beamModel.PreItem            = currentBeam.PreItem;
+                }
+
+                IItemModel tempModel = beamModel;
+                while (tempModel != null && tempModel is not PostModel) {
+                    tempModel = tempModel.NextItem;
+                }
+
+                if (tempModel is PostModel) { // 当前主梁后面有驱动立柱，这种情况主梁不能往前移动
+                    // 更新前后关系与长度信息
+                    beamModel.StartX = currentBeam.StartX;
+                    beamModel.Length = beamModel.EndX - beamModel.StartX;
+                } else {
+                    beamModel.StartX = currentBeam.StartX;
+                    beamModel.EndX   = beamModel.StartX + beamModel.Length;
+                }
+
+                flag = true;
+                break;
+            case PostModel drivePost:
+                switch (currentBeam.PreItem) {
+                    case PostModel:
+                        MessageBox.Show("当前主梁不可删除"); // 两个驱动立柱之间只有一个主梁时不可删除
+                        break;
+                    case BeamModel beamModel:
+                        beamModel.NextItem = drivePost;
+                        beamModel.EndX     = currentBeam.EndX;
+                        beamModel.Length   = beamModel.EndX - beamModel.StartX;
+                        flag               = true;
+                        break;
+                    default:                         // 已经为第一个主梁
+                        MessageBox.Show("当前主梁不可删除"); // 驱动立柱前面只有一个主梁的情况
+                        break;
+                }
+
+                break;
+            default: // 最后一个主梁
+                switch (currentBeam.PreItem) {
+                    case BeamModel beamModel:
+                        beamModel.NextItem = null;
+                        flag               = true;
+                        break;
+                    default: // 驱动立柱后面只有一个主梁的情况
+                        MessageBox.Show("当前主梁不可删除");
+                        break;
+                }
+
+                break;
+        }
+
+        if (!flag) return;
         TrackerModel!.BeamList!.RemoveAt(currentBeamInfo.Num - 1);
         TrackerModel!.UpdateBeam();
 
@@ -267,7 +326,9 @@ public partial class SpanInfoViewModel : ViewModelBase {
         if (TrackerModel!.BeamList.Count >= BeamInfos.Count) {
             // 展示的比实际的少需要增加
             for (var i = count; i < TrackerModel!.BeamList.Count; i++) {
-                BeamInfos.Add(new BeamInfo(TrackerModel!.BeamList[i]));
+                var newBeamInfo = new BeamInfo(TrackerModel!.BeamList[i]);
+                newBeamInfo.LengthChanged += OnBeamLengthChanged;
+                BeamInfos.Add(newBeamInfo);
             }
         } else {
             // 展示的比实际的多需要将末尾的减少
@@ -279,6 +340,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         UpdateSystemDraw();
     }
 
+
     private void UpdatePostInfos() {
         if (TrackerModel!.PostList == null || PostInfos == null) return;
 
@@ -288,7 +350,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         }
 
         if (TrackerModel!.PostList.Count >= PostInfos.Count) {
-            for (int i = count; i < TrackerModel!.PostList.Count; i++) {
+            for (var i = count; i < TrackerModel!.PostList.Count; i++) {
                 PostInfos.Add(new PostInfo(TrackerModel!.PostList[i]));
             }
         } else {
@@ -296,6 +358,8 @@ public partial class SpanInfoViewModel : ViewModelBase {
                 PostInfos.RemoveAt(i);
             }
         }
+
+        UpdateSystemDraw();
     }
 
     #endregion
@@ -304,86 +368,30 @@ public partial class SpanInfoViewModel : ViewModelBase {
 
     #region 立柱事件
 
-    //处理立柱展示数组发生变化
-    //private void OnPostInfosListChanged(object               sender,
-    //                                    ListChangedEventArgs e) {
-    //    switch (e.ListChangedType) {
-    //        case ListChangedType.ItemAdded:   break;
-    //        case ListChangedType.ItemDeleted: break;
-    //        case ListChangedType.Reset:       break;
-    //        case ListChangedType.ItemMoved:   break;
-    //        case ListChangedType.ItemChanged:
-    //            var changedIndex   = e.NewIndex;
-    //            var changedItem    = PostInfos?[changedIndex];
-    //            var propDescriptor = e.PropertyDescriptor;
-    //            if (propDescriptor != null) {
-    //                switch (propDescriptor.Name) {
-    //                    case nameof(changedItem.LeftSpan):
-    //                        OnPostLeftSpanChanged(changedItem!);
-    //                        UpdateSystemDraw();
-    //                        break;
-    //                    case nameof(changedItem.RightSpan):
-    //                        OnPostRightSpanChanged(changedItem!);
-    //                        UpdateSystemDraw();
-    //                        break;
-    //                    case nameof(changedItem.IsDrive):
-    //                        OnPostIsDriveChanged(changedItem!);
-    //                        UpdateSystemDraw();
-    //                        break;
-    //                }
-    //            }
+    private void OnIsDriveChanged(object    sender,
+                                  EventArgs e) {
+        var modifiedPost = (PostInfo)sender;
+        if (!TrackerModel!.HasSlew) return;
 
-    //            break;
-    //        case ListChangedType.PropertyDescriptorAdded:   break;
-    //        case ListChangedType.PropertyDescriptorDeleted: break;
-    //        case ListChangedType.PropertyDescriptorChanged: break;
-    //        default:                                        throw new ArgumentOutOfRangeException();
-    //    }
-    //}
+        if (modifiedPost.IsDrive) { // 由普通立柱变成驱动立柱
+            modifiedPost.LeftToBeam  = 75;
+            modifiedPost.RightToBeam = 75;
+            // 找到上面的主梁，将其分成两段接入
+        } else { // 由驱动立柱变成普通立柱
+            // 将驱动两边的主梁修改
+            var leftBeam  = modifiedPost.PostModel.PreItem;
+            var rightBeam = modifiedPost.PostModel.NextItem;
+            if (leftBeam != null) {
+                leftBeam.EndX = modifiedPost.X - TrackerModel!.BeamGap / 2;
+            }
 
-    // 立柱左跨距发生改变
-    //private void OnPostLeftSpanChanged(PostInfo postInfo) {
-    //    if (postInfo.Num == 1) return; // 改变的为第一个立柱时无需更新
-    //    PostInfos![postInfo.Num - 2].RightSpan = postInfo.LeftSpan;
-    //}
+            if (rightBeam != null) {
+                rightBeam.StartX = modifiedPost.X + TrackerModel!.BeamGap / 2;
+            }
+        }
 
-    // 立柱右跨距发生改变
-    //private void OnPostRightSpanChanged(PostInfo postInfo) {
-    //    if (postInfo.Num == PostInfos!.Count) return; // 改变的为最后一个立柱时无需更新
-    //    PostInfos![postInfo.Num].LeftSpan = postInfo.RightSpan;
-    //}
-
-    // 增加立柱
-    //private void OnPostAdd(PostInfo postInfo) {
-    //    if (PostInfos?.Count == 0) return;
-    //    for (var i = 0; i < PostInfos!.Count; i++) {
-    //        PostInfos[i].Num = i + 1;
-    //    }
-
-    //    OnPostLeftSpanChanged(postInfo);
-    //    OnPostRightSpanChanged(postInfo);
-    //}
-
-    // 减少立柱
-    //private void OnPostDelete(PostInfo  oldPostInfo,
-    //                          PostInfo? newPostInfo) {
-    //    if (PostInfos?.Count == 0) return;
-    //    for (var i = 0; i < PostInfos!.Count; i++) {
-    //        PostInfos[i].Num = i + 1;
-    //    }
-
-    //    if (newPostInfo != null) {
-    //        OnPostLeftSpanChanged(newPostInfo);
-    //        OnPostRightSpanChanged(newPostInfo);
-    //    }
-
-    //    UpdateSystemDraw();
-    //}
-
-    // 立柱类型发生改变
-    //private void OnPostIsDriveChanged(PostInfo postInfo) {
-    //    if (TrackerModel!.DriveGap == 0) return; // 如果没有驱动间隙不影响立柱位置
-    //}
+        UpdatePostInfos();
+    }
 
     #endregion
 
@@ -397,7 +405,13 @@ public partial class SpanInfoViewModel : ViewModelBase {
             return;
         }
 
-        TrackerModel!.UpdateBeam();
+        var currentBeam = (BeamInfo)sender;
+        if (currentBeam.Length < TrackerModel!.MinBeamLength) {
+            MessageBox.Show("主梁长度不可超过" + TrackerModel.MinBeamLength.ToString(CultureInfo.InvariantCulture));
+        }
+
+        currentBeam.Length = TrackerModel!.MinBeamLength;
+        TrackerModel!.InitBeam();
         UpdateBeamInfos();
         UpdateSystemDraw();
     }
@@ -408,7 +422,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
     // 当TrackerModel属性发生改变时也要重新绘图，主要是末端余量的变化
     private void OnTrackerModelChanged(object                   sender,
                                        PropertyChangedEventArgs e) {
-        TrackerModel!.UpdatePost();
+        TrackerModel!.InitPost();
     }
 
     #endregion

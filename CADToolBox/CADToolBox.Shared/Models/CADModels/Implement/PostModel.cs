@@ -5,8 +5,8 @@ using System.Collections.Generic;
 namespace CADToolBox.Shared.Models.CADModels.Implement;
 
 public class PostModel : IItemModel {
-    public BeamModel? PreBeamModel  { get; set; }
-    public BeamModel? NextBeamModel { get; set; }
+    public IItemModel? PreItem  { get; set; }
+    public IItemModel? NextItem { get; set; }
 
     public int     Num            { get; set; } // 立柱序号
     public bool    IsDrive        { get; set; } // 是否驱动
