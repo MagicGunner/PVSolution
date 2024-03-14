@@ -29,7 +29,7 @@ using CADToolBox.Shared.Models.CADModels.Interface;
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 
 public partial class SpanInfoViewModel : ViewModelBase {
-    #region 字段与属性
+#region 字段与属性
 
     [ObservableProperty]
     private TrackerModel? _trackerModel;
@@ -71,15 +71,16 @@ public partial class SpanInfoViewModel : ViewModelBase {
     [ObservableProperty]
     private DataGridSelectionUnit _currentSelectionUnit = DataGridSelectionUnit.CellOrRowHeader;
 
-    #endregion
+#endregion
 
 
-    #region 构造方法
+#region 构造方法
 
     public SpanInfoViewModel() {
         // 动态获取当前画布的大小
-        WeakReferenceMessenger.Default.Register<WindowSizeChangedMessage>(this, (obj,
-                                                                              message) => {
+        WeakReferenceMessenger.Default.Register<WindowSizeChangedMessage>(this,
+                                                                          (obj,
+                                                                           message) => {
                                                                               CanvasHeight = message.CanvasHeight;
                                                                               CanvasWidth  = message.CanvasWidth;
                                                                               // 画图
@@ -93,21 +94,9 @@ public partial class SpanInfoViewModel : ViewModelBase {
         // 初始化立柱信息
         if (TrackerModel?.PostList != null) {
             foreach (var newPostInfo in TrackerModel.PostList.Select(postModel => new PostInfo(postModel))) {
-                newPostInfo.LeftSpanChanged += (obj,
-                                                _) => {
-                                                   var modifiedPost = (PostInfo)obj;
-                                                   if (modifiedPost.Num == 1) return;
-                                                   PostInfos![modifiedPost.Num - 2].RightSpan = modifiedPost.LeftSpan;
-                                                   UpdatePostInfos();
-                                               };
-                newPostInfo.RightSpanChanged += (obj,
-                                                 _) => {
-                                                    var modifiedPost = (PostInfo)obj;
-                                                    if (modifiedPost.Num == PostInfos.Count) return;
-                                                    PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
-                                                    UpdatePostInfos();
-                                                };
-                newPostInfo.IsDriveChanged += OnIsDriveChanged;
+                newPostInfo.LeftSpanChanged  += OnLeftSpanChanged;
+                newPostInfo.RightSpanChanged += OnRightSpanChanged;
+                newPostInfo.IsDriveChanged   += OnIsDriveChanged;
                 PostInfos.Add(newPostInfo);
             }
         }
@@ -125,20 +114,20 @@ public partial class SpanInfoViewModel : ViewModelBase {
         UpdateSystemDraw();
     }
 
-    #endregion
+#endregion
 
 
-    #region 通用Relaycommand
+#region 其他Relaycommand
 
+    // 是否显示展开想
     [RelayCommand]
     private void SwitchDetailVisible(ITrackerItemInfo currentInfo) {
         currentInfo.IsDetailsVisible = !currentInfo.IsDetailsVisible;
     }
 
-    #endregion
+#endregion
 
-
-    #region 操作立柱表格的Relaycommand
+#region 操作立柱表格的RelayCommand
 
     [RelayCommand]
     private void AddPost(PostInfo currentPostInfo) {
@@ -146,32 +135,26 @@ public partial class SpanInfoViewModel : ViewModelBase {
         var insertPost  = PostInfoMapper.Map<PostModel, PostModel>(currentPost);
         if (currentPostInfo.Num == PostInfos!.Count) {
             TrackerModel!.PostList!.Insert(PostInfos.Count - 1, insertPost);
-        } else {
-            TrackerModel!.PostList!.Insert(currentPostInfo.Num, insertPost);
-        }
+        } else { TrackerModel!.PostList!.Insert(currentPostInfo.Num, insertPost); }
 
-        TrackerModel!.InitPost();
+        TrackerModel!.UpdatePostX();
         UpdatePostInfos();
     }
 
     [RelayCommand]
     private void DeletePost(PostInfo currentPostInfo) {
-        if (PostInfos!.Count <= 1) {
-            MessageBox.Show("至少需要一个立柱");
-        }
+        if (PostInfos!.Count <= 1) { MessageBox.Show("至少需要一个立柱"); }
 
         TrackerModel!.PostList!.RemoveAt(currentPostInfo.Num - 1);
-        TrackerModel!.InitPost();
+        TrackerModel!.UpdatePostX();
         UpdatePostInfos();
     }
 
-    // 前台选中的立柱发生改变时
+    // 前台选中的立柱发生改变时让立柱线段变粗
     [RelayCommand]
     private void PostInfoSelectionChanged(IList selectedItems) {
         if (PostInfos != null)
-            foreach (var postInfo in PostInfos) {
-                postInfo.IsSelected = false;
-            }
+            foreach (var postInfo in PostInfos) { postInfo.IsSelected = false; }
 
         foreach (var selectedItem in selectedItems) {
             if (selectedItem is PostInfo selectedPost) selectedPost.IsSelected = true;
@@ -180,32 +163,36 @@ public partial class SpanInfoViewModel : ViewModelBase {
         UpdateSystemDraw();
     }
 
-    #endregion
+#endregion
 
-    #region 操作主梁表格的Relaycommand
+#region 操作主梁表格的Relaycommand
 
     [RelayCommand]
     private void AddBeam(BeamInfo currentBeamInfo) {
         var currentBeam = currentBeamInfo.BeamModel;
         var insertBeam  = BeamInfoMapper.Map<BeamModel, BeamModel>(currentBeam);
-        switch (currentBeam.NextItem) {
-            case BeamModel: // 当前主梁下一个也是主梁
-                currentBeam.NextItem = insertBeam;
-                insertBeam.PreItem   = currentBeam;
-                TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
-                break;
-            case PostModel drivePost:
-                insertBeam.PreItem = drivePost;
-                TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
-                break;
-            default: // 最后一个主梁
-                currentBeam.NextItem = insertBeam;
-                insertBeam.PreItem   = currentBeam;
-                insertBeam.NextItem  = null;
-                TrackerModel!.BeamList!.Insert(BeamInfos!.Count - 1, insertBeam);
-                break;
-        }
+        //switch (currentBeam.NextItem) {
+        //    case BeamModel: // 当前主梁下一个也是主梁
+        //        currentBeam.NextItem = insertBeam;
+        //        insertBeam.PreItem   = currentBeam;
+        //        TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
+        //        break;
+        //    case PostModel drivePost:
+        //        insertBeam.PreItem = drivePost;
+        //        TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam);
+        //        break;
+        //    default: // 最后一个主梁
+        //        currentBeam.NextItem = insertBeam;
+        //        insertBeam.PreItem   = currentBeam;
+        //        insertBeam.NextItem  = null;
+        //        TrackerModel!.BeamList!.Insert(BeamInfos!.Count - 1, insertBeam);
+        //        break;
+        //}
+        if (currentBeamInfo.Num == BeamInfos!.Count - 1) {
+            TrackerModel!.BeamList!.Insert(BeamInfos.Count - 1, insertBeam);
+        } else { TrackerModel!.BeamList!.Insert(currentBeamInfo.Num, insertBeam); }
 
+        TrackerModel!.UpdateBeamX();
         UpdateBeamInfos();
     }
 
@@ -216,64 +203,63 @@ public partial class SpanInfoViewModel : ViewModelBase {
             return;
         }
 
-        var flag        = false;
-        var currentBeam = currentBeamInfo.BeamModel;
-        switch (currentBeam.NextItem) {
-            case BeamModel beamModel: // 当前主梁下一个也是主梁
-                if (currentBeam.PreItem != null) {
-                    currentBeam.PreItem.NextItem = beamModel;
-                    beamModel.PreItem            = currentBeam.PreItem;
-                }
+        //var flag        = false;
+        //var currentBeam = currentBeamInfo.BeamModel;
+        //switch (currentBeam.NextItem) {
+        //    case BeamModel beamModel: // 当前主梁下一个也是主梁
+        //        if (currentBeam.PreItem != null) {
+        //            currentBeam.PreItem.NextItem = beamModel;
+        //            beamModel.PreItem            = currentBeam.PreItem;
+        //        }
 
-                IItemModel tempModel = beamModel;
-                while (tempModel != null && tempModel is not PostModel) {
-                    tempModel = tempModel.NextItem;
-                }
+        //        IItemModel tempModel = beamModel;
+        //        while (tempModel != null && tempModel is not PostModel) { tempModel = tempModel.NextItem; }
 
-                if (tempModel is PostModel) { // 当前主梁后面有驱动立柱，这种情况主梁不能往前移动
-                    // 更新前后关系与长度信息
-                    beamModel.StartX = currentBeam.StartX;
-                    beamModel.Length = beamModel.EndX - beamModel.StartX;
-                } else {
-                    beamModel.StartX = currentBeam.StartX;
-                    beamModel.EndX   = beamModel.StartX + beamModel.Length;
-                }
+        //        if (tempModel is PostModel) { // 当前主梁后面有驱动立柱，这种情况主梁不能往前移动
+        //            // 更新前后关系与长度信息
+        //            beamModel.StartX = currentBeam.StartX;
+        //            beamModel.Length = beamModel.EndX - beamModel.StartX;
+        //        } else {
+        //            beamModel.StartX = currentBeam.StartX;
+        //            beamModel.EndX   = beamModel.StartX + beamModel.Length;
+        //        }
 
-                flag = true;
-                break;
-            case PostModel drivePost:
-                switch (currentBeam.PreItem) {
-                    case PostModel:
-                        MessageBox.Show("当前主梁不可删除"); // 两个驱动立柱之间只有一个主梁时不可删除
-                        break;
-                    case BeamModel beamModel:
-                        beamModel.NextItem = drivePost;
-                        beamModel.EndX     = currentBeam.EndX;
-                        beamModel.Length   = beamModel.EndX - beamModel.StartX;
-                        flag               = true;
-                        break;
-                    default:                         // 已经为第一个主梁
-                        MessageBox.Show("当前主梁不可删除"); // 驱动立柱前面只有一个主梁的情况
-                        break;
-                }
+        //        flag = true;
+        //        break;
+        //    case PostModel drivePost:
+        //        switch (currentBeam.PreItem) {
+        //            case PostModel:
+        //                MessageBox.Show("当前主梁不可删除"); // 两个驱动立柱之间只有一个主梁时不可删除
+        //                break;
+        //            case BeamModel beamModel:
+        //                beamModel.NextItem = drivePost;
+        //                beamModel.EndX     = currentBeam.EndX;
+        //                beamModel.Length   = beamModel.EndX - beamModel.StartX;
+        //                flag               = true;
+        //                break;
+        //            default:                         // 已经为第一个主梁
+        //                MessageBox.Show("当前主梁不可删除"); // 驱动立柱前面只有一个主梁的情况
+        //                break;
+        //        }
 
-                break;
-            default: // 最后一个主梁
-                switch (currentBeam.PreItem) {
-                    case BeamModel beamModel:
-                        beamModel.NextItem = null;
-                        flag               = true;
-                        break;
-                    default: // 驱动立柱后面只有一个主梁的情况
-                        MessageBox.Show("当前主梁不可删除");
-                        break;
-                }
+        //        break;
+        //    default: // 最后一个主梁
+        //        switch (currentBeam.PreItem) {
+        //            case BeamModel beamModel:
+        //                beamModel.NextItem = null;
+        //                flag               = true;
+        //                break;
+        //            default: // 驱动立柱后面只有一个主梁的情况
+        //                MessageBox.Show("当前主梁不可删除");
+        //                break;
+        //        }
 
-                break;
-        }
+        //        break;
+        //}
 
-        if (!flag) return;
+        //if (!flag) return;
         TrackerModel!.BeamList!.RemoveAt(currentBeamInfo.Num - 1);
+        TrackerModel!.UpdateBeamX();
         UpdateBeamInfos();
     }
 
@@ -282,9 +268,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
     [RelayCommand]
     private void BeamInfoSelectionChanged(IList selectedItems) {
         if (BeamInfos != null)
-            foreach (var beamInfo in BeamInfos) {
-                beamInfo.IsSelected = false;
-            }
+            foreach (var beamInfo in BeamInfos) { beamInfo.IsSelected = false; }
 
         foreach (var selectedItem in selectedItems) {
             if (selectedItem is BeamInfo selectedBeam) selectedBeam.IsSelected = true;
@@ -293,27 +277,22 @@ public partial class SpanInfoViewModel : ViewModelBase {
         UpdateSystemDraw();
     }
 
-    #endregion
+#endregion
 
-    #region 普通方法区
+#region 普通方法区
 
-    // 后台的主梁列表更新后更新前台显示的主梁信息列表
+    // 更新前台的主梁信息表
     private void UpdateBeamInfos() {
-        if (TrackerModel!.BeamList == null) {
-            return;
-        }
+        if (TrackerModel!.BeamList == null) { return; }
 
-        if (BeamInfos == null) {
-            return;
-        }
+        if (BeamInfos == null) { return; }
 
         TrackerModel!.UpdateBeamX();
         // 实际主梁列表与主梁信息列表相同的部分
         var count = Math.Min(TrackerModel!.BeamList.Count, BeamInfos.Count);
         for (var i = 0; i < count; i++) {
-            BeamInfos[i].BeamModel     =  TrackerModel.BeamList[i];
-            BeamInfos[i].LengthChanged -= OnBeamLengthChanged;
-            BeamInfos[i].LengthChanged += OnBeamLengthChanged;
+            BeamInfos[i].BeamModel = TrackerModel.BeamList[i];
+            BeamInfos[i].OnBeamModelChanged();
         }
 
         if (TrackerModel!.BeamList.Count >= BeamInfos.Count) {
@@ -325,42 +304,41 @@ public partial class SpanInfoViewModel : ViewModelBase {
             }
         } else {
             // 展示的比实际的多需要将末尾的减少
-            for (var i = BeamInfos.Count - 1; i >= count; i--) {
-                BeamInfos.RemoveAt(i);
-            }
+            for (var i = BeamInfos.Count - 1; i >= count; i--) { BeamInfos.RemoveAt(i); }
         }
 
         UpdateSystemDraw();
     }
 
-
+    // 更新前台立柱信息表
     private void UpdatePostInfos() {
         if (TrackerModel!.PostList == null || PostInfos == null) return;
-
-        TrackerModel!.UpdatePostX();
         var count = Math.Min(TrackerModel!.PostList.Count, PostInfos.Count);
         for (var i = 0; i < count; i++) {
             PostInfos[i].PostModel = TrackerModel.PostList[i];
+            PostInfos[i].OnPostModelChanged();
         }
 
         if (TrackerModel!.PostList.Count >= PostInfos.Count) {
             for (var i = count; i < TrackerModel!.PostList.Count; i++) {
-                PostInfos.Add(new PostInfo(TrackerModel!.PostList[i]));
+                var newPostInfo = new PostInfo(TrackerModel!.PostList[i]);
+                newPostInfo.IsDriveChanged   += OnIsDriveChanged;
+                newPostInfo.LeftSpanChanged  += OnLeftSpanChanged;
+                newPostInfo.RightSpanChanged += OnRightSpanChanged;
+                PostInfos.Add(newPostInfo);
             }
         } else {
-            for (var i = PostInfos.Count - 1; i >= count; i--) {
-                PostInfos.RemoveAt(i);
-            }
+            for (var i = PostInfos.Count - 1; i >= count; i--) { PostInfos.RemoveAt(i); }
         }
 
         UpdateBeamInfos(); // 更新完立柱需要更新主梁，绘图在更新主梁之后完成
     }
 
-    #endregion
+#endregion
 
-    #region 处理事件
+#region 处理事件
 
-    #region 立柱事件
+#region 立柱事件
 
     private void OnIsDriveChanged(object    sender,
                                   EventArgs e) {
@@ -400,28 +378,43 @@ public partial class SpanInfoViewModel : ViewModelBase {
         UpdatePostInfos();
     }
 
-    #endregion
+    private void OnLeftSpanChanged(object    sender,
+                                   EventArgs e) {
+        var modifiedPost = (PostInfo)sender;
+        if (modifiedPost.Num == 1) return;
+        PostInfos![modifiedPost.Num - 2].RightSpan = modifiedPost.LeftSpan;
+        TrackerModel!.UpdatePostX();
+        UpdatePostInfos();
+    }
 
-    #region 主梁事件，主梁只有长度变化影响绘图，暂不考虑
+    private void OnRightSpanChanged(object    sender,
+                                    EventArgs e) {
+        var modifiedPost = (PostInfo)sender;
+        if (modifiedPost.Num == PostInfos!.Count) return;
+        PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
+        TrackerModel!.UpdatePostX();
+        UpdatePostInfos();
+    }
+
+#endregion
+
+#region 主梁事件，主梁只有长度变化影响绘图，暂不考虑
 
     //当主梁分段长度发生变化时更新主梁分段长度，不对数组进行增减操作
     private void OnBeamLengthChanged(object    sender,
                                      EventArgs e) {
-        MessageBox.Show("主梁长度发生改变");
-        if (BeamInfos == null) {
-            return;
-        }
+        if (BeamInfos == null) { return; }
+        //var currentBeam = (BeamInfo)sender;
+        //if (currentBeam.Length < TrackerModel!.MinBeamLength) {
+        //    MessageBox.Show("主梁长度不可超过" + TrackerModel.MinBeamLength.ToString(CultureInfo.InvariantCulture));
+        //}
 
-        var currentBeam = (BeamInfo)sender;
-        if (currentBeam.Length < TrackerModel!.MinBeamLength) {
-            MessageBox.Show("主梁长度不可超过" + TrackerModel.MinBeamLength.ToString(CultureInfo.InvariantCulture));
-        }
-
-        currentBeam.Length = TrackerModel!.MinBeamLength;
+        //currentBeam.Length = TrackerModel!.MinBeamLength;
+        TrackerModel!.UpdateBeamX();
         UpdateBeamInfos();
     }
 
-    #endregion
+#endregion
 
 
     // 当TrackerModel属性发生改变时也要重新绘图，主要是末端余量的变化
@@ -430,9 +423,9 @@ public partial class SpanInfoViewModel : ViewModelBase {
         TrackerModel!.InitPost();
     }
 
-    #endregion
+#endregion
 
-    #region 画图用
+#region 画图用
 
     public double CanvasHeight { get; private set; }
 
@@ -448,8 +441,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private ObservableCollection<CanvasModuleLine> _moduleLines = [];
 
     private void UpdateSystemDraw() {
-        var maxY = TrackerModel!.BeamCenterToGround + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio) +
-                   TrackerModel.PurlinHeight        + TrackerModel.ModuleHeight;
+        var maxY = TrackerModel!.BeamCenterToGround
+                 + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio)
+                 + TrackerModel.PurlinHeight
+                 + TrackerModel.ModuleHeight;
         var maxX = Math.Max(Math.Max(TrackerModel!.SystemLength, PostInfos == null ? 0 : PostInfos.Last().X),
                             (BeamInfos == null || BeamInfos.Count == 0) ? 0 : BeamInfos.Last().EndX);
 
@@ -466,8 +461,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
         if (PostInfos != null) {
             PostLines = [];
             foreach (var postInfo in PostInfos) {
-                PostLines.Add(new CanvasPostLine(postInfo, (postInfo.X     + TrackerModel.LeftRemind) * scaleX + startX,
-                                                 CanvasHeight, (postInfo.X + TrackerModel.LeftRemind) * scaleX + startX,
+                PostLines.Add(new CanvasPostLine(postInfo,
+                                                 (postInfo.X + TrackerModel.LeftRemind) * scaleX + startX,
+                                                 CanvasHeight,
+                                                 (postInfo.X + TrackerModel.LeftRemind) * scaleX + startX,
                                                  CanvasHeight - TrackerModel.BeamCenterToGround * scaleY));
             }
         }
@@ -477,7 +474,8 @@ public partial class SpanInfoViewModel : ViewModelBase {
             BeamLines = [];
             var randomColors = SolidColorBrushGenerator.GenerateSolidColorBrushes(BeamInfos.Count);
             for (var i = 0; i < BeamInfos.Count; i++) {
-                BeamLines.Add(new CanvasBeamLine(BeamInfos[i], randomColors[i],
+                BeamLines.Add(new CanvasBeamLine(BeamInfos[i],
+                                                 randomColors[i],
                                                  (BeamInfos[i].StartX + TrackerModel.LeftRemind) * scaleX + startX,
                                                  CanvasHeight - TrackerModel.BeamCenterToGround * scaleY,
                                                  (BeamInfos[i].EndX + TrackerModel.LeftRemind) * scaleX + startX,
@@ -488,22 +486,30 @@ public partial class SpanInfoViewModel : ViewModelBase {
         // 画组件部分
         if (TrackerModel!.PurlinList != null) {
             ModuleLines = [];
-            var moduleY = TrackerModel.BeamCenterToGround + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio) +
-                          TrackerModel.PurlinHeight;
+            var moduleY = TrackerModel.BeamCenterToGround
+                        + TrackerModel.BeamHeight * (1 + TrackerModel.BeamRadio)
+                        + TrackerModel.PurlinHeight;
             for (var i = 0; i < TrackerModel.PurlinList.Count - 1; i++) {
                 var leftPurlin  = TrackerModel.PurlinList[i];
                 var rightPurlin = TrackerModel.PurlinList[i + 1];
                 if (rightPurlin.Type == -1) continue; // 右侧檩条为左檩条跳出循环
 
                 ModuleLines.Add(new
-                                    CanvasModuleLine((leftPurlin.X + TrackerModel.ModuleGapAxis / 2 + TrackerModel.LeftRemind) * scaleX + startX,
+                                    CanvasModuleLine((leftPurlin.X
+                                                    + TrackerModel.ModuleGapAxis / 2
+                                                    + TrackerModel.LeftRemind)
+                                                   * scaleX
+                                                   + startX,
                                                      CanvasHeight - moduleY * scaleY,
-                                                     (rightPurlin.X - TrackerModel.ModuleGapAxis / 2 +
-                                                      TrackerModel.LeftRemind) * scaleX + startX,
+                                                     (rightPurlin.X
+                                                    - TrackerModel.ModuleGapAxis / 2
+                                                    + TrackerModel.LeftRemind)
+                                                   * scaleX
+                                                   + startX,
                                                      CanvasHeight - moduleY * scaleY));
             }
         }
     }
 
-    #endregion
+#endregion
 }

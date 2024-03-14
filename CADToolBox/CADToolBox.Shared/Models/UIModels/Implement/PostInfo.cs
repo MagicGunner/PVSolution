@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace CADToolBox.Shared.Models.UIModels.Implement;
 
 public partial class PostInfo : ObservableObject, ITrackerItemInfo {
-    #region 自身属性
+#region 自身属性
 
     [ObservableProperty]
     private PostModel _postModel;
@@ -33,128 +33,164 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
         }
     }
 
-    #endregion
+#endregion
 
-    #region 构造函数
+#region 构造函数
 
     public PostInfo(PostModel postModel) {
         PostModel = postModel;
     }
 
-    #endregion
+#endregion
 
-    #region 立柱模型数据
+#region 立柱模型数据
 
     public int Num {
         get => PostModel.Num;
         set =>
-            SetProperty(PostModel.Num, value, PostModel, (model,
-                                                          value) => model.Num = value);
+            SetProperty(PostModel.Num,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.Num = value);
     }
 
     public bool IsDrive {
         get => PostModel.IsDrive;
         set {
-            if (SetProperty(PostModel.IsDrive, value, PostModel, (model,
-                                                                  value) => model.IsDrive = value)) {
-                OnIsDriveChanged();
-            }
+            if (SetProperty(PostModel.IsDrive,
+                            value,
+                            PostModel,
+                            (model,
+                             value) => model.IsDrive = value)) { OnIsDriveChanged(); }
         }
     }
 
     public bool IsMotor {
         get => PostModel.IsMotor;
         set =>
-            SetProperty(PostModel.IsMotor, value, PostModel, (model,
-                                                              value) => model.IsMotor = value);
+            SetProperty(PostModel.IsMotor,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.IsMotor = value);
     }
 
     public double X {
         get => PostModel.X;
         set =>
-            SetProperty(PostModel.X, value, PostModel, (model,
-                                                        value) => model.X = value);
+            SetProperty(PostModel.X,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.X = value);
     }
 
     public string? Section {
         get => PostModel.Section;
         set =>
-            SetProperty(PostModel.Section, value, PostModel, (model,
-                                                              value) => model.Section = value);
+            SetProperty(PostModel.Section,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.Section = value);
     }
 
     public string? SectionType {
         get => PostModel.SectionType;
         set =>
-            SetProperty(PostModel.SectionType, value, PostModel, (model,
-                                                                  value) => model.SectionType = value);
+            SetProperty(PostModel.SectionType,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.SectionType = value);
     }
 
     public string? Material {
         get => PostModel.Material;
         set =>
-            SetProperty(PostModel.Material, value, PostModel, (model,
-                                                               value) => model.Material = value);
+            SetProperty(PostModel.Material,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.Material = value);
     }
 
     public double PileUpGround {
         get => PostModel.PileUpGround;
         set =>
-            SetProperty(PostModel.PileUpGround, value, PostModel, (model,
-                                                                   value) => model.PileUpGround = value);
+            SetProperty(PostModel.PileUpGround,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.PileUpGround = value);
     }
 
     public double PileDownGround {
         get => PostModel.PileDownGround;
         set =>
-            SetProperty(PostModel.PileDownGround, value, PostModel, (model,
-                                                                     value) => model.PileDownGround = value);
+            SetProperty(PostModel.PileDownGround,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.PileDownGround = value);
     }
 
     public double LeftToBeam {
         get => PostModel.LeftToBeam;
         set =>
-            SetProperty(PostModel.LeftToBeam, value, PostModel, (model,
-                                                                 value) => model.LeftToBeam = value);
+            SetProperty(PostModel.LeftToBeam,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.LeftToBeam = value);
     }
 
     public double RightToBeam {
         get => PostModel.RightToBeam;
         set =>
-            SetProperty(PostModel.RightToBeam, value, PostModel, (model,
-                                                                  value) => model.RightToBeam = value);
+            SetProperty(PostModel.RightToBeam,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.RightToBeam = value);
     }
 
     public double PileWidth {
         get => PostModel.PileWidth;
         set =>
-            SetProperty(PostModel.PileWidth, value, PostModel, (model,
-                                                                value) => model.PileWidth = value);
+            SetProperty(PostModel.PileWidth,
+                        value,
+                        PostModel,
+                        (model,
+                         value) => model.PileWidth = value);
     }
 
     public double LeftSpan {
         get => PostModel.LeftSpan;
         set {
-            if (SetProperty(PostModel.LeftSpan, value, PostModel, (model,
-                                                                   value) => model.LeftSpan = value)) {
-                OnLeftSpanChanged();
-            }
+            if (SetProperty(PostModel.LeftSpan,
+                            value,
+                            PostModel,
+                            (model,
+                             value) => model.LeftSpan = value)) { OnLeftSpanChanged(); }
         }
     }
 
     public double RightSpan {
         get => PostModel.RightSpan;
         set {
-            if (SetProperty(PostModel.RightSpan, value, PostModel, (model,
-                                                                    value) => model.RightSpan = value)) {
-                OnRightSpanChanged();
-            }
+            if (SetProperty(PostModel.RightSpan,
+                            value,
+                            PostModel,
+                            (model,
+                             value) => model.RightSpan = value)) { OnRightSpanChanged(); }
         }
     }
 
-    #endregion
+#endregion
 
-    #region 事件
+#region 事件
 
     public event EventHandler? LeftSpanChanged;
     public event EventHandler? RightSpanChanged;
@@ -173,8 +209,7 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
     }
 
 
-    private void OnPostModelChanged(object                   sender,
-                                    PropertyChangedEventArgs e) {
+    public void OnPostModelChanged() {
         OnPropertyChanged(nameof(Num));
         OnPropertyChanged(nameof(IsDrive));
         OnPropertyChanged(nameof(IsMotor));
@@ -191,5 +226,5 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
         OnPropertyChanged(nameof(PileWidth));
     }
 
-    #endregion
+#endregion
 }

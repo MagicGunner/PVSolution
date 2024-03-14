@@ -121,11 +121,10 @@ public partial class BeamInfo : ObservableObject, ITrackerItemInfo {
     #region 构造函数
 
     public BeamInfo(BeamModel beamModel) {
-        BeamModel                 =  beamModel;
-        BeamModel.PropertyChanged += OnBeamModelChanged;
+        BeamModel = beamModel;
     }
 
-    #endregion
+#endregion
 
     #region 事件
 
@@ -135,8 +134,7 @@ public partial class BeamInfo : ObservableObject, ITrackerItemInfo {
         LengthChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private void OnBeamModelChanged(object                   sender,
-                                    PropertyChangedEventArgs e) {
+    public void OnBeamModelChanged() {
         OnPropertyChanged(nameof(Num));
         OnPropertyChanged(nameof(StartX));
         OnPropertyChanged(nameof(EndX));
