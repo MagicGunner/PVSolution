@@ -98,19 +98,16 @@ public partial class SpanInfoViewModel : ViewModelBase {
                                                    var modifiedPost = (PostInfo)obj;
                                                    if (modifiedPost.Num == 1) return;
                                                    PostInfos![modifiedPost.Num - 2].RightSpan = modifiedPost.LeftSpan;
+                                                   UpdatePostInfos();
                                                };
                 newPostInfo.RightSpanChanged += (obj,
                                                  _) => {
                                                     var modifiedPost = (PostInfo)obj;
                                                     if (modifiedPost.Num == PostInfos.Count) return;
                                                     PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
+                                                    UpdatePostInfos();
                                                 };
                 newPostInfo.IsDriveChanged += OnIsDriveChanged;
-                newPostInfo.ModelChanged += (_,
-                                             _) => {
-                                                TrackerModel!.InitPost();
-                                                UpdateSystemDraw();
-                                            };
                 PostInfos.Add(newPostInfo);
             }
         }
@@ -209,9 +206,6 @@ public partial class SpanInfoViewModel : ViewModelBase {
                 break;
         }
 
-        // 整理主梁坐标再插入到BeamInfos
-        TrackerModel!.UpdateBeam();
-
         UpdateBeamInfos();
     }
 
@@ -280,8 +274,6 @@ public partial class SpanInfoViewModel : ViewModelBase {
 
         if (!flag) return;
         TrackerModel!.BeamList!.RemoveAt(currentBeamInfo.Num - 1);
-        TrackerModel!.UpdateBeam();
-
         UpdateBeamInfos();
     }
 
@@ -315,6 +307,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
             return;
         }
 
+        TrackerModel!.UpdateBeamX();
         // 实际主梁列表与主梁信息列表相同的部分
         var count = Math.Min(TrackerModel!.BeamList.Count, BeamInfos.Count);
         for (var i = 0; i < count; i++) {
@@ -344,6 +337,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private void UpdatePostInfos() {
         if (TrackerModel!.PostList == null || PostInfos == null) return;
 
+        TrackerModel!.UpdatePostX();
         var count = Math.Min(TrackerModel!.PostList.Count, PostInfos.Count);
         for (var i = 0; i < count; i++) {
             PostInfos[i].PostModel = TrackerModel.PostList[i];
@@ -359,7 +353,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
             }
         }
 
-        UpdateSystemDraw();
+        UpdateBeamInfos(); // 更新完立柱需要更新主梁，绘图在更新主梁之后完成
     }
 
     #endregion
@@ -371,25 +365,38 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private void OnIsDriveChanged(object    sender,
                                   EventArgs e) {
         var modifiedPost = (PostInfo)sender;
-        if (!TrackerModel!.HasSlew) return;
 
         if (modifiedPost.IsDrive) { // 由普通立柱变成驱动立柱
+            if (!TrackerModel!.HasSlew) return;
             modifiedPost.LeftToBeam  = 75;
             modifiedPost.RightToBeam = 75;
             // 找到上面的主梁，将其分成两段接入
         } else { // 由驱动立柱变成普通立柱
-            // 将驱动两边的主梁修改
-            var leftBeam  = modifiedPost.PostModel.PreItem;
-            var rightBeam = modifiedPost.PostModel.NextItem;
-            if (leftBeam != null) {
-                leftBeam.EndX = modifiedPost.X - TrackerModel!.BeamGap / 2;
-            }
+            // 将两侧主梁开断都置为0
+            modifiedPost.LeftToBeam  = 0;
+            modifiedPost.RightToBeam = 0;
+            if (TrackerModel!.HasSlew) { // 如果有点击需要修改驱动两侧的主梁，合并为同一个主梁
+                var leftBeam  = modifiedPost.PostModel.PreItem as BeamModel;
+                var rightBeam = modifiedPost.PostModel.NextItem as BeamModel;
+                modifiedPost.PostModel.PreItem  = null;
+                modifiedPost.PostModel.NextItem = null;
+                if (leftBeam != null) {
+                    leftBeam.EndX        = modifiedPost.X - TrackerModel!.BeamGap / 2;
+                    leftBeam.Length      = leftBeam.EndX  - leftBeam.StartX;
+                    leftBeam.RightToNext = TrackerModel!.BeamGap;
+                    leftBeam.NextItem    = rightBeam ?? null;
+                }
 
-            if (rightBeam != null) {
-                rightBeam.StartX = modifiedPost.X + TrackerModel!.BeamGap / 2;
+                if (rightBeam != null) {
+                    rightBeam.StartX    = modifiedPost.X + TrackerModel!.BeamGap / 2;
+                    rightBeam.Length    = rightBeam.EndX - rightBeam.StartX;
+                    rightBeam.LeftToPre = TrackerModel!.BeamGap;
+                    rightBeam.PreItem   = leftBeam ?? null;
+                }
             }
         }
 
+        TrackerModel!.UpdatePostX();
         UpdatePostInfos();
     }
 
@@ -411,9 +418,7 @@ public partial class SpanInfoViewModel : ViewModelBase {
         }
 
         currentBeam.Length = TrackerModel!.MinBeamLength;
-        TrackerModel!.InitBeam();
         UpdateBeamInfos();
-        UpdateSystemDraw();
     }
 
     #endregion

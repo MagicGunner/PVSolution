@@ -121,12 +121,16 @@ public class Command {
                 var beamSection     = projectInput["主梁截面规格"].Split(' ');
                 var beamMaterial    = projectInput["主梁截面材质"].Split(' ');
                 var beamLength      = projectInput["分段长度"].Split(' ');
+                var leftToBeam      = projectInput["到上一段距离"].Split(' ');
+                var rightToBeam     = projectInput["到下一段距离"].Split(' ');
                 for (var i = 0; i < beamNumList.Length; i++) {
                     var newBeamModel = new BeamModel {
                                                          Num         = i + 1,
                                                          SectionType = beamSectionType[i],
                                                          Section     = beamSection[i],
                                                          Material    = beamMaterial[i],
+                                                         LeftToPre   = Convert.ToDouble(leftToBeam[i]),
+                                                         RightToNext = Convert.ToDouble(rightToBeam[i])
                                                      };
                     if (double.TryParse(beamLength[i], out var tempValue)) newBeamModel.Length = tempValue;
                     trackerModel.BeamList.Add(newBeamModel);

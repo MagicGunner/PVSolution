@@ -32,7 +32,8 @@ public static class CadNameDictionarys {
                                                          { "RightRemind", "右侧末端余量" },
                                                          { "PostWidth", "立柱截面高度" },
                                                          { "PileUpGround", "基础露出地面" },
-                                                         { "PileWidth", "基础截面高度" }
+                                                         { "PileWidth", "基础截面高度" },
+                                                         { "DriveType", "驱动类型" }
                                                      };
     }
 }

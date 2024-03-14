@@ -493,6 +493,8 @@ public static class CadFunctions {
         attrDic.Add("主梁截面规格", "");
         attrDic.Add("主梁截面材质", "");
         attrDic.Add("分段长度", "");
+        attrDic.Add("到上一段距离", "");
+        attrDic.Add("到下一段距离", "");
         if (beamList != null) {
             for (var i = 0; i < beamList.Count; i++) {
                 attrDic["主梁序号"]   += beamList[i].Num;
@@ -500,6 +502,8 @@ public static class CadFunctions {
                 attrDic["主梁截面规格"] += beamList[i].Section;
                 attrDic["主梁截面材质"] += beamList[i].Material;
                 attrDic["分段长度"]   += beamList[i].Length;
+                attrDic["到上一段距离"] += beamList[i].LeftToPre;
+                attrDic["到下一段距离"] += beamList[i].RightToNext;
                 if (i == beamList.Count - 1)
                     continue;
                 attrDic["主梁序号"]   += "\\P";
@@ -507,6 +511,8 @@ public static class CadFunctions {
                 attrDic["主梁截面规格"] += "\\P";
                 attrDic["主梁截面材质"] += "\\P";
                 attrDic["分段长度"]   += "\\P";
+                attrDic["到上一段距离"] += "\\P";
+                attrDic["到下一段距离"] += "\\P";
             }
         }
 

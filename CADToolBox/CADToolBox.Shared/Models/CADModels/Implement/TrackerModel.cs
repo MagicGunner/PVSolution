@@ -61,6 +61,9 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     #region 跟踪支架属性
 
     [ObservableProperty]
+    private string? _driveType;
+
+    [ObservableProperty]
     private bool _hasSlew;
 
     [ObservableProperty]
@@ -247,7 +250,7 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
         BeamList[0].EndX   = -LeftRemind + BeamList[0].Length;
         for (var i = 1; i < BeamList.Count; i++) {
             BeamList[i].Num    = i                    + 1;
-            BeamList[i].StartX = BeamList[i - 1].EndX + BeamGap; // 初始化时先将所有的主梁间隙置为初始值
+            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre; // 初始化时先将所有的主梁间隙置为初始值
             BeamList[i].EndX   = BeamList[i].StartX   + Math.Max(BeamList[i].Length, MinBeamLength);
             if (BeamList[i].EndX > SystemLength - LeftRemind) {
                 BeamList[i].EndX = SystemLength - LeftRemind;
@@ -261,6 +264,113 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
 
         while (BeamList.Last().Length == 0) BeamList.RemoveAt(BeamList.Count - 1); // 移除多余的主梁
 
+        UpdateBeamData();
+    }
+
+    // 更新檩条坐标
+    public void InitPurlinWithOutDriveGap() {
+        PurlinList = new List<PurlinModel> { Capacity = 0 };
+        var x = -ModuleGapAxis / 2;
+        PurlinList.Add(new PurlinModel(x, -1)); // 最左侧檩条
+        for (var i = 0; i < ModuleColCounter - 1; i++) {
+            x += ModuleWidth + ModuleGapAxis;
+            PurlinList.Add(new PurlinModel(x, 0));
+        }
+
+        x += ModuleWidth + ModuleGapAxis;
+        PurlinList.Add(new PurlinModel(x, 1)); // 最右侧檩条
+    }
+
+    // 当立柱发生改变时需要触发，执行时默认立柱跨距已经填好，执行完成可能更新立柱的位置
+    public void InitPurlinWithDriveGap() {
+        PurlinList = new List<PurlinModel> { Capacity = 0 };
+        var drivePosts = PostList!.Where(post => post.IsDrive);
+        var startX     = -ModuleGapAxis / 2;
+        int purlinNum;
+        foreach (var drivePost in drivePosts) {
+            purlinNum = Convert.ToInt32((drivePost.X - (DriveGap - ModuleGapAxis) / 2 - startX) /
+                                        (ModuleWidth + ModuleGapAxis));
+            PurlinList.Add(new PurlinModel(startX, -1));
+            for (var i = 1; i < purlinNum + 1; i++) {
+                PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
+            }
+
+            PurlinList.Last().Type = 1;
+            startX                 = drivePost.X + (DriveGap - ModuleGapAxis) / 2;
+        }
+
+        PurlinList.Add(new PurlinModel(startX, -1));
+        purlinNum = Convert.ToInt32((SystemLength - LeftRemind - RightRemind + ModuleGapAxis - startX) /
+                                    (ModuleWidth                                             + ModuleGapAxis));
+        PurlinList.Add(new PurlinModel(startX, -1));
+        for (var i = 1; i < purlinNum + 1; i++) {
+            PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
+        }
+
+        PurlinList.Last().Type = 1;
+    }
+
+    // 初始化时修正一些错误
+    public void Init() {
+        HasSlew = DriveType == "回转";
+        if (!HasSlew) {
+            DriveGap = 0;
+        }
+
+        InitPost();
+        // 初始化时将主梁的间隙保存到对象
+        InitBeam(); // 初始化主梁
+    }
+
+    // 更新主梁坐标,所有前置操作在前台做，到这一步主梁除了坐标其余均正确
+    public void UpdateBeamX() {
+        if (BeamList!.Count == 0) return;
+        BeamList[0].Num    = 1;
+        BeamList[0].StartX = -LeftRemind;
+        BeamList[0].EndX   = BeamList[0].Length - LeftRemind;
+        for (var i = 1; i < BeamList.Count; i++) {
+            BeamList[i].Num = i + 1;
+            switch (BeamList[i].PreItem) {
+                case BeamModel beam:
+                    BeamList[i].LeftToPre = BeamGap;
+                    beam.RightToNext      = BeamGap;
+                    break;
+                case PostModel drivePost:
+                    BeamList[i].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
+                    break;
+            }
+
+            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
+            BeamList[i].EndX   = BeamList[i].StartX   + BeamList[i].Length;
+        }
+    }
+
+    // 前台保证所有跨距正确，此处更新坐标即可,更新完立柱需要更新主梁
+    public void UpdatePostX() {
+        if (PostList == null) return;
+
+        PostList[0].X = PostList[0].LeftSpan;
+        for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].X = PostList[i - 1].X + PostList[i].LeftSpan;
+        }
+
+        while (PostList.Last().X > SystemLength - LeftRemind - RightRemind) {
+            PostList.RemoveAt(PostList.Count - 1);
+        }
+
+        // 立柱坐标更新完毕，更新主梁的长度与首伟相连
+        if (HasSlew) { // 如果有电机则更新主梁信息
+            UpdateBeamData();
+            UpdateBeamX();
+        }
+
+        if (DriveGap > 0) InitPurlinWithDriveGap();
+    }
+
+
+    // 更新主梁除了坐标外的所有信息
+    private void UpdateBeamData() {
+        if (BeamList == null || PostList == null) return;
 
         var drivePostList = PostList.Where(post => post.IsDrive).ToList();
         // 使用数据结构队列
@@ -333,78 +443,6 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
                     BeamList[i].RightToNext = 0;
                     break;
             }
-        }
-    }
-
-    // 更新檩条坐标
-    public void InitPurlinWithOutDriveGap() {
-        PurlinList = new List<PurlinModel> { Capacity = 0 };
-        var x = -ModuleGapAxis / 2;
-        PurlinList.Add(new PurlinModel(x, -1)); // 最左侧檩条
-        for (var i = 0; i < ModuleColCounter - 1; i++) {
-            x += ModuleWidth + ModuleGapAxis;
-            PurlinList.Add(new PurlinModel(x, 0));
-        }
-
-        x += ModuleWidth + ModuleGapAxis;
-        PurlinList.Add(new PurlinModel(x, 1)); // 最右侧檩条
-    }
-
-    // 当立柱发生改变时需要触发，执行时默认立柱跨距已经填好，执行完成可能更新立柱的位置
-    public void InitPurlinWithDriveGap() {
-        PurlinList = new List<PurlinModel> { Capacity = 0 };
-        var drivePosts = PostList!.Where(post => post.IsDrive);
-        var startX     = -ModuleGapAxis / 2;
-        int purlinNum;
-        foreach (var drivePost in drivePosts) {
-            purlinNum = Convert.ToInt32((drivePost.X - (DriveGap - ModuleGapAxis) / 2 - startX) /
-                                        (ModuleWidth + ModuleGapAxis));
-            PurlinList.Add(new PurlinModel(startX, -1));
-            for (var i = 1; i < purlinNum + 1; i++) {
-                PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
-            }
-
-            PurlinList.Last().Type = 1;
-            startX                 = drivePost.X + (DriveGap - ModuleGapAxis) / 2;
-        }
-
-        PurlinList.Add(new PurlinModel(startX, -1));
-        purlinNum = Convert.ToInt32((SystemLength - LeftRemind - RightRemind + ModuleGapAxis - startX) /
-                                    (ModuleWidth                                             + ModuleGapAxis));
-        PurlinList.Add(new PurlinModel(startX, -1));
-        for (var i = 1; i < purlinNum + 1; i++) {
-            PurlinList.Add(new PurlinModel(startX + i * (ModuleWidth + ModuleGapAxis), 0));
-        }
-
-        PurlinList.Last().Type = 1;
-    }
-
-    public void Init() {
-        InitPost();
-        // 初始化时将主梁的间隙保存到对象
-        InitBeam(); // 初始化主梁
-    }
-
-    // 更新主梁坐标,所有前置操作在前台做
-    public void UpdateBeam() {
-        if (BeamList!.Count == 0) return;
-        BeamList[0].Num    = 1;
-        BeamList[0].StartX = -LeftRemind;
-        BeamList[0].EndX   = BeamList[0].Length - LeftRemind;
-        for (var i = 1; i < BeamList.Count; i++) {
-            BeamList[i].Num = i + 1;
-            switch (BeamList[i].PreItem) {
-                case BeamModel beam:
-                    BeamList[i].LeftToPre = BeamGap;
-                    beam.RightToNext      = BeamGap;
-                    break;
-                case PostModel drivePost:
-                    BeamList[i].LeftToPre = drivePost.LeftToBeam + drivePost.RightToBeam;
-                    break;
-            }
-
-            BeamList[i].StartX = BeamList[i - 1].EndX + BeamList[i].LeftToPre;
-            BeamList[i].EndX   = BeamList[i].StartX   + BeamList[i].Length;
         }
     }
 

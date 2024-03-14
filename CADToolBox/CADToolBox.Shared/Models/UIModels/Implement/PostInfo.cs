@@ -58,7 +58,6 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
             if (SetProperty(PostModel.IsDrive, value, PostModel, (model,
                                                                   value) => model.IsDrive = value)) {
                 OnIsDriveChanged();
-                OnModelChanged();
             }
         }
     }
@@ -139,7 +138,6 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
             if (SetProperty(PostModel.LeftSpan, value, PostModel, (model,
                                                                    value) => model.LeftSpan = value)) {
                 OnLeftSpanChanged();
-                OnModelChanged();
             }
         }
     }
@@ -150,7 +148,6 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
             if (SetProperty(PostModel.RightSpan, value, PostModel, (model,
                                                                     value) => model.RightSpan = value)) {
                 OnRightSpanChanged();
-                OnModelChanged();
             }
         }
     }
@@ -162,7 +159,6 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
     public event EventHandler? LeftSpanChanged;
     public event EventHandler? RightSpanChanged;
     public event EventHandler? IsDriveChanged;
-    public event EventHandler? ModelChanged;
 
     protected virtual void OnLeftSpanChanged() {
         LeftSpanChanged?.Invoke(this, EventArgs.Empty);
@@ -176,9 +172,6 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
         IsDriveChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual void OnModelChanged() {
-        ModelChanged?.Invoke(this, EventArgs.Empty);
-    }
 
     private void OnPostModelChanged(object                   sender,
                                     PropertyChangedEventArgs e) {
