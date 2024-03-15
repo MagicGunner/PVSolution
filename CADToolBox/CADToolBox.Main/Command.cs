@@ -156,7 +156,8 @@ public class Command {
         PromptKeywordOptions pKeyOpts;
         PromptResult         pKeyRes;
 
-        var pPointOpts = new PromptPointOptions("\n请选择插入点");
+        var pPointOpts  = new PromptPointOptions("\n请选择插入点");
+        var insertPoint = Point3d.Origin;
         switch (trackerModel.Status) {
             case 0: // 仅保存
                 pKeyOpts = new PromptKeywordOptions("是否新建项目");
@@ -166,7 +167,6 @@ public class Command {
                 if (pKeyRes.Status != PromptStatus.OK) return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-
                         CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0,
                                                   "00-linsum-国标输入");
                         break;
@@ -181,9 +181,9 @@ public class Command {
                         break;
                 }
 
-                break;
+                return;
             case 1: // 仅绘图
-                var insertPoint = ed.GetPoint(pPointOpts);
+                insertPoint = ed.GetPoint(pPointOpts).Value;
                 // 绘图代码********************************************************************
                 MessageBox.Show("点击了仅绘图");
                 break;
@@ -211,10 +211,12 @@ public class Command {
                         break;
                 }
 
+                insertPoint = ed.GetPoint(pPointOpts).Value;
                 break;
         }
 
-        var trackerGAHelper = new TrackerGAHelper(trackerModel);
+        var trackerGAHelper = new TrackerGAHelper(trackerModel, trans, insertPoint);
+        trackerGAHelper.InitStyles();
     }
 
     #endregion
