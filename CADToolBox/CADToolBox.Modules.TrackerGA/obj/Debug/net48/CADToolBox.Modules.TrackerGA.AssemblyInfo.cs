@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CADToolBox.Modules.TrackerGA")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca69462d6a15c9eb81ede5072490877a2d61f9d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("CADToolBox.Modules.TrackerGA")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CADToolBox.Modules.TrackerGA")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]
