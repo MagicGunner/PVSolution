@@ -126,6 +126,14 @@ public partial class PostInfo : ObservableObject, ITrackerItemInfo {
                          value) => model.PileUpGround = value);
     }
 
+    public double FlangeThickness {
+        get => PostModel.FlangeThickness;
+        set {
+            SetProperty(PostModel.FlangeThickness, value, PostModel, (model,
+                                                                      value) => model.FlangeThickness = value);
+        }
+    }
+
     public double PileDownGround {
         get => PostModel.PileDownGround;
         set =>

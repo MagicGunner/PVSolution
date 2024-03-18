@@ -54,6 +54,9 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     private double _pileUpGround;
 
     [ObservableProperty]
+    private double _pileDownGround;
+
+    [ObservableProperty]
     private double _pileWidth;
 
     #endregion

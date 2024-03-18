@@ -20,12 +20,14 @@ public class Command {
 
     [CommandMethod(nameof(HelloWorld))]
     public void HelloWorld() {
-        var ed          = Acaop.DocumentManager.MdiActiveDocument.Editor;
-        var pPointOpts  = new PromptPointOptions("\n请选择插入点");
-        var insertPoint = ed.GetPoint(pPointOpts).Value;
-        var trans       = new DBTrans();
-        var pEntityOpts = new PromptEntityOptions("\n请选择信息块");
-        var pEntityRes  = ed.GetEntity(pEntityOpts);
+        var trackerModel = new TrackerModel();
+        var trans        = new DBTrans();
+        var ed           = Acaop.DocumentManager.MdiActiveDocument.Editor;
+        var pPointOpts   = new PromptPointOptions("\n请选择插入点");
+        var helper       = new TrackerGAHelper(trackerModel, trans, ed.GetPoint(pPointOpts).Value);
+        helper.InitStyles();
+        helper.GetGA();
+        trans.Commit();
     }
 
     #endregion
@@ -184,8 +186,6 @@ public class Command {
                 return;
             case 1: // 仅绘图
                 insertPoint = ed.GetPoint(pPointOpts).Value;
-                // 绘图代码********************************************************************
-                MessageBox.Show("点击了仅绘图");
                 break;
             case 2: // 保存并绘图
                 pKeyOpts = new PromptKeywordOptions("是否新建项目");
@@ -217,6 +217,9 @@ public class Command {
 
         var trackerGAHelper = new TrackerGAHelper(trackerModel, trans, insertPoint);
         trackerGAHelper.InitStyles();
+        trackerGAHelper.GetGA();
+
+        //trans.Commit();
     }
 
     #endregion
