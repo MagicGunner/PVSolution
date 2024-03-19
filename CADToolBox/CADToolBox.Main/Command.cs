@@ -25,8 +25,8 @@ public class Command {
         var ed           = Acaop.DocumentManager.MdiActiveDocument.Editor;
         var pPointOpts   = new PromptPointOptions("\n请选择插入点");
         var helper       = new TrackerGAHelper(trackerModel, trans, ed.GetPoint(pPointOpts).Value);
-        helper.InitStyles();
-        helper.GetGA();
+        var dwgName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg";
+        helper.UpdateBlockName("Greenex", "Linsum");
         trans.Commit();
     }
 
