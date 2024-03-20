@@ -352,19 +352,22 @@ public partial class TrackerModel : ObservableObject, IPvSupport {
     public void UpdatePostX() {
         if (PostList == null) return;
 
+        PostList[0].Num = 1;
         PostList[0].X = PostList[0].LeftSpan;
         PostList[0].StartX = PostList[0].X - PostList[0].LeftToBeam;
         PostList[0].EndX = PostList[0].X + PostList[0].RightToBeam;
         for (var i = 1; i < PostList.Count; i++) {
+            PostList[i].Num = i + 1;
             PostList[i].X = PostList[i - 1].X + PostList[i].LeftSpan;
             PostList[i].StartX = PostList[i].X - PostList[i].LeftToBeam;
             PostList[i].EndX = PostList[i].X + PostList[i].RightToBeam;
         }
 
-        while (PostList.Last().X > SystemLength - LeftRemind - RightRemind) {
+        while (PostList.Last().X >= SystemLength - LeftRemind - RightRemind) {
             PostList.RemoveAt(PostList.Count - 1);
         }
 
+        PostList.Last().RightSpan = SystemLength - LeftRemind - RightRemind - PostList.Last().X;
 
         // 立柱坐标更新完毕，更新主梁的长度与首伟相连
         //if (!HasSlew) return; // 如果有电机则更新主梁信息

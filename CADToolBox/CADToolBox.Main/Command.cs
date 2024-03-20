@@ -20,14 +20,22 @@ public class Command {
 
     [CommandMethod(nameof(HelloWorld))]
     public void HelloWorld() {
-        var trackerModel = new TrackerModel();
-        var trans        = new DBTrans();
-        var ed           = Acaop.DocumentManager.MdiActiveDocument.Editor;
-        var pPointOpts   = new PromptPointOptions("\n请选择插入点");
-        var helper       = new TrackerGAHelper(trackerModel, trans, ed.GetPoint(pPointOpts).Value);
-        var dwgName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg";
-        helper.UpdateBlockName("Greenex", "Linsum");
-        trans.Commit();
+        //var trackerModel = new TrackerModel();
+        var trans = new DBTrans();
+        //var ed           = Acaop.DocumentManager.MdiActiveDocument.Editor;
+        //var pPointOpts   = new PromptPointOptions("\n请选择插入点");
+        //var helper       = new TrackerGAHelper(trackerModel, trans, ed.GetPoint(pPointOpts).Value);
+        //var dwgName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg";
+        //helper.UpdateBlockName("Greenex", "Linsum");
+        //trans.Commit();
+        var result = MessageBox.Show("是否删除", "标题", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        if (result == DialogResult.Yes) {
+            trans.Editor!.WriteMessage("点击了是");
+        } else if (result == DialogResult.No) {
+            trans.Editor!.WriteMessage("点击了否");
+        } else {
+            trans.Editor!.WriteMessage("点击了取消");
+        }
     }
 
     #endregion
@@ -37,10 +45,10 @@ public class Command {
 
     [CommandMethod(nameof(TrackerGA))]
     public void TrackerGA() {
-        var       trackerModel = new TrackerModel();
-        var       currentDoc   = Acaop.DocumentManager.MdiActiveDocument;
-        var       ed           = currentDoc.Editor;
-        using var trans        = new DBTrans();
+        var trackerModel = new TrackerModel();
+        var currentDoc = Acaop.DocumentManager.MdiActiveDocument;
+        var ed = currentDoc.Editor;
+        using var trans = new DBTrans();
 
         var pEntityOpts = new PromptEntityOptions("\n请选择设计输入增强属性块") { AllowNone = true };
         pEntityOpts.Keywords.Add("新建(N)", "N", "新建(N)");
@@ -69,7 +77,7 @@ public class Command {
                 if (projectData == null || projectData.Name != "00-linsum-国标输入") return;
 
                 var attributeCollection = projectData.AttributeCollection;
-                var projectInput        = new Dictionary<string, string>();
+                var projectInput = new Dictionary<string, string>();
                 if (attributeCollection != null)
                     foreach (ObjectId attributeId in attributeCollection) {
                         var attributeReference = trans.GetObject(attributeId) as AttributeReference;
@@ -88,50 +96,50 @@ public class Command {
 
                 // 初始化立柱数组
                 trackerModel.PostList = new List<PostModel> { Capacity = 0 };
-                var postNumList        = projectInput["立柱序号"].Split(' ');
-                var postType           = projectInput["立柱类型"].Split(' ');
-                var postSectionType    = projectInput["立柱截面类型"].Split(' ');
-                var postSection        = projectInput["立柱截面规格"].Split(' ');
-                var postMaterial       = projectInput["立柱截面材质"].Split(' ');
-                var postLeftSpan       = projectInput["左侧跨距"].Split(' ');
-                var postRightSpan      = projectInput["右侧跨距"].Split(' ');
-                var postLeftToBeam     = projectInput["左侧开断"].Split(' ');
-                var postRightToBeam    = projectInput["右侧开断"].Split(' ');
-                var postPileUpGround   = projectInput["基础露头"].Split(' ');
+                var postNumList = projectInput["立柱序号"].Split(' ');
+                var postType = projectInput["立柱类型"].Split(' ');
+                var postSectionType = projectInput["立柱截面类型"].Split(' ');
+                var postSection = projectInput["立柱截面规格"].Split(' ');
+                var postMaterial = projectInput["立柱截面材质"].Split(' ');
+                var postLeftSpan = projectInput["左侧跨距"].Split(' ');
+                var postRightSpan = projectInput["右侧跨距"].Split(' ');
+                var postLeftToBeam = projectInput["左侧开断"].Split(' ');
+                var postRightToBeam = projectInput["右侧开断"].Split(' ');
+                var postPileUpGround = projectInput["基础露头"].Split(' ');
                 var postPileDownGround = projectInput["基础埋深"].Split(' ');
                 for (var i = 0; i < postNumList.Length; i++) {
                     var newPostModel = new PostModel {
-                                                         Num         = i + 1,
-                                                         IsDrive     = postType[i] != "普通立柱",
+                                                         Num = i + 1,
+                                                         IsDrive = postType[i] != "普通立柱",
                                                          SectionType = postSectionType[i],
-                                                         Section     = postSection[i],
-                                                         Material    = postMaterial[i],
+                                                         Section = postSection[i],
+                                                         Material = postMaterial[i],
                                                      };
-                    if (double.TryParse(postLeftSpan[i], out var tempValue)) newPostModel.LeftSpan         = tempValue;
-                    if (double.TryParse(postRightSpan[i], out tempValue)) newPostModel.RightSpan           = tempValue;
-                    if (double.TryParse(postLeftToBeam[i], out tempValue)) newPostModel.LeftToBeam         = tempValue;
-                    if (double.TryParse(postRightToBeam[i], out tempValue)) newPostModel.RightToBeam       = tempValue;
-                    if (double.TryParse(postPileUpGround[i], out tempValue)) newPostModel.PileUpGround     = tempValue;
+                    if (double.TryParse(postLeftSpan[i], out var tempValue)) newPostModel.LeftSpan = tempValue;
+                    if (double.TryParse(postRightSpan[i], out tempValue)) newPostModel.RightSpan = tempValue;
+                    if (double.TryParse(postLeftToBeam[i], out tempValue)) newPostModel.LeftToBeam = tempValue;
+                    if (double.TryParse(postRightToBeam[i], out tempValue)) newPostModel.RightToBeam = tempValue;
+                    if (double.TryParse(postPileUpGround[i], out tempValue)) newPostModel.PileUpGround = tempValue;
                     if (double.TryParse(postPileDownGround[i], out tempValue)) newPostModel.PileDownGround = tempValue;
                     trackerModel.PostList.Add(newPostModel);
                 }
 
                 // 初始化主梁数组
                 trackerModel.BeamList = new List<BeamModel> { Capacity = 0 };
-                var beamNumList     = projectInput["主梁序号"].Split(' ');
+                var beamNumList = projectInput["主梁序号"].Split(' ');
                 var beamSectionType = projectInput["主梁截面类型"].Split(' ');
-                var beamSection     = projectInput["主梁截面规格"].Split(' ');
-                var beamMaterial    = projectInput["主梁截面材质"].Split(' ');
-                var beamLength      = projectInput["分段长度"].Split(' ');
-                var leftToBeam      = projectInput["到上一段距离"].Split(' ');
-                var rightToBeam     = projectInput["到下一段距离"].Split(' ');
+                var beamSection = projectInput["主梁截面规格"].Split(' ');
+                var beamMaterial = projectInput["主梁截面材质"].Split(' ');
+                var beamLength = projectInput["分段长度"].Split(' ');
+                var leftToBeam = projectInput["到上一段距离"].Split(' ');
+                var rightToBeam = projectInput["到下一段距离"].Split(' ');
                 for (var i = 0; i < beamNumList.Length; i++) {
                     var newBeamModel = new BeamModel {
-                                                         Num         = i + 1,
+                                                         Num = i + 1,
                                                          SectionType = beamSectionType[i],
-                                                         Section     = beamSection[i],
-                                                         Material    = beamMaterial[i],
-                                                         LeftToPre   = Convert.ToDouble(leftToBeam[i]),
+                                                         Section = beamSection[i],
+                                                         Material = beamMaterial[i],
+                                                         LeftToPre = Convert.ToDouble(leftToBeam[i]),
                                                          RightToNext = Convert.ToDouble(rightToBeam[i])
                                                      };
                     if (double.TryParse(beamLength[i], out var tempValue)) newBeamModel.Length = tempValue;
@@ -156,9 +164,9 @@ public class Command {
         if (trackerModel.Status == -1) return;
 
         PromptKeywordOptions pKeyOpts;
-        PromptResult         pKeyRes;
+        PromptResult pKeyRes;
 
-        var pPointOpts  = new PromptPointOptions("\n请选择插入点");
+        var pPointOpts = new PromptPointOptions("\n请选择插入点");
         var insertPoint = Point3d.Origin;
         switch (trackerModel.Status) {
             case 0: // 仅保存
@@ -169,12 +177,11 @@ public class Command {
                 if (pKeyRes.Status != PromptStatus.OK) return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0,
-                                                  "00-linsum-国标输入");
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-linsum-国标输入");
                         break;
                     case "N":
                         pEntityOpts = new PromptEntityOptions("\n请选择现有的信息输入块");
-                        pEntityRes  = ed.GetEntity(pEntityOpts);
+                        pEntityRes = ed.GetEntity(pEntityOpts);
                         if (pEntityRes.Status == PromptStatus.OK) {
                             var inputData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
                             if (inputData != null) CadFunctions.SaveToInput(trans, inputData, trackerModel);
@@ -195,13 +202,12 @@ public class Command {
                 if (pKeyRes.Status != PromptStatus.OK) return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0,
-                                                  "00-linsum-国标输入");
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-linsum-国标输入");
                         // 绘图代码********************************************************************
                         break;
                     case "N":
                         pEntityOpts = new PromptEntityOptions("\n请选择现有的信息输入块");
-                        pEntityRes  = ed.GetEntity(pEntityOpts);
+                        pEntityRes = ed.GetEntity(pEntityOpts);
                         if (pEntityRes.Status == PromptStatus.OK) {
                             var inputData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
                             if (inputData != null) CadFunctions.SaveToInput(trans, inputData, trackerModel);
@@ -219,7 +225,7 @@ public class Command {
         trackerGAHelper.InitStyles();
         trackerGAHelper.GetGA();
 
-        //trans.Commit();
+        trans.Commit();
     }
 
     #endregion
@@ -244,18 +250,18 @@ public class Command {
                                                                    { "ST", "矩形管(ST)" }
                                                                };
         var currentDoc = Acaop.DocumentManager.MdiActiveDocument;
-        var ed         = currentDoc.Editor;
+        var ed = currentDoc.Editor;
 
         var pKeyOpts = new PromptKeywordOptions("\n请选择截面类型") { AllowNone = true };
         foreach (var item in sectionKeywordDic) {
             pKeyOpts.Keywords.Add(item.Value, item.Key, item.Value);
         }
 
-        var pKeyRes   = ed.GetKeywords(pKeyOpts);
+        var pKeyRes = ed.GetKeywords(pKeyOpts);
         var pPointOpt = new PromptPointOptions("") { Message = "\n请选择插入点" };
 
         Dictionary<string, Dictionary<string, string>> sectionPropDic; // 截面属性字典
-        Dictionary<string, string>?                    sectionProp;    // 选中的截面属性
+        Dictionary<string, string>? sectionProp;                       // 选中的截面属性
 
         PromptDoubleOptions pDoubleOpt;
         PromptStringOptions pStringOpt;
@@ -265,7 +271,7 @@ public class Command {
 
         switch (pKeyRes.StringResult) {
             case "美标H型钢(W)":
-                pKeyOpts       = new PromptKeywordOptions("\n请选择美标H型钢截面");
+                pKeyOpts = new PromptKeywordOptions("\n请选择美标H型钢截面");
                 sectionPropDic = GeneralTemplateData.WSectionPropDic;
 
                 foreach (var item in sectionPropDic) {
@@ -278,10 +284,8 @@ public class Command {
                 }
 
                 sectionProp = sectionPropDic[pKeyRes.StringResult];
-                pPointRes   = ed.GetPoint(pPointOpt);
-                CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                        Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
-                                        Convert.ToDouble(sectionProp["tf"]), 0);
+                pPointRes = ed.GetPoint(pPointOpt);
+                CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]), Convert.ToDouble(sectionProp["tf"]), 0);
                 break;
             case "国标热轧H型钢(RH)":
                 pKeyOpts = new PromptKeywordOptions("\n请选择国标热轧H型钢类型");
@@ -296,7 +300,7 @@ public class Command {
 
                 switch (pKeyRes.StringResult) {
                     case "宽翼缘H型钢(W)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择H型钢截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择H型钢截面");
                         sectionPropDic = GeneralTemplateData.RollHWSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -309,14 +313,11 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                                Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
-                                                Convert.ToDouble(sectionProp["tf"]),
-                                                Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]), Convert.ToDouble(sectionProp["tf"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                     case "中翼缘H型钢(M)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择H型钢截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择H型钢截面");
                         sectionPropDic = GeneralTemplateData.RollHMSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -329,14 +330,11 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                                Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
-                                                Convert.ToDouble(sectionProp["tf"]),
-                                                Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]), Convert.ToDouble(sectionProp["tf"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                     case "窄翼缘H型钢(N)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择H型钢截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择H型钢截面");
                         sectionPropDic = GeneralTemplateData.RollHNSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -349,14 +347,11 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                                Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
-                                                Convert.ToDouble(sectionProp["tf"]),
-                                                Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]), Convert.ToDouble(sectionProp["tf"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                     case "薄壁H型钢(T)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择H型钢截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择H型钢截面");
                         sectionPropDic = GeneralTemplateData.RollHTSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -369,18 +364,15 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                                Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]),
-                                                Convert.ToDouble(sectionProp["tf"]),
-                                                Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawHSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["tw"]), Convert.ToDouble(sectionProp["tf"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                 }
 
 
                 break;
             case "热轧槽钢(RC)":
-                pKeyOpts       = new PromptKeywordOptions("\n请选择国标热轧槽钢");
+                pKeyOpts = new PromptKeywordOptions("\n请选择国标热轧槽钢");
                 sectionPropDic = GeneralTemplateData.RollCSectionPropDic;
 
                 foreach (var item in sectionPropDic) {
@@ -393,11 +385,8 @@ public class Command {
                 }
 
                 sectionProp = sectionPropDic[pKeyRes.StringResult];
-                pPointRes   = ed.GetPoint(pPointOpt);
-                CadFunctions.DrawRollCSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]),
-                                            Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["d"]),
-                                            Convert.ToDouble(sectionProp["t"]), Convert.ToDouble(sectionProp["r"]),
-                                            Convert.ToDouble(sectionProp["r1"]));
+                pPointRes = ed.GetPoint(pPointOpt);
+                CadFunctions.DrawRollCSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["H"]), Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["d"]), Convert.ToDouble(sectionProp["t"]), Convert.ToDouble(sectionProp["r"]), Convert.ToDouble(sectionProp["r1"]));
                 break;
             case "热轧角钢(RL)":
                 pKeyOpts = new PromptKeywordOptions("\n是否等边");
@@ -410,7 +399,7 @@ public class Command {
 
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择等边热轧角钢");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择等边热轧角钢");
                         sectionPropDic = GeneralTemplateData.RollEqualLSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -423,14 +412,11 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["b"]),
-                                                    Convert.ToDouble(sectionProp["b"]),
-                                                    Convert.ToDouble(sectionProp["d"]),
-                                                    Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["b"]), Convert.ToDouble(sectionProp["b"]), Convert.ToDouble(sectionProp["d"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                     case "N":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择不等边热轧角钢");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择不等边热轧角钢");
                         sectionPropDic = GeneralTemplateData.RollUnEqualLSectionPropDic;
 
                         foreach (var item in sectionPropDic) {
@@ -443,11 +429,8 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        pPointRes   = ed.GetPoint(pPointOpt);
-                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["B"]),
-                                                    Convert.ToDouble(sectionProp["b"]),
-                                                    Convert.ToDouble(sectionProp["d"]),
-                                                    Convert.ToDouble(sectionProp["r"]));
+                        pPointRes = ed.GetPoint(pPointOpt);
+                        CadFunctions.DrawRollLSteel(trans, pPointRes.Value, Convert.ToDouble(sectionProp["B"]), Convert.ToDouble(sectionProp["b"]), Convert.ToDouble(sectionProp["d"]), Convert.ToDouble(sectionProp["r"]));
                         break;
                 }
 
@@ -470,8 +453,7 @@ public class Command {
                 pDoubleRes = ed.GetDouble(pDoubleOpt);
                 if (pDoubleRes.Status == PromptStatus.Cancel) return;
                 whSectionData.Add(pDoubleRes.Value);
-                CadFunctions.DrawHSteel(trans, ed.GetPoint(pPointOpt).Value, whSectionData[0], whSectionData[1],
-                                        whSectionData[2], whSectionData[3], 0);
+                CadFunctions.DrawHSteel(trans, ed.GetPoint(pPointOpt).Value, whSectionData[0], whSectionData[1], whSectionData[2], whSectionData[3], 0);
                 break;
             case "折弯C型钢(CFC)":
                 var cfcSectionData = new List<double>();
@@ -495,8 +477,7 @@ public class Command {
                 pDoubleRes = ed.GetDouble(pDoubleOpt);
                 if (pDoubleRes.Status == PromptStatus.Cancel) return;
                 cfcSectionData.Add(pDoubleRes.Value);
-                CadFunctions.DrawCSteel(trans, ed.GetPoint(pPointOpt).Value, cfcSectionData[0], cfcSectionData[1],
-                                        cfcSectionData[2], cfcSectionData[3], cfcSectionData[4]);
+                CadFunctions.DrawCSteel(trans, ed.GetPoint(pPointOpt).Value, cfcSectionData[0], cfcSectionData[1], cfcSectionData[2], cfcSectionData[3], cfcSectionData[4]);
                 break;
             case "折弯角钢(CFL)":
                 var cflSectionData = new List<double>();
@@ -516,8 +497,7 @@ public class Command {
                 pDoubleRes = ed.GetDouble(pDoubleOpt);
                 if (pDoubleRes.Status == PromptStatus.Cancel) return;
                 cflSectionData.Add(pDoubleRes.Value);
-                CadFunctions.DrawLSteel(trans, ed.GetPoint(pPointOpt).Value, cflSectionData[0], cflSectionData[1],
-                                        cflSectionData[2], cflSectionData[3]);
+                CadFunctions.DrawLSteel(trans, ed.GetPoint(pPointOpt).Value, cflSectionData[0], cflSectionData[1], cflSectionData[2], cflSectionData[3]);
                 break;
             case "圆管(P)":
                 pKeyOpts = new PromptKeywordOptions("\n请选择圆管类型");
@@ -545,7 +525,7 @@ public class Command {
                         CadFunctions.DrawPile(trans, ed.GetPoint(pPointOpt).Value, npSectionData[0], npSectionData[1]);
                         break;
                     case "无缝钢管(RP)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择圆管截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择圆管截面");
                         sectionPropDic = GeneralTemplateData.RPileSectionPropDic;
                         foreach (var item in sectionPropDic) {
                             pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
@@ -557,11 +537,10 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        CadFunctions.DrawPile(trans, ed.GetPoint(pPointOpt).Value, Convert.ToDouble(sectionProp["D"]),
-                                              Convert.ToDouble(sectionProp["t"]));
+                        CadFunctions.DrawPile(trans, ed.GetPoint(pPointOpt).Value, Convert.ToDouble(sectionProp["D"]), Convert.ToDouble(sectionProp["t"]));
                         break;
                     case "焊接钢管(WP)":
-                        pKeyOpts       = new PromptKeywordOptions("\n请选择圆管截面");
+                        pKeyOpts = new PromptKeywordOptions("\n请选择圆管截面");
                         sectionPropDic = GeneralTemplateData.WPileSectionPropDic;
                         foreach (var item in sectionPropDic) {
                             pKeyOpts.Keywords.Add(item.Key, item.Key, item.Key);
@@ -573,8 +552,7 @@ public class Command {
                         }
 
                         sectionProp = sectionPropDic[pKeyRes.StringResult];
-                        CadFunctions.DrawPile(trans, ed.GetPoint(pPointOpt).Value, Convert.ToDouble(sectionProp["D"]),
-                                              Convert.ToDouble(sectionProp["t"]));
+                        CadFunctions.DrawPile(trans, ed.GetPoint(pPointOpt).Value, Convert.ToDouble(sectionProp["D"]), Convert.ToDouble(sectionProp["t"]));
                         break;
                 }
 
@@ -609,8 +587,7 @@ public class Command {
                 }
 
                 stSectionData.Add(pDoubleRes.Value);
-                CadFunctions.DrawSquareTube(trans, ed.GetPoint(pPointOpt).Value, stSectionData[0], stSectionData[1],
-                                            stSectionData[2], stSectionData[3]);
+                CadFunctions.DrawSquareTube(trans, ed.GetPoint(pPointOpt).Value, stSectionData[0], stSectionData[1], stSectionData[2], stSectionData[3]);
                 break;
         }
     }

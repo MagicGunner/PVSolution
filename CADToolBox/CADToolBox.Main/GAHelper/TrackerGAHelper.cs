@@ -151,7 +151,6 @@ public class TrackerGAHelper(
         var leftUp = new Point3d(insertPoint.X + frameMargin[2] + framePadding[2], insertPoint.Y - frameMargin[0] - framePadding[0], 0);
         var rightDown = new Point3d(insertPoint.X + frameWidth - frameMargin[3] - framePadding[3], insertPoint.Y - frameHeight + frameMargin[1] + framePadding[1], 0);
 
-        trans.CurrentSpace.AddEntity(new Line(leftUp, rightDown));
         // 主视图绘制
         var deltaY = DimHeight * FrameScale * 3;
         DrawFrontView(new Point3d(leftUp.X, leftUp.Y - deltaY, 0));
@@ -162,21 +161,21 @@ public class TrackerGAHelper(
         // 判断侧视图放在右方还是下方
         var drawHeight = leftUp.Y - rightDown.Y;
         var drawWidth = rightDown.X - leftUp.X;
-        var width1 = drawWidth - GAModel.SystemLength; // 右边侧视图绘图区域的宽度
-        var height1 = deltaY + GAModel.Chord / 2;      // 右边侧视图绘图高度
-        var width2 = GAModel.SystemLength;
-        var height2 = drawHeight - height1; // 下边侧视图绘图高度
+        var width1 = drawWidth - GAModel.SystemLength; // 侧视图放右侧可用的的宽度
+        var height1 = deltaY + GAModel.Chord / 2;      // 侧视图放右侧可用的高度
+        var width2 = GAModel.SystemLength;             // 侧视图放下侧可用的宽度
+        var height2 = drawHeight - height1;            // 测试图放下侧可用的高度
         const double sidePaddingRatio = 0.8;
-        var rightScale = Math.Min(sidePaddingRatio * width1 / (GAModel.Chord * 2), sidePaddingRatio * height1 / (0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle) + GAModel.BeamCenterToGround + MaxPileEmbedment + 0.3 * DimHeight * FrameScale));
-        var downScale = Math.Min(sidePaddingRatio * width2 / (GAModel.Chord * 2), sidePaddingRatio * height2 / (0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle) + GAModel.BeamCenterToGround + MaxPileEmbedment + 0.3 * DimHeight * FrameScale));
+        var rightScale = Math.Min(sidePaddingRatio * width1 / (GAModel.Chord * 2), sidePaddingRatio * height1 / (0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle * Math.PI / 180) + GAModel.BeamCenterToGround + MaxPileEmbedment + 0.3 * DimHeight * FrameScale));
+        var downScale = Math.Min(sidePaddingRatio * width2 / (GAModel.Chord * 2), sidePaddingRatio * height2 / (0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle * Math.PI / 180) + GAModel.BeamCenterToGround + MaxPileEmbedment + 0.3 * DimHeight * FrameScale));
         Point3d sideViewInsertPoint;
         double sideScale;
-        if (rightScale >= downScale) {
+        if (rightScale >= downScale) { // 侧视图放在右侧还是下侧放大的比例越大就放那一侧
             sideScale = rightScale;
-            sideViewInsertPoint = new Point3d(rightDown.X - width1 / 2, leftUp.Y - (1 - sidePaddingRatio) / 2 * height1 - 0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle) * sideScale, 0);
+            sideViewInsertPoint = new Point3d(rightDown.X - width1 / 2, leftUp.Y - (1 - sidePaddingRatio) / 2 * height1 - 0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle * Math.PI / 180) * sideScale, 0);
         } else {
             sideScale = downScale;
-            sideViewInsertPoint = new Point3d(leftUp.X + GAModel.Chord * sideScale, leftUp.Y - height1 - (1 - sidePaddingRatio) / 2 * height2 - 0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle) * sideScale, 0);
+            sideViewInsertPoint = new Point3d(leftUp.X + GAModel.Chord * sideScale, leftUp.Y - height1 - (1 - sidePaddingRatio) / 2 * height2 - 0.5 * GAModel.Chord * Math.Sin(GAModel.MaxAngle * Math.PI / 180) * sideScale, 0);
         }
 
         DrawSideView(sideViewInsertPoint, sideScale);
@@ -187,7 +186,7 @@ public class TrackerGAHelper(
     /// </summary>
     /// <param name="frontViewInsertPoint">主梁中心线最左侧的点</param>
     public void DrawFrontView(Point3d frontViewInsertPoint) {
-        #region 添加支架主要构件
+        #region 画图
 
         // 切换默认图层绘制构件
         if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
@@ -195,14 +194,12 @@ public class TrackerGAHelper(
         if (GAModel.BeamList != null) {
             var beamStartX = frontViewInsertPoint.X;
             var beamStartY = frontViewInsertPoint.Y - GAModel.BeamHeight / (1 + GAModel.BeamRadio);
-            foreach (var beamModel in GAModel.BeamList) {
-                var beamPts = new List<Point3d> {
-                                                    new(beamModel.StartX + beamStartX, beamStartY, 0),                      // 左下
-                                                    new(beamModel.StartX + beamStartX, beamStartY + GAModel.BeamHeight, 0), // 左上
-                                                    new(beamModel.EndX + beamStartX, beamStartY + GAModel.BeamHeight, 0),   // 右上
-                                                    new(beamModel.EndX + beamStartX, beamStartY, 0)                         // 右下
-                                                };
-
+            foreach (var beamPts in GAModel.BeamList.Select(beamModel => new List<Point3d> {
+                                                                                               new(beamModel.StartX + beamStartX, beamStartY, 0),                      // 左下
+                                                                                               new(beamModel.StartX + beamStartX, beamStartY + GAModel.BeamHeight, 0), // 左上
+                                                                                               new(beamModel.EndX + beamStartX, beamStartY + GAModel.BeamHeight, 0),   // 右上
+                                                                                               new(beamModel.EndX + beamStartX, beamStartY, 0)                         // 右下
+                                                                                           })) {
                 trans.CurrentSpace.AddEntity(beamPts.CreatePolyline(p => p.Closed = true));
             }
         }
@@ -213,36 +210,38 @@ public class TrackerGAHelper(
             if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
             var purlinStartPoint = new Point3d(frontViewInsertPoint.X, frontViewInsertPoint.Y, 0);
             var purlinNamePrefix = "00-" + CompanyName + "-正视图-" + GAModel.ModuleRowCounter + "P";
-            var leftPurlinObj = trans.GetObject(trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "左檩条"])) as BlockReference;
-            var midPurlinObj = trans.GetObject(trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "中檩条"])) as BlockReference;
-            var rightPurlinObj = trans.GetObject(trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "右檩条"])) as BlockReference;
+            var leftPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "左檩条"]).GetObject<BlockReference>();
+            var midPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "中檩条"]).GetObject<BlockReference>();
+            var rightPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "右檩条"]).GetObject<BlockReference>();
             var purlinDic = new Dictionary<string, double> {
                                                                { "檩条高度", GAModel.PurlinHeight },
                                                                { "主梁上半高度", GAModel.BeamHeight * GAModel.BeamRadio / (1 + GAModel.BeamRadio) },
                                                                { "主梁下半高度", GAModel.BeamHeight / (1 + GAModel.BeamRadio) }
                                                            };
-            SetDynamicBlock(leftPurlinObj, purlinDic);
-            SetDynamicBlock(midPurlinObj, purlinDic);
-            SetDynamicBlock(rightPurlinObj, purlinDic);
-            foreach (var purlinModel in GAModel.PurlinList) {
-                var purlinVector = purlinStartPoint.GetVectorTo(new Point3d(frontViewInsertPoint.X + purlinModel.X, frontViewInsertPoint.Y, 0));
-                BlockReference tempPurlinObj;
-                switch (purlinModel.Type) {
-                    case -1: // 左檩条
-                        tempPurlinObj = leftPurlinObj.Clone() as BlockReference;
-                        tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
-                        if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
-                        break;
-                    case 1: // 右檩条
-                        tempPurlinObj = rightPurlinObj.Clone() as BlockReference;
-                        tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
-                        if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
-                        break;
-                    case 0: // 中檩条
-                        tempPurlinObj = midPurlinObj.Clone() as BlockReference;
-                        tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
-                        if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
-                        break;
+            if (leftPurlinObj != null && rightPurlinObj != null && midPurlinObj != null) {
+                SetDynamicBlock(leftPurlinObj.ObjectId, purlinDic);
+                SetDynamicBlock(midPurlinObj.ObjectId, purlinDic);
+                SetDynamicBlock(rightPurlinObj.ObjectId, purlinDic);
+                foreach (var purlinModel in GAModel.PurlinList) {
+                    var purlinVector = purlinStartPoint.GetVectorTo(new Point3d(frontViewInsertPoint.X + purlinModel.X, frontViewInsertPoint.Y, 0));
+                    BlockReference tempPurlinObj;
+                    switch (purlinModel.Type) {
+                        case -1: // 左檩条
+                            tempPurlinObj = leftPurlinObj.Clone() as BlockReference ?? throw new InvalidOperationException();
+                            tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
+                            if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
+                            break;
+                        case 1: // 右檩条
+                            tempPurlinObj = rightPurlinObj.Clone() as BlockReference ?? throw new InvalidOperationException();
+                            tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
+                            if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
+                            break;
+                        case 0: // 中檩条
+                            tempPurlinObj = midPurlinObj.Clone() as BlockReference ?? throw new InvalidOperationException();
+                            tempPurlinObj?.TransformBy(Matrix3d.Displacement(purlinVector));
+                            if (tempPurlinObj != null) trans.CurrentSpace.AddEntity(tempPurlinObj);
+                            break;
+                    }
                 }
             }
 
@@ -268,9 +267,7 @@ public class TrackerGAHelper(
                     postBlockName = postModel.IsDrive ? "00-" + CompanyName + "-正视图-" + TrackerType + "-驱动立柱" : "00-" + CompanyName + "-正视图-" + TrackerType + "-普通立柱";
                 }
 
-                var postId = trans.CurrentSpace.InsertBlock(new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y, 0), trans.BlockTable[postBlockName]); // 插入立柱块
-                var postObj = trans.GetObject(postId) as BlockReference;
-                SetDynamicBlock(postObj, postDic); // 设置立柱动态块属性
+                SetDynamicBlock(trans.CurrentSpace.InsertBlock(new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y, 0), trans.BlockTable[postBlockName]), postDic); // 设置立柱动态块属性
             }
         }
 
@@ -308,7 +305,10 @@ public class TrackerGAHelper(
 
         #region 标注
 
-        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"]; // 切换标注图层
+        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];                   // 切换标注图层
+        if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
+
+
         // 添加主视图中的标注
         // 主梁标注
         if (GAModel.BeamList != null) {
@@ -406,33 +406,19 @@ public class TrackerGAHelper(
             var beamStartX = frontViewInsertPoint.X;
             var beamStartY = frontViewInsertPoint.Y - GAModel.BeamHeight / (1 + GAModel.BeamRadio);
             foreach (var beamModel in GAModel.BeamList) {
-                trans.CurrentSpace.AddEntity(new DBText {
-                                                            Height = TextSize * FrameScale * 0.5,
-                                                            TextString = beamModel.Section,
-                                                            TextStyleId = trans.TextStyleTable[CompanyName + "Font"],
-                                                            Justify = AttachmentPoint.BaseCenter,
-                                                            AlignmentPoint = new Point3d(beamStartX + (beamModel.StartX + beamModel.EndX) / 2, beamStartY + GAModel.BeamHeight * GAModel.BeamRadio / (1 + GAModel.BeamRadio) + GAModel.PurlinHeight + GAModel.ModuleHeight + TextSize * FrameScale * 0.1, 0)
-                                                        });
+                var textPosition = new Point3d(beamStartX + (beamModel.StartX + beamModel.EndX) / 2, beamStartY - GAModel.BeamHeight / (1 + GAModel.BeamRadio) - TextSize * FrameScale * 0.1, 0);
+                trans.CurrentSpace.AddEntity(DBTextEx.CreateDBText(textPosition, beamModel.Section ?? "", TextSize * FrameScale * 0.5, AttachmentPoint.TopCenter));
             }
         }
 
         // 添加立柱规格
         if (GAModel.PostList != null) {
             foreach (var postModel in GAModel.PostList) {
-                trans.CurrentSpace.AddEntity(new DBText {
-                                                            Justify = AttachmentPoint.TopCenter,
-                                                            AlignmentPoint = new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y - GAModel.BeamCenterToGround - MaxPileEmbedment - TextSize * FrameScale * 0.1, 0),
-                                                            Height = TextSize * FrameScale * 0.5,
-                                                            TextString = postModel.Section,
-                                                            TextStyleId = trans.TextStyleTable[CompanyName + "Font"]
-                                                        });
-                trans.CurrentSpace.AddEntity(new DBText {
-                                                            Justify = AttachmentPoint.TopCenter,
-                                                            AlignmentPoint = new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y - GAModel.BeamCenterToGround - MaxPileEmbedment - TextSize * FrameScale * 0.5 - TextSize * FrameScale * 0.1, 0),
-                                                            Height = TextSize * FrameScale * 0.5,
-                                                            TextString = postModel.IsDrive ? "DrivePost" : "GeneralPost",
-                                                            TextStyleId = trans.TextStyleTable[CompanyName + "Font"]
-                                                        });
+                var textPosition = new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y - GAModel.BeamCenterToGround - MaxPileEmbedment - TextSize * FrameScale * 0.1, 0);
+
+                trans.CurrentSpace.AddEntity(DBTextEx.CreateDBText(textPosition, postModel.Section ?? "", TextSize * FrameScale * 0.5, AttachmentPoint.TopCenter));
+                textPosition = new Point3d(textPosition.X, textPosition.Y - TextSize * FrameScale * 0.7, 0);
+                trans.CurrentSpace.AddEntity(DBTextEx.CreateDBText(textPosition, postModel.IsDrive ? "DrivePost" : "GeneralPost", TextSize * FrameScale * 0.5, AttachmentPoint.TopCenter));
             }
         }
 
@@ -458,8 +444,7 @@ public class TrackerGAHelper(
             while (moduleIndex < GAModel.PurlinList.Count) {
                 while (GAModel.PurlinList[moduleIndex].Type != 1) {
                     var point = new Point3d(purlinStartX + (GAModel.PurlinList[moduleIndex].X + GAModel.PurlinList[moduleIndex + 1].X) / 2, purlinStartY, 0);
-                    var moduleObj = trans.GetObject(trans.CurrentSpace.InsertBlock(point, trans.BlockTable[moduleBlockName])) as BlockReference;
-                    SetDynamicBlock(moduleObj, moduleDic);
+                    SetDynamicBlock(trans.CurrentSpace.InsertBlock(point, trans.BlockTable[moduleBlockName]), moduleDic);
                     moduleIndex++;
                 }
 
@@ -471,8 +456,8 @@ public class TrackerGAHelper(
 
         #region 标注
 
-        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"]; // 切换标注图层
-
+        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];                   // 切换标注图层
+        if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
         // 组件宽标注
         trans.CurrentSpace.AddEntity(new RotatedDimension {
                                                               XLine1Point = new Point3d(plantFormViewInsertPoint.X, plantFormViewInsertPoint.Y + GAModel.Chord / 2, 0),
@@ -524,7 +509,7 @@ public class TrackerGAHelper(
     public void DrawSideView(Point3d sideViewInsertPoint, double sideScale) {
         // 切换默认图层插入侧视图动态块
         if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
-        var sideObjIds = new List<Entity>(); // 旋转部的所有对象
+        var sideObjectIdCollection = new ObjectIdCollection(); // 旋转部的所有对象
         var rotationDic = new Dictionary<string, double> {
                                                              { "弦长", GAModel.Chord },
                                                              { "组件间隙-垂直于主梁", GAModel.ModuleGapChord },
@@ -537,18 +522,20 @@ public class TrackerGAHelper(
                                                          };
         var rotationBlockName = "00-" + CompanyName + "-侧视图-" + Convert.ToString(GAModel.ModuleRowCounter) + "P旋转部";
         // 水平放置旋转部
-        var rotationObj1 = trans.GetObject(trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName])) as BlockReference;
-        SetDynamicBlock(rotationObj1, rotationDic);
+        var rotationId1 = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName]);
+        SetDynamicBlock(rotationId1, rotationDic);
+        sideObjectIdCollection.Add(rotationId1);
         if (trans.LayerTable.Has("02-Rotation")) trans.Database.Clayer = trans.LayerTable["02-Rotation"];
         // 最大角度放置旋转部
         rotationDic["旋转角度"] = GAModel.MaxAngle * Math.PI / 180;
-        var rotationObj2 = trans.GetObject(trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName])) as BlockReference;
-        SetDynamicBlock(rotationObj2, rotationDic);
+        var rotationId2 = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName]);
+        SetDynamicBlock(rotationId2, rotationDic);
+        sideObjectIdCollection.Add(rotationId2);
         // 最大角度放置旋转部反向
         rotationDic["旋转角度"] = -GAModel.MaxAngle * Math.PI / 180;
-        var rotationObj3 = trans.GetObject(trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName])) as BlockReference;
-        SetDynamicBlock(rotationObj3, rotationDic);
-
+        var rotationId3 = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName]);
+        SetDynamicBlock(rotationId3, rotationDic);
+        sideObjectIdCollection.Add(rotationId3);
         // 侧视图中立柱部分
         if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
         var postDic = new Dictionary<string, double> {
@@ -558,9 +545,9 @@ public class TrackerGAHelper(
                                                          { "法兰板厚度", GAModel.PostList == null ? 0 : GAModel.PostList.First().FlangeThickness }
                                                      };
         var sidePostBlockName = "00-" + CompanyName + "-侧视图-" + TrackerType + (GAModel.PileUpGround > 0 ? "-PHC" : "");
-        var sidePostObj = trans.GetObject(trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[sidePostBlockName])) as BlockReference;
-        SetDynamicBlock(sidePostObj, postDic);
-
+        var sidePostId = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[sidePostBlockName]);
+        SetDynamicBlock(sidePostId, postDic);
+        sideObjectIdCollection.Add(sidePostId);
         // 侧视图中的土壤示意图
         var sideSoilTop = sideViewInsertPoint.Y - GAModel.BeamCenterToGround;
         var sideSoilBottom = sideSoilTop - MaxPileEmbedment - DimHeight * FrameScale * 0.3;
@@ -570,50 +557,91 @@ public class TrackerGAHelper(
                                                 new(sideViewInsertPoint.X + GAModel.Chord, sideSoilBottom, 0),
                                                 new(sideViewInsertPoint.X - GAModel.Chord, sideSoilBottom, 0)
                                             };
-        var soilObj = trans.CurrentSpace.AddEntity(sideSoilPts.CreatePolyline(p => p.Closed = true)).GetObject<Polyline>();
-
+        var soilId = trans.CurrentSpace.AddEntity(sideSoilPts.CreatePolyline(p => p.Closed = true));
+        sideObjectIdCollection.Add(soilId);
         var soilHatchObj = new Hatch();
         trans.CurrentSpace.AddEntity(soilHatchObj);
         soilHatchObj.PatternScale = 10;
         soilHatchObj.SetHatchPattern(HatchPatternType.PreDefined, "AR-CONC");
         soilHatchObj.Associative = true;
-        soilHatchObj.AppendLoop(HatchLoopTypes.Outermost, new() { soilObj!.ObjectId });
+        soilHatchObj.AppendLoop(HatchLoopTypes.Outermost, new() { soilId });
         soilHatchObj.EvaluateHatch(true);
+        sideObjectIdCollection.Add(soilHatchObj.ObjectId);
+
+        #region 标注
 
         // 侧视图中的标注
         if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];
+        if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
         // 旋转中心离地
-        trans.CurrentSpace.AddEntity(new AlignedDimension {
-                                                              XLine1Point = new Point3d(sideViewInsertPoint.X, sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0),
-                                                              XLine2Point = new Point3d(sideViewInsertPoint.X, sideViewInsertPoint.Y, 0),
-                                                              DimLinePoint = new Point3d(sideViewInsertPoint.X - GAModel.BeamCenterToGround * 0.7, sideViewInsertPoint.Y - GAModel.BeamCenterToGround / 2, 0),
-                                                              Dimscale = FrameScale / sideScale
-                                                          });
+        sideObjectIdCollection.Add(trans.CurrentSpace.AddEntity(new AlignedDimension {
+                                                                                         XLine1Point = new Point3d(sideViewInsertPoint.X, sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0),
+                                                                                         XLine2Point = new Point3d(sideViewInsertPoint.X, sideViewInsertPoint.Y, 0),
+                                                                                         DimLinePoint = new Point3d(sideViewInsertPoint.X - GAModel.BeamCenterToGround * 0.7, sideViewInsertPoint.Y - GAModel.BeamCenterToGround / 2, 0),
+                                                                                         Dimscale = FrameScale / sideScale
+                                                                                     }));
         // 最小离地高度
         var moduleLowestPointX = sideViewInsertPoint.X - GAModel.Chord / 2 * Math.Cos(GAModel.MaxAngle * Math.PI / 180) - (GAModel.BeamHeight * GAModel.BeamRadio / (1 + GAModel.BeamRadio) + GAModel.PurlinHeight) * Math.Sin(GAModel.MaxAngle * Math.PI / 180);
-        trans.CurrentSpace.AddEntity(new AlignedDimension {
-                                                              XLine1Point = new Point3d(moduleLowestPointX, sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0),
-                                                              XLine2Point = new Point3d(moduleLowestPointX, sideViewInsertPoint.Y - GAModel.BeamCenterToGround + GAModel.MinGroundDist, 0),
-                                                              DimLinePoint = new Point3d(moduleLowestPointX - GAModel.MinGroundDist * 0.7, sideViewInsertPoint.Y - GAModel.BeamCenterToGround + GAModel.MinGroundDist / 2, 0),
-                                                              Dimscale = FrameScale / sideScale
-                                                          });
+        sideObjectIdCollection.Add(trans.CurrentSpace.AddEntity(new AlignedDimension {
+                                                                                         XLine1Point = new Point3d(moduleLowestPointX, sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0),
+                                                                                         XLine2Point = new Point3d(moduleLowestPointX, sideViewInsertPoint.Y - GAModel.BeamCenterToGround + GAModel.MinGroundDist, 0),
+                                                                                         DimLinePoint = new Point3d(moduleLowestPointX - GAModel.MinGroundDist * 0.7, sideViewInsertPoint.Y - GAModel.BeamCenterToGround + GAModel.MinGroundDist / 2, 0),
+                                                                                         Dimscale = FrameScale / sideScale
+                                                                                     }));
 
         // +最大角度标注
         var corner = new Point3d(moduleLowestPointX - GAModel.MinGroundDist / Math.Tan(GAModel.MaxAngle * Math.PI / 180), sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0); // 角点 
         var dimRadius = (GAModel.Chord + GAModel.MinGroundDist / Math.Sin(GAModel.MaxAngle * Math.PI / 180)) * 0.95;
 
-        trans.CurrentSpace.AddEntity(new LineAngularDimension2 {
-                                                                   XLine1Start = corner,
-                                                                   XLine2Start = corner,
-                                                                   XLine1End = new Point3d(corner.X + dimRadius, corner.Y, 0),
-                                                                   XLine2End = new Point3d(corner.X + dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180), 0),
-                                                                   ArcPoint = new Point3d(corner.X + dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180 / 2), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180 / 2), 0),
-                                                                   Dimscale = FrameScale / sideScale
-                                                               });
+        sideObjectIdCollection.Add(trans.CurrentSpace.AddEntity(new LineAngularDimension2 {
+                                                                                              XLine1Start = corner,
+                                                                                              XLine2Start = corner,
+                                                                                              XLine1End = new Point3d(corner.X + dimRadius, corner.Y, 0),
+                                                                                              XLine2End = new Point3d(corner.X + dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180), 0),
+                                                                                              ArcPoint = new Point3d(corner.X + dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180 / 2), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180 / 2), 0),
+                                                                                              Dimscale = FrameScale / sideScale
+                                                                                          }));
+        // -最大角度
+        corner = new Point3d((2 * sideViewInsertPoint.X - moduleLowestPointX) + GAModel.MinGroundDist / Math.Tan(GAModel.MaxAngle * Math.PI / 180), sideViewInsertPoint.Y - GAModel.BeamCenterToGround, 0); // 角点 
+        sideObjectIdCollection.Add(trans.CurrentSpace.AddEntity(new LineAngularDimension2 {
+                                                                                              XLine1Start = corner,
+                                                                                              XLine2Start = corner,
+                                                                                              XLine1End = new Point3d(corner.X - dimRadius, corner.Y, 0),
+                                                                                              XLine2End = new Point3d(corner.X - dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180), 0),
+                                                                                              ArcPoint = new Point3d(corner.X - dimRadius * Math.Cos(GAModel.MaxAngle * Math.PI / 180 / 2), corner.Y + dimRadius * Math.Sin(GAModel.MaxAngle * Math.PI / 180 / 2), 0),
+                                                                                              Dimscale = FrameScale / sideScale,
+                                                                                          }));
+
+        #endregion
+
+
+        // 将侧视图所有的块合并成整个块
+        var newSideName = "10-" + CompanyName + "-侧视总图-" + GAModel.ProjectName;
+        while (trans.BlockTable.Has(newSideName)) { // 如果当前文件中有重名块将名称最前面数字递增
+            var strList = newSideName.Split('-');
+            var oldNumStr = strList.First();
+            var newNumStr = (Convert.ToInt32(oldNumStr) + 1).ToString();
+            newSideName = newNumStr;
+            for (var i = 1; i < strList.Length; i++) {
+                newSideName += "-" + strList[i];
+            }
+        }
+
+        trans.BlockTable.Add(newSideName, sideObjCollection => {
+                                              sideObjCollection.Origin = sideViewInsertPoint;
+                                              sideObjCollection.DeepCloneEx(sideObjectIdCollection, new IdMapping());
+                                          });
+        foreach (ObjectId id in sideObjectIdCollection) {
+            id.Erase();
+        }
+
+        if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
+        trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[newSideName], new Scale3d(sideScale, sideScale, sideScale));
     }
 
     // 修改动态块的属性
-    public static void SetDynamicBlock(BlockReference? brf, Dictionary<string, double> dicData) {
+    public static void SetDynamicBlock(ObjectId id, Dictionary<string, double> dicData) {
+        var brf = id.GetObject<BlockReference>();
         var props = brf?.DynamicBlockReferencePropertyCollection;
         if (props == null) return;
         foreach (DynamicBlockReferenceProperty prop in props) {

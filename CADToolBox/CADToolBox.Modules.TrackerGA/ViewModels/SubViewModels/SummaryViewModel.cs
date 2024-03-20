@@ -23,14 +23,14 @@ public partial class SummaryViewModel : ViewModelBase {
     [RelayCommand]
     private void DrawOnly() {
         TrackerModel!.Status = 1;
-        TrackerModel!.Init();
+        //TrackerModel!.Init();
         WeakReferenceMessenger.Default.Send(new WindowCloseMessage());
     }
 
     [RelayCommand]
     private void SaveAndDraw() {
         TrackerModel!.Status = 2;
-        TrackerModel!.Init();
+        //TrackerModel!.Init();
         WeakReferenceMessenger.Default.Send(new WindowCloseMessage());
     }
 }

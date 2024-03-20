@@ -40,7 +40,7 @@
           "buildTransitive/netstandard2.0/CommunityToolkit.Mvvm.targets": {}
         }
       },
-      "HandyControl/3.5.0": {
+      "HandyControl/3.4.0": {
         "type": "package",
         "compile": {
           "lib/net48/HandyControl.dll": {
@@ -236,7 +236,7 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
-          "HandyControl": "3.5.0",
+          "HandyControl": "3.4.0",
           "MaterialDesignThemes": "4.9.0"
         },
         "compile": {
@@ -296,16 +296,16 @@
         "lib/netstandard2.1/CommunityToolkit.Mvvm.xml"
       ]
     },
-    "HandyControl/3.5.0": {
-      "sha512": "m3sdHBsgOficRLwGPVkG4LmXloy10oiugGDVcEq+OVK71xZmrkh9xBYLMJ4bGJj/bCKh993nhvWJb0fXU3/XTw==",
+    "HandyControl/3.4.0": {
+      "sha512": "MgD5lxIm23oCv3+mFWH6EARLCOmR/spFaWeb813QtUDIQeUsbGK02xm1xDQEd0UGBcba6aho1FgCtiU4q7hHDw==",
       "type": "package",
-      "path": "handycontrol/3.5.0",
+      "path": "handycontrol/3.4.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
-        "handycontrol.3.5.0.nupkg.sha512",
+        "handycontrol.3.4.0.nupkg.sha512",
         "handycontrol.nuspec",
         "icon.png",
         "lib/net40/HandyControl.dll",
@@ -341,9 +341,6 @@
         "lib/net7.0/HandyControl.deps.json",
         "lib/net7.0/HandyControl.dll",
         "lib/net7.0/HandyControl.xml",
-        "lib/net8.0/HandyControl.deps.json",
-        "lib/net8.0/HandyControl.dll",
-        "lib/net8.0/HandyControl.xml",
         "lib/netcoreapp3.0/HandyControl.deps.json",
         "lib/netcoreapp3.0/HandyControl.dll",
         "lib/netcoreapp3.0/HandyControl.xml",

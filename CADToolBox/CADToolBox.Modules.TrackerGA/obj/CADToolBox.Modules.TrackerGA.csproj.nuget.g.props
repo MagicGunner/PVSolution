@@ -16,6 +16,6 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\JinNan\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.39</PkgMicrosoft_Xaml_Behaviors_Wpf>
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\JinNan\.nuget\packages\materialdesignthemes\4.9.0</PkgMaterialDesignThemes>
-    <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\JinNan\.nuget\packages\handycontrol\3.5.0</PkgHandyControl>
+    <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\JinNan\.nuget\packages\handycontrol\3.4.0</PkgHandyControl>
   </PropertyGroup>
 </Project>

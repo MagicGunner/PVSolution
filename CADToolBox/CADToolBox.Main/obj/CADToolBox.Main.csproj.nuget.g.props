@@ -889,10 +889,13 @@
       <Link>IFox.Basal.Source\WindowsAPI\WindowsAPI.cs</Link>
     </Compile>
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)costura.fody\5.7.0\build\Costura.Fody.props" Condition="Exists('$(NuGetPackageRoot)costura.fody\5.7.0\build\Costura.Fody.props')" />
+  </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Xaml_Behaviors_Wpf Condition=" '$(PkgMicrosoft_Xaml_Behaviors_Wpf)' == '' ">C:\Users\JinNan\.nuget\packages\microsoft.xaml.behaviors.wpf\1.1.39</PkgMicrosoft_Xaml_Behaviors_Wpf>
     <PkgMaterialDesignThemes Condition=" '$(PkgMaterialDesignThemes)' == '' ">C:\Users\JinNan\.nuget\packages\materialdesignthemes\4.9.0</PkgMaterialDesignThemes>
-    <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\JinNan\.nuget\packages\handycontrol\3.5.0</PkgHandyControl>
+    <PkgHandyControl Condition=" '$(PkgHandyControl)' == '' ">C:\Users\JinNan\.nuget\packages\handycontrol\3.4.0</PkgHandyControl>
     <PkgAutoCAD_NET_Model Condition=" '$(PkgAutoCAD_NET_Model)' == '' ">C:\Users\JinNan\.nuget\packages\autocad.net.model\23.0.0</PkgAutoCAD_NET_Model>
     <PkgAutoCAD_NET_Core Condition=" '$(PkgAutoCAD_NET_Core)' == '' ">C:\Users\JinNan\.nuget\packages\autocad.net.core\23.0.0</PkgAutoCAD_NET_Core>
     <PkgAutoCAD_NET Condition=" '$(PkgAutoCAD_NET)' == '' ">C:\Users\JinNan\.nuget\packages\autocad.net\23.0.0</PkgAutoCAD_NET>

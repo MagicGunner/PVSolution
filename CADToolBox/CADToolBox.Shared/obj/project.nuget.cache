@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "AchCNdAu47FrRyAyicCKCOTy+yv1qCbrCEo1vCwqeLedbuaegpSQkScoPRiZJRbwpJUrqHmk1nqvQFvLvnKgng==",
+  "dgSpecHash": "hPS8Q8EDvPRVYpim9QIbiHdNZsfAtWe8Y0U1hG/vDtpeiZF9M/4OdbQ3Z7Ud12bNnruWQugZSoGs1C387zLn3A==",
   "success": true,
   "projectFilePath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JinNan\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512",
-    "C:\\Users\\JinNan\\.nuget\\packages\\handycontrol\\3.5.0\\handycontrol.3.5.0.nupkg.sha512",
+    "C:\\Users\\JinNan\\.nuget\\packages\\handycontrol\\3.4.0\\handycontrol.3.4.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\materialdesigncolors\\2.1.4\\materialdesigncolors.2.1.4.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\materialdesignthemes\\4.9.0\\materialdesignthemes.4.9.0.nupkg.sha512",
     "C:\\Users\\JinNan\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
