@@ -31,10 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Costura.Fody" Version="5.7.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="IFox.Basal.Source" Version="0.7.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -47,6 +43,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\CADToolBox.Modules.FixedGA\CADToolBox.Modules.FixedGA.csproj" />
 	  <ProjectReference Include="..\CADToolBox.Modules.TrackerGA\CADToolBox.Modules.TrackerGA.csproj" />
 	</ItemGroup>
 

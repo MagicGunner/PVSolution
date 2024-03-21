@@ -4,6 +4,7 @@ using Autodesk.AutoCAD.Customization;
 using Autodesk.AutoCAD.EditorInput;
 using CADToolBox.Main.Functions;
 using CADToolBox.Main.GAHelper;
+using CADToolBox.Modules.FixedGA;
 using CADToolBox.Modules.TrackerGA;
 using CADToolBox.Modules.TrackerGA.Views;
 using CADToolBox.Resource.NameDictionarys;
@@ -18,36 +19,42 @@ namespace CADToolBox.Main;
 public class Command {
     #region 测试用
 
-    [CommandMethod(nameof(HelloWorld))]
-    public void HelloWorld() {
-        //var trackerModel = new TrackerModel();
+    [CommandMethod(nameof(ChangeBlocksName))]
+    public void ChangeBlocksName() {
+        CadFunctions.UpdateBlockName(new DBTrans(), "AntaiGA", "Linsum");
+    }
+
+    [CommandMethod(nameof(InsertBlock))]
+    public void InsertBlock() {
         var trans = new DBTrans();
-        //var ed           = Acaop.DocumentManager.MdiActiveDocument.Editor;
-        //var pPointOpts   = new PromptPointOptions("\n请选择插入点");
-        //var helper       = new TrackerGAHelper(trackerModel, trans, ed.GetPoint(pPointOpts).Value);
-        //var dwgName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg";
-        //helper.UpdateBlockName("Greenex", "Linsum");
-        //trans.Commit();
-        var result = MessageBox.Show("是否删除", "标题", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        if (result == DialogResult.Yes) {
-            trans.Editor!.WriteMessage("点击了是");
-        } else if (result == DialogResult.No) {
-            trans.Editor!.WriteMessage("点击了否");
-        } else {
-            trans.Editor!.WriteMessage("点击了取消");
-        }
+        var dwgFileName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg";
+        CadFunctions.ImportBlockFromDwg(trans, dwgFileName);
+        CadFunctions.UpdateBlockName(trans, "Linsum", "Linsum-跟踪支架");
+        dwgFileName = @"E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\固定支架GA图模板.dwg";
+        CadFunctions.ImportBlockFromDwg(trans, dwgFileName);
+        CadFunctions.UpdateBlockName(trans, "AntaiGA", "Linsum-固定支架");
     }
 
     #endregion
 
+    #region 固定支架排布图
+
+    [CommandMethod(nameof(FixedGA))]
+    public void FixedGA() {
+        FixedApp.Current.Run();
+    }
+
+    #endregion
 
     #region 跟踪支架GA图辅助截面
 
     [CommandMethod(nameof(TrackerGA))]
     public void TrackerGA() {
+        var companyName = "Linsum";
         var trackerModel = new TrackerModel();
         var currentDoc = Acaop.DocumentManager.MdiActiveDocument;
         var ed = currentDoc.Editor;
+
         using var trans = new DBTrans();
 
         var pEntityOpts = new PromptEntityOptions("\n请选择设计输入增强属性块") { AllowNone = true };
@@ -70,11 +77,11 @@ public class Command {
                 }
 
                 break;
-            } // 新建项目
+            }
             case PromptStatus.OK: {
                 if (pEntityRes.ObjectId == ObjectId.Null) return;
                 var projectData = trans.GetObject(pEntityRes.ObjectId) as BlockReference;
-                if (projectData == null || projectData.Name != "00-linsum-国标输入") return;
+                if (projectData == null || projectData.Name != "00-" + companyName + "-跟踪支架-国标输入") return;
 
                 var attributeCollection = projectData.AttributeCollection;
                 var projectInput = new Dictionary<string, string>();
@@ -177,7 +184,7 @@ public class Command {
                 if (pKeyRes.Status != PromptStatus.OK) return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-linsum-国标输入");
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-" + companyName + "-跟踪支架-国标输入");
                         break;
                     case "N":
                         pEntityOpts = new PromptEntityOptions("\n请选择现有的信息输入块");
@@ -202,7 +209,7 @@ public class Command {
                 if (pKeyRes.Status != PromptStatus.OK) return;
                 switch (pKeyRes.StringResult) {
                     case "Y":
-                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-linsum-国标输入");
+                        CadFunctions.WriteToInput(trans, ed.GetPoint(pPointOpts).Value, trackerModel, new Scale3d(), 0, "00-" + companyName + "-跟踪支架-国标输入");
                         // 绘图代码********************************************************************
                         break;
                     case "N":
@@ -224,8 +231,6 @@ public class Command {
         var trackerGAHelper = new TrackerGAHelper(trackerModel, trans, insertPoint);
         trackerGAHelper.InitStyles();
         trackerGAHelper.GetGA();
-
-        trans.Commit();
     }
 
     #endregion

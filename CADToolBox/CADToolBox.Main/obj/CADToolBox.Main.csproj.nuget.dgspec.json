@@ -32,6 +32,9 @@
           "net48": {
             "targetAlias": "net48",
             "projectReferences": {
+              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj": {
+                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj"
+              },
               "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj": {
                 "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj"
               }
@@ -53,12 +56,6 @@
               "target": "Package",
               "version": "[23.0.0, )"
             },
-            "Costura.Fody": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[5.7.0, )"
-            },
             "IFox.Basal.Source": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -70,6 +67,82 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[0.7.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj",
+        "projectName": "CADToolBox.Modules.FixedGA",
+        "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj",
+        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "outputPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "targetAlias": "net48",
+            "projectReferences": {
+              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj": {
+                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj"
+              },
+              "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj": {
+                "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.2, )"
+            },
+            "HandyControl": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "ValueConverters": {
+              "target": "Package",
+              "version": "[3.0.26, )"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"

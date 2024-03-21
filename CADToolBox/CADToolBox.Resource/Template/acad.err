@@ -1,6 +1,6 @@
 
 
-内部错误:  !dbobji.cpp@8440: eNotOpenForWrite
+致命错误:  Unhandled Access Violation Reading 0x0000 Exception at 97B75E50h
 
-03/19/2024 at 15:36:16.000  图形: E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template.dwg
+03/21/2024 at 15:41:29.000  图形: E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template-total.dwg
 -------------

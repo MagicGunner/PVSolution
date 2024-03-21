@@ -401,8 +401,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private void OnLeftSpanChanged(object sender, EventArgs e) {
         //MessageBox.Show("左侧跨距发生改变");
         var modifiedPost = (PostInfo)sender;
-        if (modifiedPost.Num == 1) return;
-        PostInfos![modifiedPost.Num - 2].RightSpan = modifiedPost.LeftSpan;
+        if (modifiedPost.Num > 1) {
+            PostInfos![modifiedPost.Num - 2].RightSpan = modifiedPost.LeftSpan;
+        }
+
         TrackerModel!.UpdatePostX();
         UpdatePostInfos();
     }
@@ -410,8 +412,10 @@ public partial class SpanInfoViewModel : ViewModelBase {
     private void OnRightSpanChanged(object sender, EventArgs e) {
         //MessageBox.Show("右侧跨距发生改变");
         var modifiedPost = (PostInfo)sender;
-        if (modifiedPost.Num == PostInfos!.Count) return;
-        PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
+        if (modifiedPost.Num < PostInfos!.Count) {
+            PostInfos![modifiedPost.Num].LeftSpan = modifiedPost.RightSpan;
+        }
+
         TrackerModel!.UpdatePostX();
         UpdatePostInfos();
     }

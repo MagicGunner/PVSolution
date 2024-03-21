@@ -36,36 +36,6 @@ public class TrackerGAHelper(
 
     private double MaxPileEmbedment { get; set; } // 最大埋深
 
-    // 导入模板文件块
-    public void ImportBlockFromDwg(string dwgName) {
-        var tempDB = new Database(false, true); // 创建临时数据库
-        try {
-            tempDB.ReadDwgFile(dwgName, System.IO.FileShare.Read, true, null);
-            var objectIds = new ObjectIdCollection();
-            foreach (var objectId in trans.BlockTable) {
-                var btr = trans.GetObject(objectId) as BlockTableRecord;
-                if (btr != null && btr is { IsAnonymous: false, IsLayout: false }) {
-                    if (btr.Name.Length > 3 && btr.Name.Substring(0, 3) == "00-") {
-                        objectIds.Add(objectId);
-                    }
-                }
-            }
-
-            tempDB.WblockCloneObjects(objectIds, trans.Database.BlockTableId, new IdMapping(), DuplicateRecordCloning.Replace, false);
-        } catch (AcException ex) {
-            Acaop.ShowAlertDialog("出现错误：" + ex.Message);
-        }
-
-        tempDB.Dispose();
-    }
-
-    // 批量更新块名称
-    public void UpdateBlockName(string oldCompanyName, string newCompanyName) {
-        var btrs = trans.BlockTable.GetRecords().Where(btr => btr != null && btr is { IsAnonymous: false, IsLayout: false } && btr.Name.Length > 3 && btr.Name[..3] == "00-");
-        foreach (var btr in btrs) {
-            trans.BlockTable.Change(btr.Name, btr => { btr.Name = btr.Name.Replace(oldCompanyName, newCompanyName); });
-        }
-    }
 
     public void InitStyles() {
         Acaop.SetSystemVariable("DIMBLK", "_ARCHTICK");
@@ -74,6 +44,7 @@ public class TrackerGAHelper(
             try {
                 trans.TextStyleTable.Add(CompanyName + "Font", newTextStyle => {
                                                                    newTextStyle.FileName = "gbeitc.shx";
+                                                                   newTextStyle.BigFontFileName = "gbcbig.shx";
                                                                    newTextStyle.TextSize = TextSize;
                                                                    newTextStyle.XScale = 0.8; // 字体宽度系数
                                                                });
@@ -99,13 +70,18 @@ public class TrackerGAHelper(
         }
 
         // 自定义图层
-        if (!trans.LayerTable.Has("01-Dimension")) { // 标注图层
-            trans.LayerTable.Add("01-Dimension", newLayer => { newLayer.Color = Color.FromColorIndex(ColorMethod.ByAci, 4); });
+        if (!trans.LayerTable.Has("05 Dimension")) { // 标注图层
+            trans.LayerTable.Add("05 Dimension", newLayer => { newLayer.Color = Color.FromColorIndex(ColorMethod.ByAci, 4); });
+        }
+
+        // 文字图层
+        if (!trans.LayerTable.Has("06 Text")) {
+            trans.LayerTable.Add("06 Text", newLayer => { newLayer.Color = Color.FromColorIndex(ColorMethod.ByAci, 3); });
         }
 
         // 旋转部图层
-        if (!trans.LayerTable.Has("02-Rotation")) { // 旋转部图层
-            trans.LayerTable.Add("02-Rotation", newLayer => {
+        if (!trans.LayerTable.Has("07 Rotation")) { // 旋转部图层
+            trans.LayerTable.Add("07 Rotation", newLayer => {
                                                     newLayer.Color = Color.FromColorIndex(ColorMethod.ByAci, 6);
                                                     //if (!trans.LinetypeTable.Has("test")) {
                                                     //    trans.LinetypeTable.Add("test",
@@ -116,11 +92,6 @@ public class TrackerGAHelper(
                                                     //}
                                                     newLayer.LinetypeObjectId = trans.LinetypeTable["HIDDEN"];
                                                 });
-        }
-
-        // 文字图层
-        if (!trans.LayerTable.Has("03-Text")) {
-            trans.LayerTable.Add("03-Text", newLayer => { newLayer.Color = Color.FromColorIndex(ColorMethod.ByAci, 3); });
         }
     }
 
@@ -209,7 +180,7 @@ public class TrackerGAHelper(
             // 切换默认图层绘制檩条
             if (trans.LayerTable.Has("0")) trans.Database.Clayer = trans.LayerTable["0"];
             var purlinStartPoint = new Point3d(frontViewInsertPoint.X, frontViewInsertPoint.Y, 0);
-            var purlinNamePrefix = "00-" + CompanyName + "-正视图-" + GAModel.ModuleRowCounter + "P";
+            var purlinNamePrefix = "00-" + CompanyName + "-跟踪支架-正视图-" + GAModel.ModuleRowCounter + "P";
             var leftPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "左檩条"]).GetObject<BlockReference>();
             var midPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "中檩条"]).GetObject<BlockReference>();
             var rightPurlinObj = trans.CurrentSpace.InsertBlock(purlinStartPoint, trans.BlockTable[purlinNamePrefix + "右檩条"]).GetObject<BlockReference>();
@@ -262,9 +233,9 @@ public class TrackerGAHelper(
                 postDic["基础埋深"] = postModel.PileDownGround;
                 string postBlockName;
                 if (postModel.PileUpGround > 0) { // 立柱露头大于0默认为混凝土桩
-                    postBlockName = postModel.IsDrive ? "00-" + CompanyName + "-正视图-" + TrackerType + "-驱动立柱-PHC" : "00-" + CompanyName + "-正视图-" + TrackerType + "-普通立柱-PHC";
+                    postBlockName = postModel.IsDrive ? "00-" + CompanyName + "-跟踪支架-正视图-" + TrackerType + "-驱动立柱-PHC" : "00-" + CompanyName + "-跟踪支架-正视图-" + TrackerType + "-普通立柱-PHC";
                 } else { // 立柱露头为0表示锤入桩
-                    postBlockName = postModel.IsDrive ? "00-" + CompanyName + "-正视图-" + TrackerType + "-驱动立柱" : "00-" + CompanyName + "-正视图-" + TrackerType + "-普通立柱";
+                    postBlockName = postModel.IsDrive ? "00-" + CompanyName + "-跟踪支架-正视图-" + TrackerType + "-驱动立柱" : "00-" + CompanyName + "-跟踪支架-正视图-" + TrackerType + "-普通立柱";
                 }
 
                 SetDynamicBlock(trans.CurrentSpace.InsertBlock(new Point3d(frontViewInsertPoint.X + postModel.X, frontViewInsertPoint.Y, 0), trans.BlockTable[postBlockName]), postDic); // 设置立柱动态块属性
@@ -305,7 +276,7 @@ public class TrackerGAHelper(
 
         #region 标注
 
-        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];                   // 切换标注图层
+        if (trans.LayerTable.Has("05 Dimension")) trans.Database.Clayer = trans.LayerTable["05 Dimension"];                   // 切换标注图层
         if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
 
 
@@ -400,7 +371,9 @@ public class TrackerGAHelper(
         #region 文字
 
         // 切换文字图层添加主梁规格
-        if (trans.LayerTable.Has("03-Text")) trans.Database.Clayer = trans.LayerTable["03-Text"];
+        if (trans.LayerTable.Has("06 Text")) trans.Database.Clayer = trans.LayerTable["06 Text"];
+        if (trans.TextStyleTable.Has(CompanyName + "Font")) trans.Database.Textstyle = trans.TextStyleTable[CompanyName + "Font"];
+
         // 添加主梁规格
         if (GAModel.BeamList != null) {
             var beamStartX = frontViewInsertPoint.X;
@@ -436,7 +409,7 @@ public class TrackerGAHelper(
                                                            { "组件总高度", GAModel.Chord },
                                                            { "组件间隙-垂直于主梁", GAModel.ModuleGapChord }
                                                        };
-        var moduleBlockName = "00-" + CompanyName + "-俯视图-" + GAModel.ModuleRowCounter + "P组件";
+        var moduleBlockName = "00-" + CompanyName + "-跟踪支架-俯视图-" + GAModel.ModuleRowCounter + "P组件";
         if (GAModel.PurlinList != null) {
             var moduleIndex = 0;
             var purlinStartX = plantFormViewInsertPoint.X;
@@ -456,7 +429,7 @@ public class TrackerGAHelper(
 
         #region 标注
 
-        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];                   // 切换标注图层
+        if (trans.LayerTable.Has("05 Dimension")) trans.Database.Clayer = trans.LayerTable["05 Dimension"];                   // 切换标注图层
         if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
         // 组件宽标注
         trans.CurrentSpace.AddEntity(new RotatedDimension {
@@ -520,12 +493,12 @@ public class TrackerGAHelper(
                                                              { "主梁下半高", GAModel.BeamHeight / (1 + GAModel.BeamRadio) },
                                                              { "旋转角度", 0 }
                                                          };
-        var rotationBlockName = "00-" + CompanyName + "-侧视图-" + Convert.ToString(GAModel.ModuleRowCounter) + "P旋转部";
+        var rotationBlockName = "00-" + CompanyName + "-跟踪支架-侧视图-" + Convert.ToString(GAModel.ModuleRowCounter) + "P旋转部";
         // 水平放置旋转部
         var rotationId1 = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName]);
         SetDynamicBlock(rotationId1, rotationDic);
         sideObjectIdCollection.Add(rotationId1);
-        if (trans.LayerTable.Has("02-Rotation")) trans.Database.Clayer = trans.LayerTable["02-Rotation"];
+        if (trans.LayerTable.Has("02-Rotation")) trans.Database.Clayer = trans.LayerTable["07 Rotation"];
         // 最大角度放置旋转部
         rotationDic["旋转角度"] = GAModel.MaxAngle * Math.PI / 180;
         var rotationId2 = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[rotationBlockName]);
@@ -544,7 +517,7 @@ public class TrackerGAHelper(
                                                          { "基础埋深", GAModel.PileDownGround },
                                                          { "法兰板厚度", GAModel.PostList == null ? 0 : GAModel.PostList.First().FlangeThickness }
                                                      };
-        var sidePostBlockName = "00-" + CompanyName + "-侧视图-" + TrackerType + (GAModel.PileUpGround > 0 ? "-PHC" : "");
+        var sidePostBlockName = "00-" + CompanyName + "-跟踪支架-侧视图-" + TrackerType + (GAModel.PileUpGround > 0 ? "-PHC" : "");
         var sidePostId = trans.CurrentSpace.InsertBlock(sideViewInsertPoint, trans.BlockTable[sidePostBlockName]);
         SetDynamicBlock(sidePostId, postDic);
         sideObjectIdCollection.Add(sidePostId);
@@ -571,7 +544,7 @@ public class TrackerGAHelper(
         #region 标注
 
         // 侧视图中的标注
-        if (trans.LayerTable.Has("01-Dimension")) trans.Database.Clayer = trans.LayerTable["01-Dimension"];
+        if (trans.LayerTable.Has("05 Dimension")) trans.Database.Clayer = trans.LayerTable["05 Dimension"];
         if (trans.DimStyleTable.Has(CompanyName + "Dim")) trans.Database.Dimstyle = trans.DimStyleTable[CompanyName + "Dim"]; // 切换标注样式
         // 旋转中心离地
         sideObjectIdCollection.Add(trans.CurrentSpace.AddEntity(new AlignedDimension {
@@ -616,7 +589,7 @@ public class TrackerGAHelper(
 
 
         // 将侧视图所有的块合并成整个块
-        var newSideName = "10-" + CompanyName + "-侧视总图-" + GAModel.ProjectName;
+        var newSideName = "10-" + CompanyName + "-跟踪支架-侧视总图-" + GAModel.ProjectName;
         while (trans.BlockTable.Has(newSideName)) { // 如果当前文件中有重名块将名称最前面数字递增
             var strList = newSideName.Split('-');
             var oldNumStr = strList.First();

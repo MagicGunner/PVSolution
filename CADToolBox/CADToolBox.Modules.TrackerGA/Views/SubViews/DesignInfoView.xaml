@@ -52,16 +52,6 @@
             Text="{Binding TrackerModel.ProjectName}" />
         <ScrollViewer Grid.Row="1" Grid.Column="0">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource InputPropName}" Text="弦长:" />
-                        <TextBox Style="{StaticResource InputPropValue}" Text="{Binding TrackerModel.Chord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource InputPropName}" Text="旋转中心离地:" />
-                        <TextBox Style="{StaticResource InputPropValue}" Text="{Binding TrackerModel.BeamCenterToGround, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </StackPanel>
-                </StackPanel>
                 <StackPanel Margin="5,5" Orientation="Vertical">
                     <StackPanel.Resources>
                         <Style
@@ -156,58 +146,6 @@
                     </StackPanel>
 
                 </StackPanel>
-
-                <!--  默认值修改  -->
-                <!--<Expander
-                    Width="240"
-                    Padding="0"
-                    HorizontalAlignment="Left"
-                    HorizontalContentAlignment="Center"
-                    DockPanel.Dock="Top"
-                    Header="默认值修改"
-                    IsExpanded="True">
-                    <StackPanel Margin="5,5" Orientation="Vertical">
-                        <StackPanel.Resources>
-                            <Style
-                                x:Key="PropName"
-                                BasedOn="{StaticResource TextBlockDefault}"
-                                TargetType="TextBlock">
-                                <Setter Property="MinWidth" Value="120" />
-                                <Setter Property="HorizontalAlignment" Value="Left" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                            <Style
-                                x:Key="PropValue"
-                                BasedOn="{StaticResource TextBoxBaseStyle}"
-                                TargetType="TextBox">
-                                <Setter Property="MinWidth" Value="50" />
-                                <Setter Property="HorizontalAlignment" Value="Left" />
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                            </Style>
-                        </StackPanel.Resources>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource PropName}" Text="杆件轴力(kN)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.P_1}" />
-                        </StackPanel>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource PropName}" Text="节点1主弯矩(kN*m)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Mx_1}" />
-                        </StackPanel>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource PropName}" Text="节点1次弯矩(kN*m)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.My_1}" />
-                        </StackPanel>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource PropName}" Text="节点2主弯矩(kN*m)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Mx_2}" />
-                        </StackPanel>
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource PropName}" Text="节点2次弯矩(kN*m)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.My_2}" />
-                        </StackPanel>
-                    </StackPanel>
-                </Expander>-->
-
             </DockPanel>
         </ScrollViewer>
 

@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "load", "load动态加载\lo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CADToolBox.Modules", "CADToolBox.Modules", "{4B2D6B3A-4093-4AB8-AB8E-9F227BDDA744}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADToolBox.Modules.TrackerGA", "CADToolBox.Modules.TrackerGA\CADToolBox.Modules.TrackerGA.csproj", "{21BCD323-C428-4DE2-9246-1808DCF9CB82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CADToolBox.Modules.TrackerGA", "CADToolBox.Modules.TrackerGA\CADToolBox.Modules.TrackerGA.csproj", "{21BCD323-C428-4DE2-9246-1808DCF9CB82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADToolBox.Resource", "CADToolBox.Resource\CADToolBox.Resource.csproj", "{DCE51B87-1D33-48A2-8B5C-C4622453EBB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CADToolBox.Resource", "CADToolBox.Resource\CADToolBox.Resource.csproj", "{DCE51B87-1D33-48A2-8B5C-C4622453EBB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADToolBox.Shared", "CADToolBox.Shared\CADToolBox.Shared.csproj", "{CA7B2751-628B-4B95-A948-6CC26E01D8DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CADToolBox.Shared", "CADToolBox.Shared\CADToolBox.Shared.csproj", "{CA7B2751-628B-4B95-A948-6CC26E01D8DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADToolBox.Modules.FixedGA", "CADToolBox.Modules.FixedGA\CADToolBox.Modules.FixedGA.csproj", "{907CC845-2595-490B-B273-1CAD02E3303D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{CA7B2751-628B-4B95-A948-6CC26E01D8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA7B2751-628B-4B95-A948-6CC26E01D8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA7B2751-628B-4B95-A948-6CC26E01D8DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{907CC845-2595-490B-B273-1CAD02E3303D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{907CC845-2595-490B-B273-1CAD02E3303D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{907CC845-2595-490B-B273-1CAD02E3303D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{907CC845-2595-490B-B273-1CAD02E3303D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{21BCD323-C428-4DE2-9246-1808DCF9CB82} = {4B2D6B3A-4093-4AB8-AB8E-9F227BDDA744}
+		{907CC845-2595-490B-B273-1CAD02E3303D} = {4B2D6B3A-4093-4AB8-AB8E-9F227BDDA744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {961EA9DF-7B0E-48B5-96ED-57DD1859A99E}
