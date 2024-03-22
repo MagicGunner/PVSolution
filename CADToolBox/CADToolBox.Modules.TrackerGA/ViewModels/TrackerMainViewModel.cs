@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 namespace CADToolBox.Modules.TrackerGA.ViewModels;
 
 public partial class TrackerMainViewModel : ViewModelBase {
-#region 字段与属性
+    #region 字段与属性
 
     private readonly NavigationService _navigationService;
 
@@ -23,45 +23,45 @@ public partial class TrackerMainViewModel : ViewModelBase {
     [ObservableProperty]
     private string? _userName = "MissBlue";
 
-#endregion
+    #endregion
 
-#region 构造函数
+    #region 构造函数
 
     public TrackerMainViewModel(NavigationService navigationService) {
         MenuBars = [];
         CreateMenuBars();
 
-        _navigationService                         =  navigationService;
+        _navigationService = navigationService;
         _navigationService.CurrentViewModelChanged += () => { CurrentViewModel = navigationService.CurrentViewModel; };
         _navigationService.NavigateTo<HomeViewModel>();
     }
 
-#endregion
+    #endregion
 
-#region 普通方法
+    #region 普通方法
 
     private void CreateMenuBars() {
         MenuBars?.Add(new MenuBar {
-                                      Icon  = "Number1",
+                                      Icon = "Number1",
                                       Title = "首页"
                                   });
         MenuBars?.Add(new MenuBar {
-                                      Icon  = "Number2",
+                                      Icon = "Number2",
                                       Title = "设计信息"
                                   });
         MenuBars?.Add(new MenuBar {
-                                      Icon  = "Number3",
+                                      Icon = "Number3",
                                       Title = "跨距信息"
                                   });
         MenuBars?.Add(new MenuBar {
-                                      Icon  = "Number4",
+                                      Icon = "Number4",
                                       Title = "信息汇总"
                                   });
     }
 
-#endregion
+    #endregion
 
-#region RelayCommand
+    #region RelayCommand
 
     [RelayCommand]
     private void SelectedIndexChanged(MenuBar obj) {
@@ -81,5 +81,5 @@ public partial class TrackerMainViewModel : ViewModelBase {
         }
     }
 
-#endregion
+    #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using CADToolBox.Modules.FixedGA.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CADToolBox.Modules.FixedGA.Services.Implement;
 
@@ -17,5 +18,5 @@ public class NavigationService {
 
     public event Action? CurrentViewModelChanged;
 
-    //public void NavigateTo<T>() where T : ViewModelBase => CurrentViewModel = FixedApp.Current.Services.GetService<T>();
+    public void NavigateTo<T>() where T : ViewModelBase => CurrentViewModel = FixedApp.Current.Services.GetService<T>();
 }

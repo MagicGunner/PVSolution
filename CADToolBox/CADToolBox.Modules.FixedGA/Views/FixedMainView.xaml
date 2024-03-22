@@ -7,7 +7,8 @@
     xmlns:local="clr-namespace:CADToolBox.Modules.FixedGA.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:sv="clr-namespace:CADToolBox.Modules.FixedGA.Views"
+    xmlns:sv="clr-namespace:CADToolBox.Modules.FixedGA.Views.SubViews"
+    xmlns:svm="clr-namespace:CADToolBox.Modules.FixedGA.ViewModels.SubViewModels"
     xmlns:vm="clr-namespace:CADToolBox.Modules.FixedGA.ViewModels"
     Title="FixedMainView"
     Width="1250"
@@ -166,7 +167,7 @@
                     </md:ColorZone>
 
 
-                    <!--<DockPanel Grid.Row="1">
+                    <DockPanel Grid.Row="1">
                         <DockPanel DockPanel.Dock="Left">
                             <ContentControl DockPanel.Dock="Top" Style="{StaticResource Effect2Control}">
                                 <DockPanel>
@@ -197,21 +198,21 @@
                         </DockPanel>
                         <ContentControl Content="{Binding CurrentViewModel}">
                             <ContentControl.Resources>
-                                <DataTemplate DataType="{x:Type subViewModels:HomeViewModel}">
+                                <DataTemplate DataType="{x:Type svm:HomeViewModel}">
                                     <sv:HomeView />
                                 </DataTemplate>
-                                <DataTemplate DataType="{x:Type subViewModels:DesignInfoViewModel}">
+                                <DataTemplate DataType="{x:Type svm:DesignInfoViewModel}">
                                     <sv:DesignInfoView />
                                 </DataTemplate>
-                                <DataTemplate DataType="{x:Type subViewModels:SpanInfoViewModel}">
+                                <DataTemplate DataType="{x:Type svm:SpanInfoViewModel}">
                                     <sv:SpanInfoView />
                                 </DataTemplate>
-                                <DataTemplate DataType="{x:Type subViewModels:SummaryViewModel}">
+                                <DataTemplate DataType="{x:Type svm:SummaryViewModel}">
                                     <sv:SummaryView />
                                 </DataTemplate>
                             </ContentControl.Resources>
                         </ContentControl>
-                    </DockPanel>-->
+                    </DockPanel>
 
                 </Grid>
             </md:DrawerHost>

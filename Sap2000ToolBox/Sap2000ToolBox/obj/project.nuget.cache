@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "7b8r8VCR7uhKT2L0C5mpKZiPRvgB/WJd5FajqU7mqbo4PJNrtDMgTaATq3YuJbcxv+6t0HWZcioFjfzgWf+fzg==",
+  "success": true,
+  "projectFilePath": "E:\\00-Code\\PVSolution\\Sap2000ToolBox\\Sap2000ToolBox\\Sap2000ToolBox.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\JinNan\\.nuget\\packages\\csi_sap2000v23_x64\\1.0.0\\csi_sap2000v23_x64.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

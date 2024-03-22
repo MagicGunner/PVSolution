@@ -12,7 +12,8 @@ using SapToolBox.Plugin.Views;
 
 namespace SapToolBox.Plugin {
     public class cPlugin {
-        public void Main(ref cSapModel sapModel, ref cPluginCallback sapPlugin) {
+        public void Main(ref cSapModel       sapModel,
+                         ref cPluginCallback sapPlugin) {
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             sapPlugin.Finish(0);
 

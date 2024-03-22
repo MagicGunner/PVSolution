@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using System.Windows;
 using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
 using IFoxCAD.Cad;
 using MessageBox = System.Windows.MessageBox;
 using Point3d = Autodesk.AutoCAD.Geometry.Point3d;

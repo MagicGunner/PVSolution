@@ -9,6 +9,7 @@ using CADToolBox.Modules.TrackerGA;
 using CADToolBox.Modules.TrackerGA.Views;
 using CADToolBox.Resource.NameDictionarys;
 using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
 using IFoxCAD.Cad;
 using Microsoft.Extensions.DependencyInjection;
 using PromptKeywordOptions = Autodesk.AutoCAD.EditorInput.PromptKeywordOptions;

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETFRAMEWORK;NET48;
 
-1-1877303029
+5789962782
 
-8342897962
+16-691899299
 43-1158239558
-Views\FixedMainView.xaml;
+Views\FixedMainView.xaml;Views\SubViews\DesignInfoView.xaml;Views\SubViews\HomeView.xaml;Views\SubViews\SpanInfoView.xaml;Views\SubViews\SummaryView.xaml;
 
-False
+True
 

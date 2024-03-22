@@ -1,5 +1,6 @@
 ﻿using CADToolBox.Modules.TrackerGA.Messages;
 using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;

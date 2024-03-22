@@ -7,7 +7,7 @@ using CADToolBox.Modules.TrackerGA.ViewModels;
 using CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 using CADToolBox.Modules.TrackerGA.Views;
 using CADToolBox.Modules.TrackerGA.Views.SubViews;
-using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CADToolBox.Modules.TrackerGA;

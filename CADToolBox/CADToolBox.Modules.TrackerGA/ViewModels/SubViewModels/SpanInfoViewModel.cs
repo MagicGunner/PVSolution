@@ -19,12 +19,11 @@ using System.Windows.Media;
 using AutoMapper;
 using CADToolBox.Modules.TrackerGA.Messages;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using CADToolBox.Shared.Models.CADModels.Implement;
-using CADToolBox.Shared.Models.UIModels.Implement;
 using CADToolBox.Shared.Models.UIModels.Interface;
 using CADToolBox.Shared.Tools;
 using System.Reflection;
-using CADToolBox.Shared.Models.CADModels.Interface;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
+using CADToolBox.Shared.Models.UIModels.Implement.Tracker;
 
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
 

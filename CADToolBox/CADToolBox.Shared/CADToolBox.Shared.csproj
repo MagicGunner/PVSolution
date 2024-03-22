@@ -17,7 +17,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\CADModels\Interface\" />
+	  <Folder Include="Models\UIModels\Implement\Fixed\" />
 	  <Folder Include="Tools\" />
 	</ItemGroup>
 

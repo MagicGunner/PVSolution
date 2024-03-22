@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using System;
 using System.Windows;
-using CADToolBox.Shared.Models.CADModels.Implement;
+using CADToolBox.Shared.Models.CADModels.Implement.Tracker;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CADToolBox.Modules.TrackerGA.ViewModels.SubViewModels;
@@ -178,6 +178,5 @@ public partial class DesignInfoViewModel : ViewModelBase {
     private void OnTrackerModelChanged(object    sender,
                                        EventArgs e) {
         Draw();
-        //MessageBox.Show("模型发生改变");
     }
 }

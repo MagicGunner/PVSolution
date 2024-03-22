@@ -2,7 +2,33 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\SubViews\DesignInfoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\HomeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\SpanInfoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\SummaryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\FixedMainView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\DesignInfoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\HomeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\SpanInfoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\SummaryView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

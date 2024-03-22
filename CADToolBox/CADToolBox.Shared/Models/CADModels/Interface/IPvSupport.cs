@@ -16,6 +16,11 @@ public interface IPvSupport {
 #endregion
 
 
-    public double PileUpGround { get; set; } // 基础露头
+    public double PileUpGround   { get; set; } // 基础露头
+    public double PileDownGround { get; set; } // 基础埋深
+
     public double PileWidth    { get; set; } // 基础宽度
+
+    public int ModuleRowCounter { get; set; } // 组件排数
+    public int ModuleColCounter { get; set; } // 组件列数
 }

@@ -18,6 +18,5 @@ public class NavigationService {
 
     public event Action? CurrentViewModelChanged;
 
-    public void NavigateTo<T>() where T : ViewModelBase =>
-        CurrentViewModel = TrackerApp.Current.Services.GetService<T>();
+    public void NavigateTo<T>() where T : ViewModelBase => CurrentViewModel = TrackerApp.Current.Services.GetService<T>();
 }

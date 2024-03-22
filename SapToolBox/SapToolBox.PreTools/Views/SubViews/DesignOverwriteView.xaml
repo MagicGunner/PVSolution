@@ -14,7 +14,6 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary Source="pack://application:,,,/SapToolBox.Shared;component/WPFResource.xaml" />
-
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

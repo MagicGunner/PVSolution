@@ -35,9 +35,4 @@
 	  </Compile>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ViewModels\SubViewModels\" />
-	  <Folder Include="Views\SubViews\" />
-	</ItemGroup>
-
 </Project>
