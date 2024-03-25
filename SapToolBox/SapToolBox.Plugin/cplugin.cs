@@ -35,7 +35,7 @@ namespace SapToolBox.Plugin {
         //    var dirInfo = new DirectoryInfo(dirPath);
         //    foreach (var item in dirInfo.GetFiles()) {
         //        if (System.IO.Path.GetFileNameWithoutExtension(item.FullName) == name) {
-        //            return Assembly.LoadFile(item.FullName);
+        //            return Assembly.LoadFile(item.FullName); 
         //        }
         //    }
 

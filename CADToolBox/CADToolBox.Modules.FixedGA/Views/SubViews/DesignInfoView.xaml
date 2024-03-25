@@ -32,16 +32,6 @@
                 <Setter Property="Margin" Value="10" />
             </Style>
         </Grid.Resources>
-        <!--  设计输入  -->
-        <!--<TextBlock
-        Grid.Row="0"
-        Grid.Column="0"
-        Margin="0,5"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        FontSize="14"
-        Style="{StaticResource TextBlockBoldBaseStyle}"
-        Text="信息输入" />-->
         <hc:TextBox
             Grid.Row="0"
             Grid.Column="0"
@@ -132,44 +122,5 @@
                 </StackPanel>
             </DockPanel>
         </ScrollViewer>
-
-        <Canvas
-            Name="DrawingCanvas"
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="{Binding CanvasWidth}"
-            Height="{Binding CanvasHeight}"
-            Background="Transparent">
-            <!--  基础  -->
-            <Polygon
-                Fill="Black"
-                Points="{Binding PilePoints}"
-                Stroke="Black"
-                StrokeThickness="2" />
-            <!--  立柱  -->
-            <Polygon
-                Fill="Red"
-                Points="{Binding PostPoints}"
-                Stroke="Black"
-                StrokeThickness="2" />
-            <!--  主梁  -->
-            <Polygon
-                Fill="Green"
-                Points="{Binding BeamPoints}"
-                Stroke="Black"
-                StrokeThickness="2" />
-            <!--  檩条  -->
-            <Polygon
-                Fill="Blue"
-                Points="{Binding PurlinPoints}"
-                Stroke="Black"
-                StrokeThickness="2" />
-            <!--  组件  -->
-            <Polygon
-                Fill="Pink"
-                Points="{Binding ModulePoints}"
-                Stroke="Black"
-                StrokeThickness="2" />
-        </Canvas>
     </Grid>
 </UserControl>

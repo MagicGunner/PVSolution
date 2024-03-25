@@ -1,6 +1,7 @@
 
 
-致命错误:  Unhandled Access Violation Reading 0x0000 Exception at 97B75E50h
+致命错误:  Unhandled Access Violation Reading 0x0008 Exception at 727fb846h
 
-03/21/2024 at 15:41:29.000  图形: E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\GA-template-total.dwg
+03/25/2024 at 16:26:22.000  图形: E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\Template\固定支架GA图模板.dwg
 -------------
+

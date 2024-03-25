@@ -49,5 +49,7 @@ public partial class FixedModel : ObservableObject, IPvSupport {
     [ObservableProperty]
     private double _title; // 摆放角度
 
+
+
     #endregion
 }
