@@ -4,7 +4,7 @@
 library
 C#
 .cs
-E:\BaiduSyncdisk\Works\00-Research_and_development\PVSolution\SapToolBox\SapToolBox.PreTools\obj\Debug\
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.PreTools\obj\Debug\
 SapToolBox.PreTools
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 7-1383349876
 
 19-396772413
-251910759660
+242065156442
 UserControl1.xaml;Views\PreIndexView.xaml;Views\SubViews\DesignOverwriteView.xaml;Views\SubViews\ModelSupportView.xaml;Views\SubViews\SectionDesignerView.xaml;Views\SubViews\SectionViews\CSectionView.xaml;Views\SubViews\SectionViews\HSectionView.xaml;
 
 True

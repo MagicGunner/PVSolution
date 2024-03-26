@@ -9,7 +9,7 @@ using SapToolBox.Base.Common;
 using SapToolBox.Base.Common.Interface;
 using SapToolBox.Base.MVVM;
 using SapToolBox.PreTools.Views.SubViews;
-using SapToolBox.Shared.Models;
+using SapToolBox.Shared.Models.UIModels.Implement;
 
 namespace SapToolBox.PreTools.ViewModels {
     public class PreIndexViewModel : NavigationViewModel {

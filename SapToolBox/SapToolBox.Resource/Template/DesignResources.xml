@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DesignResources>
+  <PhiDic>
+    <Resource Name="ColdFormedPhi">
+      <Item lambda="1" Phi="0.997" />
+      <Item lambda="2" Phi="0.995" />
+      <Item lambda="3" Phi="0.992" />
+      <Item lambda="4" Phi="0.989" />
+      <Item lambda="5" Phi="0.987" />
+      <Item lambda="6" Phi="0.984" />
+      <Item lambda="7" Phi="0.981" />
+      <Item lambda="8" Phi="0.979" />
+      <Item lambda="9" Phi="0.976" />
+      <Item lambda="10" Phi="0.974" />
+      <Item lambda="11" Phi="0.971" />
+      <Item lambda="12" Phi="0.968" />
+      <Item lambda="13" Phi="0.966" />
+      <Item lambda="14" Phi="0.963" />
+      <Item lambda="15" Phi="0.96" />
+      <Item lambda="16" Phi="0.958" />
+      <Item lambda="17" Phi="0.955" />
+      <Item lambda="18" Phi="0.952" />
+      <Item lambda="19" Phi="0.949" />
+      <Item lambda="20" Phi="0.947" />
+      <Item lambda="21" Phi="0.944" />
+      <Item lambda="22" Phi="0.941" />
+      <Item lambda="23" Phi="0.938" />
+      <Item lambda="24" Phi="0.936" />
+      <Item lambda="25" Phi="0.933" />
+      <Item lambda="26" Phi="0.93" />
+      <Item lambda="27" Phi="0.927" />
+      <Item lambda="28" Phi="0.924" />
+      <Item lambda="29" Phi="0.921" />
+      <Item lambda="30" Phi="0.918" />
+      <Item lambda="31" Phi="0.915" />
+      <Item lambda="32" Phi="0.912" />
+      <Item lambda="33" Phi="0.909" />
+      <Item lambda="34" Phi="0.906" />
+      <Item lambda="35" Phi="0.903" />
+      <Item lambda="36" Phi="0.899" />
+      <Item lambda="37" Phi="0.896" />
+      <Item lambda="38" Phi="0.893" />
+      <Item lambda="39" Phi="0.889" />
+      <Item lambda="40" Phi="0.886" />
+      <Item lambda="41" Phi="0.882" />
+      <Item lambda="42" Phi="0.879" />
+      <Item lambda="43" Phi="0.875" />
+      <Item lambda="44" Phi="0.872" />
+      <Item lambda="45" Phi="0.868" />
+      <Item lambda="46" Phi="0.864" />
+      <Item lambda="47" Phi="0.861" />
+      <Item lambda="48" Phi="0.858" />
+      <Item lambda="49" Phi="0.855" />
+      <Item lambda="50" Phi="0.852" />
+      <Item lambda="51" Phi="0.849" />
+      <Item lambda="52" Phi="0.846" />
+      <Item lambda="53" Phi="0.843" />
+      <Item lambda="54" Phi="0.839" />
+      <Item lambda="55" Phi="0.836" />
+      <Item lambda="56" Phi="0.832" />
+      <Item lambda="57" Phi="0.829" />
+      <Item lambda="58" Phi="0.825" />
+      <Item lambda="59" Phi="0.822" />
+      <Item lambda="60" Phi="0.818" />
+      <Item lambda="61" Phi="0.814" />
+      <Item lambda="62" Phi="0.81" />
+      <Item lambda="63" Phi="0.806" />
+      <Item lambda="64" Phi="0.802" />
+      <Item lambda="65" Phi="0.797" />
+      <Item lambda="66" Phi="0.793" />
+      <Item lambda="67" Phi="0.789" />
+      <Item lambda="68" Phi="0.784" />
+      <Item lambda="69" Phi="0.779" />
+      <Item lambda="70" Phi="0.775" />
+      <Item lambda="71" Phi="0.77" />
+      <Item lambda="72" Phi="0.765" />
+      <Item lambda="73" Phi="0.76" />
+      <Item lambda="74" Phi="0.755" />
+      <Item lambda="75" Phi="0.75" />
+      <Item lambda="76" Phi="0.744" />
+      <Item lambda="77" Phi="0.739" />
+      <Item lambda="78" Phi="0.733" />
+      <Item lambda="79" Phi="0.728" />
+      <Item lambda="80" Phi="0.722" />
+      <Item lambda="81" Phi="0.716" />
+      <Item lambda="82" Phi="0.71" />
+      <Item lambda="83" Phi="0.704" />
+      <Item lambda="84" Phi="0.698" />
+      <Item lambda="85" Phi="0.692" />
+      <Item lambda="86" Phi="0.686" />
+      <Item lambda="87" Phi="0.68" />
+      <Item lambda="88" Phi="0.673" />
+      <Item lambda="89" Phi="0.667" />
+      <Item lambda="90" Phi="0.661" />
+      <Item lambda="91" Phi="0.654" />
+      <Item lambda="92" Phi="0.648" />
+      <Item lambda="93" Phi="0.641" />
+      <Item lambda="94" Phi="0.634" />
+      <Item lambda="95" Phi="0.626" />
+      <Item lambda="96" Phi="0.618" />
+      <Item lambda="97" Phi="0.611" />
+      <Item lambda="98" Phi="0.603" />
+      <Item lambda="99" Phi="0.595" />
+      <Item lambda="100" Phi="0.588" />
+      <Item lambda="101" Phi="0.58" />
+      <Item lambda="102" Phi="0.573" />
+      <Item lambda="103" Phi="0.566" />
+      <Item lambda="104" Phi="0.558" />
+      <Item lambda="105" Phi="0.551" />
+      <Item lambda="106" Phi="0.544" />
+      <Item lambda="107" Phi="0.537" />
+      <Item lambda="108" Phi="0.53" />
+      <Item lambda="109" Phi="0.523" />
+      <Item lambda="110" Phi="0.516" />
+      <Item lambda="111" Phi="0.509" />
+      <Item lambda="112" Phi="0.502" />
+      <Item lambda="113" Phi="0.496" />
+      <Item lambda="114" Phi="0.489" />
+      <Item lambda="115" Phi="0.483" />
+      <Item lambda="116" Phi="0.476" />
+      <Item lambda="117" Phi="0.47" />
+      <Item lambda="118" Phi="0.464" />
+      <Item lambda="119" Phi="0.458" />
+      <Item lambda="120" Phi="0.452" />
+      <Item lambda="121" Phi="0.446" />
+      <Item lambda="122" Phi="0.44" />
+      <Item lambda="123" Phi="0.434" />
+      <Item lambda="124" Phi="0.428" />
+      <Item lambda="125" Phi="0.423" />
+      <Item lambda="126" Phi="0.417" />
+      <Item lambda="127" Phi="0.412" />
+      <Item lambda="128" Phi="0.406" />
+      <Item lambda="129" Phi="0.401" />
+      <Item lambda="130" Phi="0.396" />
+      <Item lambda="131" Phi="0.391" />
+      <Item lambda="132" Phi="0.386" />
+      <Item lambda="133" Phi="0.381" />
+      <Item lambda="134" Phi="0.376" />
+      <Item lambda="135" Phi="0.371" />
+      <Item lambda="136" Phi="0.367" />
+      <Item lambda="137" Phi="0.362" />
+      <Item lambda="138" Phi="0.357" />
+      <Item lambda="139" Phi="0.353" />
+      <Item lambda="140" Phi="0.349" />
+      <Item lambda="141" Phi="0.344" />
+      <Item lambda="142" Phi="0.34" />
+      <Item lambda="143" Phi="0.336" />
+      <Item lambda="144" Phi="0.332" />
+      <Item lambda="145" Phi="0.328" />
+      <Item lambda="146" Phi="0.324" />
+      <Item lambda="147" Phi="0.32" />
+      <Item lambda="148" Phi="0.316" />
+      <Item lambda="149" Phi="0.312" />
+      <Item lambda="150" Phi="0.308" />
+      <Item lambda="151" Phi="0.305" />
+      <Item lambda="152" Phi="0.301" />
+      <Item lambda="153" Phi="0.298" />
+      <Item lambda="154" Phi="0.294" />
+      <Item lambda="155" Phi="0.291" />
+      <Item lambda="156" Phi="0.287" />
+      <Item lambda="157" Phi="0.284" />
+      <Item lambda="158" Phi="0.281" />
+      <Item lambda="159" Phi="0.277" />
+      <Item lambda="160" Phi="0.274" />
+      <Item lambda="161" Phi="0.271" />
+      <Item lambda="162" Phi="0.268" />
+      <Item lambda="163" Phi="0.265" />
+      <Item lambda="164" Phi="0.262" />
+      <Item lambda="165" Phi="0.259" />
+      <Item lambda="166" Phi="0.256" />
+      <Item lambda="167" Phi="0.253" />
+      <Item lambda="168" Phi="0.251" />
+      <Item lambda="169" Phi="0.248" />
+      <Item lambda="170" Phi="0.245" />
+      <Item lambda="171" Phi="0.243" />
+      <Item lambda="172" Phi="0.24" />
+      <Item lambda="173" Phi="0.237" />
+      <Item lambda="174" Phi="0.235" />
+      <Item lambda="175" Phi="0.232" />
+      <Item lambda="176" Phi="0.23" />
+      <Item lambda="177" Phi="0.227" />
+      <Item lambda="178" Phi="0.225" />
+      <Item lambda="179" Phi="0.223" />
+      <Item lambda="180" Phi="0.22" />
+      <Item lambda="181" Phi="0.218" />
+      <Item lambda="182" Phi="0.216" />
+      <Item lambda="183" Phi="0.214" />
+      <Item lambda="184" Phi="0.211" />
+      <Item lambda="185" Phi="0.209" />
+      <Item lambda="186" Phi="0.207" />
+      <Item lambda="187" Phi="0.205" />
+      <Item lambda="188" Phi="0.203" />
+      <Item lambda="189" Phi="0.201" />
+      <Item lambda="190" Phi="0.199" />
+      <Item lambda="191" Phi="0.197" />
+      <Item lambda="192" Phi="0.195" />
+      <Item lambda="193" Phi="0.193" />
+      <Item lambda="194" Phi="0.191" />
+      <Item lambda="195" Phi="0.189" />
+      <Item lambda="196" Phi="0.188" />
+      <Item lambda="197" Phi="0.186" />
+      <Item lambda="198" Phi="0.184" />
+      <Item lambda="199" Phi="0.182" />
+      <Item lambda="200" Phi="0.18" />
+      <Item lambda="201" Phi="0.179" />
+      <Item lambda="202" Phi="0.177" />
+      <Item lambda="203" Phi="0.175" />
+      <Item lambda="204" Phi="0.174" />
+      <Item lambda="205" Phi="0.172" />
+      <Item lambda="206" Phi="0.171" />
+      <Item lambda="207" Phi="0.169" />
+      <Item lambda="208" Phi="0.167" />
+      <Item lambda="209" Phi="0.166" />
+      <Item lambda="210" Phi="0.164" />
+      <Item lambda="211" Phi="0.163" />
+      <Item lambda="212" Phi="0.161" />
+      <Item lambda="213" Phi="0.16" />
+      <Item lambda="214" Phi="0.159" />
+      <Item lambda="215" Phi="0.157" />
+      <Item lambda="216" Phi="0.156" />
+      <Item lambda="217" Phi="0.154" />
+      <Item lambda="218" Phi="0.153" />
+      <Item lambda="219" Phi="0.152" />
+      <Item lambda="220" Phi="0.15" />
+      <Item lambda="221" Phi="0.149" />
+      <Item lambda="222" Phi="0.148" />
+      <Item lambda="223" Phi="0.146" />
+      <Item lambda="224" Phi="0.145" />
+      <Item lambda="225" Phi="0.144" />
+      <Item lambda="226" Phi="0.143" />
+      <Item lambda="227" Phi="0.141" />
+      <Item lambda="228" Phi="0.14" />
+      <Item lambda="229" Phi="0.139" />
+      <Item lambda="230" Phi="0.138" />
+      <Item lambda="231" Phi="0.137" />
+      <Item lambda="232" Phi="0.136" />
+      <Item lambda="233" Phi="0.135" />
+      <Item lambda="234" Phi="0.133" />
+      <Item lambda="235" Phi="0.132" />
+      <Item lambda="236" Phi="0.131" />
+      <Item lambda="237" Phi="0.13" />
+      <Item lambda="238" Phi="0.129" />
+      <Item lambda="239" Phi="0.128" />
+      <Item lambda="240" Phi="0.127" />
+      <Item lambda="241" Phi="0.126" />
+      <Item lambda="242" Phi="0.126" />
+      <Item lambda="243" Phi="0.124" />
+      <Item lambda="244" Phi="0.123" />
+      <Item lambda="245" Phi="0.122" />
+      <Item lambda="246" Phi="0.121" />
+      <Item lambda="247" Phi="0.12" />
+      <Item lambda="248" Phi="0.119" />
+      <Item lambda="249" Phi="0.118" />
+      <Item lambda="250" Phi="0.117" />
+    </Resource>
+    <Resource Name="SteelPhi">
+      <Item lambda="1" PhiA="0.997" PhiB="0.997" PhiC="0.997" PhiD="0.997" />
+      <Item lambda="2" PhiA="0.995" PhiB="0.995" PhiC="0.995" PhiD="0.995" />
+      <Item lambda="3" PhiA="0.992" PhiB="0.992" PhiC="0.992" PhiD="0.992" />
+      <Item lambda="4" PhiA="0.989" PhiB="0.989" PhiC="0.989" PhiD="0.989" />
+      <Item lambda="5" PhiA="0.987" PhiB="0.987" PhiC="0.987" PhiD="0.987" />
+      <Item lambda="6" PhiA="0.984" PhiB="0.984" PhiC="0.984" PhiD="0.984" />
+      <Item lambda="7" PhiA="0.981" PhiB="0.981" PhiC="0.981" PhiD="0.981" />
+      <Item lambda="8" PhiA="0.979" PhiB="0.979" PhiC="0.979" PhiD="0.979" />
+      <Item lambda="9" PhiA="0.976" PhiB="0.976" PhiC="0.976" PhiD="0.976" />
+      <Item lambda="10" PhiA="0.974" PhiB="0.974" PhiC="0.974" PhiD="0.974" />
+      <Item lambda="11" PhiA="0.971" PhiB="0.971" PhiC="0.971" PhiD="0.971" />
+      <Item lambda="12" PhiA="0.968" PhiB="0.968" PhiC="0.968" PhiD="0.968" />
+      <Item lambda="13" PhiA="0.966" PhiB="0.966" PhiC="0.966" PhiD="0.966" />
+      <Item lambda="14" PhiA="0.963" PhiB="0.963" PhiC="0.963" PhiD="0.963" />
+      <Item lambda="15" PhiA="0.96" PhiB="0.96" PhiC="0.96" PhiD="0.96" />
+      <Item lambda="16" PhiA="0.958" PhiB="0.958" PhiC="0.958" PhiD="0.958" />
+      <Item lambda="17" PhiA="0.955" PhiB="0.955" PhiC="0.955" PhiD="0.955" />
+      <Item lambda="18" PhiA="0.952" PhiB="0.952" PhiC="0.952" PhiD="0.952" />
+      <Item lambda="19" PhiA="0.949" PhiB="0.949" PhiC="0.949" PhiD="0.949" />
+      <Item lambda="20" PhiA="0.947" PhiB="0.947" PhiC="0.947" PhiD="0.947" />
+      <Item lambda="21" PhiA="0.944" PhiB="0.944" PhiC="0.944" PhiD="0.944" />
+      <Item lambda="22" PhiA="0.941" PhiB="0.941" PhiC="0.941" PhiD="0.941" />
+      <Item lambda="23" PhiA="0.938" PhiB="0.938" PhiC="0.938" PhiD="0.938" />
+      <Item lambda="24" PhiA="0.936" PhiB="0.936" PhiC="0.936" PhiD="0.936" />
+      <Item lambda="25" PhiA="0.933" PhiB="0.933" PhiC="0.933" PhiD="0.933" />
+      <Item lambda="26" PhiA="0.93" PhiB="0.93" PhiC="0.93" PhiD="0.93" />
+      <Item lambda="27" PhiA="0.927" PhiB="0.927" PhiC="0.927" PhiD="0.927" />
+      <Item lambda="28" PhiA="0.924" PhiB="0.924" PhiC="0.924" PhiD="0.924" />
+      <Item lambda="29" PhiA="0.921" PhiB="0.921" PhiC="0.921" PhiD="0.921" />
+      <Item lambda="30" PhiA="0.918" PhiB="0.918" PhiC="0.918" PhiD="0.918" />
+      <Item lambda="31" PhiA="0.915" PhiB="0.915" PhiC="0.915" PhiD="0.915" />
+      <Item lambda="32" PhiA="0.912" PhiB="0.912" PhiC="0.912" PhiD="0.912" />
+      <Item lambda="33" PhiA="0.909" PhiB="0.909" PhiC="0.909" PhiD="0.909" />
+      <Item lambda="34" PhiA="0.906" PhiB="0.906" PhiC="0.906" PhiD="0.906" />
+      <Item lambda="35" PhiA="0.903" PhiB="0.903" PhiC="0.903" PhiD="0.903" />
+      <Item lambda="36" PhiA="0.899" PhiB="0.899" PhiC="0.899" PhiD="0.899" />
+      <Item lambda="37" PhiA="0.896" PhiB="0.896" PhiC="0.896" PhiD="0.896" />
+      <Item lambda="38" PhiA="0.893" PhiB="0.893" PhiC="0.893" PhiD="0.893" />
+      <Item lambda="39" PhiA="0.889" PhiB="0.889" PhiC="0.889" PhiD="0.889" />
+      <Item lambda="40" PhiA="0.886" PhiB="0.886" PhiC="0.886" PhiD="0.886" />
+      <Item lambda="41" PhiA="0.882" PhiB="0.882" PhiC="0.882" PhiD="0.882" />
+      <Item lambda="42" PhiA="0.879" PhiB="0.879" PhiC="0.879" PhiD="0.879" />
+      <Item lambda="43" PhiA="0.875" PhiB="0.875" PhiC="0.875" PhiD="0.875" />
+      <Item lambda="44" PhiA="0.872" PhiB="0.872" PhiC="0.872" PhiD="0.872" />
+      <Item lambda="45" PhiA="0.868" PhiB="0.868" PhiC="0.868" PhiD="0.868" />
+      <Item lambda="46" PhiA="0.864" PhiB="0.864" PhiC="0.864" PhiD="0.864" />
+      <Item lambda="47" PhiA="0.861" PhiB="0.861" PhiC="0.861" PhiD="0.861" />
+      <Item lambda="48" PhiA="0.858" PhiB="0.858" PhiC="0.858" PhiD="0.858" />
+      <Item lambda="49" PhiA="0.855" PhiB="0.855" PhiC="0.855" PhiD="0.855" />
+      <Item lambda="50" PhiA="0.852" PhiB="0.852" PhiC="0.852" PhiD="0.852" />
+      <Item lambda="51" PhiA="0.849" PhiB="0.849" PhiC="0.849" PhiD="0.849" />
+      <Item lambda="52" PhiA="0.846" PhiB="0.846" PhiC="0.846" PhiD="0.846" />
+      <Item lambda="53" PhiA="0.843" PhiB="0.843" PhiC="0.843" PhiD="0.843" />
+      <Item lambda="54" PhiA="0.839" PhiB="0.839" PhiC="0.839" PhiD="0.839" />
+      <Item lambda="55" PhiA="0.836" PhiB="0.836" PhiC="0.836" PhiD="0.836" />
+      <Item lambda="56" PhiA="0.832" PhiB="0.832" PhiC="0.832" PhiD="0.832" />
+      <Item lambda="57" PhiA="0.829" PhiB="0.829" PhiC="0.829" PhiD="0.829" />
+      <Item lambda="58" PhiA="0.825" PhiB="0.825" PhiC="0.825" PhiD="0.825" />
+      <Item lambda="59" PhiA="0.822" PhiB="0.822" PhiC="0.822" PhiD="0.822" />
+      <Item lambda="60" PhiA="0.818" PhiB="0.818" PhiC="0.818" PhiD="0.818" />
+      <Item lambda="61" PhiA="0.814" PhiB="0.814" PhiC="0.814" PhiD="0.814" />
+      <Item lambda="62" PhiA="0.81" PhiB="0.81" PhiC="0.81" PhiD="0.81" />
+      <Item lambda="63" PhiA="0.806" PhiB="0.806" PhiC="0.806" PhiD="0.806" />
+      <Item lambda="64" PhiA="0.802" PhiB="0.802" PhiC="0.802" PhiD="0.802" />
+      <Item lambda="65" PhiA="0.797" PhiB="0.797" PhiC="0.797" PhiD="0.797" />
+      <Item lambda="66" PhiA="0.793" PhiB="0.793" PhiC="0.793" PhiD="0.793" />
+      <Item lambda="67" PhiA="0.789" PhiB="0.789" PhiC="0.789" PhiD="0.789" />
+      <Item lambda="68" PhiA="0.784" PhiB="0.784" PhiC="0.784" PhiD="0.784" />
+      <Item lambda="69" PhiA="0.779" PhiB="0.779" PhiC="0.779" PhiD="0.779" />
+      <Item lambda="70" PhiA="0.775" PhiB="0.775" PhiC="0.775" PhiD="0.775" />
+      <Item lambda="71" PhiA="0.77" PhiB="0.77" PhiC="0.77" PhiD="0.77" />
+      <Item lambda="72" PhiA="0.765" PhiB="0.765" PhiC="0.765" PhiD="0.765" />
+      <Item lambda="73" PhiA="0.76" PhiB="0.76" PhiC="0.76" PhiD="0.76" />
+      <Item lambda="74" PhiA="0.755" PhiB="0.755" PhiC="0.755" PhiD="0.755" />
+      <Item lambda="75" PhiA="0.75" PhiB="0.75" PhiC="0.75" PhiD="0.75" />
+      <Item lambda="76" PhiA="0.744" PhiB="0.744" PhiC="0.744" PhiD="0.744" />
+      <Item lambda="77" PhiA="0.739" PhiB="0.739" PhiC="0.739" PhiD="0.739" />
+      <Item lambda="78" PhiA="0.733" PhiB="0.733" PhiC="0.733" PhiD="0.733" />
+      <Item lambda="79" PhiA="0.728" PhiB="0.728" PhiC="0.728" PhiD="0.728" />
+      <Item lambda="80" PhiA="0.722" PhiB="0.722" PhiC="0.722" PhiD="0.722" />
+      <Item lambda="81" PhiA="0.716" PhiB="0.716" PhiC="0.716" PhiD="0.716" />
+      <Item lambda="82" PhiA="0.71" PhiB="0.71" PhiC="0.71" PhiD="0.71" />
+      <Item lambda="83" PhiA="0.704" PhiB="0.704" PhiC="0.704" PhiD="0.704" />
+      <Item lambda="84" PhiA="0.698" PhiB="0.698" PhiC="0.698" PhiD="0.698" />
+      <Item lambda="85" PhiA="0.692" PhiB="0.692" PhiC="0.692" PhiD="0.692" />
+      <Item lambda="86" PhiA="0.686" PhiB="0.686" PhiC="0.686" PhiD="0.686" />
+      <Item lambda="87" PhiA="0.68" PhiB="0.68" PhiC="0.68" PhiD="0.68" />
+      <Item lambda="88" PhiA="0.673" PhiB="0.673" PhiC="0.673" PhiD="0.673" />
+      <Item lambda="89" PhiA="0.667" PhiB="0.667" PhiC="0.667" PhiD="0.667" />
+      <Item lambda="90" PhiA="0.661" PhiB="0.661" PhiC="0.661" PhiD="0.661" />
+      <Item lambda="91" PhiA="0.654" PhiB="0.654" PhiC="0.654" PhiD="0.654" />
+      <Item lambda="92" PhiA="0.648" PhiB="0.648" PhiC="0.648" PhiD="0.648" />
+      <Item lambda="93" PhiA="0.641" PhiB="0.641" PhiC="0.641" PhiD="0.641" />
+      <Item lambda="94" PhiA="0.634" PhiB="0.634" PhiC="0.634" PhiD="0.634" />
+      <Item lambda="95" PhiA="0.626" PhiB="0.626" PhiC="0.626" PhiD="0.626" />
+      <Item lambda="96" PhiA="0.618" PhiB="0.618" PhiC="0.618" PhiD="0.618" />
+      <Item lambda="97" PhiA="0.611" PhiB="0.611" PhiC="0.611" PhiD="0.611" />
+      <Item lambda="98" PhiA="0.603" PhiB="0.603" PhiC="0.603" PhiD="0.603" />
+      <Item lambda="99" PhiA="0.595" PhiB="0.595" PhiC="0.595" PhiD="0.595" />
+      <Item lambda="100" PhiA="0.588" PhiB="0.588" PhiC="0.588" PhiD="0.588" />
+      <Item lambda="101" PhiA="0.58" PhiB="0.58" PhiC="0.58" PhiD="0.58" />
+      <Item lambda="102" PhiA="0.573" PhiB="0.573" PhiC="0.573" PhiD="0.573" />
+      <Item lambda="103" PhiA="0.566" PhiB="0.566" PhiC="0.566" PhiD="0.566" />
+      <Item lambda="104" PhiA="0.558" PhiB="0.558" PhiC="0.558" PhiD="0.558" />
+      <Item lambda="105" PhiA="0.551" PhiB="0.551" PhiC="0.551" PhiD="0.551" />
+      <Item lambda="106" PhiA="0.544" PhiB="0.544" PhiC="0.544" PhiD="0.544" />
+      <Item lambda="107" PhiA="0.537" PhiB="0.537" PhiC="0.537" PhiD="0.537" />
+      <Item lambda="108" PhiA="0.53" PhiB="0.53" PhiC="0.53" PhiD="0.53" />
+      <Item lambda="109" PhiA="0.523" PhiB="0.523" PhiC="0.523" PhiD="0.523" />
+      <Item lambda="110" PhiA="0.516" PhiB="0.516" PhiC="0.516" PhiD="0.516" />
+      <Item lambda="111" PhiA="0.509" PhiB="0.509" PhiC="0.509" PhiD="0.509" />
+      <Item lambda="112" PhiA="0.502" PhiB="0.502" PhiC="0.502" PhiD="0.502" />
+      <Item lambda="113" PhiA="0.496" PhiB="0.496" PhiC="0.496" PhiD="0.496" />
+      <Item lambda="114" PhiA="0.489" PhiB="0.489" PhiC="0.489" PhiD="0.489" />
+      <Item lambda="115" PhiA="0.483" PhiB="0.483" PhiC="0.483" PhiD="0.483" />
+      <Item lambda="116" PhiA="0.476" PhiB="0.476" PhiC="0.476" PhiD="0.476" />
+      <Item lambda="117" PhiA="0.47" PhiB="0.47" PhiC="0.47" PhiD="0.47" />
+      <Item lambda="118" PhiA="0.464" PhiB="0.464" PhiC="0.464" PhiD="0.464" />
+      <Item lambda="119" PhiA="0.458" PhiB="0.458" PhiC="0.458" PhiD="0.458" />
+      <Item lambda="120" PhiA="0.452" PhiB="0.452" PhiC="0.452" PhiD="0.452" />
+      <Item lambda="121" PhiA="0.446" PhiB="0.446" PhiC="0.446" PhiD="0.446" />
+      <Item lambda="122" PhiA="0.44" PhiB="0.44" PhiC="0.44" PhiD="0.44" />
+      <Item lambda="123" PhiA="0.434" PhiB="0.434" PhiC="0.434" PhiD="0.434" />
+      <Item lambda="124" PhiA="0.428" PhiB="0.428" PhiC="0.428" PhiD="0.428" />
+      <Item lambda="125" PhiA="0.423" PhiB="0.423" PhiC="0.423" PhiD="0.423" />
+      <Item lambda="126" PhiA="0.417" PhiB="0.417" PhiC="0.417" PhiD="0.417" />
+      <Item lambda="127" PhiA="0.412" PhiB="0.412" PhiC="0.412" PhiD="0.412" />
+      <Item lambda="128" PhiA="0.406" PhiB="0.406" PhiC="0.406" PhiD="0.406" />
+      <Item lambda="129" PhiA="0.401" PhiB="0.401" PhiC="0.401" PhiD="0.401" />
+      <Item lambda="130" PhiA="0.396" PhiB="0.396" PhiC="0.396" PhiD="0.396" />
+      <Item lambda="131" PhiA="0.391" PhiB="0.391" PhiC="0.391" PhiD="0.391" />
+      <Item lambda="132" PhiA="0.386" PhiB="0.386" PhiC="0.386" PhiD="0.386" />
+      <Item lambda="133" PhiA="0.381" PhiB="0.381" PhiC="0.381" PhiD="0.381" />
+      <Item lambda="134" PhiA="0.376" PhiB="0.376" PhiC="0.376" PhiD="0.376" />
+      <Item lambda="135" PhiA="0.371" PhiB="0.371" PhiC="0.371" PhiD="0.371" />
+      <Item lambda="136" PhiA="0.367" PhiB="0.367" PhiC="0.367" PhiD="0.367" />
+      <Item lambda="137" PhiA="0.362" PhiB="0.362" PhiC="0.362" PhiD="0.362" />
+      <Item lambda="138" PhiA="0.357" PhiB="0.357" PhiC="0.357" PhiD="0.357" />
+      <Item lambda="139" PhiA="0.353" PhiB="0.353" PhiC="0.353" PhiD="0.353" />
+      <Item lambda="140" PhiA="0.349" PhiB="0.349" PhiC="0.349" PhiD="0.349" />
+      <Item lambda="141" PhiA="0.344" PhiB="0.344" PhiC="0.344" PhiD="0.344" />
+      <Item lambda="142" PhiA="0.34" PhiB="0.34" PhiC="0.34" PhiD="0.34" />
+      <Item lambda="143" PhiA="0.336" PhiB="0.336" PhiC="0.336" PhiD="0.336" />
+      <Item lambda="144" PhiA="0.332" PhiB="0.332" PhiC="0.332" PhiD="0.332" />
+      <Item lambda="145" PhiA="0.328" PhiB="0.328" PhiC="0.328" PhiD="0.328" />
+      <Item lambda="146" PhiA="0.324" PhiB="0.324" PhiC="0.324" PhiD="0.324" />
+      <Item lambda="147" PhiA="0.32" PhiB="0.32" PhiC="0.32" PhiD="0.32" />
+      <Item lambda="148" PhiA="0.316" PhiB="0.316" PhiC="0.316" PhiD="0.316" />
+      <Item lambda="149" PhiA="0.312" PhiB="0.312" PhiC="0.312" PhiD="0.312" />
+      <Item lambda="150" PhiA="0.308" PhiB="0.308" PhiC="0.308" PhiD="0.308" />
+      <Item lambda="151" PhiA="0.305" PhiB="0.305" PhiC="0.305" PhiD="0.305" />
+      <Item lambda="152" PhiA="0.301" PhiB="0.301" PhiC="0.301" PhiD="0.301" />
+      <Item lambda="153" PhiA="0.298" PhiB="0.298" PhiC="0.298" PhiD="0.298" />
+      <Item lambda="154" PhiA="0.294" PhiB="0.294" PhiC="0.294" PhiD="0.294" />
+      <Item lambda="155" PhiA="0.291" PhiB="0.291" PhiC="0.291" PhiD="0.291" />
+      <Item lambda="156" PhiA="0.287" PhiB="0.287" PhiC="0.287" PhiD="0.287" />
+      <Item lambda="157" PhiA="0.284" PhiB="0.284" PhiC="0.284" PhiD="0.284" />
+      <Item lambda="158" PhiA="0.281" PhiB="0.281" PhiC="0.281" PhiD="0.281" />
+      <Item lambda="159" PhiA="0.277" PhiB="0.277" PhiC="0.277" PhiD="0.277" />
+      <Item lambda="160" PhiA="0.274" PhiB="0.274" PhiC="0.274" PhiD="0.274" />
+      <Item lambda="161" PhiA="0.271" PhiB="0.271" PhiC="0.271" PhiD="0.271" />
+      <Item lambda="162" PhiA="0.268" PhiB="0.268" PhiC="0.268" PhiD="0.268" />
+      <Item lambda="163" PhiA="0.265" PhiB="0.265" PhiC="0.265" PhiD="0.265" />
+      <Item lambda="164" PhiA="0.262" PhiB="0.262" PhiC="0.262" PhiD="0.262" />
+      <Item lambda="165" PhiA="0.259" PhiB="0.259" PhiC="0.259" PhiD="0.259" />
+      <Item lambda="166" PhiA="0.256" PhiB="0.256" PhiC="0.256" PhiD="0.256" />
+      <Item lambda="167" PhiA="0.253" PhiB="0.253" PhiC="0.253" PhiD="0.253" />
+      <Item lambda="168" PhiA="0.251" PhiB="0.251" PhiC="0.251" PhiD="0.251" />
+      <Item lambda="169" PhiA="0.248" PhiB="0.248" PhiC="0.248" PhiD="0.248" />
+      <Item lambda="170" PhiA="0.245" PhiB="0.245" PhiC="0.245" PhiD="0.245" />
+      <Item lambda="171" PhiA="0.243" PhiB="0.243" PhiC="0.243" PhiD="0.243" />
+      <Item lambda="172" PhiA="0.24" PhiB="0.24" PhiC="0.24" PhiD="0.24" />
+      <Item lambda="173" PhiA="0.237" PhiB="0.237" PhiC="0.237" PhiD="0.237" />
+      <Item lambda="174" PhiA="0.235" PhiB="0.235" PhiC="0.235" PhiD="0.235" />
+      <Item lambda="175" PhiA="0.232" PhiB="0.232" PhiC="0.232" PhiD="0.232" />
+      <Item lambda="176" PhiA="0.23" PhiB="0.23" PhiC="0.23" PhiD="0.23" />
+      <Item lambda="177" PhiA="0.227" PhiB="0.227" PhiC="0.227" PhiD="0.227" />
+      <Item lambda="178" PhiA="0.225" PhiB="0.225" PhiC="0.225" PhiD="0.225" />
+      <Item lambda="179" PhiA="0.223" PhiB="0.223" PhiC="0.223" PhiD="0.223" />
+      <Item lambda="180" PhiA="0.22" PhiB="0.22" PhiC="0.22" PhiD="0.22" />
+      <Item lambda="181" PhiA="0.218" PhiB="0.218" PhiC="0.218" PhiD="0.218" />
+      <Item lambda="182" PhiA="0.216" PhiB="0.216" PhiC="0.216" PhiD="0.216" />
+      <Item lambda="183" PhiA="0.214" PhiB="0.214" PhiC="0.214" PhiD="0.214" />
+      <Item lambda="184" PhiA="0.211" PhiB="0.211" PhiC="0.211" PhiD="0.211" />
+      <Item lambda="185" PhiA="0.209" PhiB="0.209" PhiC="0.209" PhiD="0.209" />
+      <Item lambda="186" PhiA="0.207" PhiB="0.207" PhiC="0.207" PhiD="0.207" />
+      <Item lambda="187" PhiA="0.205" PhiB="0.205" PhiC="0.205" PhiD="0.205" />
+      <Item lambda="188" PhiA="0.203" PhiB="0.203" PhiC="0.203" PhiD="0.203" />
+      <Item lambda="189" PhiA="0.201" PhiB="0.201" PhiC="0.201" PhiD="0.201" />
+      <Item lambda="190" PhiA="0.199" PhiB="0.199" PhiC="0.199" PhiD="0.199" />
+      <Item lambda="191" PhiA="0.197" PhiB="0.197" PhiC="0.197" PhiD="0.197" />
+      <Item lambda="192" PhiA="0.195" PhiB="0.195" PhiC="0.195" PhiD="0.195" />
+      <Item lambda="193" PhiA="0.193" PhiB="0.193" PhiC="0.193" PhiD="0.193" />
+      <Item lambda="194" PhiA="0.191" PhiB="0.191" PhiC="0.191" PhiD="0.191" />
+      <Item lambda="195" PhiA="0.189" PhiB="0.189" PhiC="0.189" PhiD="0.189" />
+      <Item lambda="196" PhiA="0.188" PhiB="0.188" PhiC="0.188" PhiD="0.188" />
+      <Item lambda="197" PhiA="0.186" PhiB="0.186" PhiC="0.186" PhiD="0.186" />
+      <Item lambda="198" PhiA="0.184" PhiB="0.184" PhiC="0.184" PhiD="0.184" />
+      <Item lambda="199" PhiA="0.182" PhiB="0.182" PhiC="0.182" PhiD="0.182" />
+      <Item lambda="200" PhiA="0.18" PhiB="0.18" PhiC="0.18" PhiD="0.18" />
+      <Item lambda="201" PhiA="0.179" PhiB="0.179" PhiC="0.179" PhiD="0.179" />
+      <Item lambda="202" PhiA="0.177" PhiB="0.177" PhiC="0.177" PhiD="0.177" />
+      <Item lambda="203" PhiA="0.175" PhiB="0.175" PhiC="0.175" PhiD="0.175" />
+      <Item lambda="204" PhiA="0.174" PhiB="0.174" PhiC="0.174" PhiD="0.174" />
+      <Item lambda="205" PhiA="0.172" PhiB="0.172" PhiC="0.172" PhiD="0.172" />
+      <Item lambda="206" PhiA="0.171" PhiB="0.171" PhiC="0.171" PhiD="0.171" />
+      <Item lambda="207" PhiA="0.169" PhiB="0.169" PhiC="0.169" PhiD="0.169" />
+      <Item lambda="208" PhiA="0.167" PhiB="0.167" PhiC="0.167" PhiD="0.167" />
+      <Item lambda="209" PhiA="0.166" PhiB="0.166" PhiC="0.166" PhiD="0.166" />
+      <Item lambda="210" PhiA="0.164" PhiB="0.164" PhiC="0.164" PhiD="0.164" />
+      <Item lambda="211" PhiA="0.163" PhiB="0.163" PhiC="0.163" PhiD="0.163" />
+      <Item lambda="212" PhiA="0.161" PhiB="0.161" PhiC="0.161" PhiD="0.161" />
+      <Item lambda="213" PhiA="0.16" PhiB="0.16" PhiC="0.16" PhiD="0.16" />
+      <Item lambda="214" PhiA="0.159" PhiB="0.159" PhiC="0.159" PhiD="0.159" />
+      <Item lambda="215" PhiA="0.157" PhiB="0.157" PhiC="0.157" PhiD="0.157" />
+      <Item lambda="216" PhiA="0.156" PhiB="0.156" PhiC="0.156" PhiD="0.156" />
+      <Item lambda="217" PhiA="0.154" PhiB="0.154" PhiC="0.154" PhiD="0.154" />
+      <Item lambda="218" PhiA="0.153" PhiB="0.153" PhiC="0.153" PhiD="0.153" />
+      <Item lambda="219" PhiA="0.152" PhiB="0.152" PhiC="0.152" PhiD="0.152" />
+      <Item lambda="220" PhiA="0.15" PhiB="0.15" PhiC="0.15" PhiD="0.15" />
+      <Item lambda="221" PhiA="0.149" PhiB="0.149" PhiC="0.149" PhiD="0.149" />
+      <Item lambda="222" PhiA="0.148" PhiB="0.148" PhiC="0.148" PhiD="0.148" />
+      <Item lambda="223" PhiA="0.146" PhiB="0.146" PhiC="0.146" PhiD="0.146" />
+      <Item lambda="224" PhiA="0.145" PhiB="0.145" PhiC="0.145" PhiD="0.145" />
+      <Item lambda="225" PhiA="0.144" PhiB="0.144" PhiC="0.144" PhiD="0.144" />
+      <Item lambda="226" PhiA="0.143" PhiB="0.143" PhiC="0.143" PhiD="0.143" />
+      <Item lambda="227" PhiA="0.141" PhiB="0.141" PhiC="0.141" PhiD="0.141" />
+      <Item lambda="228" PhiA="0.14" PhiB="0.14" PhiC="0.14" PhiD="0.14" />
+      <Item lambda="229" PhiA="0.139" PhiB="0.139" PhiC="0.139" PhiD="0.139" />
+      <Item lambda="230" PhiA="0.138" PhiB="0.138" PhiC="0.138" PhiD="0.138" />
+      <Item lambda="231" PhiA="0.137" PhiB="0.137" PhiC="0.137" PhiD="0.137" />
+      <Item lambda="232" PhiA="0.136" PhiB="0.136" PhiC="0.136" PhiD="0.136" />
+      <Item lambda="233" PhiA="0.135" PhiB="0.135" PhiC="0.135" PhiD="0.135" />
+      <Item lambda="234" PhiA="0.133" PhiB="0.133" PhiC="0.133" PhiD="0.133" />
+      <Item lambda="235" PhiA="0.132" PhiB="0.132" PhiC="0.132" PhiD="0.132" />
+      <Item lambda="236" PhiA="0.131" PhiB="0.131" PhiC="0.131" PhiD="0.131" />
+      <Item lambda="237" PhiA="0.13" PhiB="0.13" PhiC="0.13" PhiD="0.13" />
+      <Item lambda="238" PhiA="0.129" PhiB="0.129" PhiC="0.129" PhiD="0.129" />
+      <Item lambda="239" PhiA="0.128" PhiB="0.128" PhiC="0.128" PhiD="0.128" />
+      <Item lambda="240" PhiA="0.127" PhiB="0.127" PhiC="0.127" PhiD="0.127" />
+      <Item lambda="241" PhiA="0.126" PhiB="0.126" PhiC="0.126" PhiD="0.126" />
+      <Item lambda="242" PhiA="0.126" PhiB="0.126" PhiC="0.126" PhiD="0.126" />
+      <Item lambda="243" PhiA="0.124" PhiB="0.124" PhiC="0.124" PhiD="0.124" />
+      <Item lambda="244" PhiA="0.123" PhiB="0.123" PhiC="0.123" PhiD="0.123" />
+      <Item lambda="245" PhiA="0.122" PhiB="0.122" PhiC="0.122" PhiD="0.122" />
+      <Item lambda="246" PhiA="0.121" PhiB="0.121" PhiC="0.121" PhiD="0.121" />
+      <Item lambda="247" PhiA="0.12" PhiB="0.12" PhiC="0.12" PhiD="0.12" />
+      <Item lambda="248" PhiA="0.119" PhiB="0.119" PhiC="0.119" PhiD="0.119" />
+      <Item lambda="249" PhiA="0.118" PhiB="0.118" PhiC="0.118" PhiD="0.118" />
+      <Item lambda="250" PhiA="0.117" PhiB="0.117" PhiC="0.117" PhiD="0.117" />
+    </Resource>
+  </PhiDic>
+</DesignResources>

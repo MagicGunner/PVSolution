@@ -5,7 +5,6 @@ using Prism.Services.Dialogs;
 using SapToolBox.Base;
 using SapToolBox.Base.MVVM;
 using SapToolBox.PreTools.Views.SubViews;
-using SapToolBox.Shared.Models;
 using System.Collections.ObjectModel;
 using System;
 using SapToolBox.PreTools.Views.SubViews.SectionViews;

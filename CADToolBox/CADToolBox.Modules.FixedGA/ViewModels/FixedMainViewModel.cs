@@ -44,11 +44,11 @@ public partial class FixedMainViewModel : ViewModelBase {
                                   });
         MenuBars?.Add(new MenuBar {
                                       Icon = "Number2",
-                                      Title = "设计信息"
+                                      Title = "立面信息"
                                   });
         MenuBars?.Add(new MenuBar {
                                       Icon = "Number3",
-                                      Title = "跨距信息"
+                                      Title = "排布信息"
                                   });
         MenuBars?.Add(new MenuBar {
                                       Icon = "Number4",

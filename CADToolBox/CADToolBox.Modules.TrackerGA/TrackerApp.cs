@@ -50,11 +50,7 @@ public class TrackerApp {
 
 
         container.AddTransient<TrackerMainViewModel>();
-        container.AddTransient<TrackerMainView>(sp => new TrackerMainView {
-                                                                              DataContext = sp
-                                                                                 .GetRequiredService<
-                                                                                      TrackerMainViewModel>()
-                                                                          });
+        container.AddTransient<TrackerMainView>(sp => new TrackerMainView { DataContext = sp.GetRequiredService<TrackerMainViewModel>() });
         Services = container.BuildServiceProvider();
     }
 

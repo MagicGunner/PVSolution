@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Views\DesignToolsIndexView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\DesignOverwriteView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\SectionDesignerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\SectionViews\CSectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubViews\SectionViews\HSectionView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DesignToolsIndexView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\DesignOverwriteView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\SectionDesignerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\SectionViews\CSectionView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubViews\SectionViews\HSectionView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

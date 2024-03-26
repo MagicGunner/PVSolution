@@ -175,10 +175,6 @@
       <Project>{2e38c5ea-afcc-49a6-bcd3-6cd3233a52c7}</Project>
       <Name>SapToolBox.PreTools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SapToolBox.Shared\SapToolBox.Shared.csproj">
-      <Project>{bfc97051-f84a-490d-a4c6-9de40cca4f58}</Project>
-      <Name>SapToolBox.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />

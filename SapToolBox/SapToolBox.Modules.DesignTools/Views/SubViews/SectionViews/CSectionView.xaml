@@ -1,0 +1,551 @@
+﻿<UserControl
+    x:Class="SapToolBox.Modules.DesignTools.Views.SubViews.SectionViews.CSectionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:SapToolBox.Modules.DesignTools.Views.SubViews.SectionViews"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:SapToolBox.Modules.DesignTools.ViewModels.SubViewModels.SectionViewModels"
+    d:DataContext="{d:DesignInstance vm:CSectionViewModel,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/SapToolBox.Resource;component/WPFResource.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="10" />
+            </Style>
+        </Grid.Resources>
+        <!--  输入信息部分  -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="0,5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Style="{StaticResource TextBlockBoldBaseStyle}"
+            Text="信息输入" />
+        <ScrollViewer Grid.Row="1" Grid.Column="0">
+            <DockPanel>
+
+                <DockPanel.Resources />
+
+                <!--  截面几何参数  -->
+                <Expander
+                    Width="240"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="截面几何参数"
+                    IsExpanded="True">
+                    <StackPanel Margin="5,5" Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="PropName"
+                                BasedOn="{StaticResource TextBlockDefault}"
+                                TargetType="TextBlock">
+                                <Setter Property="MinWidth" Value="100" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style
+                                x:Key="PropValue"
+                                BasedOn="{StaticResource TextBoxBaseStyle}"
+                                TargetType="TextBox">
+                                <Setter Property="MinWidth" Value="50" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="总高度(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.H}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="总宽度(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.W}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="翻边高度(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.L}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="壁厚(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.T}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="中心R角(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.Rin}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+                <!--  杆件荷载输入  -->
+                <Expander
+                    Width="240"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="荷载输入"
+                    IsExpanded="True">
+                    <StackPanel Margin="5,5" Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="PropName"
+                                BasedOn="{StaticResource TextBlockDefault}"
+                                TargetType="TextBlock">
+                                <Setter Property="MinWidth" Value="120" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style
+                                x:Key="PropValue"
+                                BasedOn="{StaticResource TextBoxBaseStyle}"
+                                TargetType="TextBox">
+                                <Setter Property="MinWidth" Value="50" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="杆件轴力(kN)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.P_1}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="节点1主弯矩(kN*m)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Mx_1}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="节点1次弯矩(kN*m)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.My_1}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="节点2主弯矩(kN*m)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Mx_2}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="节点2次弯矩(kN*m)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.My_2}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+                <!--  国标设计参数输入  -->
+                <Expander
+                    Width="240"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="国标设计参数"
+                    Visibility="{Binding DesignCodeVisible[0]}">
+                    <StackPanel Margin="5,5" Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="PropName"
+                                BasedOn="{StaticResource TextBlockDefault}"
+                                TargetType="TextBlock">
+                                <Setter Property="MinWidth" Value="130" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style
+                                x:Key="PropValue"
+                                BasedOn="{StaticResource TextBoxBaseStyle}"
+                                TargetType="TextBox">
+                                <Setter Property="MinWidth" Value="80" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="弹性模量(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.E}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="极限强度(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fu}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="屈服强度(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fy}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="抗弯强度设计值(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fb}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="抗剪强度设计值(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fv}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="无支撑长度(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.UnbracedLength}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="强轴有效长度系数" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.LengthFactorX}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="弱轴有效长度系数" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.LengthFactorY}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="系数 α" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.FactorAlpha}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="扭转屈曲长度系数 β" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.LengthFactorW}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="是否有侧移" />
+                            <CheckBox
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Center"
+                                Content="主"
+                                IsChecked="{Binding CurrentDesignModel.HasSwayX}" />
+                            <CheckBox
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Center"
+                                Content="次"
+                                IsChecked="{Binding CurrentDesignModel.HasSwayY}" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </Expander>
+
+                <Expander
+                    Width="240"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="美标设计参数"
+                    Visibility="{Binding DesignCodeVisible[1]}">
+                    <StackPanel Margin="5,5" Orientation="Vertical">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="PropName"
+                                BasedOn="{StaticResource TextBlockDefault}"
+                                TargetType="TextBlock">
+                                <Setter Property="MinWidth" Value="130" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style
+                                x:Key="PropValue"
+                                BasedOn="{StaticResource TextBoxBaseStyle}"
+                                TargetType="TextBox">
+                                <Setter Property="MinWidth" Value="80" />
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="弹性模量(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.E}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="极限强度(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fu}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="屈服强度(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fy}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="抗弯强度设计值(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fb}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="抗剪强度设计值(MPa)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.Fv}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="无支撑长度(mm)" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.UnbracedLength}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="强轴有效长度系数" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.LengthFactorX}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="弱轴有效长度系数" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentDesignModel.LengthFactorY}" />
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource PropName}" Text="是否有侧移" />
+                            <CheckBox
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Center"
+                                Content="主"
+                                IsChecked="{Binding CurrentDesignModel.HasSwayX}" />
+                            <CheckBox
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Center"
+                                Content="次"
+                                IsChecked="{Binding CurrentDesignModel.HasSwayY}" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </Expander>
+            </DockPanel>
+        </ScrollViewer>
+
+
+        <!--  中间参数部分  -->
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            Margin="0,5"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="14"
+            Style="{StaticResource TextBlockBoldBaseStyle}"
+            Text="截面属性" />
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <DockPanel MinWidth="280">
+                <!--  常用几何属性  -->
+                <Expander
+                    Padding="0"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="常用几何属性"
+                    IsExpanded="True">
+                    <Expander.Content>
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="0,5"
+                            Orientation="Vertical">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="理论截面积 A(mm2)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Area, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴惯性矩 Ixx(mm4)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Ixx, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴惯性矩 Iyy(mm4)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Iyy, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="扭转常数 J(mm4)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.J, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴弹性模量 Wxx(mm3)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Wxx, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴弹性模量 Wyy(mm3)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Wyy, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴塑性模量 Zxx(mm3)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Zxx, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴塑性模量 Zyy(mm3)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Zyy, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴回转半径 rxx(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Rxx, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴回转半径 ryy(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Ryy, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <!--  其他几何属性  -->
+                <Expander
+                    Padding="0"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="其他几何属性">
+                    <Expander.Content>
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="0,5"
+                            Orientation="Vertical">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="形心腹板中心距 Xc(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Xc, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="剪心腹板中心距 m(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.M, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="剪心与形心距离 X0(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.X0, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="翘曲惯性矩 Cw(mm6)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Cw, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="中间参数 βw" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.BetaW, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="中间参数 βf" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.BetaF, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="中间参数 βt" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.BetaT, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弹性临界弯矩系数 j" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.JJ, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+                <!--  设计规范相关属性  -->
+                <Expander
+                    Padding="0"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="国标设计中间参数"
+                    Visibility="{Binding DesignCodeVisible[0]}">
+                    <Expander.Content>
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="0,5"
+                            Orientation="Vertical">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴有效长度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.EffectiveLengthX, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴有效长度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.EffectiveLengthY, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴长细比" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.LambdaX, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="弱轴长细比" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.LambdaY, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="扭转屈曲长细比" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.LambdaW, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="轴心受压长细比(修正后)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.LambdaModified, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="轴心受压稳定性系数" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.Phi, StringFormat=F3, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+
+                <!--  有效截面参数  -->
+                <Expander
+                    Padding="0"
+                    HorizontalContentAlignment="Center"
+                    DockPanel.Dock="Top"
+                    Header="有效截面参数"
+                    Visibility="{Binding DesignCodeVisible[0]}">
+                    <Expander.Content>
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="0,5"
+                            Orientation="Vertical">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="最大应力 σmax(Mpa)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.SigmaMax, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="最小应力 σmin(Mpa)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentDesignModel.SigmaMin, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="腹板有效宽度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.Ae, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="受压侧翼板有效宽度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.BeMax, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="受拉侧翼板有效宽度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.BeMin, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="翻边最小高度(mm)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.MinLipLength, StringFormat=F0, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="有效截面积(mm2)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.AreaEff, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴有效惯性矩(mm4)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.IxxEff, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="强轴有效抗弯模量(mm3)" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.WxxEff, StringFormat=F2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="面积折减" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.ReduceRatio[0], StringFormat=P2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="惯性矩折减" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.ReduceRatio[1], StringFormat=P2, Mode=OneWay}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionPropName}" Text="抗弯模量折减" />
+                                <TextBox Style="{StaticResource SectionPropValue}" Text="{Binding CurrentSection.ReduceRatio[2], StringFormat=P2, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander.Content>
+                </Expander>
+            </DockPanel>
+
+        </ScrollViewer>
+
+        <!--  设计截面部分  -->
+        <hc:ComboBox
+            Grid.Row="0"
+            Grid.Column="2"
+            Width="210"
+            hc:TitleElement.Title="请选择设计规范"
+            hc:TitleElement.TitlePlacement="Left"
+            ItemsSource="{Binding DesignCodes}"
+            SelectedIndex="{Binding SelectedCodeIndex}" />
+    </Grid>
+</UserControl>

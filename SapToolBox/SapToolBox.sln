@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapToolBox.Plugin", "SapToolBox.Plugin\SapToolBox.Plugin.csproj", "{612B800F-F503-4AB7-9EC0-2CE54FA4A4E5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{E2CFF67E-9130-40B0-872F-22028A3E220F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapToolBox.PreTools", "SapToolBox.PreTools\SapToolBox.PreTools.csproj", "{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SapToolBox.Modules.CommonTools", "SapToolBox.Modules.CommonTools\SapToolBox.Modules.CommonTools.csproj", "{30D653D4-6FF8-41E0-B53F-FB2F55054B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapToolBox.Shared", "SapToolBox.Shared\SapToolBox.Shared.csproj", "{BFC97051-F84A-490D-A4C6-9DE40CCA4F58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SapToolBox.Shared", "SapToolBox.Shared\SapToolBox.Shared.csproj", "{80799481-351E-47DF-BAD9-AA4E93543941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SapToolBox.Base", "SapToolBox.Base\SapToolBox.Base.csproj", "{C6554C66-403B-438C-B767-1E5572DACFFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SapToolBox.Resource", "SapToolBox.Resource\SapToolBox.Resource.csproj", "{2D1B1872-099F-4CA8-9BEE-71E7B920CCDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSapApi", "TestSapApi\TestSapApi.csproj", "{B0C01F05-AAC1-4AAC-877D-8603819BA1D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SapToolBox.Main", "SapToolBox.Main\SapToolBox.Main.csproj", "{DF5BF55B-4562-40FC-BE84-4AD85FC6897D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SapToolBox.Modules.DesignTools", "SapToolBox.Modules.DesignTools\SapToolBox.Modules.DesignTools.csproj", "{1BA6DB50-48F4-40F4-87FD-FB333F9965EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,32 +21,33 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{612B800F-F503-4AB7-9EC0-2CE54FA4A4E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{612B800F-F503-4AB7-9EC0-2CE54FA4A4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{612B800F-F503-4AB7-9EC0-2CE54FA4A4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{612B800F-F503-4AB7-9EC0-2CE54FA4A4E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BFC97051-F84A-490D-A4C6-9DE40CCA4F58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFC97051-F84A-490D-A4C6-9DE40CCA4F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFC97051-F84A-490D-A4C6-9DE40CCA4F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFC97051-F84A-490D-A4C6-9DE40CCA4F58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6554C66-403B-438C-B767-1E5572DACFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6554C66-403B-438C-B767-1E5572DACFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6554C66-403B-438C-B767-1E5572DACFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6554C66-403B-438C-B767-1E5572DACFFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0C01F05-AAC1-4AAC-877D-8603819BA1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0C01F05-AAC1-4AAC-877D-8603819BA1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0C01F05-AAC1-4AAC-877D-8603819BA1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0C01F05-AAC1-4AAC-877D-8603819BA1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D653D4-6FF8-41E0-B53F-FB2F55054B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D653D4-6FF8-41E0-B53F-FB2F55054B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D653D4-6FF8-41E0-B53F-FB2F55054B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D653D4-6FF8-41E0-B53F-FB2F55054B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80799481-351E-47DF-BAD9-AA4E93543941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80799481-351E-47DF-BAD9-AA4E93543941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80799481-351E-47DF-BAD9-AA4E93543941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80799481-351E-47DF-BAD9-AA4E93543941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D1B1872-099F-4CA8-9BEE-71E7B920CCDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D1B1872-099F-4CA8-9BEE-71E7B920CCDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D1B1872-099F-4CA8-9BEE-71E7B920CCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D1B1872-099F-4CA8-9BEE-71E7B920CCDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5BF55B-4562-40FC-BE84-4AD85FC6897D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5BF55B-4562-40FC-BE84-4AD85FC6897D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5BF55B-4562-40FC-BE84-4AD85FC6897D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5BF55B-4562-40FC-BE84-4AD85FC6897D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BA6DB50-48F4-40F4-87FD-FB333F9965EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BA6DB50-48F4-40F4-87FD-FB333F9965EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BA6DB50-48F4-40F4-87FD-FB333F9965EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BA6DB50-48F4-40F4-87FD-FB333F9965EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2E38C5EA-AFCC-49A6-BCD3-6CD3233A52C7} = {E2CFF67E-9130-40B0-872F-22028A3E220F}
+		{30D653D4-6FF8-41E0-B53F-FB2F55054B14} = {E2CFF67E-9130-40B0-872F-22028A3E220F}
+		{1BA6DB50-48F4-40F4-87FD-FB333F9965EF} = {E2CFF67E-9130-40B0-872F-22028A3E220F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B33BF250-E907-40F8-86F5-C58F40B7FA92}

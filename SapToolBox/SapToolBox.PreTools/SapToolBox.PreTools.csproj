@@ -171,7 +171,7 @@
       <Name>SapToolBox.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\SapToolBox.Shared\SapToolBox.Shared.csproj">
-      <Project>{bfc97051-f84a-490d-a4c6-9de40cca4f58}</Project>
+      <Project>{80799481-351E-47DF-BAD9-AA4E93543941}</Project>
       <Name>SapToolBox.Shared</Name>
     </ProjectReference>
   </ItemGroup>
