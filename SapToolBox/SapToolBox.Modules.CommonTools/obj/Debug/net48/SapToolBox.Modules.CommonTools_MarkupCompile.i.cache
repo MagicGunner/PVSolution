@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETFRAMEWORK;NET48;
 
-3-804646764
+3156235266
 
-121585762551
-38-255903431
-Views\MainView.xaml;Views\SubViews\HomeView.xaml;Views\SubViews\SectionDefView.xaml;
+9813057073
+381775411126
+Views\CommonToolsIndexView.xaml;Views\SubViews\HomeView.xaml;Views\SubViews\SectionDefView.xaml;
 
 True
 

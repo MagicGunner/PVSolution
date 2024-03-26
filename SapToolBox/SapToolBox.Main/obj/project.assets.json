@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
+      "AutoMapper/10.1.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "CSI_SAP2000v23_x64/1.0.0": {
         "type": "package",
         "compile": {
@@ -140,6 +156,58 @@
           "lib/net47/Prism.Wpf.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "ValueConverters/3.0.26": {
+        "type": "package",
+        "dependencies": {
+          "ValueConverters.Annotations": "3.0.26"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.ComponentModel.DataAnnotations",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "ValueConverters.Annotations/3.0.26": {
+        "type": "package",
+        "compile": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        }
+      },
+      "SapToolBox.Modules.CommonTools/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "AutoMapper": "10.1.1",
+          "CSI_SAP2000v23_x64": "1.0.0",
+          "HandyControl": "3.5.1",
+          "MaterialDesignThemes": "5.0.0",
+          "Prism.DryIoc": "8.1.97",
+          "SapToolBox.Resource": "1.0.0",
+          "SapToolBox.Shared": "1.0.0",
+          "ValueConverters": "3.0.26"
+        },
+        "compile": {
+          "bin/placeholder/SapToolBox.Modules.CommonTools.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SapToolBox.Modules.CommonTools.dll": {}
         }
       },
       "SapToolBox.Modules.DesignTools/1.0.0": {
@@ -189,6 +257,22 @@
       }
     },
     ".NETFramework,Version=v4.8/win7-x86": {
+      "AutoMapper/10.1.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "CSI_SAP2000v23_x64/1.0.0": {
         "type": "package",
         "compile": {
@@ -327,6 +411,58 @@
           "lib/net47/Prism.Wpf.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "ValueConverters/3.0.26": {
+        "type": "package",
+        "dependencies": {
+          "ValueConverters.Annotations": "3.0.26"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System.ComponentModel.DataAnnotations",
+          "System.Xaml",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "ValueConverters.Annotations/3.0.26": {
+        "type": "package",
+        "compile": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/net48/ValueConverters.Annotations.dll": {}
+        }
+      },
+      "SapToolBox.Modules.CommonTools/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "AutoMapper": "10.1.1",
+          "CSI_SAP2000v23_x64": "1.0.0",
+          "HandyControl": "3.5.1",
+          "MaterialDesignThemes": "5.0.0",
+          "Prism.DryIoc": "8.1.97",
+          "SapToolBox.Resource": "1.0.0",
+          "SapToolBox.Shared": "1.0.0",
+          "ValueConverters": "3.0.26"
+        },
+        "compile": {
+          "bin/placeholder/SapToolBox.Modules.CommonTools.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SapToolBox.Modules.CommonTools.dll": {}
         }
       },
       "SapToolBox.Modules.DesignTools/1.0.0": {
@@ -377,6 +513,22 @@
     }
   },
   "libraries": {
+    "AutoMapper/10.1.1": {
+      "sha512": "uMgbqOdu9ZG5cIOty0C85hzzayBH2i9BthnS5FlMqKtMSHDv4ts81a2jS1VFaDBVhlBeIqJ/kQKjQY95BZde9w==",
+      "type": "package",
+      "path": "automapper/10.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.10.1.1.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net461/AutoMapper.dll",
+        "lib/net461/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
     "CSI_SAP2000v23_x64/1.0.0": {
       "sha512": "gX2Xah5+7Evbaa3ol7C2u51gfGNdOauaVLDJjNC6b3LueEtWgmfsCXD6x9X0xUVoipofXR7i6budotv9nkLqzQ==",
       "type": "package",
@@ -643,6 +795,48 @@
         "readme.txt"
       ]
     },
+    "ValueConverters/3.0.26": {
+      "sha512": "h9svVQ90+l31MxQXVv9tFjdG8Rr5bke96C5p3toQY1ZxwVL/tK56rBsxZe3ui2Y3g06Yxk11at6WK0sbIFjL9w==",
+      "type": "package",
+      "path": "valueconverters/3.0.26",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net48/ValueConverters.dll",
+        "lib/net48/ValueConverters.pdb",
+        "lib/net48/ValueConverters.xml",
+        "lib/net5.0-windows7/ValueConverters.dll",
+        "lib/net5.0-windows7/ValueConverters.pdb",
+        "lib/net5.0-windows7/ValueConverters.xml",
+        "lib/uap10.0/ValueConverters.dll",
+        "lib/uap10.0/ValueConverters.pdb",
+        "lib/uap10.0/ValueConverters.xml",
+        "valueconverters.3.0.26.nupkg.sha512",
+        "valueconverters.nuspec"
+      ]
+    },
+    "ValueConverters.Annotations/3.0.26": {
+      "sha512": "1WJVTOI6q66230SNbioRBf15lkVjqZ9v+G1hHLjhefYsgndoy81bkPm9iUBYTY7SRTT66B9sulqxEXWk/EJh/g==",
+      "type": "package",
+      "path": "valueconverters.annotations/3.0.26",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net48/ValueConverters.Annotations.dll",
+        "lib/netstandard1.0/ValueConverters.Annotations.dll",
+        "lib/netstandard1.4/ValueConverters.Annotations.dll",
+        "lib/netstandard1.6/ValueConverters.Annotations.dll",
+        "lib/netstandard2.0/ValueConverters.Annotations.dll",
+        "valueconverters.annotations.3.0.26.nupkg.sha512",
+        "valueconverters.annotations.nuspec"
+      ]
+    },
+    "SapToolBox.Modules.CommonTools/1.0.0": {
+      "type": "project",
+      "path": "../SapToolBox.Modules.CommonTools/SapToolBox.Modules.CommonTools.csproj",
+      "msbuildProject": "../SapToolBox.Modules.CommonTools/SapToolBox.Modules.CommonTools.csproj"
+    },
     "SapToolBox.Modules.DesignTools/1.0.0": {
       "type": "project",
       "path": "../SapToolBox.Modules.DesignTools/SapToolBox.Modules.DesignTools.csproj",
@@ -663,6 +857,7 @@
     ".NETFramework,Version=v4.8": [
       "CSI_SAP2000v23_x64 >= 1.0.0",
       "Prism.DryIoc >= 8.1.97",
+      "SapToolBox.Modules.CommonTools >= 1.0.0",
       "SapToolBox.Modules.DesignTools >= 1.0.0",
       "SapToolBox.Shared >= 1.0.0"
     ]
@@ -700,6 +895,9 @@
         "net48": {
           "targetAlias": "net48",
           "projectReferences": {
+            "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj": {
+              "projectPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj"
+            },
             "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.DesignTools\\SapToolBox.Modules.DesignTools.csproj": {
               "projectPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.DesignTools\\SapToolBox.Modules.DesignTools.csproj"
             },

@@ -51,7 +51,7 @@ namespace SapToolBox.Modules.DesignTools.ViewModels.SubViewModels {
 
             SetOverwriteCommand = new DelegateCommand<IList>(SetOverwrite);
 
-            OverWrites = new BindingList<OverWriteObj>(_currentSapModelHelper.OverWriteObjs);
+            //OverWrites = new BindingList<OverWriteObj>(_currentSapModelHelper.OverWriteObjs);
         }
 
     #endregion

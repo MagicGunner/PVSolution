@@ -11,22 +11,22 @@ using SapToolBox.Shared.Prism;
 
 namespace SapToolBox.Modules.DesignTools.ViewModels {
     public class DesignToolsIndexViewModel : NavigationViewModel {
-        #region 字段与属性
+    #region 字段与属性
 
-        private readonly IContainerProvider _provider;
-        private readonly IRegionManager     _regionManager;
+        private readonly IContainerProvider? _containerProvider;
+        private readonly IRegionManager      _regionManager;
 
         private ObservableCollection<MenuBar> _menuBars = [
                                                               new MenuBar {
-                                                                              Icon = "Number1",
-                                                                              Title = "设计覆盖项",
-                                                                              NameSpace = "DesignOverwriteView"
-                                                                          },
-                                                              new MenuBar {
-                                                                              Icon = "Number2",
-                                                                              Title = "截面设计辅助",
+                                                                              Icon      = "Number1",
+                                                                              Title     = "截面设计辅助",
                                                                               NameSpace = "SectionDesignerView"
-                                                                          }
+                                                                          },
+                                                              //new MenuBar {
+                                                              //                Icon      = "Number2",
+                                                              //                Title     = "截面设计辅助",
+                                                              //                NameSpace = "DesignOverwriteView"
+                                                              //            }
                                                           ];
 
         public ObservableCollection<MenuBar> MenuBars {
@@ -35,36 +35,33 @@ namespace SapToolBox.Modules.DesignTools.ViewModels {
         }
 
         // 初始化完成标志
-        private bool _Inited;
+        private bool _inited;
 
         public bool InitFlag {
-            get => _Inited;
-            set => SetProperty(ref _Inited, value);
+            get => _inited;
+            set => SetProperty(ref _inited, value);
         }
 
         //public string                      Title { get; }
         //public event Action<IDialogResult> RequestClose;
-        public string DialogHostName { get; set; }
+        public string? DialogHostName { get; set; }
 
-        #endregion
+    #endregion
 
-        #region 构造函数
+    #region 构造函数
 
-        public DesignToolsIndexViewModel() {
-        }
-
-        public DesignToolsIndexViewModel(IContainerProvider provider,
+        public DesignToolsIndexViewModel(IContainerProvider containerProvider,
                                          IRegionManager     regionManager) {
-            _provider = provider;
-            _regionManager = regionManager;
+            _containerProvider          = containerProvider;
+            _regionManager              = regionManager;
             SelectedIndexChangedCommand = new DelegateCommand<MenuBar>(SelectedIndexChanged);
-            SaveCommand = new DelegateCommand(Save);
-            CancelCommand = new DelegateCommand(Cancel);
+            SaveCommand                 = new DelegateCommand(Save);
+            CancelCommand               = new DelegateCommand(Cancel);
         }
 
-        #endregion
+    #endregion
 
-        #region 委托声明
+    #region 委托声明
 
         /// <summary>
         /// 页面切换
@@ -74,9 +71,9 @@ namespace SapToolBox.Modules.DesignTools.ViewModels {
         public DelegateCommand SaveCommand   { get; set; }
         public DelegateCommand CancelCommand { get; set; }
 
-        #endregion
+    #endregion
 
-        #region 委托实现
+    #region 委托实现
 
         private void SelectedIndexChanged(MenuBar obj) {
             try {
@@ -91,20 +88,21 @@ namespace SapToolBox.Modules.DesignTools.ViewModels {
         private void Cancel() {
         }
 
-        #endregion
+    #endregion
 
-        #region 方法
+    #region 方法
 
         public override void OnNavigatedTo(NavigationContext navigationContext) {
             // 第一次导航至该页面时跳转到初始页面
-            if (_Inited) return;
-            _Inited = true;
-            _regionManager.RequestNavigate(PrismManager.DesignToolsViewRegionName, nameof(DesignOverwriteView), back => {
-                                                                                                                    if (back.Error != null) {
-                                                                                                                    }
-                                                                                                                });
+            if (_inited) return;
+            _inited = true;
+            _regionManager.RequestNavigate(PrismManager.DesignToolsViewRegionName,
+                                           nameof(SectionDesignerView),
+                                           back => {
+                                               if (back.Error != null) { }
+                                           });
         }
 
-        #endregion
+    #endregion
     }
 }

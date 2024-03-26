@@ -2,12 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <None Update="App.xaml">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\MainView.xaml.cs">
+    <Compile Update="Views\CommonToolsIndexView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\SubViews\HomeView.xaml.cs">
@@ -18,7 +13,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\MainView.xaml">
+    <Page Update="Views\CommonToolsIndexView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SubViews\HomeView.xaml">

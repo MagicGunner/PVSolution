@@ -50,6 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\SapToolBox.Modules.CommonTools\SapToolBox.Modules.CommonTools.csproj" />
 	  <ProjectReference Include="..\SapToolBox.Modules.DesignTools\SapToolBox.Modules.DesignTools.csproj" />
 	  <ProjectReference Include="..\SapToolBox.Shared\SapToolBox.Shared.csproj" />
 	</ItemGroup>

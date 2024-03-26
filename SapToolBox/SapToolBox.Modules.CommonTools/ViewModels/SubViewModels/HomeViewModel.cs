@@ -1,8 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
+using Prism.Mvvm;
 
 namespace SapToolBox.Modules.CommonTools.ViewModels.SubViewModels;
 
-public partial class HomeViewModel : ViewModelBase {
-    [ObservableProperty]
-    private string _viewName = "通用工具首页";
+public partial class HomeViewModel : BindableBase {
 }

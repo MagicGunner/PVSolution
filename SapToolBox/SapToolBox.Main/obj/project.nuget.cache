@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "XcqrJjZYlBEUAnKjIrfpFyjUHwJbocO8Xc0VXpT0mzqVkoScIKbkp/n6TRVxA95RoKWExO8nqtv5JhZxTA3MYA==",
+  "dgSpecHash": "0O3KWbWJzern4j8rBdEkdnM/DEvd0UNWek+Rq0VxHRUYUjo3dSK46dIfr2eWxhP1Tqh5IcnJc6DQnnAJbdDq3w==",
   "success": true,
   "projectFilePath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Main\\SapToolBox.Main.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\29016\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\29016\\.nuget\\packages\\csi_sap2000v23_x64\\1.0.0\\csi_sap2000v23_x64.1.0.0.nupkg.sha512",
     "C:\\Users\\29016\\.nuget\\packages\\dryioc.dll\\4.7.7\\dryioc.dll.4.7.7.nupkg.sha512",
     "C:\\Users\\29016\\.nuget\\packages\\handycontrol\\3.5.1\\handycontrol.3.5.1.nupkg.sha512",
@@ -12,7 +13,9 @@
     "C:\\Users\\29016\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\29016\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512",
     "C:\\Users\\29016\\.nuget\\packages\\prism.dryioc\\8.1.97\\prism.dryioc.8.1.97.nupkg.sha512",
-    "C:\\Users\\29016\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512"
+    "C:\\Users\\29016\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512",
+    "C:\\Users\\29016\\.nuget\\packages\\valueconverters\\3.0.26\\valueconverters.3.0.26.nupkg.sha512",
+    "C:\\Users\\29016\\.nuget\\packages\\valueconverters.annotations\\3.0.26\\valueconverters.annotations.3.0.26.nupkg.sha512"
   ],
   "logs": []
 }

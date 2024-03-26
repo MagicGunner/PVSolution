@@ -33,3 +33,8 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\Views\MainView.
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.g.resources
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.csproj.CopyComplete
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.exe
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\AutoMapper.dll
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\ValueConverters.dll
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\ValueConverters.Annotations.dll
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\SapToolBox.Modules.CommonTools.dll
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\SapToolBox.Modules.CommonTools.pdb

@@ -5,7 +5,6 @@ using Prism.Regions;
 
 namespace SapToolBox.Shared.MVVM {
     public class NavigationViewModel : BindableBase, INavigationAware {
-
         private readonly IContainerProvider _provider;
         public readonly  IEventAggregator   Aggregator;
 
@@ -20,11 +19,9 @@ namespace SapToolBox.Shared.MVVM {
         public bool IsNavigationTarget(NavigationContext navigationContext) => true;
 
         public void OnNavigatedFrom(NavigationContext navigationContext) {
-
         }
 
         public virtual void OnNavigatedTo(NavigationContext navigationContext) {
         }
     }
-
 }

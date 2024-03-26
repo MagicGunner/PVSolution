@@ -12,6 +12,6 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock FontSize="40" Text="{Binding ViewName}" />
+        <TextBlock FontSize="40" Text="截面定义" />
     </Grid>
 </UserControl>
