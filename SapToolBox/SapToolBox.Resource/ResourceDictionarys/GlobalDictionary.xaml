@@ -21,75 +21,385 @@
     </ResourceDictionary.MergedDictionaries>
 
 
-    <!--  表单文本框  -->
+    <!--  颜色  -->
+    <SolidColorBrush x:Key="Green_Foreground">#389E0D</SolidColorBrush>
+    <SolidColorBrush x:Key="Green_BorderBrush">#b7eb8f</SolidColorBrush>
+    <SolidColorBrush x:Key="Green_Background">#f6ffed</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Blue_Foreground">#096dd9</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue_BorderBrush">#91d5ff</SolidColorBrush>
+    <SolidColorBrush x:Key="Blue_Background">#e6f7ff</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Red_Foreground">#cf1322</SolidColorBrush>
+    <SolidColorBrush x:Key="Red_BorderBrush">#ffa39e</SolidColorBrush>
+    <SolidColorBrush x:Key="Red_Background">#fff1f0</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Yellow_Foreground">#faad14</SolidColorBrush>
+    <SolidColorBrush x:Key="Yellow_BorderBrush">#ffe58f</SolidColorBrush>
+    <SolidColorBrush x:Key="Yellow_Background">#fdffe5</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Lime_Foreground">#7cb37c</SolidColorBrush>
+    <SolidColorBrush x:Key="Lime_BorderBrush">#eaff8f</SolidColorBrush>
+    <SolidColorBrush x:Key="Lime_Background">#fcffe6</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Purple_Foreground">#531dbd</SolidColorBrush>
+    <SolidColorBrush x:Key="Purple_BorderBrush">#d3adf7</SolidColorBrush>
+    <SolidColorBrush x:Key="Purple_Background">#f9f0ff</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Cyan_Foreground">#08979c</SolidColorBrush>
+    <SolidColorBrush x:Key="Cyan_BorderBrush">#87e8de</SolidColorBrush>
+    <SolidColorBrush x:Key="Cyan_Background">#e6fffb</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Pink_Foreground">#c45ebe</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink_BorderBrush">#ffadd2</SolidColorBrush>
+    <SolidColorBrush x:Key="Pink_Background">#fff0f6</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Volcano_Foreground">#dc6b08</SolidColorBrush>
+    <SolidColorBrush x:Key="Volcano_BorderBrush">#ffd591</SolidColorBrush>
+    <SolidColorBrush x:Key="Volcano_Background">#fff7e6</SolidColorBrush>
+
+    <SolidColorBrush x:Key="GeekBlue_Foreground">#1d39c4</SolidColorBrush>
+    <SolidColorBrush x:Key="GeekBlue_BorderBrush">#adc6ff</SolidColorBrush>
+    <SolidColorBrush x:Key="GeekBlue_Background">#f0f5ff</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Orange_Foreground">#d46b08</SolidColorBrush>
+    <SolidColorBrush x:Key="Orange_BorderBrush">#ffd591</SolidColorBrush>
+    <SolidColorBrush x:Key="Orange_Background">#fff7e6</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Gold_Foreground">#d48806</SolidColorBrush>
+    <SolidColorBrush x:Key="Gold_BorderBrush">#ffe58f</SolidColorBrush>
+    <SolidColorBrush x:Key="Gold_Background">#fffbe6</SolidColorBrush>
+
+
+    <!--  按钮  -->
+    <Style
+        x:Key="GreenButton"
+        BasedOn="{StaticResource MaterialDesignRaisedButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Green_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Green_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Green_BorderBrush}" />
+    </Style>
 
     <Style
-        x:Key="FormTextBox"
+        x:Key="Green_CircleButton"
+        BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Green_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Green_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Green_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="RedButton"
+        BasedOn="{StaticResource MaterialDesignRaisedButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Red_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Red_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Red_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="Red_CircleButton"
+        BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Red_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Red_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Red_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="YellowButton"
+        BasedOn="{StaticResource MaterialDesignRaisedButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Yellow_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Yellow_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Yellow_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="Yellow_CircleButton"
+        BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Yellow_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Yellow_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Yellow_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="BlueButton"
+        BasedOn="{StaticResource MaterialDesignRaisedButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Yellow_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Yellow_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Yellow_BorderBrush}" />
+    </Style>
+
+    <Style
+        x:Key="Blue_CircleButton"
+        BasedOn="{StaticResource MaterialDesignFloatingActionMiniButton}"
+        TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource Blue_Foreground}" />
+        <Setter Property="Background" Value="{StaticResource Blue_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Blue_BorderBrush}" />
+    </Style>
+
+
+
+
+
+    <!--  竖直导航菜单按钮样式  -->
+    <Style x:Key="VMenuBarsListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Border x:Name="borderHeader" />
+                        <Border x:Name="border" />
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="borderHeader" Property="BorderThickness" Value="4,0,0,0" />
+                            <Setter TargetName="borderHeader" Property="BorderBrush" Value="{DynamicResource PrimaryHueLightBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>-->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="borderHeader" Property="BorderThickness" Value="4,0,0,0" />
+                            <Setter TargetName="borderHeader" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                        <!--<Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                        </Trigger>-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  水平导航菜单按钮样式  -->
+    <Style x:Key="HMenuBarsListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Border x:Name="borderHeader" />
+                        <Border x:Name="border" />
+                        <ContentPresenter
+                            Margin="7"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="borderHeader" Property="BorderThickness" Value="0,0,0,4" />
+                            <Setter TargetName="borderHeader" Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  导航菜单按钮样式  -->
+    <Style x:Key="HorizontalMenuBarsListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Border x:Name="borderHeader" />
+                        <Border x:Name="border" />
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource PrimaryHueLightBrush}" />
+                            <Setter TargetName="border" Property="Opacity" Value="0.2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  DataGrid 默认第一列显示选中复选框  -->
+    <Style BasedOn="{StaticResource DataGridBaseStyle}" TargetType="DataGrid">
+        <Setter Property="RowHeaderWidth" Value="60" />
+        <Setter Property="hc:DataGridAttach.ShowRowNumber" Value="False" />
+        <Setter Property="RowHeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid Width="40">
+                        <CheckBox HorizontalAlignment="Center" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  DataGrid 第一列显示行号  -->
+    <Style
+        x:Key="NumDataGrid"
+        BasedOn="{StaticResource DataGridBaseStyle}"
+        TargetType="DataGrid">
+        <Setter Property="RowHeaderWidth" Value="60" />
+        <Setter Property="hc:DataGridAttach.ShowRowNumber" Value="True" />
+    </Style>
+
+    <!--  DataGrid单元格  -->
+    <Style BasedOn="{StaticResource DataGridCellStyle}" TargetType="DataGridCell" />
+
+    <!--  DataGrid 第一列编号  -->
+    <Style BasedOn="{StaticResource DataGridRowHeaderStyle}" TargetType="DataGridRowHeader">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <!--  DataGrid 列标题  -->
+    <Style BasedOn="{StaticResource DataGridColumnHeaderStyle}" TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+
+    <!--  md:DialogHost 默认使用MaterialDesignEmbeddedDialogHost 弹窗大小将限制在小于主窗口  -->
+    <Style BasedOn="{StaticResource MaterialDesignEmbeddedDialogHost}" TargetType="md:DialogHost" />
+
+    <!--  Border  -->
+    <!--<Style TargetType="Border">
+    <Setter Property="CornerRadius" Value="16" />
+</Style>-->
+
+    <!--  ToolTip  -->
+    <Style BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip" />
+
+    <!--  Button  -->
+    <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button" />
+
+    <!--  部分使用HandyControl的样式  -->
+    <Style BasedOn="{StaticResource TextBoxBaseStyle}" TargetType="TextBox" />
+    <Style BasedOn="{StaticResource ComboBoxBaseStyle}" TargetType="ComboBox" />
+    <Style BasedOn="{StaticResource BaseStyle}" TargetType="ScrollViewer" />
+
+
+    <!--  查询文本框  -->
+    <Style
+        x:Key="SearchTextBox"
         BasedOn="{StaticResource TextBoxExtend}"
         TargetType="TextBox">
-        <Setter Property="hc:InfoElement.TitleWidth" Value="80" />
-        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left" />
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinWidth" Value="160" />
+        <Setter Property="Margin" Value="5,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="hc:InfoElement.Placeholder" Value="请输入要查找的内容..." />
+    </Style>
+
+
+    <!--  设计输入属性值名称文本框样式  -->
+    <Style
+        x:Key="InputPropName"
+        BasedOn="{StaticResource TextBlockBaseStyle}"
+        TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="140" />
+    </Style>
+
+    <!--  设计输入属性值文本框样式  -->
+    <Style
+        x:Key="InputPropValue"
+        BasedOn="{StaticResource TextBoxBaseStyle}"
+        TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="MinWidth" Value="120" />
+    </Style>
+
+
+    <!--  截面设计截面属性值文本框样式  -->
+    <Style
+        x:Key="SectionPropName"
+        BasedOn="{StaticResource TextBlockBaseStyle}"
+        TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="140" />
+    </Style>
+
+    <!--  截面设计截面属性值文本框样式  -->
+    <Style
+        x:Key="SectionPropValue"
+        BasedOn="{StaticResource TextBoxBaseStyle}"
+        TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="MinWidth" Value="120" />
     </Style>
 
 
 
-    <!--  表单日期选择器  -->
-
-    <Style
-        x:Key="FormDatePicker"
-        BasedOn="{StaticResource DatePickerExtend}"
-        TargetType="DatePicker">
-        <Setter Property="hc:InfoElement.TitleWidth" Value="80" />
-        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left" />
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="Transparent" />
+    <!--  TextBlock  -->
+    <Style x:Key="TitleTextBlock" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="Bold" />
     </Style>
 
-
-    <!--  表单ComboBox  -->
-
-    <Style
-        x:Key="FormComboBox"
-        BasedOn="{StaticResource ComboBoxExtend}"
-        TargetType="ComboBox">
-        <Setter Property="hc:InfoElement.TitleWidth" Value="80" />
-        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left" />
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="Transparent" />
+    <!--  PackIcon  -->
+    <Style TargetType="md:PackIcon">
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="24" />
     </Style>
 
+    <!--  ScrollBar  -->
+    <Style BasedOn="{StaticResource ScrollBarBaseStyle}" TargetType="ScrollBar" />
 
-    <!--  hc:CheckComboBox  -->
-
-    <Style
-        x:Key="FormCheckComboBox"
-        BasedOn="{StaticResource CheckComboBoxExtend}"
-        TargetType="hc:CheckComboBox">
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-
-
-    <!--  表单密码框  -->
-
-    <Style
-        x:Key="FormPasswordBox"
-        BasedOn="{StaticResource PasswordBoxExtend}"
-        TargetType="PasswordBox">
-        <Setter Property="hc:InfoElement.TitleWidth" Value="80" />
-        <Setter Property="hc:InfoElement.TitlePlacement" Value="Left" />
-        <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
-
-    <Style
-        x:Key="FormBorder"
-        BasedOn="{StaticResource BorderRegion}"
-        TargetType="Border">
-        <Setter Property="Effect" Value="{DynamicResource EffectShadow2}" />
+    <!--  Border圆角基本样式  -->
+    <Style x:Key="CircleBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#e0e0e0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinHeight" Value="10" />
+        <Setter Property="MinWidth" Value="10" />
         <Setter Property="Margin" Value="4" />
+        <Setter Property="CornerRadius" Value="4" />
     </Style>
 
+    <!--  带阴影2的布局容器  -->
+    <Style x:Key="Effect2Control" TargetType="ContentControl">
+        <Setter Property="Margin" Value="4" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <Grid>
+                        <Border Effect="{StaticResource EffectShadow2}" Style="{StaticResource BorderRegion}" />
+                        <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

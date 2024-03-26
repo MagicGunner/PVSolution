@@ -17,7 +17,7 @@ namespace SapToolBox.Main {
         protected override void RegisterTypes(IContainerRegistry containerRegistry) {
             cHelper myHelper  = new Helper();
             var     sapObject = myHelper.GetObject("CSI.SAP2000.API.SapObject");
-            var sapModel = sapObject.SapModel;
+            var     sapModel  = sapObject.SapModel;
             SapModelHelper = new SapModelHelper(ref sapModel);
             containerRegistry.RegisterInstance(SapModelHelper);
             containerRegistry.RegisterForNavigation<DesignToolsIndexView, DesignToolsIndexViewModel>();

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SapToolBox.Modules.DesignTools")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa3167fb3d3ab130a7feaca97f70f9419af1d37b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SapToolBox.Modules.DesignTools")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SapToolBox.Modules.DesignTools")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

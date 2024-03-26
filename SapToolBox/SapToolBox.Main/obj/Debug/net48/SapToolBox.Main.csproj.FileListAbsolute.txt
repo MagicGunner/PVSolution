@@ -6,7 +6,6 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.sourcelink.json
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.pdb
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\SapToolBox.Main.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\Views\IndexView.g.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\Views\MainView.g.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main_MarkupCompile.cache

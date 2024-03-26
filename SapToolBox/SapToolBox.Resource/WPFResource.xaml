@@ -18,11 +18,11 @@
         <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml" />
 
         <!--  表单样式  -->
-        <ResourceDictionary Source="ResourceDictionarys\FormDictionary.xaml" />
+        <ResourceDictionary Source="ResourceDictionarys/FormDictionary.xaml" />
         <!--  全局样式  -->
-        <ResourceDictionary Source="ResourceDictionarys\GlobalDictionary.xaml" />
+        <ResourceDictionary Source="ResourceDictionarys/GlobalDictionary.xaml" />
         <!--  列表样式  -->
-        <ResourceDictionary Source="ResourceDictionarys\ListDictionary.xaml" />
+        <ResourceDictionary Source="ResourceDictionarys/ListDictionary.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

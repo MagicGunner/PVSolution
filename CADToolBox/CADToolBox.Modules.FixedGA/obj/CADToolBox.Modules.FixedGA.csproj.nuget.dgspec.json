@@ -10,14 +10,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj",
         "projectName": "CADToolBox.Modules.FixedGA",
         "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\CADToolBox.Modules.FixedGA.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.FixedGA\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -76,7 +77,7 @@
               "version": "[3.0.26, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -86,14 +87,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj",
         "projectName": "CADToolBox.Resource",
         "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\CADToolBox.Resource.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -102,6 +103,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -129,7 +131,7 @@
               "version": "[4.9.0, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -139,14 +141,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj",
         "projectName": "CADToolBox.Shared",
         "projectPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\CADToolBox.Shared.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -155,6 +157,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -186,7 +189,7 @@
               "version": "[8.2.2, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
