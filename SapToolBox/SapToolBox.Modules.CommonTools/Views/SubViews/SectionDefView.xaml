@@ -18,8 +18,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Resources>
-            <conv:BoolToVisibilityConverter x:Key="SectionIsEditableVisibility" IsInverted="True" />
-            <conv:BoolToVisibilityConverter x:Key="SectionIsNotEditableVisibility" />
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityInv" IsInverted="True" />
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
             <conv:BoolInverter x:Key="BoolInverter" />
             <Style
                 x:Key="PropName"
@@ -53,17 +53,15 @@
             <!--  第一列为steel截面或者SD截面  -->
             <DockPanel
                 x:Name="Steel"
-                Width="400"
+                Width="300"
                 Height="auto"
                 DockPanel.Dock="Left"
                 LastChildFill="False">
                 <!--  标题部分  -->
                 <StackPanel
-                    MinWidth="400"
                     Margin="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Background="Aqua"
                     DockPanel.Dock="Top">
                     <TextBlock
                         Width="{Binding Width, ElementName=Steel}"
@@ -74,12 +72,22 @@
                 </StackPanel>
                 <!--  画图部分  -->
                 <Canvas
-                    Width="{Binding Width, ElementName=Steel}"
-                    Height="{Binding Width, ElementName=Steel}"
+                    Width="{Binding CanvasWidth}"
+                    Height="{Binding CanvasHeight}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Background="DeepSkyBlue"
-                    DockPanel.Dock="Top" />
+                    Background="White"
+                    DockPanel.Dock="Top">
+                    <Polygon
+                        Fill="Gray"
+                        Points="{Binding CurrentSection.OuterSectionPoints}"
+                        StrokeThickness="0" />
+                    <Polygon
+                        Fill="White"
+                        Points="{Binding CurrentSection.InnerSectionPoints}"
+                        StrokeThickness="0"
+                        Visibility="{Binding CurrentSection.IsClose, Converter={StaticResource BoolToVisibility}}" />
+                </Canvas>
                 <!--  截面规格部分  -->
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                     <ComboBox
@@ -94,7 +102,7 @@
                         SelectedItem="{Binding CurrentSection.SectionType}"
                         Style="{StaticResource ComboBoxExtend}" />
                     <ComboBox
-                        MinWidth="140"
+                        MinWidth="120"
                         Margin="7"
                         hc:DropDownElement.AutoWidth="False"
                         hc:DropDownElement.ConsistentWidth="False"
@@ -104,7 +112,7 @@
                         ItemsSource="{Binding SectionNameList}"
                         SelectedItem="{Binding CurrentSection.SectionName}"
                         Style="{StaticResource ComboBoxExtend}"
-                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource SectionIsEditableVisibility}}" />
+                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource BoolToVisibilityInv}}" />
 
                     <hc:TextBox
                         MinWidth="140"
@@ -114,7 +122,7 @@
                         BorderThickness="0"
                         IsReadOnly="True"
                         Text="{Binding CurrentSection.SectionName}"
-                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource SectionIsNotEditableVisibility}}" />
+                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource BoolToVisibility}}" />
                 </StackPanel>
                 <!--  截面参数部分  -->
                 <StackPanel DockPanel.Dock="Top">

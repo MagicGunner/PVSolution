@@ -19,4 +19,4 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\Prism.DryIoc.
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\Prism.Wpf.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\SapToolBox.Resource.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\SapToolBox.Resource.pdb
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolB.84DAC053.Up2Date
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.csproj.CopyComplete

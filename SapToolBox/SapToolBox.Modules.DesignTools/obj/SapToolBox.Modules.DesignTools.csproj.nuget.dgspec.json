@@ -10,14 +10,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.DesignTools\\SapToolBox.Modules.DesignTools.csproj",
         "projectName": "SapToolBox.Modules.DesignTools",
         "projectPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.DesignTools\\SapToolBox.Modules.DesignTools.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.DesignTools\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -42,11 +43,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -66,7 +62,7 @@
               "version": "[8.1.97, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -76,14 +72,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Resource\\SapToolBox.Resource.csproj",
         "projectName": "SapToolBox.Resource",
         "projectPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Resource\\SapToolBox.Resource.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Resource\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -92,6 +88,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -104,11 +101,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -124,7 +116,7 @@
               "version": "[5.0.0, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -134,14 +126,14 @@
         "projectUniqueName": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\SapToolBox.Shared.csproj",
         "projectName": "SapToolBox.Shared",
         "projectPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\SapToolBox.Shared.csproj",
-        "packagesPath": "C:\\Users\\JinNan\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\29016\\.nuget\\packages\\",
         "outputPath": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\JinNan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\29016\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -150,6 +142,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -166,11 +159,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -186,7 +174,7 @@
               "version": "[8.1.97, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

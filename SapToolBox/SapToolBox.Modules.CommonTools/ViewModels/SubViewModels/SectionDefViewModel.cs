@@ -12,6 +12,17 @@ using SapToolBox.Resource.DesignResources;
 namespace SapToolBox.Modules.CommonTools.ViewModels.SubViewModels;
 
 public class SectionDefViewModel : BindableBase {
+    public double CanvasWidth { // 前台画布宽度
+        get => CurrentSection.CanvasWidth;
+        set => SetProperty(ref CurrentSection.CanvasWidth, value);
+    }
+
+    public double CanvasHeight { // 前台画布宽度
+        get => CurrentSection.CanvasHeight;
+        set => SetProperty(ref CurrentSection.CanvasHeight, value);
+    }
+
+
     private readonly IContainerProvider _containerProvider;
 
     private ObservableCollection<SectionInfo>? _sectionList;
@@ -45,6 +56,8 @@ public class SectionDefViewModel : BindableBase {
         SectionTypeList.Add("折弯C型钢");
         SectionTypeList.Add("折弯角钢");
         SectionTypeList.Add("折弯几字型钢");
+        SectionTypeList.Add("方管");
+        SectionTypeList.Add("矩形管");
         CurrentSection.PropertyChanged += OnCurrentSectionChanged;
     }
 
@@ -53,11 +66,12 @@ public class SectionDefViewModel : BindableBase {
         switch (e.PropertyName) {
             case nameof(CurrentSection.SectionType): // 当截面类型发生改变事需要更新SectionNameList
                 if (CurrentSection.SectionType != null) {
-                    if (GeneralTemplateData.PostSectionMap.TryGetValue(CurrentSection.SectionType, out var value)) { // 如果截面库中有该种截面类型
+                    if (GeneralTemplateData.PostSectionMap.TryGetValue(CurrentSection.SectionType, out var value)) {
+                        // 如果截面库中有该种截面类型
                         SectionNameList = new ObservableCollection<string>(value.Select(item => item.Name).ToList());
                         CurrentSection.IsEditable = false;
                     } else {
-                        SectionNameList = null;
+                        SectionNameList           = null;
                         CurrentSection.IsEditable = true;
                     }
                 }

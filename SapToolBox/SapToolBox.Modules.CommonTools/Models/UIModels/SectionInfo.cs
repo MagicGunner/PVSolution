@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 using Prism.Mvvm;
 using SapToolBox.Resource.DesignResources;
 using SapToolBox.Shared.Models.SectionModels.Interface;
@@ -8,7 +10,7 @@ using SapToolBox.Shared.Models.SectionModels.Interface;
 namespace SapToolBox.Modules.CommonTools.Models.UIModels;
 
 public class SectionInfo : BindableBase {
-    #region 字段属性
+#region 字段属性
 
     public ISection? Section;
 
@@ -26,19 +28,19 @@ public class SectionInfo : BindableBase {
                     case "焊接H型钢":
                         SectionProps = [
                                            new VariableInfo {
-                                                                Name = "H",
+                                                                Name  = "H",
                                                                 Value = 200
                                                             },
                                            new VariableInfo {
-                                                                Name = "B",
+                                                                Name  = "B",
                                                                 Value = 100
                                                             },
                                            new VariableInfo {
-                                                                Name = "tw",
+                                                                Name  = "tw",
                                                                 Value = 3
                                                             },
                                            new VariableInfo {
-                                                                Name = "tf",
+                                                                Name  = "tf",
                                                                 Value = 3
                                                             }
                                        ];
@@ -54,19 +56,19 @@ public class SectionInfo : BindableBase {
                     case "折弯C型钢":
                         SectionProps = [
                                            new VariableInfo {
-                                                                Name = "H",
+                                                                Name  = "H",
                                                                 Value = 210
                                                             },
                                            new VariableInfo {
-                                                                Name = "B",
+                                                                Name  = "B",
                                                                 Value = 100
                                                             },
                                            new VariableInfo {
-                                                                Name = "L",
+                                                                Name  = "L",
                                                                 Value = 30
                                                             },
                                            new VariableInfo {
-                                                                Name = "t",
+                                                                Name  = "t",
                                                                 Value = 3
                                                             }
                                        ];
@@ -82,15 +84,15 @@ public class SectionInfo : BindableBase {
                     case "折弯角钢":
                         SectionProps = [
                                            new VariableInfo {
-                                                                Name = "B",
+                                                                Name  = "B",
                                                                 Value = 63
                                                             },
                                            new VariableInfo {
-                                                                Name = "b",
+                                                                Name  = "b",
                                                                 Value = 45
                                                             },
                                            new VariableInfo {
-                                                                Name = "t",
+                                                                Name  = "t",
                                                                 Value = 3
                                                             }
                                        ];
@@ -106,19 +108,71 @@ public class SectionInfo : BindableBase {
                     case "折弯几字型钢":
                         SectionProps = [
                                            new VariableInfo {
-                                                                Name = "W",
+                                                                Name  = "W",
                                                                 Value = 79
                                                             },
                                            new VariableInfo {
-                                                                Name = "H",
+                                                                Name  = "H",
                                                                 Value = 60
                                                             },
                                            new VariableInfo {
-                                                                Name = "B",
+                                                                Name  = "B",
                                                                 Value = 30
                                                             },
                                            new VariableInfo {
-                                                                Name = "t",
+                                                                Name  = "t",
+                                                                Value = 3
+                                                            }
+                                       ];
+                        foreach (var variableInfo in SectionProps) {
+                            variableInfo.ValueChanged += (_,
+                                                          _) => {
+                                                             UpdateSectionName();
+                                                         };
+                        }
+
+                        UpdateSectionName();
+                        break;
+                    case "方管":
+                        SectionProps = [
+                                           new VariableInfo {
+                                                                Name  = "D",
+                                                                Value = 140
+                                                            },
+                                           new VariableInfo {
+                                                                Name  = "t",
+                                                                Value = 3.0
+                                                            },
+                                           new VariableInfo {
+                                                                Name  = "r",
+                                                                Value = 3.0
+                                                            }
+                                       ];
+                        foreach (var variableInfo in SectionProps) {
+                            variableInfo.ValueChanged += (_,
+                                                          _) => {
+                                                             UpdateSectionName();
+                                                         };
+                        }
+
+                        UpdateSectionName();
+                        break;
+                    case "矩形管":
+                        SectionProps = [
+                                           new VariableInfo {
+                                                                Name  = "H",
+                                                                Value = 200
+                                                            },
+                                           new VariableInfo {
+                                                                Name  = "B",
+                                                                Value = 100
+                                                            },
+                                           new VariableInfo {
+                                                                Name  = "t",
+                                                                Value = 3
+                                                            },
+                                           new VariableInfo {
+                                                                Name  = "r",
                                                                 Value = 3
                                                             }
                                        ];
@@ -150,12 +204,13 @@ public class SectionInfo : BindableBase {
         set {
             if (!SetProperty(ref _sectionName, value)) return;
             if (SectionName == null) return;
-            switch (SectionType) {
+
+            switch (SectionType) { // 当截面类型为热轧时SectionProps中的对象不需要添加事件，这种情况手动触发绘图方法
                 case "W型钢":
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.WSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -165,7 +220,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollHWSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -175,7 +230,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollHMSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -185,7 +240,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollHNSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -195,7 +250,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollHTSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -205,27 +260,30 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RPileSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
+
+                    UpdateSectionPoints();
 
                     break;
                 case "焊接钢管":
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.WPileSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
 
+                    UpdateSectionPoints();
                     break;
                 case "热轧槽钢":
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollCSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -235,7 +293,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollEqualLSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -245,7 +303,7 @@ public class SectionInfo : BindableBase {
                     SectionProps = [];
                     foreach (var pair in GeneralTemplateData.RollUnEqualLSectionPropDic[SectionName]) {
                         SectionProps.Add(new VariableInfo {
-                                                              Name = pair.Key,
+                                                              Name  = pair.Key,
                                                               Value = Convert.ToDouble(pair.Value)
                                                           });
                     }
@@ -262,6 +320,14 @@ public class SectionInfo : BindableBase {
         set => SetProperty(ref _isEditable, value);
     }
 
+    private bool _isClose; // 是否闭口截面，影响前台界面展示
+
+    public bool IsClose {
+        get => _isClose;
+        set => SetProperty(ref _isClose, value);
+    }
+
+
     private ObservableCollection<VariableInfo>? _sectionProps;
 
     public ObservableCollection<VariableInfo>? SectionProps {
@@ -269,10 +335,97 @@ public class SectionInfo : BindableBase {
         set => SetProperty(ref _sectionProps, value);
     }
 
-    #endregion
+    private PointCollection? _outerSectionPoints; // 多段线截面绘制关键点
+
+    public PointCollection? OuterSectionPoints {
+        get => _outerSectionPoints;
+        set => SetProperty(ref _outerSectionPoints, value);
+    }
+
+    private PointCollection? _innerSectionPoints; // 多段线截面绘制关键点,当为闭口截面时需要
+
+    public PointCollection? InnerSectionPoints {
+        get => _innerSectionPoints;
+        set => SetProperty(ref _innerSectionPoints, value);
+    }
+
+#endregion
 
 
-    #region 方法区
+#region 方法区
+
+    // 更新截面点坐标，当截面属性发生改变时(冷弯)，或者截面名称发生改变时(热轧)
+    public       double CanvasWidth  = 300;
+    public       double CanvasHeight = 300;
+    public       int    CireDivNum   = 100; // 将一个整圆划分为100份
+    public const double Pi           = Math.PI;
+
+    private void UpdateSectionPoints() {
+        if (SectionProps == null) return;
+        double H;
+        double D;
+        double R;
+        double B;
+        double t;
+        switch (SectionType) {
+            case "无缝钢管":
+            case "焊接钢管":
+                IsClose            = true;
+                D                  = SectionProps[0].Value;
+                t                  = SectionProps[1].Value;
+                OuterSectionPoints = [];
+                R                  = D / 2;
+                for (var i = 0; i < CireDivNum; i++) {
+                    OuterSectionPoints.Add(new Point(CanvasWidth / 2 + R * Math.Cos(2 * Pi / CireDivNum * i),
+                                                     CanvasWidth / 2 + R * Math.Sin(2 * Pi / CireDivNum * i)));
+                }
+
+                R                  = D / 2 - t;
+                InnerSectionPoints = [];
+                for (var i = 0; i < CireDivNum; i++) {
+                    InnerSectionPoints.Add(new Point(CanvasWidth / 2 + R * Math.Cos(2 * Pi / CireDivNum * i),
+                                                     CanvasWidth / 2 + R * Math.Sin(2 * Pi / CireDivNum * i)));
+                }
+
+                break;
+            case "方管":
+                IsClose = true;
+                H       = SectionProps[0].Value;
+                B       = SectionProps[0].Value;
+                t       = SectionProps[1].Value;
+                OuterSectionPoints = new PointCollection {
+                                                             new((CanvasWidth - B) / 2, (CanvasHeight + H) / 2),
+                                                             new((CanvasWidth + B) / 2, (CanvasHeight + H) / 2),
+                                                             new((CanvasWidth + B) / 2, (CanvasHeight - H) / 2),
+                                                             new((CanvasWidth - B) / 2, (CanvasHeight - H) / 2)
+                                                         };
+                InnerSectionPoints = new PointCollection {
+                                                             new((CanvasWidth - B) / 2 + t, (CanvasHeight + H) / 2 - t),
+                                                             new((CanvasWidth + B) / 2 - t, (CanvasHeight + H) / 2 - t),
+                                                             new((CanvasWidth + B) / 2 - t, (CanvasHeight - H) / 2 + t),
+                                                             new((CanvasWidth - B) / 2 + t, (CanvasHeight - H) / 2 + t)
+                                                         };
+                break;
+            case "矩形管":
+                IsClose = true;
+                H       = SectionProps[0].Value;
+                B       = SectionProps[1].Value;
+                t       = SectionProps[2].Value;
+                OuterSectionPoints = new PointCollection {
+                                                             new((CanvasWidth - B) / 2, (CanvasHeight + H) / 2),
+                                                             new((CanvasWidth + B) / 2, (CanvasHeight + H) / 2),
+                                                             new((CanvasWidth + B) / 2, (CanvasHeight - H) / 2),
+                                                             new((CanvasWidth - B) / 2, (CanvasHeight - H) / 2)
+                                                         };
+                InnerSectionPoints = new PointCollection {
+                                                             new((CanvasWidth - B) / 2 + t, (CanvasHeight + H) / 2 - t),
+                                                             new((CanvasWidth + B) / 2 - t, (CanvasHeight + H) / 2 - t),
+                                                             new((CanvasWidth + B) / 2 - t, (CanvasHeight - H) / 2 + t),
+                                                             new((CanvasWidth - B) / 2 + t, (CanvasHeight - H) / 2 + t)
+                                                         };
+                break;
+        }
+    }
 
     private void UpdateSectionName() {
         if (SectionProps == null) return;
@@ -280,49 +433,83 @@ public class SectionInfo : BindableBase {
             case "焊接H型钢":
                 SectionName = "H";
                 for (var i = 0; i < SectionProps.Count; i++) {
-                    SectionName += SectionProps[i].Value;
-                    if (i != SectionProps.Count - 1) {
-                        SectionName += "x";
-                    }
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "tw" || SectionProps[i].Name == "tf") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 1) { SectionName += "x"; }
                 }
 
                 break;
             case "折弯C型钢":
                 SectionName = "C";
                 for (var i = 0; i < SectionProps.Count; i++) {
-                    SectionName += SectionProps[i].Value;
-                    if (i != SectionProps.Count - 1) {
-                        SectionName += "x";
-                    }
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "t") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 1) { SectionName += "x"; }
                 }
 
                 break;
             case "折弯角钢":
                 SectionName = "L";
                 for (var i = 0; i < SectionProps.Count; i++) {
-                    SectionName += SectionProps[i].Value;
-                    if (i != SectionProps.Count - 1) {
-                        SectionName += "x";
-                    }
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "t") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 1) { SectionName += "x"; }
                 }
 
                 break;
             case "折弯几字型钢":
                 SectionName = "几";
                 for (var i = 0; i < SectionProps.Count; i++) {
-                    SectionName += SectionProps[i].Value;
-                    if (i != SectionProps.Count - 1) {
-                        SectionName += "x";
-                    }
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "t") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 1) { SectionName += "x"; }
+                }
+
+                break;
+            case "方管":
+                SectionName = "ST";
+                for (var i = 0; i < SectionProps.Count - 1; i++) {
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "t") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 2) { SectionName += "x"; }
+                }
+
+                break;
+            case "矩形管":
+                SectionName = "ST";
+                for (var i = 0; i < SectionProps.Count - 1; i++) {
+                    var num = SectionProps[i].Value;
+                    if (SectionProps[i].Name == "t") {
+                        SectionName += num * 100 % 10 == 0 ? $"{num:F1}" : num; // 厚度不足一位小数补成一位小数
+                    } else { SectionName += num; }
+
+                    if (i != SectionProps.Count - 2) { SectionName += "x"; }
                 }
 
                 break;
         }
+
+        UpdateSectionPoints();
     }
 
-    #endregion
+#endregion
 
-    #region 内部类
+#region 内部类
 
     public class VariableInfo : BindableBase {
         public string? Name { get; set; }
@@ -332,9 +519,7 @@ public class SectionInfo : BindableBase {
         public double Value {
             get => _value;
             set {
-                if (SetProperty(ref _value, value)) {
-                    OnValueChanged();
-                }
+                if (SetProperty(ref _value, value)) { OnValueChanged(); }
             }
         }
 
@@ -345,6 +530,5 @@ public class SectionInfo : BindableBase {
         }
     }
 
-    #endregion
+#endregion
 }
-
