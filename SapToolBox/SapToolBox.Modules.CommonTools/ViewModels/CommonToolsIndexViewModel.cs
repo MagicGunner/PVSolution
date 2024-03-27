@@ -12,7 +12,7 @@ using SapToolBox.Shared.Prism;
 namespace SapToolBox.Modules.CommonTools.ViewModels;
 
 public partial class CommonToolsIndexViewModel : NavigationViewModel {
-#region 字段属性
+    #region 字段属性
 
     private readonly IContainerProvider _containerProvider;
     private readonly IRegionManager     _regionManager;
@@ -27,13 +27,13 @@ public partial class CommonToolsIndexViewModel : NavigationViewModel {
 
     private ObservableCollection<MenuBar> _menuBars = [
                                                           new MenuBar {
-                                                                          Icon      = "Number1",
-                                                                          Title     = "首页",
+                                                                          Icon = "Number1",
+                                                                          Title = "首页",
                                                                           NameSpace = nameof(HomeView)
                                                                       },
                                                           new MenuBar {
-                                                                          Icon      = "Number2",
-                                                                          Title     = "截面批量导入",
+                                                                          Icon = "Number2",
+                                                                          Title = "截面批量导入",
                                                                           NameSpace = nameof(SectionDefView)
                                                                       }
                                                       ];
@@ -43,31 +43,31 @@ public partial class CommonToolsIndexViewModel : NavigationViewModel {
         set => SetProperty(ref _menuBars, value);
     }
 
-#endregion
+    #endregion
 
-#region 构造函数
+    #region 构造函数
 
     public CommonToolsIndexViewModel(IContainerProvider containerProvider,
                                      IRegionManager     regionManager) {
         _containerProvider = containerProvider;
-        _regionManager     = regionManager;
+        _regionManager = regionManager;
 
         SelectedIndexChangedCommand = new DelegateCommand<MenuBar>(SelectedIndexChanged);
     }
 
-#endregion
+    #endregion
 
-#region 委托声明
+    #region 委托声明
 
     /// <summary>
     /// 页面切换
     /// </summary>
     public DelegateCommand<MenuBar> SelectedIndexChangedCommand { get; private set; }
 
-#endregion
+    #endregion
 
 
-#region 委托实现
+    #region 委托实现
 
     private void SelectedIndexChanged(MenuBar obj) {
         try {
@@ -76,20 +76,19 @@ public partial class CommonToolsIndexViewModel : NavigationViewModel {
         }
     }
 
-#endregion
+    #endregion
 
-#region 方法区
+    #region 方法区
 
     public override void OnNavigatedTo(NavigationContext navigationContext) {
         // 第一次导航至该页面时跳转到初始页面
         if (_inited) return;
         _inited = true;
-        _regionManager.RequestNavigate(PrismManager.CommonToolsViewRegionName,
-                                       nameof(HomeView),
-                                       back => {
-                                           if (back.Error != null) { }
-                                       });
+        _regionManager.RequestNavigate(PrismManager.CommonToolsViewRegionName, nameof(SectionDefView), back => {
+                                                                                                           if (back.Error != null) {
+                                                                                                           }
+                                                                                                       });
     }
 
-#endregion
+    #endregion
 }

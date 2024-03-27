@@ -10,20 +10,20 @@ using SapToolBox.Shared.Prism;
 namespace SapToolBox.Modules.DesignTools.ViewModels.SubViewModels;
 
 public class SectionDesignerViewModel : NavigationViewModel {
-#region 字段与属性
+    #region 字段与属性
 
     private readonly IContainerProvider _provider;
     private readonly IRegionManager     _regionManager;
 
     private ObservableCollection<MenuBar> _menuBars = [
                                                           new MenuBar() {
-                                                                            Icon      = "Number1",
-                                                                            Title     = "H型钢",
+                                                                            Icon = "Number1",
+                                                                            Title = "H型钢",
                                                                             NameSpace = "HSectionView"
                                                                         },
                                                           new MenuBar() {
-                                                                            Icon      = "Number2",
-                                                                            Title     = "C型钢",
+                                                                            Icon = "Number2",
+                                                                            Title = "C型钢",
                                                                             NameSpace = "CSectionView"
                                                                         }
                                                       ];
@@ -41,22 +41,23 @@ public class SectionDesignerViewModel : NavigationViewModel {
         set => SetProperty(ref _Inited, value);
     }
 
-#endregion
+    #endregion
 
-#region 构造函数
+    #region 构造函数
 
     public SectionDesignerViewModel() {
     }
 
-    public SectionDesignerViewModel(IContainerProvider provider, IRegionManager regionManager) {
-        _provider                   = provider;
-        _regionManager              = regionManager;
+    public SectionDesignerViewModel(IContainerProvider provider,
+                                    IRegionManager     regionManager) {
+        _provider = provider;
+        _regionManager = regionManager;
         SelectedIndexChangedCommand = new DelegateCommand<MenuBar>(SelectedIndexChanged);
     }
 
-#endregion
+    #endregion
 
-#region 委托声明
+    #region 委托声明
 
     /// <summary>
     /// 页面切换
@@ -66,9 +67,9 @@ public class SectionDesignerViewModel : NavigationViewModel {
     public DelegateCommand SaveCommand   { get; set; }
     public DelegateCommand CancelCommand { get; set; }
 
-#endregion
+    #endregion
 
-#region 委托实现
+    #region 委托实现
 
     private void SelectedIndexChanged(MenuBar obj) {
         try {
@@ -77,20 +78,19 @@ public class SectionDesignerViewModel : NavigationViewModel {
         }
     }
 
-#endregion
+    #endregion
 
-#region 方法
+    #region 方法
 
     public override void OnNavigatedTo(NavigationContext navigationContext) {
         // 第一次导航至该页面时跳转到初始页面
         if (_Inited) return;
         _Inited = true;
-        _regionManager.RequestNavigate(PrismManager.SectionDesignerViewRegionName,
-                                       nameof(CSectionView),
-                                       back => {
-                                           if (back.Error != null) { }
-                                       });
+        _regionManager.RequestNavigate(PrismManager.SectionDesignerViewRegionName, nameof(CSectionView), back => {
+                                                                                                             if (back.Error != null) {
+                                                                                                             }
+                                                                                                         });
     }
 
-#endregion
+    #endregion
 }

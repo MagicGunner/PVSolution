@@ -18,10 +18,12 @@
 
 	<ItemGroup>
 	  <None Remove="Template\DesignResources.xml" />
+	  <None Remove="Template\SectionData.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Template\DesignResources.xml" />
+	  <EmbeddedResource Include="Template\SectionData.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

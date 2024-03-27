@@ -2,7 +2,9 @@
     x:Class="SapToolBox.Modules.CommonTools.Views.SubViews.SectionDefView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:ValueConverters;assembly=ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:SapToolBox.Modules.CommonTools.Views.SubViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:SapToolBox.Modules.CommonTools.ViewModels.SubViewModels"
@@ -11,7 +13,133 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/SapToolBox.Resource;component/WPFResource.xaml" />
+    </UserControl.Resources>
     <Grid>
-        <TextBlock FontSize="40" Text="截面定义" />
+        <Grid.Resources>
+            <conv:BoolToVisibilityConverter x:Key="SectionIsEditableVisibility" IsInverted="True" />
+            <conv:BoolToVisibilityConverter x:Key="SectionIsNotEditableVisibility" />
+            <conv:BoolInverter x:Key="BoolInverter" />
+            <Style
+                x:Key="PropName"
+                BasedOn="{StaticResource TextBlockDefault}"
+                TargetType="TextBlock">
+                <Setter Property="MinWidth" Value="140" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style
+                x:Key="PropValue"
+                BasedOn="{StaticResource TextBoxBaseStyle}"
+                TargetType="TextBox">
+                <Setter Property="MinWidth" Value="140" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsReadOnly" Value="True">
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style
+                x:Key="Title"
+                BasedOn="{StaticResource TextBlockTitleBold}"
+                TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </Grid.Resources>
+        <DockPanel LastChildFill="False">
+            <!--  第一列为steel截面或者SD截面  -->
+            <DockPanel
+                x:Name="Steel"
+                Width="400"
+                Height="auto"
+                DockPanel.Dock="Left"
+                LastChildFill="False">
+                <!--  标题部分  -->
+                <StackPanel
+                    MinWidth="400"
+                    Margin="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="Aqua"
+                    DockPanel.Dock="Top">
+                    <TextBlock
+                        Width="{Binding Width, ElementName=Steel}"
+                        Margin="0"
+                        Padding="0"
+                        Style="{StaticResource Title}"
+                        Text="钢结构设计截面" />
+                </StackPanel>
+                <!--  画图部分  -->
+                <Canvas
+                    Width="{Binding Width, ElementName=Steel}"
+                    Height="{Binding Width, ElementName=Steel}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="DeepSkyBlue"
+                    DockPanel.Dock="Top" />
+                <!--  截面规格部分  -->
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <ComboBox
+                        MinWidth="140"
+                        Margin="7"
+                        hc:DropDownElement.AutoWidth="False"
+                        hc:DropDownElement.ConsistentWidth="False"
+                        hc:InfoElement.ContentHeight="30"
+                        hc:InfoElement.Placeholder="请选择截面类型"
+                        hc:InfoElement.Title="当前截面类型"
+                        ItemsSource="{Binding SectionTypeList}"
+                        SelectedItem="{Binding CurrentSection.SectionType}"
+                        Style="{StaticResource ComboBoxExtend}" />
+                    <ComboBox
+                        MinWidth="140"
+                        Margin="7"
+                        hc:DropDownElement.AutoWidth="False"
+                        hc:DropDownElement.ConsistentWidth="False"
+                        hc:InfoElement.ContentHeight="30"
+                        hc:InfoElement.Placeholder="请选择截面规格"
+                        hc:InfoElement.Title="当前截面规格"
+                        ItemsSource="{Binding SectionNameList}"
+                        SelectedItem="{Binding CurrentSection.SectionName}"
+                        Style="{StaticResource ComboBoxExtend}"
+                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource SectionIsEditableVisibility}}" />
+
+                    <hc:TextBox
+                        MinWidth="140"
+                        Margin="7"
+                        hc:InfoElement.ContentHeight="30"
+                        hc:InfoElement.Title="当前截面规格"
+                        BorderThickness="0"
+                        IsReadOnly="True"
+                        Text="{Binding CurrentSection.SectionName}"
+                        Visibility="{Binding CurrentSection.IsEditable, Converter={StaticResource SectionIsNotEditableVisibility}}" />
+                </StackPanel>
+                <!--  截面参数部分  -->
+                <StackPanel DockPanel.Dock="Top">
+                    <ListBox BorderThickness="1" ItemsSource="{Binding CurrentSection.SectionProps}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource PropName}" Text="{Binding Name}" />
+                                    <TextBox
+                                        IsReadOnly="{Binding DataContext.CurrentSection.IsEditable, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}, Converter={StaticResource BoolInverter}}"
+                                        Style="{StaticResource PropValue}"
+                                        Text="{Binding Value}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </DockPanel>
+
+            <!--  第二列为冷弯截面  -->
+            <DockPanel DockPanel.Dock="Left" LastChildFill="False">
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Style="{StaticResource Title}" Text="冷弯设计截面" />
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
     </Grid>
 </UserControl>

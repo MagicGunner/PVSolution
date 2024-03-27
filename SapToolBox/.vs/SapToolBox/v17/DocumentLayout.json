@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\00-Code\\PVSolution\\SapToolBox\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.modules.commontools\\views\\subviews\\sectiondefview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|solutionrelative:saptoolbox.modules.commontools\\views\\subviews\\sectiondefview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SectionDefView.xaml",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
+              "RelativeDocumentMoniker": "SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
+              "RelativeToolTip": "SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-27T02:01:47.178Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

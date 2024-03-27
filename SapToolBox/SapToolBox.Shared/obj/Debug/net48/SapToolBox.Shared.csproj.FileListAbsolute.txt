@@ -7,7 +7,6 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Sh
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.AssemblyInfo.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.sourcelink.json
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.csproj.CopyComplete
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolBox.Shared.pdb
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\DryIoc.dll
@@ -20,3 +19,4 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\Prism.DryIoc.
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\Prism.Wpf.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\SapToolBox.Resource.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\bin\Debug\net48\SapToolBox.Resource.pdb
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Debug\net48\SapToolB.84DAC053.Up2Date

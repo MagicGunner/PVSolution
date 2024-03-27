@@ -31,10 +31,11 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\App.g.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\Views\IndexView.baml
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\Views\MainView.baml
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.g.resources
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.csproj.CopyComplete
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main.exe
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\AutoMapper.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\ValueConverters.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\ValueConverters.Annotations.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\SapToolBox.Modules.CommonTools.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\bin\Debug\net48\SapToolBox.Modules.CommonTools.pdb
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolB.752EAAE9.Up2Date
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Debug\net48\SapToolBox.Main_Content.g.cs

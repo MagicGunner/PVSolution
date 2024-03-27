@@ -41,6 +41,6 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CA
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.AssemblyInfo.cs
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.sourcelink.json
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolBox.Modules.TrackerGA.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.TrackerGA\obj\Debug\net48\CADToolB.85947195.Up2Date

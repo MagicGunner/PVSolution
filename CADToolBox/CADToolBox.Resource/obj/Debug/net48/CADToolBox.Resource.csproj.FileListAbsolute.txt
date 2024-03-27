@@ -16,6 +16,6 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.AssemblyInfo.cs
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.sourcelink.json
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolBox.Resource.pdb
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Resource\obj\Debug\net48\CADToolB.7D0BDFFE.Up2Date

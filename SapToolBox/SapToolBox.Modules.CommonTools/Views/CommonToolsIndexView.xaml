@@ -12,10 +12,6 @@
     xmlns:sv="clr-namespace:SapToolBox.Modules.CommonTools.Views.SubViews"
     xmlns:svm="clr-namespace:SapToolBox.Modules.CommonTools.ViewModels.SubViewModels"
     xmlns:vm="clr-namespace:SapToolBox.Modules.CommonTools.ViewModels"
-    Width="1250"
-    Height="700"
-    MinWidth="1000"
-    MinHeight="700"
     d:DataContext="{d:DesignInstance vm:CommonToolsIndexViewModel,
                                      IsDesignTimeCreatable=True}"
     mc:Ignorable="d">

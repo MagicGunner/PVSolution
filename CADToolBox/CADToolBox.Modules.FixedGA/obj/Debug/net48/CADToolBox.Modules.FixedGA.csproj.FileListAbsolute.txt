@@ -35,7 +35,6 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADT
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.AssemblyInfo.cs
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.sourcelink.json
-E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.csproj.CopyComplete
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.dll
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolBox.Modules.FixedGA.pdb
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\Views\SubViews\DesignInfoView.g.cs
@@ -44,3 +43,4 @@ E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\View
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\Views\SubViews\DesignInfoView.baml
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\Views\SubViews\SpanInfoView.baml
 E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\Views\SubViews\SummaryView.baml
+E:\00-Code\PVSolution\CADToolBox\CADToolBox.Modules.FixedGA\obj\Debug\net48\CADToolB.E681029F.Up2Date

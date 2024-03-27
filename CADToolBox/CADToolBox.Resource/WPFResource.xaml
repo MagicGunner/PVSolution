@@ -85,7 +85,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    s
+
     <Style x:Key="MessageTextBox" TargetType="TextBox">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Background" Value="#00FFFFFF" />

@@ -4,7 +4,14 @@ using SapToolBox.Shared.Models.SectionModels.Interface;
 
 namespace SapToolBox.Shared.Models.SectionModels.Implement;
 
-public class HSection(string name, double h, double b, double tf, double tw, double r) : BindableBase, ISection {
+public class HSection(
+    string name,
+    double h,
+    double b,
+    double tf,
+    double tw,
+    double r
+) : BindableBase, ISection {
     public double H {
         get => h;
         set => UpdateProperties(ref h, value);
@@ -46,9 +53,7 @@ public class HSection(string name, double h, double b, double tf, double tw, dou
 
     public double Ixx => B * Math.Pow(H, 3) / 12 - 2 * ((B - Tw) / 2 * Math.Pow((H - 2 * Tf), 3) / 12);
 
-    public double Iyy =>
-        H * Math.Pow(B, 3) / 12 - 2 * ((H - 2 * Tf) * Math.Pow((B - Tw) / 2, 3) / 12 +
-                                       (H - 2 * Tf) * ((B - Tw) / 2) * Math.Pow((B - Tw) / 4 + Tw / 2, 2));
+    public double Iyy => H * Math.Pow(B, 3) / 12 - 2 * ((H - 2 * Tf) * Math.Pow((B - Tw) / 2, 3) / 12 + (H - 2 * Tf) * ((B - Tw) / 2) * Math.Pow((B - Tw) / 4 + Tw / 2, 2));
 
     public double Ixy { get; set; }
     public double J   { get; set; }
@@ -64,15 +69,22 @@ public class HSection(string name, double h, double b, double tf, double tw, dou
 
     public event EventHandler PropertyChanged;
 
-    public void SetEffectiveWidth(double sigmaMax, double sigmaMin, double sigma1) {
+    public void SetEffectiveWidth(double sigmaMax,
+                                  double sigmaMin,
+                                  double sigma1) {
         throw new NotImplementedException();
     }
 
 
-    public HSection(string name, double h, double b, double tf, double tw) : this(name, h, b, tf, tw, 0) {
+    public HSection(string name,
+                    double h,
+                    double b,
+                    double tf,
+                    double tw) : this(name, h, b, tf, tw, 0) {
     }
 
-    private void UpdateProperties(ref double prop, double value) {
+    private void UpdateProperties(ref double prop,
+                                  double     value) {
         if (!SetProperty(ref prop, value)) return;
         RaisePropertyChanged(nameof(Ixx));
         RaisePropertyChanged(nameof(Iyy));
