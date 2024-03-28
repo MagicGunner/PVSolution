@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "E:\\00-Code\\PVSolution\\SapToolBox\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.modules.commontools\\views\\subviews\\sectiondefview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|solutionrelative:saptoolbox.modules.commontools\\views\\subviews\\sectiondefview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.shared\\helpers\\sapmodelhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|solutionrelative:saptoolbox.shared\\helpers\\sapmodelhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.modules.commontools\\models\\uimodels\\sectioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|solutionrelative:saptoolbox.modules.commontools\\models\\uimodels\\sectioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.modules.commontools\\viewmodels\\subviewmodels\\sectiondefviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30D653D4-6FF8-41E0-B53F-FB2F55054B14}|SapToolBox.Modules.CommonTools\\SapToolBox.Modules.CommonTools.csproj|solutionrelative:saptoolbox.modules.commontools\\viewmodels\\subviewmodels\\sectiondefviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.shared\\models\\sectionmodels\\implement\\rectsection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|solutionrelative:saptoolbox.shared\\models\\sectionmodels\\implement\\rectsection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.shared\\models\\sectionmodels\\implement\\pilesection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|solutionrelative:saptoolbox.shared\\models\\sectionmodels\\implement\\pilesection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|e:\\00-code\\pvsolution\\saptoolbox\\saptoolbox.shared\\models\\sectionmodels\\implement\\csection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80799481-351E-47DF-BAD9-AA4E93543941}|SapToolBox.Shared\\SapToolBox.Shared.csproj|solutionrelative:saptoolbox.shared\\models\\sectionmodels\\implement\\csection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,18 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CSection.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\CSection.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\CSection.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\CSection.cs",
+              "RelativeToolTip": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\CSection.cs",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAAAN4BAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T08:52:09.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SectionInfo.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Models\\UIModels\\SectionInfo.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Modules.CommonTools\\Models\\UIModels\\SectionInfo.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Models\\UIModels\\SectionInfo.cs",
+              "RelativeToolTip": "SapToolBox.Modules.CommonTools\\Models\\UIModels\\SectionInfo.cs",
+              "ViewState": "AQIAAIwBAAAAAAAAAAAQwPYCAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T07:36:35.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SectionDefViewModel.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\ViewModels\\SubViewModels\\SectionDefViewModel.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Modules.CommonTools\\ViewModels\\SubViewModels\\SectionDefViewModel.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\ViewModels\\SubViewModels\\SectionDefViewModel.cs",
+              "RelativeToolTip": "SapToolBox.Modules.CommonTools\\ViewModels\\SubViewModels\\SectionDefViewModel.cs",
+              "ViewState": "AQIAAJwAAAAAAAAAAAAowL8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T07:13:14.958Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SectionDefView.xaml",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
-              "RelativeDocumentMoniker": "SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
-              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
-              "RelativeToolTip": "SapToolBox.Modules.CommonTools\\Views\\SubViews\\SectionDefView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T02:01:47.178Z",
+              "Title": "SapModelHelper.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Helpers\\SapModelHelper.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Shared\\Helpers\\SapModelHelper.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Helpers\\SapModelHelper.cs",
+              "RelativeToolTip": "SapToolBox.Shared\\Helpers\\SapModelHelper.cs",
+              "ViewState": "AQIAAKIAAAAAAAAAAAAQwLMAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T07:11:18.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PileSection.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\PileSection.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\PileSection.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\PileSection.cs",
+              "RelativeToolTip": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\PileSection.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T08:05:38.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RectSection.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\RectSection.cs",
+              "RelativeDocumentMoniker": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\RectSection.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\SapToolBox\\SapToolBox.Shared\\Models\\SectionModels\\Implement\\RectSection.cs",
+              "RelativeToolTip": "SapToolBox.Shared\\Models\\SectionModels\\Implement\\RectSection.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T08:05:47.044Z",
               "EditorCaption": ""
             }
           ]

@@ -8,8 +8,8 @@ public class HSection(
     string name,
     double h,
     double b,
-    double tf,
     double tw,
+    double tf,
     double r
 ) : BindableBase, ISection {
     public double H {
@@ -38,7 +38,8 @@ public class HSection(
     } // R角
 
 
-    public string Name { get; set; } = name;
+    public string? Name     { get; set; } = name;
+    public string? Material { get; set; }
 
     public double Area {
         get {
@@ -79,8 +80,8 @@ public class HSection(
     public HSection(string name,
                     double h,
                     double b,
-                    double tf,
-                    double tw) : this(name, h, b, tf, tw, 0) {
+                    double tw,
+                    double tf) : this(name, h, b, tw, tf, 0) {
     }
 
     private void UpdateProperties(ref double prop,

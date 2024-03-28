@@ -76,7 +76,9 @@ public class CSection(
     public double RealBlankLength   => H + 2 * W + 2 * L - 8 * T;
 
 
-    public string Name { get; } = name;
+    public string? Name     { get; set; } = name;
+    public string? Material { get; set; }
+
 
     public double Area => T * (A + 2 * B + 2 * U + Alpha * (2 * C + 2 * U));
 
@@ -496,7 +498,7 @@ public class CSection(
 
     #region 事件委托
 
-    public new event EventHandler PropertyChanged;
+    public new event EventHandler? PropertyChanged;
 
 
     protected virtual void OnPropertyChanged() {

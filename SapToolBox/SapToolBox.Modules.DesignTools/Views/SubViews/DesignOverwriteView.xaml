@@ -118,7 +118,7 @@
                         BorderThickness="0"
                         Cursor=""
                         DockPanel.Dock="Top"
-                        ItemsSource="{Binding CurrentSapModelHelper.GroupList}"
+                        ItemsSource="{Binding CurrentSapModelHelper.GroupNameList}"
                         SelectionMode="Extended" />
 
                 </DockPanel>

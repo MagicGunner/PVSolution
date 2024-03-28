@@ -15,14 +15,14 @@ using SapToolBox.Shared.Helpers;
 
 namespace SapToolBox.Main {
     public partial class App : PrismApplication {
-        //public SapModelHelper SapModelHelper;
+        public SapModelHelper? SapModelHelper;
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry) {
             //cHelper myHelper  = new Helper();
             //var     sapObject = myHelper.GetObject("CSI.SAP2000.API.SapObject");
             //var     sapModel  = sapObject?.SapModel;
-            //SapModelHelper = new SapModelHelper();
-            //containerRegistry.RegisterInstance(SapModelHelper);
+            SapModelHelper = new SapModelHelper();
+            containerRegistry.RegisterInstance(SapModelHelper);
             containerRegistry.RegisterForNavigation<DesignToolsIndexView, DesignToolsIndexViewModel>();
             containerRegistry.RegisterForNavigation<CommonToolsIndexView, CommonToolsIndexViewModel>();
         }

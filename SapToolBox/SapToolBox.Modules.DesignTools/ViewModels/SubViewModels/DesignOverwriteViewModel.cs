@@ -43,10 +43,11 @@ namespace SapToolBox.Modules.DesignTools.ViewModels.SubViewModels {
 
     #region 构造函数
 
-        public DesignOverwriteViewModel(IContainerProvider provider, IRegionManager regionManager) {
+        public DesignOverwriteViewModel(IContainerProvider provider,
+                                        IRegionManager     regionManager) {
             _currentSapModelHelper = provider.Resolve<SapModelHelper>();
-            _provider              = provider;
-            _regionManager         = regionManager;
+            _provider = provider;
+            _regionManager = regionManager;
 
 
             SetOverwriteCommand = new DelegateCommand<IList>(SetOverwrite);
@@ -72,8 +73,7 @@ namespace SapToolBox.Modules.DesignTools.ViewModels.SubViewModels {
                         _currentSapModelHelper.SetOverwrite(item.Index, item.Value);
                     }
                 }
-            }
-            else {
+            } else {
                 foreach (var groupName in groupList) {
                     foreach (var item in OverWrites) {
                         if (item.NeedModify) {

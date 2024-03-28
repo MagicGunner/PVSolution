@@ -1,14 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Prism.Mvvm;
 using SAP2000v1;
+using SapToolBox.Shared.Models.SectionModels.Implement;
+using SapToolBox.Shared.Models.SectionModels.Interface;
 using SapToolBox.Shared.Sap2000;
 
 namespace SapToolBox.Shared.Helpers {
     public class SapModelHelper : BindableBase {
     #region 字段属性
 
-        public cSapModel? SapModel { get; set; }
+        private cSapModel? _sapModel;
+
+        public cSapModel? SapModel {
+            get => _sapModel;
+            set {
+                if (SetProperty(ref _sapModel, value)) {
+                    //MessageBox.Show("Sap模型发生改变");
+                    OnSapModelChanged();
+                }
+            }
+        }
 
 
         private readonly int _frameNum = 0;
@@ -18,14 +31,6 @@ namespace SapToolBox.Shared.Helpers {
         private readonly string[]     _frameNameList = [];
         public           List<string> FrameNameList => [.._frameNameList];
 
-
-        private readonly string[] _groupList = [];
-
-        public List<string> GroupList => [.. _groupList];
-
-        private readonly int _groupNum = 0;
-
-        public int GroupNum => _groupNum;
 
         private string? _designCode;
 
@@ -42,6 +47,43 @@ namespace SapToolBox.Shared.Helpers {
 
     #endregion
 
+    #region 对象组
+
+        private int _groupNum;
+
+        public int GroupNum => _groupNum;
+
+        private string[] _groupNameList = [];
+
+        public List<string> GroupNameList => [.. _groupNameList];
+
+    #endregion
+
+
+    #region 材料
+
+        private int _steelMaterialNum; // 当前模型材料种类数量
+
+        public int SteelMaterialNum => _steelMaterialNum;
+
+        private string[] _steelMaterialNameList; // 材料列表
+
+        public List<string> SteelMaterialNameList => [.._steelMaterialNameList];
+
+    #endregion
+
+    #region 截面
+
+        private int _sectionNum; // 当前模型截面数量
+
+        public int SectionNum => _sectionNum;
+
+        private string[] _sectionNameList;
+
+        public List<string> SectionNameList => [.. _sectionNameList];
+
+    #endregion
+
     #region 构造函数
 
         public SapModelHelper() {
@@ -49,7 +91,7 @@ namespace SapToolBox.Shared.Helpers {
 
             //SapModel = sapModel;
 
-            //SapModel.GroupDef.GetNameList(ref _groupNum, ref _groupList);
+            //SapModel.GroupDef.GetNameList(ref _groupNum, ref _groupNameList);
 
             //SapModel.FrameObj.GetNameList(ref _frameNum, ref _frameNameList);
 
@@ -64,6 +106,129 @@ namespace SapToolBox.Shared.Helpers {
     #endregion
 
     #region 方法
+
+        // 当SapModel改变时触发
+        private void OnSapModelChanged() {
+            if (SapModel == null) return;
+
+            SapModel.GroupDef.GetNameList(ref _groupNum, ref _groupNameList);
+            SapModel.PropMaterial.GetNameList(ref _steelMaterialNum, ref _steelMaterialNameList, eMatType.Steel);
+            SapModel.PropFrame.GetNameList(ref _sectionNum, ref _sectionNameList);
+        }
+
+    #region 截面相关操作
+
+        // 增加截面
+        public bool AddSection(ISection sectionModel,
+                               eMatType type) {
+            switch (type) {
+                case eMatType.Steel: return AddSteelSection(sectionModel);
+                default:             return false;
+            }
+        }
+
+    #region 钢结构截面相关
+
+        // 增加钢结构截面
+        private bool AddSteelSection(ISection sectionModel) {
+            if (sectionModel.Name == null || sectionModel.Material == null) return false;
+            // 如果有重名的则在后面加上数字
+            if (SteelMaterialNameList.Contains(sectionModel.Name)) {
+                var nameStrList = sectionModel.Name.Split('-');
+                if (int.TryParse(nameStrList.Last(), out var count)) { // 重名最后是整数则加1
+                    var tempName = "";
+                    for (var i = 0; i < nameStrList.Length - 1; i++) {
+                        tempName += nameStrList[i] + "-";
+                    }
+
+                    tempName += (count + 1).ToString();
+                    sectionModel.Name = tempName;
+                } else { // 重名最后不是整数说明第一次重复
+                    sectionModel.Name += "1";
+                }
+            }
+
+            // 如果当前模型没有需要的材料则增加
+            if (!SteelMaterialNameList.Contains(sectionModel.Material)) {
+                if (!AddSteelMaterial(sectionModel.Material)) { // 如果截面添加失败返回错误
+                    return false;
+                }
+            }
+
+            switch (sectionModel) {
+                case HSection hSection: return AddHSection(hSection);
+                case CSection cSection:
+                    return AddCSection(cSection);
+                    break;
+                case HatSection:
+                case LSection:
+                case PileSection:
+                case RectSection:
+                default: return false;
+            }
+        }
+
+        private bool AddHSection(HSection section) {
+            if (SapModel == null) return false;
+            return SapModel.PropFrame.SetISection(section.Name, section.Material, section.H, section.B, section.Tf, section.Tw, section.B, section.Tf) == 0;
+        }
+
+        private bool AddCSection(CSection section) {
+            if (SapModel == null) return false;
+            if (section.L == 0) { // 折弯槽钢
+                return false;
+            }
+
+            if (SapModel.PropFrame.SetSDSection(section.Name, section.Material, 1) != 0) return false;
+            var shapeName = "web";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc, 0, 90, -1, section.T, section.ABar) != 0) return false;
+            shapeName = "topFlange";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar / 2, section.ABar / 2, 0, -1, section.T, section.BBar) != 0) return false;
+            shapeName = "bottomFlange";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar / 2, -section.ABar / 2, 0, -1, section.T, section.BBar) !=
+                0) return false;
+            shapeName = "topLip";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar, (section.ABar - section.CBar) / 2, 90, -1, section.T, section.CBar) !=
+                0) return false;
+            shapeName = "bottomLip";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar, (section.CBar - section.ABar) / 2, 90, -1, section.T, section.CBar) !=
+                0) return false;
+            return true;
+        }
+
+    #endregion
+
+    #region 冷弯截面相关
+
+        // 增加钢结构截面
+        private bool AddColdFormSection(ISection sectionModel) {
+            return false;
+        }
+
+    #endregion
+
+    #endregion
+
+    #region 材料相关操作
+
+        // 增加材料
+        public bool AddSteelMaterial(string material) {
+            if (SapModel == null) return false;
+            switch (material) {
+                case "Q235": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q235") == 0;
+                case "Q355": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q355") == 0;
+                case "Q390": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q390") == 0;
+                case "Q420": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q420") == 0;
+                case "Q460": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q460") == 0;
+                default:     return false;
+            }
+        }
+
+    #endregion
+
+    #endregion
+
+    #region 设计覆盖项部分
 
         public void SetOverwrite(string groupName,
                                  int    propIndex,
@@ -82,23 +247,13 @@ namespace SapToolBox.Shared.Helpers {
                                  double propValue) {
             switch (DesignCode) {
                 case "Chinese 2018":
-                    SapModel.DesignSteel.Chinese_2018.SetOverwrite(null,
-                                                                   propIndex,
-                                                                   propValue,
-                                                                   eItemType.SelectedObjects);
+                    SapModel.DesignSteel.Chinese_2018.SetOverwrite(null, propIndex, propValue, eItemType.SelectedObjects);
                     break;
                 case "Chinese 2010":
-                    SapModel.DesignSteel.Chinese_2010.SetOverwrite(null,
-                                                                   propIndex,
-                                                                   propValue,
-                                                                   eItemType.SelectedObjects);
+                    SapModel.DesignSteel.Chinese_2010.SetOverwrite(null, propIndex, propValue, eItemType.SelectedObjects);
                     break;
             }
         }
-
-    #endregion
-
-    #region 设计覆盖项部分
 
         //private Dictionary<int, PropertyObj> _overwriteDictionary;
         //private List<OverWriteObj>           _overWriteObjs;

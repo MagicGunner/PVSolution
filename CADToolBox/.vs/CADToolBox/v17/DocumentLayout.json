@@ -3,26 +3,6 @@
   "WorkspaceRootPath": "E:\\00-Code\\PVSolution\\CADToolBox\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.modules.trackerga\\views\\subviews\\designinfoview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|solutionrelative:cadtoolbox.modules.trackerga\\views\\subviews\\designinfoview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.modules.trackerga\\views\\trackermainview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|solutionrelative:cadtoolbox.modules.trackerga\\views\\trackermainview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CA7B2751-628B-4B95-A948-6CC26E01D8DE}|CADToolBox.Shared\\CADToolBox.Shared.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.shared\\models\\uimodels\\implement\\tracker\\postinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CA7B2751-628B-4B95-A948-6CC26E01D8DE}|CADToolBox.Shared\\CADToolBox.Shared.csproj|solutionrelative:cadtoolbox.shared\\models\\uimodels\\implement\\tracker\\postinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DCE51B87-1D33-48A2-8B5C-C4622453EBB1}|CADToolBox.Resource\\CADToolBox.Resource.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.resource\\wpfresource.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{DCE51B87-1D33-48A2-8B5C-C4622453EBB1}|CADToolBox.Resource\\CADToolBox.Resource.csproj|solutionrelative:cadtoolbox.resource\\wpfresource.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.modules.trackerga\\views\\subviews\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|solutionrelative:cadtoolbox.modules.trackerga\\views\\subviews\\homeview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|e:\\00-code\\pvsolution\\cadtoolbox\\cadtoolbox.modules.trackerga\\views\\subviews\\spaninfoview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{21BCD323-C428-4DE2-9246-1808DCF9CB82}|CADToolBox.Modules.TrackerGA\\CADToolBox.Modules.TrackerGA.csproj|solutionrelative:cadtoolbox.modules.trackerga\\views\\subviews\\spaninfoview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -42,87 +22,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WPFResource.xaml",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\WPFResource.xaml",
-              "RelativeDocumentMoniker": "CADToolBox.Resource\\WPFResource.xaml",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Resource\\WPFResource.xaml",
-              "RelativeToolTip": "CADToolBox.Resource\\WPFResource.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T07:30:54.378Z",
+              "DocumentIndex": 1,
+              "Title": "SpanInfoViewModel.cs",
+              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
+              "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
+              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
+              "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
+              "ViewState": "AQIAAHoAAAAAAAAAAAAAAIcAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T04:50:11.653Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DesignInfoView.xaml",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\DesignInfoView.xaml",
-              "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\DesignInfoView.xaml",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\DesignInfoView.xaml",
-              "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\DesignInfoView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T07:28:22.983Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HomeView.xaml",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\HomeView.xaml",
-              "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\HomeView.xaml",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\HomeView.xaml",
-              "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\HomeView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T07:28:22.349Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TrackerMainView.xaml",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\TrackerMainView.xaml",
-              "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\Views\\TrackerMainView.xaml",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\TrackerMainView.xaml",
-              "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\Views\\TrackerMainView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T07:26:49.281Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PostInfo.cs",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\Models\\UIModels\\Implement\\Tracker\\PostInfo.cs",
-              "RelativeDocumentMoniker": "CADToolBox.Shared\\Models\\UIModels\\Implement\\Tracker\\PostInfo.cs",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Shared\\Models\\UIModels\\Implement\\Tracker\\PostInfo.cs",
-              "RelativeToolTip": "CADToolBox.Shared\\Models\\UIModels\\Implement\\Tracker\\PostInfo.cs",
-              "ViewState": "AQIAAIMAAAAAAAAAAAAAAJcAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T02:42:28.822Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "SpanInfoView.xaml",
               "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\SpanInfoView.xaml",
               "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\SpanInfoView.xaml",
               "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\Views\\SubViews\\SpanInfoView.xaml",
               "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\Views\\SubViews\\SpanInfoView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-27T02:37:52.317Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SpanInfoViewModel.cs",
-              "DocumentMoniker": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
-              "RelativeDocumentMoniker": "CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
-              "ToolTip": "E:\\00-Code\\PVSolution\\CADToolBox\\CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
-              "RelativeToolTip": "CADToolBox.Modules.TrackerGA\\ViewModels\\SubViewModels\\SpanInfoViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T02:44:08.077Z"
+              "WhenOpened": "2024-03-27T02:37:52.317Z",
+              "EditorCaption": ""
             }
           ]
         }

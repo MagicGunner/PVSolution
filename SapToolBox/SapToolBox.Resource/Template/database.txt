@@ -1,0 +1,50 @@
+string TableKey = "Section Designer Properties 16 - Shape Polygon";
+            int tableVersion = 0;
+            string[] FieldKeysIncluded = new string[18] { "SectionName", "ShapeName", "X", "Y", "Radius", "ShapeMat", "ZOrder", "FillColor", "CoreDim", "BCoreMajor", "BCoreMinor", "DCoreMajorPositive", "DCoreMajorNegative", "DCoreMinorPositive", "DCoreMinorNegative", "Reinforcing", "RebarMat", "ConcCover" };
+            int NumberRecords = 0;//规格数目
+            string[] TableData = new string[12 * 18];
+            //檩条截面//需要添加详细的计算
+            secJi = "Ji" + heightJi.ToString() + "x" + widthJi.ToString() + "x" + tJi.ToString() + "-" + matJi;
+                _ = mySapModel.PropFrame.SetSDSection(secJi, matJi, 1);//1 = Design as general steel section
+                NumberRecords = 12;
+                double[] kP = new double[7];//3个横坐标+4个纵坐标，从左往右，自上而下
+                kP[0] = (widthJi - 2 * lipJi) / 2 - tJi;
+                kP[1] = (widthJi - 2 * lipJi) / 2;
+                kP[2] = widthJi / 2;
+                double bb = widthJi + 2 * heightJi - 2 * tJi;
+                double cc = heightJi * heightJi + lipJi * (2 * heightJi - tJi) + tJi / 2 * (widthJi - 2 * lipJi - 2 * tJi);
+                double z0 = cc / bb;//另一种方法 z0 = Σ(Ai*xi)/ΣAi
+                kP[3] = heightJi - z0;
+                kP[4] = heightJi - z0 - tJi;
+                kP[5] = -(z0 - tJi);
+                kP[6] = -(z0);
+                TableData[5] = matJi;
+                TableData[6] = "1";
+                TableData[7] = "4210752";//color
+                TableData[8] = "Program Determined";
+                TableData[15] = "No";
+                string[,] kPCoord = new string[12, 2];
+                kPCoord[0, 0] = (-kP[2]).ToString("0.000"); kPCoord[0, 1] = (kP[3]).ToString("0.000");
+                kPCoord[1, 0] = (-kP[0]).ToString("0.000"); kPCoord[1, 1] = (kP[3]).ToString("0.000");
+                kPCoord[2, 0] = (-kP[0]).ToString("0.000"); kPCoord[2, 1] = (kP[5]).ToString("0.000");
+                kPCoord[3, 0] = (kP[0]).ToString("0.000"); kPCoord[3, 1] = (kP[5]).ToString("0.000");
+                kPCoord[4, 0] = (kP[0]).ToString("0.000"); kPCoord[4, 1] = (kP[3]).ToString("0.000");
+                kPCoord[5, 0] = (kP[2]).ToString("0.000"); kPCoord[5, 1] = (kP[3]).ToString("0.000");
+                kPCoord[6, 0] = (kP[2]).ToString("0.000"); kPCoord[6, 1] = (kP[4]).ToString("0.000");
+                kPCoord[7, 0] = (kP[1]).ToString("0.000"); kPCoord[7, 1] = (kP[4]).ToString("0.000");
+                kPCoord[8, 0] = (kP[1]).ToString("0.000"); kPCoord[8, 1] = (kP[6]).ToString("0.000");
+                kPCoord[9, 0] = (-kP[1]).ToString("0.000"); kPCoord[9, 1] = (kP[6]).ToString("0.000");
+                kPCoord[10, 0] = (-kP[1]).ToString("0.000"); kPCoord[10, 1] = (kP[4]).ToString("0.000");
+                kPCoord[11, 0] = (-kP[2]).ToString("0.000"); kPCoord[11, 1] = (kP[4]).ToString("0.000");
+                for (int i = 0; i < NumberRecords; i++)
+                {
+                    TableData[i * 18] = secJi;
+                    TableData[i * 18 + 1] = "Polygon1";
+                    TableData[i * 18 + 2] = kPCoord[i, 0];
+                    TableData[i * 18 + 3] = kPCoord[i, 1];
+                    TableData[i * 18 + 4] = "0";
+                }
+                _ = mySapModel.DatabaseTables.SetTableForEditingArray(TableKey, ref tableVersion, ref FieldKeysIncluded, NumberRecords, ref TableData);
+            //Apply
+            int NumFatalErrors = 0; int NumErrorMsgs = 0; int NumWarnMsgs = 0; int NumInfoMsgs = 0; string ImportLog = null;
+            _ = mySapModel.DatabaseTables.ApplyEditedTables(true, ref NumFatalErrors, ref NumErrorMsgs, ref NumWarnMsgs, ref NumInfoMsgs, ref ImportLog);
