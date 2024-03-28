@@ -33,4 +33,4 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\bin\Debug\net48\
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\bin\Debug\net48\Prism.DryIoc.Wpf.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\bin\Debug\net48\Prism.Wpf.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\obj\Debug\net48\Views\CommonToolsIndexView.baml
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\obj\Debug\net48\SapToolB.1C289E95.Up2Date
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.CommonTools\obj\Debug\net48\SapToolBox.Modules.CommonTools.csproj.CopyComplete

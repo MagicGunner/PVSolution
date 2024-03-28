@@ -15,6 +15,7 @@ using SapToolBox.Shared.Helpers;
 using SapToolBox.Shared.Models.UIModels.Implement;
 using SapToolBox.Shared.Prism;
 using static ImTools.ImMap;
+using static SapToolBox.Modules.CommonTools.Models.UIModels.SectionInfo;
 using IMapper = AutoMapper.IMapper;
 using MapperConfiguration = AutoMapper.MapperConfiguration;
 
@@ -72,29 +73,37 @@ public class SectionDefViewModel : BindableBase {
 
     // 深拷贝工具
     private readonly MapperConfiguration _sectionConfiguration = new(cfg => cfg.CreateMap<SectionInfo, SectionInfo>());
-    private          IMapper             SectionInfoMapper => _sectionConfiguration.CreateMapper();
+
+    private readonly MapperConfiguration _variableInfoConfiguration
+        = new(cfg => cfg.CreateMap<VariableInfo, VariableInfo>());
+
+    private IMapper SectionInfoMapper  => _sectionConfiguration.CreateMapper();
+    private IMapper VariableInfoMapper => _variableInfoConfiguration.CreateMapper();
 
 #endregion
 
 
     public SectionDefViewModel(IContainerProvider containerProvider) {
         _containerProvider = containerProvider;
-        ModelHelper = containerProvider.Resolve<SapModelHelper>();
+        ModelHelper        = containerProvider.Resolve<SapModelHelper>();
         _currentSection = new SectionInfo {
-                                              IsClose = false,
-                                              IsEditable = false,
+                                              IsClose     = false,
+                                              IsEditable  = false,
                                               SectionType = "W型钢",
                                               SectionName = "W8x8",
-                                              Material = "Q355"
+                                              Material    = "Q355"
                                           };
-        SectionNameList = new ObservableCollection<string>(GeneralTemplateData.PostSectionMap[_currentSection.SectionType].Select(item => item.Name).ToList());
-        SectionList = [];
-        SelectedSectionList = [];
+        SectionNameList = new ObservableCollection<string>(GeneralTemplateData
+                                                          .PostSectionMap[_currentSection.SectionType]
+                                                          .Select(item => item.Name)
+                                                          .ToList());
+        SectionList                    = [];
+        SelectedSectionList            = [];
         SectionSelectionChangedCommand = new DelegateCommand<IList>(SectionSelectionChanged);
-        AddSectionCommand = new DelegateCommand(AddSection);
-        DeleteSectionCommand = new DelegateCommand(DeleteSection);
-        EditSectionCommand = new DelegateCommand(EditSection);
-        ExportToSap2000Command = new DelegateCommand(ExportToSap2000);
+        AddSectionCommand              = new DelegateCommand(AddSection);
+        DeleteSectionCommand           = new DelegateCommand(DeleteSection);
+        EditSectionCommand             = new DelegateCommand(EditSection);
+        ExportToSap2000Command         = new DelegateCommand(ExportToSap2000);
         // 需要剔除的截面类型列表
         var excludeSectionTypes = new List<string>();
         excludeSectionTypes.Add("无缝钢管");
@@ -105,7 +114,8 @@ public class SectionDefViewModel : BindableBase {
         excludeSectionTypes.Add("窄翼缘H型钢(HN)");
         excludeSectionTypes.Add("薄壁H型钢(HT)");
 
-        SectionTypeList = GeneralTemplateData.PostSectionMap.Keys.Where(key => !excludeSectionTypes.Contains(key)).ToList(); // 导入有预设截面规格的截面类型
+        SectionTypeList = GeneralTemplateData.PostSectionMap.Keys.Where(key => !excludeSectionTypes.Contains(key))
+                                             .ToList(); // 导入有预设截面规格的截面类型
         SectionTypeList.Add("焊接H型钢");
         SectionTypeList.Add("折弯C型钢");
         SectionTypeList.Add("折弯槽钢");
@@ -133,9 +143,7 @@ public class SectionDefViewModel : BindableBase {
 
     private void SectionSelectionChanged(IList selectedItems) {
         SelectedSectionList = [];
-        foreach (var selectedItem in selectedItems) {
-            SelectedSectionList.Add((SectionInfo)selectedItem);
-        }
+        foreach (var selectedItem in selectedItems) { SelectedSectionList.Add((SectionInfo)selectedItem); }
     }
 
 
@@ -151,11 +159,15 @@ public class SectionDefViewModel : BindableBase {
         }
 
         CurrentSection.DisplayName = CurrentSection.SectionName + "-" + CurrentSection.Material;
-        if (SectionDic.ContainsKey(CurrentSection.DisplayName)) {
-            MessageBox.Show("不可添加重复截面");
-        } else {
+        if (SectionDic.ContainsKey(CurrentSection.DisplayName)) { MessageBox.Show("不可添加重复截面"); } else {
             SectionDic.Add(CurrentSection.DisplayName, true);
-            SectionList!.Add(SectionInfoMapper.Map<SectionInfo, SectionInfo>(CurrentSection));
+            var newSectionInfo = SectionInfoMapper.Map<SectionInfo, SectionInfo>(CurrentSection);
+            newSectionInfo.SectionProps = [];
+            foreach (var variableInfo in CurrentSection.SectionProps!) {
+                newSectionInfo.SectionProps.Add(VariableInfoMapper.Map<VariableInfo, VariableInfo>(variableInfo));
+            }
+
+            SectionList!.Add(newSectionInfo);
         }
     }
 
@@ -165,6 +177,7 @@ public class SectionDefViewModel : BindableBase {
 
         foreach (var sectionInfo in SelectedSectionList) {
             SectionList.Remove(sectionInfo);
+            SectionDic.Remove(sectionInfo.DisplayName!);
         }
     }
 
@@ -173,27 +186,37 @@ public class SectionDefViewModel : BindableBase {
 
         var needEditSection = SelectedSectionList.First();
         CurrentSection = needEditSection;
-        SectionNameList = new ObservableCollection<string>(GeneralTemplateData.PostSectionMap[needEditSection.SectionType!].Select(item => item.Name).ToList());
+        SectionNameList = new ObservableCollection<string>(GeneralTemplateData
+                                                          .PostSectionMap[needEditSection.SectionType!]
+                                                          .Select(item => item.Name)
+                                                          .ToList());
         SectionList!.Remove(needEditSection);
+        SectionDic.Remove(needEditSection.DisplayName!);
     }
 
     private void ExportToSap2000() {
-        cHelper myHelper = new Helper();
-        var sapObject = myHelper.GetObject("CSI.SAP2000.API.SapObject");
-        var sapModel = sapObject?.SapModel;
+        cHelper myHelper  = new Helper();
+        var     sapObject = myHelper.GetObject("CSI.SAP2000.API.SapObject");
+        var     sapModel  = sapObject?.SapModel;
         if (sapModel == null) {
             MessageBox.Show("当前没有打开的Sap2000程序");
             return;
         }
 
         ModelHelper.SapModel = sapModel;
-        if (SectionList == null) return;
+        ModelHelper.OnSapModelChanged();
+        if (SectionList!.Count == 0) {
+            MessageBox.Show("当前列表为空，无需操作");
+            return;
+        }
 
-
+        var successFlag = true;
         foreach (var sectionInfo in SectionList) {
             sectionInfo.InitISection();
-            ModelHelper.AddSection(sectionInfo.Section!, eMatType.Steel);
+            if (!ModelHelper.AddSection(sectionInfo.Section!, eMatType.Steel)) { successFlag = false; }
         }
+
+        MessageBox.Show(successFlag ? "导入成功" : "导入失败");
     }
 
 #endregion
@@ -210,7 +233,7 @@ public class SectionDefViewModel : BindableBase {
                         SectionNameList = new ObservableCollection<string>(value.Select(item => item.Name).ToList());
                         CurrentSection.IsEditable = false;
                     } else {
-                        SectionNameList = null;
+                        SectionNameList           = null;
                         CurrentSection.IsEditable = true;
                     }
                 }

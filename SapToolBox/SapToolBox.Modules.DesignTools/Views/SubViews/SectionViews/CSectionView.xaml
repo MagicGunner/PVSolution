@@ -90,11 +90,11 @@
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource PropName}" Text="壁厚(mm)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.T}" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.t}" />
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <TextBlock Style="{StaticResource PropName}" Text="中心R角(mm)" />
-                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.Rin}" />
+                            <TextBox Style="{StaticResource PropValue}" Text="{Binding CurrentSection.r}" />
                         </StackPanel>
                     </StackPanel>
                 </Expander>

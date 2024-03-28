@@ -2,8 +2,7 @@
 
 namespace SapToolBox.Shared.Models.SectionModels.Interface;
 
-public interface ISection
-{
+public interface ISection {
     public string? Name     { get; set; } // 截面名称
     public string? Material { get; set; } // 截面材质
     public double  Area     { get; }      // 截面积
@@ -21,9 +20,8 @@ public interface ISection
 
     public double Cw { get; } // 翘曲惯性矩
 
-    // 定义事件
-    event EventHandler PropertyChanged;
-
     // 计算有效截面属性
-    public void SetEffectiveWidth(double sigmaMax, double sigmaMin, double sigma1);
+    public void SetEffectiveWidth(double sigmaMax,
+                                  double sigmaMin,
+                                  double sigma1);
 }

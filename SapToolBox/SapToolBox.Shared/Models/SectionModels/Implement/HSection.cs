@@ -68,12 +68,10 @@ public class HSection(
 
     public double Cw => throw new NotImplementedException();
 
-    public event EventHandler PropertyChanged;
 
     public void SetEffectiveWidth(double sigmaMax,
                                   double sigmaMin,
                                   double sigma1) {
-        throw new NotImplementedException();
     }
 
 

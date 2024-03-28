@@ -6,105 +6,123 @@ using SapToolBox.Shared.Models.SectionModels.Interface;
 
 namespace SapToolBox.Shared.Models.SectionModels.Implement;
 
-public class CSection(
-    string name,
-    double h,
-    double w,
-    double l,
-    double t,
-    double r
+public class CSection(string name,
+                      double _H,
+                      double _W,
+                      double _L,
+                      double _t,
+                      double _r
 ) : BindableBase, ISection {
-    #region 截面参数，和材料属性和外力均无关
+#region 截面参数，和材料属性和外力均无关
+
+    public string? Name { get; set; } = name;
 
     public double H {
-        get => h;
+        get => _H;
         set {
-            if (!SetProperty(ref h, value)) return;
+            if (!SetProperty(ref _H, value)) return;
             UpdateGeneralProperties();
         }
     }
 
     public double W {
-        get => w;
+        get => _W;
         set {
-            if (!SetProperty(ref w, value)) return;
+            if (!SetProperty(ref _W, value)) return;
             UpdateGeneralProperties();
         }
     }
 
     public double L {
-        get => l;
+        get => _L;
         set {
-            if (!SetProperty(ref l, value)) return;
+            if (!SetProperty(ref _L, value)) return;
             RaisePropertyChanged(nameof(Alpha));
             UpdateGeneralProperties();
         }
     }
 
-    public double T {
-        get => t;
+    public double t {
+        get => _t;
         set {
-            if (!SetProperty(ref t, value)) return;
+            if (!SetProperty(ref _t, value)) return;
             RaisePropertyChanged(nameof(R));
             UpdateGeneralProperties();
         }
     }
 
     // 内R角
-    public double Rin {
-        get => r;
+    public double r {
+        get => _r;
         set {
-            if (!SetProperty(ref r, value)) return;
+            if (!SetProperty(ref _r, value)) return;
             RaisePropertyChanged(nameof(R));
             RaisePropertyChanged(nameof(U));
             UpdateGeneralProperties();
         }
     }
 
-    public double R     => Rin + T / 2;
+    public double R     => r + t / 2; // 中心R角
     public double Alpha => L == 0 ? 0 : 1;
-    public double A     => H - (2 * R + T);
-    public double B     => W - (2 * R + T);
-    public double C     => Alpha * (L - (R + T / 2));
-    public double U     => 0.5 * Math.PI * R;
+    public double A     => H - (2 * R + t);
+    public double B     => W - (2 * R + t);
+    public double C     => Alpha * (L - (R + t / 2));
+    public double U     => 0.5   * Math.PI * R;
 
-    public double ABar => H - T;
-    public double BBar => W - T / 2 - Alpha * T / 2;
-    public double CBar => Alpha * (L - T / 2);
+    public double ABar => H - t;
+    public double BBar => W - t / 2 - Alpha * t / 2;
+    public double CBar => Alpha * (L - t / 2);
 
-    public double TheoryBlankLength => H + 2 * W + 2 * L - 4 * T;
-    public double RealBlankLength   => H + 2 * W + 2 * L - 8 * T;
+    public double TheoryBlankLength => H + 2 * W + 2 * L - 4 * t;
+    public double RealBlankLength   => H + 2 * W + 2 * L - 8 * t;
 
 
-    public string? Name     { get; set; } = name;
     public string? Material { get; set; }
 
 
-    public double Area => T * (A + 2 * B + 2 * U + Alpha * (2 * C + 2 * U));
+    public double Area => t * (A + 2 * B + 2 * U + Alpha * (2 * C + 2 * U));
 
     public double Ixx =>
-        2 * T * (0.0417 * Math.Pow(A, 3) + B * Math.Pow(A / 2 + R, 2) + U * Math.Pow(A / 2 + 0.637 * R, 2) + 0.149 * Math.Pow(R, 3) +
-                 Alpha * (0.0833 * Math.Pow(C, 3) + C / 4 * Math.Pow(A - C, 2) + U * Math.Pow(A / 2 + 0.637 * R, 2) + 0.149 * Math.Pow(R, 3)));
+        2
+      * t
+      * (0.0417 * Math.Pow(A,                 3)
+       + B      * Math.Pow(A / 2 + R,         2)
+       + U      * Math.Pow(A / 2 + 0.637 * R, 2)
+       + 0.149  * Math.Pow(R,                 3)
+       + Alpha
+       * (0.0833 * Math.Pow(C,                 3)
+        + C / 4  * Math.Pow(A     - C,         2)
+        + U      * Math.Pow(A / 2 + 0.637 * R, 2)
+        + 0.149  * Math.Pow(R,                 3)));
 
-    public double Xc => 2 * T / Area * (B * (B / 2 + R) + U * 0.363 * R + Alpha * (U * (B + 1.637 * R) + C * (B + 2 * R)));
+    public double Xc =>
+        2 * t / Area * (B * (B / 2 + R) + U * 0.363 * R + Alpha * (U * (B + 1.637 * R) + C * (B + 2 * R)));
 
     public double Yc => 0;
 
     public double Iyy =>
-        2 * T * (B * Math.Pow(B / 2 + R, 2) + Math.Pow(B, 3) / 12 + 0.356 * Math.Pow(R, 3) + Alpha * (C * Math.Pow(B + 2 * R, 2) + U * Math.Pow(B + 1.637 * R, 2) + 0.149 * Math.Pow(R, 3))) -
-        Area * Math.Pow(Xc, 2);
+        2
+      * t
+      * (B * Math.Pow(B / 2 + R, 2)
+       + Math.Pow(B,             3) / 12
+       + 0.356 * Math.Pow(R, 3)
+       + Alpha * (C * Math.Pow(B + 2 * R, 2) + U * Math.Pow(B + 1.637 * R, 2) + 0.149 * Math.Pow(R, 3)))
+      - Area * Math.Pow(Xc, 2);
 
     public double M =>
-        -BBar * ((3 * ABar * ABar * BBar + Alpha * CBar * (6 * ABar * ABar - 8 * CBar * CBar)) /
-                 (Math.Pow(ABar, 3) + 6 * ABar * ABar * BBar + Alpha * CBar * (8 * CBar * CBar - 12 * ABar * CBar + 6 * ABar * ABar)));
+        -BBar
+      * ((3 * ABar * ABar * BBar + Alpha * CBar * (6 * ABar * ABar - 8 * CBar * CBar))
+       / (Math.Pow(ABar, 3)
+        + 6     * ABar * ABar * BBar
+        + Alpha * CBar * (8 * CBar * CBar - 12 * ABar * CBar + 6 * ABar * ABar)));
 
     public double Ixy { get; }
 
-    public double J => Math.Pow(T, 3) / 3 * (A + 2 * B + 2 * U + Alpha * (2 * C + 2 * U));
+    public double J => Math.Pow(t, 3) / 3 * (A + 2 * B + 2 * U + Alpha * (2 * C + 2 * U));
 
     public double Wxx => Ixx / (H / 2);
 
-    public double Wyy => Iyy / Math.Max(Xc + T / 2, W - Xc - T / 2);
+    public double Wyy => Iyy / Math.Max(Xc + t / 2, W - Xc - t / 2);
 
     public double Zxx => Wxx;
 
@@ -118,22 +136,37 @@ public class CSection(
 
 
     public double Cw =>
-        Math.Pow(ABar * BBar, 2) * T / 12 * ((2 * Math.Pow(ABar, 3) * BBar + 3 * Math.Pow(ABar * BBar, 2) + Alpha *
-                                              (48 * Math.Pow(CBar, 4) + 112 * BBar * Math.Pow(CBar, 3) + 8 * ABar * Math.Pow(CBar, 3) + 48 * ABar * BBar * CBar * CBar +
-                                               12 * ABar * ABar * CBar * CBar + 12 * ABar * ABar * BBar * CBar + 6 * Math.Pow(ABar, 3) * CBar)) /
-                                             (6 * Math.Pow(ABar, 2) * BBar + Math.Pow(ABar + Alpha * 2 * CBar, 3) - Alpha * 24 * ABar * Math.Pow(CBar, 2)));
+        Math.Pow(ABar * BBar, 2)
+      * t
+      / 12
+      * ((2 * Math.Pow(ABar,        3) * BBar
+        + 3 * Math.Pow(ABar * BBar, 2)
+        + Alpha
+        * (48  * Math.Pow(CBar,                     4)
+         + 112 * BBar              * Math.Pow(CBar, 3)
+         + 8   * ABar              * Math.Pow(CBar, 3)
+         + 48  * ABar              * BBar * CBar * CBar
+         + 12  * ABar              * ABar * CBar * CBar
+         + 12  * ABar              * ABar * BBar * CBar
+         + 6   * Math.Pow(ABar, 3) * CBar))
+       / (6 * Math.Pow(ABar, 2) * BBar + Math.Pow(ABar + Alpha * 2 * CBar, 3) - Alpha * 24 * ABar * Math.Pow(CBar, 2)));
 
-    public double BetaW => -(T * Xc * Math.Pow(ABar, 3) / 12 + T * Math.Pow(Xc, 3) * ABar);
+    public double BetaW => -(t * Xc * Math.Pow(ABar, 3) / 12 + t * Math.Pow(Xc, 3) * ABar);
 
-    public double BetaF => T / 2 * (Math.Pow(BBar - Xc, 4) - Math.Pow(Xc, 4)) + T * ABar * ABar / 4 * ((BBar - Xc) * (BBar - Xc) - Xc * Xc);
+    public double BetaF =>
+        t               / 2 * (Math.Pow(BBar - Xc, 4)    - Math.Pow(Xc, 4))
+      + t * ABar * ABar / 4 * ((BBar - Xc) * (BBar - Xc) - Xc * Xc);
 
-    public double BetaT => Alpha * (2 * CBar * T * Math.Pow(BBar - Xc, 3) + 2 * T / 3 * (BBar - Xc) * (Math.Pow(ABar / 2, 3) - Math.Pow(ABar / 2 - CBar, 3)));
+    public double BetaT =>
+        Alpha
+      * (2         * CBar        * t * Math.Pow(BBar - Xc, 3)
+       + 2 * t / 3 * (BBar - Xc) * (Math.Pow(ABar / 2, 3) - Math.Pow(ABar / 2 - CBar, 3)));
 
     public double JJ => (BetaW + BetaF + BetaT) / 2 / Iyy + X0;
 
-    #endregion
+#endregion
 
-    #region 有效截面参数，与材料属性和外力有关
+#region 有效截面参数，与材料属性和外力有关
 
     // 腹板有效宽度相关信息
     private Tuple<double, double, double, double> _webEff;
@@ -141,9 +174,7 @@ public class CSection(
     public Tuple<double, double, double, double> WebEff {
         get => _webEff;
         set {
-            if (SetProperty(ref _webEff, value)) {
-                UpdateGeneralProperties();
-            }
+            if (SetProperty(ref _webEff, value)) { UpdateGeneralProperties(); }
         }
     }
 
@@ -172,20 +203,20 @@ public class CSection(
     public double BeMin         => FlangeEffMin.Item1;
     public double BeMinCritical => FlangeEffMin.Item4;
 
-    public double AreaEff => T * (Ae + BeMax + BeMin + 2 * U + Alpha * (2 * C + 2 * U));
+    public double AreaEff => t * (Ae + BeMax + BeMin + 2 * U + Alpha * (2 * C + 2 * U));
 
     public double YcEff {
         get {
             // 初始形心纵坐标为中心
             // 圆角处和翻边处正负抵消
-            var eOfFlange = H / 2 - T / 2;
+            var eOfFlange = H / 2 - t / 2;
             // 两个翼板面积距，上侧坐标为正，下侧为负
-            var Ay = T * (BeMax - BeMin) * eOfFlange;
+            var Ay = t * (BeMax - BeMin) * eOfFlange;
             // 上侧腹板有效面积部分
             var webBe1 = WebEff.Item2;
-            Ay += webBe1 * T * (H / 2 - Rin - T - webBe1 / 2);
-            var webBe2 = Ae - webBe1;
-            Ay += webBe2 * T * (-H / 2 + Rin + T + webBe2 / 2);
+            Ay += webBe1 * t * (H / 2  - r - t - webBe1 / 2);
+            var webBe2 = Ae            - webBe1;
+            Ay += webBe2 * t * (-H / 2 + r + t + webBe2 / 2);
             return Ay / AreaEff;
         }
     }
@@ -193,23 +224,23 @@ public class CSection(
     public double IxxEff {
         get {
             // 初始形心纵坐标为中心
-            var eOfFlange = H / 2 - T / 2;
+            var eOfFlange = H / 2 - t / 2;
             // 两个翼板 绕自身惯性矩 面积二次矩
-            var Ie = Math.Pow(T, 3) * (BeMax + BeMin) / 12;
-            var Ay2 = T * (BeMax + BeMin) * eOfFlange * eOfFlange;
+            var Ie  = Math.Pow(t, 3) * (BeMax + BeMin) / 12;
+            var Ay2 = t                                * (BeMax + BeMin) * eOfFlange * eOfFlange;
             // 腹板有效面积部分
             var webBe1 = WebEff.Item2;
-            Ie += T * Math.Pow(webBe1, 3) / 12;
-            Ay2 += webBe1 * T * Math.Pow(H / 2 - Rin - T - webBe1 / 2, 2);
+            Ie  += t * Math.Pow(webBe1, 3) / 12;
+            Ay2 += webBe1                  * t * Math.Pow(H / 2 - r - t - webBe1 / 2, 2);
             var webBe2 = Ae - webBe1;
-            Ie += T * Math.Pow(webBe2, 3) / 12;
-            Ay2 += webBe2 * T * Math.Pow(-H / 2 + Rin + T + webBe2 / 2, 2);
+            Ie  += t * Math.Pow(webBe2, 3) / 12;
+            Ay2 += webBe2                  * t * Math.Pow(-H / 2 + r + t + webBe2 / 2, 2);
             // 倒角
-            Ie += L == 0 ? 0.149 * Math.Pow(R, 3) * 2 : 0.149 * Math.Pow(R, 3) * 4;
-            Ay2 += L == 0 ? U * T * Math.Pow(0.637 * R + A / 2, 2) * 2 : U * T * Math.Pow(0.637 * R + A / 2, 2) * 4;
+            Ie  += L == 0 ? 0.149 * Math.Pow(R, 3) * 2 : 0.149 * Math.Pow(R, 3) * 4;
+            Ay2 += L == 0 ? U     * t * Math.Pow(0.637 * R + A / 2, 2) * 2 : U * t * Math.Pow(0.637 * R + A / 2, 2) * 4;
             //翻边全部有效
-            Ie += 2 * T * Math.Pow(C, 3) / 12;
-            Ay2 += 2 * T * C * Math.Pow(H / 2 - Rin - T - C / 2, 2);
+            Ie  += 2 * t * Math.Pow(C, 3) / 12;
+            Ay2 += 2                      * t * C * Math.Pow(H / 2 - r - t - C / 2, 2);
             return Ie + Ay2;
         }
     }
@@ -228,12 +259,12 @@ public class CSection(
     public void SetEffectiveWidth(double sigmaMax,
                                   double sigmaMin,
                                   double sigma1) {
-        #region 考虑相邻板组的约束系数，后面考虑
+    #region 考虑相邻板组的约束系数，后面考虑
 
         //// 腹板有效宽度计算参数
         //var sigmaRadio  = (sigmaMax - sigmaMin) / H; // 应力变化率
-        //var webSigmaMax = sigmaMax - sigmaRadio * (Rin + T);
-        //var webSigmaMin = sigmaMin + sigmaRadio * (Rin + T);
+        //var webSigmaMax = sigmaMax - sigmaRadio * (r + t);
+        //var webSigmaMin = sigmaMin + sigmaRadio * (r + t);
         //var webPsi      = webSigmaMin / webSigmaMax;
         //webPsi = webPsi < -1 ? -1 : webPsi;
         //var webK = webPsi switch {
@@ -246,7 +277,7 @@ public class CSection(
         //var    flangePsi = 1.0;
         //double flangeK;
         //// 默认最大压应力作用于支承边,此处有疑问需要仔细研究**********************************************************
-        //if (l == 0) { // 翻边为0时当前截面为折弯槽钢，翼板视为非加筋板件
+        //if (_L == 0) { // 翻边为0时当前截面为折弯槽钢，翼板视为非加筋板件
         //    flangeK = flangePsi switch {
         //                  // 默认最大压应力作用于支承边,此处有疑问需要仔细研究**********************************************************
         //                  > 0 and <= 1     => 1.70 - 3.025 * flangePsi + 1.75 * flangePsi * flangePsi,
@@ -257,7 +288,7 @@ public class CSection(
         //} else {
         //    var b  = B;
         //    var a  = C;
-        //    var I  = Math.Pow(a, 3) * T * (1 + 4 * b / a) / 12 / (1 + b / a);
+        //    var I  = Math.Pow(a, 3) * t * (1 + 4 * b / a) / 12 / (1 + b / a);
         //    var hw = A;
         //}
 
@@ -272,33 +303,41 @@ public class CSection(
         //               _                => throw new ArgumentOutOfRangeException()
         //           };
 
-        #endregion
+    #endregion
 
         var sigmaRadio = (sigmaMax - sigmaMin) / H; // 应力变化率
 
         // 腹板有效宽度计算参数
-        var webSigmaMax = sigmaMax - sigmaRadio * (Rin + T);
-        var webSigmaMin = sigmaMin + sigmaRadio * (Rin + T);
-        var webEffWidthResult = GetEffectiveWidth(A, T, webSigmaMax, webSigmaMin, sigma1, 2);
+        var webSigmaMax       = sigmaMax - sigmaRadio * (r + t);
+        var webSigmaMin       = sigmaMin + sigmaRadio * (r + t);
+        var webEffWidthResult = GetEffectiveWidth(A, t, webSigmaMax, webSigmaMin, sigma1, 2);
         WebEff = webSigmaMax <= 0 ? Tuple.Create(A, 0.5 * A, 0.5 * A, A) : webEffWidthResult;
         // 受压侧翼板有效宽度计算参数
-        var flangeSigmaMax = sigmaMax - sigmaRadio * T / 2;
-        var flangeSigmaMin = sigmaMin + sigmaRadio * T / 2;
-        if (l > 0) { // 翻边C型钢
+        var flangeSigmaMax = sigmaMax - sigmaRadio * t / 2;
+        var flangeSigmaMin = sigmaMin + sigmaRadio * t / 2;
+        if (_L > 0) { // 翻边C型钢
             // 最大压应力侧
-            FlangeEffMax = flangeSigmaMax < 0 ? Tuple.Create(B, 0.5 * B, 0.5 * B, B) : GetEffectiveWidth(B, T, flangeSigmaMax, flangeSigmaMax, sigma1, 1);
+            FlangeEffMax = flangeSigmaMax < 0
+                               ? Tuple.Create(B, 0.5 * B, 0.5 * B, B)
+                               : GetEffectiveWidth(B, t, flangeSigmaMax, flangeSigmaMax, sigma1, 1);
             // 最小压应力侧
-            FlangeEffMin = flangeSigmaMin < 0 ? Tuple.Create(B, 0.5 * B, 0.5 * B, B) : GetEffectiveWidth(B, T, flangeSigmaMin, flangeSigmaMin, sigma1, 1);
+            FlangeEffMin = flangeSigmaMin < 0
+                               ? Tuple.Create(B, 0.5 * B, 0.5 * B, B)
+                               : GetEffectiveWidth(B, t, flangeSigmaMin, flangeSigmaMin, sigma1, 1);
 
             // 翻边只需校核是否满足最小宽厚比要求
         } else { // 无翻边C型钢
             // 最大压应力侧
-            FlangeEffMax = flangeSigmaMax < 0 ? Tuple.Create(B, 0.5 * B, 0.5 * B, B) : GetEffectiveWidth(B, T, flangeSigmaMax, flangeSigmaMax, sigma1, 0);
+            FlangeEffMax = flangeSigmaMax < 0
+                               ? Tuple.Create(B, 0.5 * B, 0.5 * B, B)
+                               : GetEffectiveWidth(B, t, flangeSigmaMax, flangeSigmaMax, sigma1, 0);
             // 最小压应力侧
-            FlangeEffMin = flangeSigmaMin < 0 ? Tuple.Create(B, 0.5 * B, 0.5 * B, B) : GetEffectiveWidth(B, T, flangeSigmaMin, flangeSigmaMin, sigma1, 0);
+            FlangeEffMin = flangeSigmaMin < 0
+                               ? Tuple.Create(B, 0.5 * B, 0.5 * B, B)
+                               : GetEffectiveWidth(B, t, flangeSigmaMin, flangeSigmaMin, sigma1, 0);
         }
 
-        MinLipLength = ChineseDesignLookUp.Instance.GetChineseColdFormedLipMinAtRatio(B / T) * T + Rin + T;
+        MinLipLength = ChineseDesignLookUp.Instance.GetChineseColdFormedLipMinAtRatio(B / t) * t + r + t;
 
         // 通知有效截面参数更新
         //RaisePropertyChanged(nameof(WebEff));
@@ -336,19 +375,19 @@ public class CSection(
                                                                    int    elementType) {
         if (thickness == 0) return Tuple.Create(0.0, 0.0, 0.0, 0.0);
 
-        var b_tRadio = flatWidth / thickness;                  // 宽厚比
-        var psi = sigmaMin / sigmaMax;                         // // 应力分布不均匀系数
-        var alpha = psi < 0 ? 1.15 : 1.15 - 0.15;              // 计算系数
-        var bc = psi >= 0 ? flatWidth : flatWidth / (1 - psi); // 板件受压区宽度
-        psi = psi < -1 ? -1 : psi;                             // 当psi小于1时按照1.0考虑
+        var b_tRadio = flatWidth / thickness;                        // 宽厚比
+        var psi      = sigmaMin  / sigmaMax;                         // // 应力分布不均匀系数
+        var alpha    = psi < 0 ? 1.15 : 1.15 - 0.15;                 // 计算系数
+        var bc       = psi >= 0 ? flatWidth : flatWidth / (1 - psi); // 板件受压区宽度
+        psi = psi < -1 ? -1 : psi;                                   // 当psi小于1时按照1.0考虑
 
         // 暂时不考虑板组之间的约束系数
         const double k1 = 1.0;
         var k = elementType switch {
                     0 => psi switch { // 最大压应力作用在支承边
                              > 0 and <= 1     => 1.70 - 3.025 * psi + 1.75 * psi * psi,
-                             > -0.4 and <= 0  => 1.70 - 1.75 * psi + 55 * psi * psi,
-                             > -1 and <= -0.4 => 6.07 - 9.51 * psi + 8.33 * psi * psi,
+                             > -0.4 and <= 0  => 1.70 - 1.75  * psi + 55   * psi * psi,
+                             > -1 and <= -0.4 => 6.07 - 9.51  * psi + 8.33 * psi * psi,
                              _                => throw new ArgumentOutOfRangeException()
                          },
                     1 => 5.89 - 11.59 * psi + 6.68 * psi * psi, // 最大压应力作用在支承边
@@ -371,9 +410,7 @@ public class CSection(
         var be = bc;
         if (b_tRadio > critical1 && b_tRadio <= critical2) {
             be = bc * (Math.Sqrt(21.8 * alpha * pho / b_tRadio) - 0.1);
-        } else if (b_tRadio >= critical2) {
-            be = bc * 25 * alpha * pho / b_tRadio;
-        }
+        } else if (b_tRadio >= critical2) { be = bc * 25 * alpha * pho / b_tRadio; }
 
         var be1 = elementType == 2 && psi >= 0 ? 2 * be / (5 - psi) : 0.4 * be;
         var be2 = be - be1;
@@ -403,14 +440,18 @@ public class CSection(
                                                    int    elementType) {
         if (thickness == 0) return Tuple.Create(0.0, 0.0);
 
-        var b_tRadio = flatWidth / thickness;                  // 宽厚比// 应力分布不均匀系数
-        var alpha = psi < 0 ? 1.15 : 1.15 - 0.15;              // 计算系数
-        var bc = psi >= 0 ? flatWidth : flatWidth / (1 - psi); // 板件受压区宽度
+        var b_tRadio = flatWidth / thickness;                        // 宽厚比// 应力分布不均匀系数
+        var alpha    = psi < 0 ? 1.15 : 1.15 - 0.15;                 // 计算系数
+        var bc       = psi >= 0 ? flatWidth : flatWidth / (1 - psi); // 板件受压区宽度
 
         // 板组约束系数计算
         var ksi = flatWidthOfBorder / flatWidth * Math.Sqrt(k / kc);
         // 暂时不考虑板组之间的约束系数
-        var k1 = thickness >= 2 ? 1 : ksi <= 1.1 ? 1 / Math.Sqrt(ksi) : 0.11 + 0.93 / Math.Pow(ksi - 0.05, 2);
+        var k1 = thickness >= 2
+                     ? 1
+                     : ksi <= 1.1
+                         ? 1 / Math.Sqrt(ksi)
+                         : 0.11 + 0.93 / Math.Pow(ksi - 0.05, 2);
         k1 = elementType switch {
                  0 => Math.Min(k1, 3.0),
                  1 => Math.Min(k1, 2.4),
@@ -427,16 +468,14 @@ public class CSection(
         var effectiveWidth = flatWidth;
         if (b_tRadio > critical1 && b_tRadio <= critical2) {
             effectiveWidth = flatWidth + bc * (Math.Sqrt(21.8 * alpha * pho / b_tRadio) - 0.1) - bc;
-        } else if (b_tRadio >= critical2) {
-            effectiveWidth = flatWidth + bc * 25 * alpha * pho / b_tRadio - bc;
-        }
+        } else if (b_tRadio >= critical2) { effectiveWidth = flatWidth + bc * 25 * alpha * pho / b_tRadio - bc; }
 
         return Tuple.Create(effectiveWidth, criticalWidth);
     }
 
-    #endregion
+#endregion
 
-    #region 通用方法区
+#region 通用方法区
 
     // 通知一般属性更新
     private void UpdateGeneralProperties() {
@@ -475,28 +514,28 @@ public class CSection(
 
     // 通知有效截面属性更新
 
-    #endregion
+#endregion
 
-    #region 构造函数
+#region 构造函数
 
     /// <summary>
     /// 折弯槽钢构造函数
     /// </summary>
     /// <param name="name"></param> C型钢名字
-    /// <param name="h"></param> 总高度
-    /// <param name="w"></param> 总宽度
+    /// <param name="_H"></param> 总高度
+    /// <param name="_W"></param> 总宽度
     /// <param name="t"></param> 厚度
     /// <param name="r"></param> 中心R角
     public CSection(string name,
-                    double h,
-                    double w,
-                    double t,
-                    double r) : this(name, h, w, 0, t, r) {
+                    double _H,
+                    double _W,
+                    double _t,
+                    double _r) : this(name, _H, _W, 0, _t, _r) {
     }
 
-    #endregion
+#endregion
 
-    #region 事件委托
+#region 事件委托
 
     public new event EventHandler? PropertyChanged;
 
@@ -505,5 +544,5 @@ public class CSection(
         PropertyChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    #endregion
+#endregion
 }

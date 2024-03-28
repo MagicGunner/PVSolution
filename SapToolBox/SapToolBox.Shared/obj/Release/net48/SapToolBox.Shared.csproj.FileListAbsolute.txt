@@ -17,6 +17,6 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.AssemblyInfo.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.sourcelink.json
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolB.84DAC053.Up2Date
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.dll
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.pdb
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Shared\obj\Release\net48\SapToolBox.Shared.csproj.CopyComplete

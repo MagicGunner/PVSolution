@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SapToolBox.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bce752ed71f22840ead9d1f413232794970b538a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e00e27e1896121d89f2c33be278378752dfba4d")]
 [assembly: System.Reflection.AssemblyProductAttribute("SapToolBox.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SapToolBox.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.*")]

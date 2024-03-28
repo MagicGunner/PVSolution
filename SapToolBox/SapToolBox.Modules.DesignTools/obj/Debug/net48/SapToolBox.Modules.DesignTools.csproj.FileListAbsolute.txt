@@ -34,4 +34,4 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\bin\Debug\net48\
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\bin\Debug\net48\SapToolBox.Resource.pdb
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\obj\Debug\net48\Views\DesignToolsIndexView.baml
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\obj\Debug\net48\SapToolBox.Modules.DesignTools.g.resources
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\obj\Debug\net48\SapToolB.42E99BEC.Up2Date
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Modules.DesignTools\obj\Debug\net48\SapToolBox.Modules.DesignTools.csproj.CopyComplete

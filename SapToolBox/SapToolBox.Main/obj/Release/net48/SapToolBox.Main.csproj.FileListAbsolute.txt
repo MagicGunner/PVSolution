@@ -36,6 +36,6 @@ E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Ma
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.AssemblyInfo.cs
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.csproj.CoreCompileInputs.cache
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.sourcelink.json
-E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolB.752EAAE9.Up2Date
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.exe
 E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.pdb
+E:\00-Code\PVSolution\SapToolBox\SapToolBox.Main\obj\Release\net48\SapToolBox.Main.csproj.CopyComplete

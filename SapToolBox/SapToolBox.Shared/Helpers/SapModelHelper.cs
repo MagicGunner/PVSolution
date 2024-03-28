@@ -78,7 +78,7 @@ namespace SapToolBox.Shared.Helpers {
 
         public int SectionNum => _sectionNum;
 
-        private string[] _sectionNameList;
+        private string[] _sectionNameList = [];
 
         public List<string> SectionNameList => [.. _sectionNameList];
 
@@ -108,7 +108,7 @@ namespace SapToolBox.Shared.Helpers {
     #region 方法
 
         // 当SapModel改变时触发
-        private void OnSapModelChanged() {
+        public void OnSapModelChanged() {
             if (SapModel == null) return;
 
             SapModel.GroupDef.GetNameList(ref _groupNum, ref _groupNameList);
@@ -133,20 +133,18 @@ namespace SapToolBox.Shared.Helpers {
         private bool AddSteelSection(ISection sectionModel) {
             if (sectionModel.Name == null || sectionModel.Material == null) return false;
             // 如果有重名的则在后面加上数字
-            if (SteelMaterialNameList.Contains(sectionModel.Name)) {
-                var nameStrList = sectionModel.Name.Split('-');
-                if (int.TryParse(nameStrList.Last(), out var count)) { // 重名最后是整数则加1
-                    var tempName = "";
-                    for (var i = 0; i < nameStrList.Length - 1; i++) {
-                        tempName += nameStrList[i] + "-";
-                    }
+            //if (SectionNameList.Contains(sectionModel.Name)) {
+            //    var nameStrList = sectionModel.Name.Split('-');
+            //    if (int.TryParse(nameStrList.Last(), out var count)) { // 重名最后是整数则加1
+            //        var tempName = "";
+            //        for (var i = 0; i < nameStrList.Length - 1; i++) { tempName += nameStrList[i] + "-"; }
 
-                    tempName += (count + 1).ToString();
-                    sectionModel.Name = tempName;
-                } else { // 重名最后不是整数说明第一次重复
-                    sectionModel.Name += "1";
-                }
-            }
+            //        tempName          += (count + 1).ToString();
+            //        sectionModel.Name =  tempName;
+            //    } else { // 重名最后不是整数说明第一次重复
+            //        sectionModel.Name += "-1";
+            //    }
+            //}
 
             // 如果当前模型没有需要的材料则增加
             if (!SteelMaterialNameList.Contains(sectionModel.Material)) {
@@ -155,45 +153,198 @@ namespace SapToolBox.Shared.Helpers {
                 }
             }
 
-            switch (sectionModel) {
-                case HSection hSection: return AddHSection(hSection);
-                case CSection cSection:
-                    return AddCSection(cSection);
-                    break;
-                case HatSection:
-                case LSection:
-                case PileSection:
-                case RectSection:
-                default: return false;
-            }
+            return sectionModel switch {
+                       HSection hSection       => AddHSection(hSection),
+                       CSection cSection       => AddCSection(cSection),
+                       HatSection hatSection   => AddHatSection(hatSection),
+                       LSection lSection       => AddLSection(lSection),
+                       PileSection pileSection => AddPileSection(pileSection),
+                       TubeSection tubeSection => AddTubeSection(tubeSection),
+                       _                       => false
+                   };
         }
 
         private bool AddHSection(HSection section) {
             if (SapModel == null) return false;
-            return SapModel.PropFrame.SetISection(section.Name, section.Material, section.H, section.B, section.Tf, section.Tw, section.B, section.Tf) == 0;
+            return SapModel.PropFrame.SetISection(section.Name,
+                                                  section.Material,
+                                                  section.H,
+                                                  section.B,
+                                                  section.Tf,
+                                                  section.Tw,
+                                                  section.B,
+                                                  section.Tf)
+                == 0;
         }
 
         private bool AddCSection(CSection section) {
             if (SapModel == null) return false;
             if (section.L == 0) { // 折弯槽钢
-                return false;
+                return SapModel.PropFrame.SetChannel(section.Name,
+                                                     section.Material,
+                                                     section.H,
+                                                     section.W,
+                                                     section.t,
+                                                     section.t)
+                    == 0;
             }
 
             if (SapModel.PropFrame.SetSDSection(section.Name, section.Material, 1) != 0) return false;
             var shapeName = "web";
-            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc, 0, 90, -1, section.T, section.ABar) != 0) return false;
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.Xc,
+                                                    0,
+                                                    90,
+                                                    -1,
+                                                    section.t,
+                                                    section.ABar)
+             != 0)
+                return false;
             shapeName = "topFlange";
-            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar / 2, section.ABar / 2, 0, -1, section.T, section.BBar) != 0) return false;
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.Xc + section.BBar / 2,
+                                                    section.ABar / 2,
+                                                    0,
+                                                    -1,
+                                                    section.t,
+                                                    section.BBar)
+             != 0)
+                return false;
             shapeName = "bottomFlange";
-            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar / 2, -section.ABar / 2, 0, -1, section.T, section.BBar) !=
-                0) return false;
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.Xc + section.BBar / 2,
+                                                    -section.ABar / 2,
+                                                    0,
+                                                    -1,
+                                                    section.t,
+                                                    section.BBar)
+             != 0)
+                return false;
             shapeName = "topLip";
-            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar, (section.ABar - section.CBar) / 2, 90, -1, section.T, section.CBar) !=
-                0) return false;
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.Xc + section.BBar,
+                                                    (section.ABar - section.CBar) / 2,
+                                                    90,
+                                                    -1,
+                                                    section.t,
+                                                    section.CBar)
+             != 0)
+                return false;
             shapeName = "bottomLip";
-            if (SapModel.PropFrame.SDShape.SetPlate(section.Name, ref shapeName, section.Material, -section.Xc + section.BBar, (section.CBar - section.ABar) / 2, 90, -1, section.T, section.CBar) !=
-                0) return false;
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.Xc + section.BBar,
+                                                    (section.CBar - section.ABar) / 2,
+                                                    90,
+                                                    -1,
+                                                    section.t,
+                                                    section.CBar)
+             != 0)
+                return false;
             return true;
+        }
+
+        private bool AddHatSection(HatSection section) {
+            if (SapModel                                                           == null) return false;
+            if (SapModel.PropFrame.SetSDSection(section.Name, section.Material, 1) != 0) return false;
+            var shapeName = "web";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    0,
+                                                    -section.Xc,
+                                                    0,
+                                                    -1,
+                                                    section.t,
+                                                    section.ABar)
+             != 0)
+                return false;
+            shapeName = "topFlange";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    section.ABar / 2,
+                                                    -section.Xc + section.BBar / 2,
+                                                    90,
+                                                    -1,
+                                                    section.t,
+                                                    section.BBar)
+             != 0)
+                return false;
+            shapeName = "bottomFlange";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -section.ABar / 2,
+                                                    -section.Xc + section.BBar / 2,
+                                                    90,
+                                                    -1,
+                                                    section.t,
+                                                    section.BBar)
+             != 0)
+                return false;
+            shapeName = "topLip";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    -(section.ABar + section.CBar) / 2,
+                                                    section.BBar - section.Xc,
+                                                    0,
+                                                    -1,
+                                                    section.t,
+                                                    section.CBar)
+             != 0)
+                return false;
+            shapeName = "bottomLip";
+            if (SapModel.PropFrame.SDShape.SetPlate(section.Name,
+                                                    ref shapeName,
+                                                    section.Material,
+                                                    (section.ABar + section.CBar) / 2,
+                                                    section.BBar - section.Xc,
+                                                    0,
+                                                    -1,
+                                                    section.t,
+                                                    section.CBar)
+             != 0)
+                return false;
+            return true;
+        }
+
+        private bool AddPileSection(PileSection section) {
+            if (SapModel == null) return false;
+
+            return SapModel.PropFrame.SetPipe(section.Name, section.Material, section.D, section.t) == 0;
+        }
+
+        private bool AddLSection(LSection section) {
+            if (SapModel == null) return false;
+            return SapModel.PropFrame.SetAngle(section.Name,
+                                               section.Material,
+                                               section.B,
+                                               section.b,
+                                               section.t,
+                                               section.t)
+                == 0;
+        }
+
+        private bool AddTubeSection(TubeSection section) {
+            if (SapModel == null) return false;
+            return SapModel.PropFrame.SetTube(section.Name,
+                                              section.Material,
+                                              section.H,
+                                              section.B,
+                                              section.t,
+                                              section.t)
+                == 0;
         }
 
     #endregion
@@ -215,12 +366,17 @@ namespace SapToolBox.Shared.Helpers {
         public bool AddSteelMaterial(string material) {
             if (SapModel == null) return false;
             switch (material) {
-                case "Q235": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q235") == 0;
-                case "Q355": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q355") == 0;
-                case "Q390": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q390") == 0;
-                case "Q420": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q420") == 0;
-                case "Q460": return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q460") == 0;
-                default:     return false;
+                case "Q235":
+                    return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q235") == 0;
+                case "Q355":
+                    return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q355") == 0;
+                case "Q390":
+                    return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q390") == 0;
+                case "Q420":
+                    return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q420") == 0;
+                case "Q460":
+                    return SapModel.PropMaterial.AddMaterial(ref material, eMatType.Steel, "China", "GB", "Q460") == 0;
+                default: return false;
             }
         }
 
@@ -247,10 +403,16 @@ namespace SapToolBox.Shared.Helpers {
                                  double propValue) {
             switch (DesignCode) {
                 case "Chinese 2018":
-                    SapModel.DesignSteel.Chinese_2018.SetOverwrite(null, propIndex, propValue, eItemType.SelectedObjects);
+                    SapModel.DesignSteel.Chinese_2018.SetOverwrite(null,
+                                                                   propIndex,
+                                                                   propValue,
+                                                                   eItemType.SelectedObjects);
                     break;
                 case "Chinese 2010":
-                    SapModel.DesignSteel.Chinese_2010.SetOverwrite(null, propIndex, propValue, eItemType.SelectedObjects);
+                    SapModel.DesignSteel.Chinese_2010.SetOverwrite(null,
+                                                                   propIndex,
+                                                                   propValue,
+                                                                   eItemType.SelectedObjects);
                     break;
             }
         }
@@ -313,7 +475,7 @@ namespace SapToolBox.Shared.Helpers {
         //                                                                        }, {
         //                                                                            8, new PropertyObj {
         //                                                                                ChineseName
-        //                                                                                    = "忽略宽厚比(B/T)校核？",
+        //                                                                                    = "忽略宽厚比(B/t)校核？",
         //                                                                                EnglishName
         //                                                                                    = "Ignore b/t check"
         //                                                                            }
@@ -655,7 +817,7 @@ namespace SapToolBox.Shared.Helpers {
         //                                                                        }, {
         //                                                                            8, new PropertyObj {
         //                                                                                ChineseName
-        //                                                                                    = "忽略宽厚比(B/T)校核？",
+        //                                                                                    = "忽略宽厚比(B/t)校核？",
         //                                                                                EnglishName
         //                                                                                    = "Ignore b/t check"
         //                                                                            }
